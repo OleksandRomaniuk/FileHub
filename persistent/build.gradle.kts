@@ -8,21 +8,14 @@
 import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
-    application
+   application
     id("net.ltgt.errorprone") version "2.0.2"
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(15))
-    }
-}
 
 buildscript {
 

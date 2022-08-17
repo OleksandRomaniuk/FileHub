@@ -1,7 +1,5 @@
 package reposirory.impl;
 
-
-
 import entities.User;
 import entities.tinytype.UserId;
 import reposirory.InMemoryRepository;
@@ -14,11 +12,10 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class UserRepository extends InMemoryRepository<UserId, User> {
 
-    private final AtomicLong idCounter = new AtomicLong(1);
+    private AtomicLong idCounter = new AtomicLong(1);
 
     public UserRepository() {
     }
-
     public User findByEmail(String email) {
         final Collection<User> users = findAll();
         User user = null;
@@ -29,6 +26,7 @@ public class UserRepository extends InMemoryRepository<UserId, User> {
                 break;
             }
         }
+
         return user;
     }
 

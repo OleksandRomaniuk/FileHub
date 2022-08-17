@@ -39,8 +39,7 @@ public class PasswordService {
         return salt;
     }
 
-    private static String toHex(byte[] array) throws NoSuchAlgorithmException
-    {
+    private static String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
 

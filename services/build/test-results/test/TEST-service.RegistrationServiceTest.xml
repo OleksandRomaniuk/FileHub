@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="service.RegistrationServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-17T21:54:31" hostname="DESKTOP-0EHAQCV" time="0.211">
+  <properties/>
+  <testcase name="registrationOfAlreadyExistingUser()" classname="service.RegistrationServiceTest" time="0.211"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[log4j:WARN No appenders could be found for logger (service.impl.UserServiceImpl).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+]]></system-err>
+</testsuite>
