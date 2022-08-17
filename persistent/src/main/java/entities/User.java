@@ -11,8 +11,8 @@ import entities.tinytype.UserId;
 public class User implements Entity<UserId> {
 
     private UserId userId;
-    private Email email;
-    private Password password;
+    private final Email email;
+    private final Password password;
 
     @Override
     public UserId getId() {

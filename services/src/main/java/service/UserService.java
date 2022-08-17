@@ -1,5 +1,4 @@
 package service;
-import dto.RegistrationDTO;
 import dto.UserDTO;
 import entities.tinytype.Email;
 import entities.tinytype.UserId;
@@ -16,5 +15,7 @@ public interface UserService {
     UserDTO findById(UserId userId);
 
     Collection<UserDTO> findAll();
+
+    void delete(UserId userId);
 
 }

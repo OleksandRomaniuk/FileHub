@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class InMemoryRepository<TypeId extends EntityId, Type extends Entity>
         implements Repository<TypeId, Type> {
 
-    private Map<TypeId, Type> entities = new ConcurrentHashMap<>();
+    private final Map<TypeId, Type> entities = new ConcurrentHashMap<>();
 
     @Override
     public TypeId add(Type type) {

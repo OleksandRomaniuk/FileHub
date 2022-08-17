@@ -2,7 +2,6 @@ package service.impl;
 
 import com.google.common.base.Preconditions;
 import dto.RegistrationDTO;
-import dto.UserDTO;
 import entities.User;
 import entities.tinytype.Email;
 import entities.tinytype.Password;
@@ -11,6 +10,8 @@ import reposirory.impl.UserRepository;
 import service.RegistrationService;
 import service.UserRegistrationException;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,8 +23,9 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     private final UserRepository userRepository = new UserRepository();
 
+    private final PasswordService passwordService = new PasswordService();
 
-        @Override
+    @Override
         public UserId register(RegistrationDTO registrationDTO)
                 throws UserRegistrationException {
 
@@ -46,10 +48,19 @@ public class RegistrationServiceImpl implements RegistrationService{
             if (!password.equals(confirmPassword)){
                 throw new UserRegistrationException("Password does not match");
             }
+        String encodePassword = null;
+        try {
+            encodePassword = PasswordService.encodePassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
 
-            final User user = new User(new Email(email), new Password(password));
+        final User user = new User(new Email(email), new Password(encodePassword));
 
             return userRepository.add(user);
 
         }
+
 }

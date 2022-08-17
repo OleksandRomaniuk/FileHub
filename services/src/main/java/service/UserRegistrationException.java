@@ -6,6 +6,6 @@ package service;
 public class UserRegistrationException extends Exception {
 
     public UserRegistrationException(String message) {
-        super(message.toString());
+        super(message);
     }
 }

@@ -52,6 +52,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void delete(UserId userId) {
+
+        userRepository.delete(userId);
+
+    }
+
+
     private static UserDTO createUserDTOFromUser(User user) {
 
         return new UserDTO(user.getId(), user.getEmail().getEmail());

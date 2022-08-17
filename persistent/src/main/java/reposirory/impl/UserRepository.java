@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class UserRepository extends InMemoryRepository<UserId, User> {
 
-    private AtomicLong idCounter = new AtomicLong(1);
+    private final AtomicLong idCounter = new AtomicLong(1);
 
     public UserRepository() {
     }
