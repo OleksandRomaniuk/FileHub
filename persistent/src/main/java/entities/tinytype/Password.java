@@ -11,7 +11,7 @@ public class Password {
         this.password = password;
     }
 
-    public String getPassword() {
+    public String password() {
         return password;
     }
 

@@ -2,14 +2,13 @@ package service;
 
 import dto.RegistrationDTO;
 import dto.UserDTO;
-import entities.User;
 import entities.tinytype.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import service.impl.UserServiceImpl;
+import static org.junit.jupiter.api.Assertions.fail;
 
-
-public class RegistrationServiceTest {
+public class UserRegistrationTest {
 
 
     private final UserService userService = new UserServiceImpl();
@@ -23,14 +22,13 @@ public class RegistrationServiceTest {
         final UserId userId = userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findById(userId);
 
-        Assertions.assertEquals(email, userDTO.getEmail() , "Actual email of registered user does not equal expected.");
+        Assertions.assertEquals(email, userDTO.getEmail() , "Cant login user");
 
         userService.delete(userId);
     }
 
     @Test
-    public void registrationOfAlreadyExistingUser()
-            throws UserRegistrationException {
+    public void registrationOfAlreadyExistingUser() throws UserRegistrationException {
 
         final UserId userId = userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findById(userId);
@@ -47,4 +45,47 @@ public class RegistrationServiceTest {
         }
     }
 
+    @Test
+    public void prohibitRegistrationOfUserWithInvalidEmail() {
+        try {
+            userService.register(new RegistrationDTO("user", password, password));
+            fail("User with invalid email was registered.");
+        } catch (UserRegistrationException ex) {
+            Assertions.assertEquals("Invalid email format", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void prohibitRegistrationOfUserWithDifferentPasswords() {
+
+        try {
+            userService.register(new RegistrationDTO(email, password, "pass"));
+            fail("User with different passwords was registered.");
+        } catch (UserRegistrationException ex) {
+            Assertions.assertEquals("Passwords must be equal",
+                    ex.getMessage());
+        }
+    }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
