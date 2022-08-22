@@ -41,8 +41,9 @@ dependencies {
     // This dependency is used by the application.
     testImplementation("com.google.guava:guava-testlib:31.1-jre")
     implementation("com.google.guava:guava:31.1-jre")
-
+    implementation ("org.json:json:20211205")
     compileOnly("com.google.errorprone:error_prone_core:2.15.0")
+    implementation ("com.google.code.gson:gson:2.9.1")
 
     // Logging libs
     implementation("com.google.flogger:flogger:0.7.4")

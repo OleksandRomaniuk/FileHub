@@ -46,6 +46,9 @@ dependencies {
     // Logging libs
     implementation("com.google.flogger:flogger:0.7.4")
     implementation("com.google.flogger:flogger-log4j2-backend:0.7.4")
+    implementation ("org.json:json:20211205")
+    implementation ("com.google.code.gson:gson:2.9.1")
+
 }
 
 application {

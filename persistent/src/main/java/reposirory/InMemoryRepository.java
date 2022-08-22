@@ -2,8 +2,10 @@ package reposirory;
 
 
 
+import com.google.gson.Gson;
 import entities.Entity;
 import entities.tinytype.EntityId;
+import org.json.JSONObject;
 
 import java.util.Collection;
 import java.util.Map;
@@ -45,4 +47,6 @@ public abstract class InMemoryRepository<TypeId extends EntityId, Type extends E
     }
 
     protected abstract TypeId generateId();
+
+
 }

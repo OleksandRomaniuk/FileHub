@@ -9,6 +9,7 @@ import entities.tinytype.SecurityTokenId;
 import entities.tinytype.UserId;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Basic interface for user management
@@ -31,5 +32,9 @@ public interface UserService {
     void delete(UserId userId);
 
     UserDTO findByToken(SecurityTokenId tokenId);
+
+    void logout(SecurityTokenId tokenId);
+
+
 }
 

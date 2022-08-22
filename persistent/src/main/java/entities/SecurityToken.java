@@ -4,18 +4,23 @@ package entities;
 import entities.tinytype.SecurityTokenId;
 import entities.tinytype.UserId;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * Security token entity implementation
  */
 public class SecurityToken implements Entity<SecurityTokenId> {
 
     private SecurityTokenId tokenId;
+
     private UserId userId;
+
+    private LocalDateTime expireTime;
 
     public SecurityToken(UserId userId) {
         this.userId = userId;
     }
-
 
     @Override
     public SecurityTokenId getId() {
@@ -41,6 +46,13 @@ public class SecurityToken implements Entity<SecurityTokenId> {
         if (!tokenId.equals(that.tokenId)) return false;
         return userId.equals(that.userId);
 
+    }
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
     }
 
     @Override

@@ -2,6 +2,7 @@ package service.impl;
 
 
 import com.google.common.base.Preconditions;
+import com.google.errorprone.bugpatterns.OptionalEquality;
 import dto.*;
 import entities.SecurityToken;
 import entities.User;
@@ -17,10 +18,10 @@ import service.UserAuthenticationException;
 import service.UserRegistrationException;
 import service.UserService;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.Collection;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService {
     private final String INVALID_EMAIL= "Invalid email format";
     private final String EXISTING_USER = "Wrong message for already existing user";
     private final String EQUALS_PASSWORD = "Passwords must be equal";
+    private final TimeZone timeZone = TimeZone.getTimeZone("Europe/Kiev");
+
+
 
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -84,11 +88,8 @@ public class UserServiceImpl implements UserService {
 
             throw new UserRegistrationException(EQUALS_PASSWORD);
         }
-        String encryptPassword = passwordService.encrypt(password);
 
-
-
-        final User user = new User(new Email(email), new Password(encryptPassword));
+        final User user = new User(new Email(email), new Password(passwordService.encrypt(password)));
 
         try {
             return userRepository.add(user);
@@ -166,6 +167,22 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
+    public void logout(SecurityTokenId tokenId) {
+
+        if (log.isInfoEnabled()) {
+            log.info("Start logout user with security token: " + tokenId.getId());
+        }
+
+        tokenRepository.delete(tokenId);
+
+        if (log.isInfoEnabled()) {
+            log.info("User successfully logged out.");
+        }
+
+    }
+
+
+    @Override
     public SecurityTokenDTO login(LoginDTO loginDTO)
             throws UserAuthenticationException {
 
@@ -197,11 +214,16 @@ public class UserServiceImpl implements UserService {
         }
 
         final SecurityToken token = new SecurityToken(user.getId());
+
+        LocalDateTime expireDate = LocalDateTime.now(timeZone.toZoneId()).plusHours(2);
+
+        token.setExpireTime(expireDate);
+
         final SecurityTokenId tokenId = tokenRepository.add(token);
         final SecurityToken tokenById = tokenRepository.findById(tokenId);
 
         final SecurityTokenDTO tokenDTO =
-                new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId());
+                new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId() , expireDate);
         try {
             return tokenDTO;
         } finally {
@@ -217,9 +239,12 @@ public class UserServiceImpl implements UserService {
         if (log.isInfoEnabled()) {
             log.info("Start looking for user by security token...");
         }
-        final SecurityToken token = tokenRepository.findById(tokenId);
 
-        if (token == null) {
+        final SecurityToken token = Preconditions.checkNotNull(tokenRepository.findById(tokenId));
+
+        if(token.getExpireTime().isBefore(LocalDateTime.now())){
+            tokenRepository.delete(tokenId);
+
             return null;
         }
 

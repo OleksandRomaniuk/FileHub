@@ -10,6 +10,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import service.impl.UserServiceImpl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class UserLoginTest {
@@ -48,6 +57,8 @@ public class UserLoginTest {
         }
     }
 
+
+
     @Test
     public void prohibitLoginOfUserWithIncorrectPassword()
             throws UserRegistrationException {
@@ -67,6 +78,149 @@ public class UserLoginTest {
                     "Incorrect credentials", ex.getMessage(),"Wrong message for incorrect password.");
 
             userService.delete(userId);
+        }
+    }
+
+
+    @Test
+    public void workCorrectlyInMultipleThreads() throws Exception {
+
+        final int threadPoolSize = 100;
+
+        final CountDownLatch startLatch =
+                new CountDownLatch(threadPoolSize);
+
+        final ExecutorService executorService =
+                Executors.newFixedThreadPool(threadPoolSize);
+
+        final Set<UserId> uniqueUserIds = new HashSet<>();
+
+        final Set<UserDTO> loggedUsers = new HashSet<>();
+
+        final List<Future<UserDTO>> futureList = new ArrayList<>();
+
+        for (int i = 0; i < threadPoolSize; i++) {
+
+            final int currentIndex = i;
+
+            final Future<UserDTO> future = executorService.submit(() -> {
+                startLatch.countDown();
+                startLatch.await();
+
+                final String email = "User_" + currentIndex + "@user.com";
+                final String password = "password_" + currentIndex;
+
+                final UserId userId = userService.register(new RegistrationDTO(email, password, password));
+                final UserDTO userDTO = userService.findById(userId);
+
+                uniqueUserIds.add(userDTO.getUserId());
+
+                Assertions.assertEquals(
+                        email, userDTO.getEmail(),"Actual email of registered user does not equal expected.");
+
+                final SecurityTokenDTO tokenDTO = userService.login(new LoginDTO(email, password));
+                final UserDTO loggedUserDTO = userService.findByToken(tokenDTO.getTokenId());
+
+                Assertions.assertEquals(
+                        email, loggedUserDTO.getEmail(),"Actual email of logged user does not equal expected.");
+
+                loggedUsers.add(loggedUserDTO);
+
+                return userDTO;
+            });
+
+            futureList.add(future);
+        }
+
+        for (Future future: futureList) {
+
+            future.get();
+        }
+
+        Assertions.assertEquals( threadPoolSize,
+                userService.findAll().size(),"Users number must be " + threadPoolSize);
+
+        Assertions.assertEquals(threadPoolSize,
+                loggedUsers.size(),"Logged users number must be " + threadPoolSize);
+
+        Assertions.assertEquals( threadPoolSize,
+                uniqueUserIds.size(),"Ids are not unique");
+
+        for (UserDTO userDTO : userService.findAll()) {
+            userService.delete(userDTO.getUserId());
+        }
+    }
+
+    @Test
+    public void failWhileRegisteringExistingUserInMultipleThreads() throws Exception {
+
+        final int threadPoolSize = 99;
+
+        final CountDownLatch startLatch =
+                new CountDownLatch(threadPoolSize);
+
+        final ExecutorService executorService =
+                Executors.newFixedThreadPool(threadPoolSize);
+
+        final Set<UserId> uniqueUserIds = new HashSet<>();
+
+        final List<Future<UserDTO>> futureList = new ArrayList<>();
+
+        for (int i = 0; i < threadPoolSize; i++) {
+
+            final int currentIndex = i;
+
+            final Future<UserDTO> future = executorService.submit(() -> {
+                startLatch.countDown();
+                startLatch.await();
+
+                UserDTO userDTO = null;
+
+                if (currentIndex == threadPoolSize / 2) {
+
+                    final String email = "User_" + 0 + "@user.com";
+                    final String password = "password_" + 0;
+
+                    try {
+                        userService.register(new RegistrationDTO(email, password, password));
+                        fail("UserRegistrationException was not thrown: " + currentIndex);
+                    } catch (UserRegistrationException ex) {
+                        Assertions.assertEquals(
+                                "Wrong message for already existing user" , ex.getMessage());
+                    }
+                } else {
+
+                    final String email = "User_" + currentIndex + "@user.com";
+                    final String password = "password_" + currentIndex;
+
+                    final UserId userId = userService.register(new RegistrationDTO(email, password, password));
+                    userDTO = userService.findById(userId);
+
+                    uniqueUserIds.add(userDTO.getUserId());
+
+                    Assertions.assertEquals(
+                            email, userDTO.getEmail(),"Actual email of registered user does not equal expected.");
+                }
+
+                return userDTO;
+            });
+
+            futureList.add(future);
+        }
+
+        for (Future future: futureList) {
+
+            future.get();
+        }
+
+        Assertions.assertEquals(threadPoolSize - 1,
+                userService.findAll().size(),"Users number must be " + (threadPoolSize - 1));
+
+        Assertions.assertEquals( threadPoolSize - 1,
+                uniqueUserIds.size(),"Ids are not unique");
+
+        for (UserDTO userDTO : userService.findAll()) {
+            userService.delete(userDTO.getUserId());
         }
     }
 

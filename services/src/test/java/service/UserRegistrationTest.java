@@ -17,7 +17,7 @@ public class UserRegistrationTest {
     private final String password = "password";
 
     @Test
-    public void allowToCreateNewUser() throws UserRegistrationException {
+    public void allowToCreateUser() throws UserRegistrationException {
 
         final UserId userId = userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findById(userId);

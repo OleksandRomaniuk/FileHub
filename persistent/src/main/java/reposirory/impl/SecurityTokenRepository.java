@@ -21,4 +21,6 @@ public class SecurityTokenRepository
     protected SecurityTokenId generateId() {
         return new SecurityTokenId(idCounter.getAndIncrement());
     }
+
+
 }
