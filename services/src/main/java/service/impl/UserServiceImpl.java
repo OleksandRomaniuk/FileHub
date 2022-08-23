@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository = new UserRepository();
     private final SecurityTokenRepository tokenRepository = new SecurityTokenRepository();
+    private final TokenService tokenService = new TokenService();
 
     private final PasswordService passwordService = new PasswordService();
 
@@ -189,22 +190,22 @@ public class UserServiceImpl implements UserService {
         if (log.isInfoEnabled()) {
             log.info("Start login user...");
         }
+        SecurityTokenDTO tokenDTO=null;
 
         final String email = Preconditions.checkNotNull(loginDTO.getEmail(),"Email cannot be null");
         final String password = Preconditions.checkNotNull(loginDTO.getPassword(),"Password cannot be null");
 
         final User user = userRepository.findByEmail(email);
 
-        if (log.isInfoEnabled()) {
-            log.info("Searching user with email" + email);
-        }
         if (user == null) {
 
             if (log.isWarnEnabled()) {
                 log.warn(INCORRECT_CREDENTIALS);
             }
+
             throw new UserAuthenticationException(INCORRECT_CREDENTIALS);
         }
+
         if (log.isInfoEnabled()) {
             log.info("Checking passwords");
         }
@@ -213,17 +214,21 @@ public class UserServiceImpl implements UserService {
             throw new UserAuthenticationException(INCORRECT_CREDENTIALS);
         }
 
-        final SecurityToken token = new SecurityToken(user.getId());
 
+        final SecurityToken token = tokenService.findTokenByUser(user.getId());
+        if(token!=null){
+            return   tokenDTO = new SecurityTokenDTO(token.getId(), token.getUserId() , token.getExpireTime());
+        }
+
+        SecurityToken newToken = new SecurityToken(user.getId());
         LocalDateTime expireDate = LocalDateTime.now(timeZone.toZoneId()).plusHours(2);
 
-        token.setExpireTime(expireDate);
+        newToken.setExpireTime(expireDate);
 
-        final SecurityTokenId tokenId = tokenRepository.add(token);
+        final SecurityTokenId tokenId = tokenRepository.add(newToken);
         final SecurityToken tokenById = tokenRepository.findById(tokenId);
 
-        final SecurityTokenDTO tokenDTO =
-                new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId() , expireDate);
+        tokenDTO = new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId() , expireDate);
         try {
             return tokenDTO;
         } finally {
@@ -234,7 +239,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public UserDTO findByToken(SecurityTokenId tokenId) {
+    public UserDTO findUserByToken(SecurityTokenId tokenId) {
 
         if (log.isInfoEnabled()) {
             log.info("Start looking for user by security token...");

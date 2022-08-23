@@ -31,7 +31,7 @@ public interface UserService {
 
     void delete(UserId userId);
 
-    UserDTO findByToken(SecurityTokenId tokenId);
+    UserDTO findUserByToken(SecurityTokenId tokenId);
 
     void logout(SecurityTokenId tokenId);
 

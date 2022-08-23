@@ -37,7 +37,7 @@ public class UserLoginTest {
                 userService.register(new RegistrationDTO(email, password, password));
 
         final SecurityTokenDTO tokenDTO = userService.login(new LoginDTO(email, password));
-        final UserDTO loggedUser = userService.findByToken(tokenDTO.getTokenId());
+        final UserDTO loggedUser = userService.findUserByToken(tokenDTO.getTokenId());
 
         Assertions.assertEquals(
                 email, loggedUser.getEmail(),"Actual email of logged user does not equal expected.");
@@ -119,7 +119,7 @@ public class UserLoginTest {
                         email, userDTO.getEmail(),"Actual email of registered user does not equal expected.");
 
                 final SecurityTokenDTO tokenDTO = userService.login(new LoginDTO(email, password));
-                final UserDTO loggedUserDTO = userService.findByToken(tokenDTO.getTokenId());
+                final UserDTO loggedUserDTO = userService.findUserByToken(tokenDTO.getTokenId());
 
                 Assertions.assertEquals(
                         email, loggedUserDTO.getEmail(),"Actual email of logged user does not equal expected.");
@@ -151,78 +151,7 @@ public class UserLoginTest {
         }
     }
 
-    @Test
-    public void failWhileRegisteringExistingUserInMultipleThreads() throws Exception {
 
-        final int threadPoolSize = 99;
-
-        final CountDownLatch startLatch =
-                new CountDownLatch(threadPoolSize);
-
-        final ExecutorService executorService =
-                Executors.newFixedThreadPool(threadPoolSize);
-
-        final Set<UserId> uniqueUserIds = new HashSet<>();
-
-        final List<Future<UserDTO>> futureList = new ArrayList<>();
-
-        for (int i = 0; i < threadPoolSize; i++) {
-
-            final int currentIndex = i;
-
-            final Future<UserDTO> future = executorService.submit(() -> {
-                startLatch.countDown();
-                startLatch.await();
-
-                UserDTO userDTO = null;
-
-                if (currentIndex == threadPoolSize / 2) {
-
-                    final String email = "User_" + 0 + "@user.com";
-                    final String password = "password_" + 0;
-
-                    try {
-                        userService.register(new RegistrationDTO(email, password, password));
-                        fail("UserRegistrationException was not thrown: " + currentIndex);
-                    } catch (UserRegistrationException ex) {
-                        Assertions.assertEquals(
-                                "Wrong message for already existing user" , ex.getMessage());
-                    }
-                } else {
-
-                    final String email = "User_" + currentIndex + "@user.com";
-                    final String password = "password_" + currentIndex;
-
-                    final UserId userId = userService.register(new RegistrationDTO(email, password, password));
-                    userDTO = userService.findById(userId);
-
-                    uniqueUserIds.add(userDTO.getUserId());
-
-                    Assertions.assertEquals(
-                            email, userDTO.getEmail(),"Actual email of registered user does not equal expected.");
-                }
-
-                return userDTO;
-            });
-
-            futureList.add(future);
-        }
-
-        for (Future future: futureList) {
-
-            future.get();
-        }
-
-        Assertions.assertEquals(threadPoolSize - 1,
-                userService.findAll().size(),"Users number must be " + (threadPoolSize - 1));
-
-        Assertions.assertEquals( threadPoolSize - 1,
-                uniqueUserIds.size(),"Ids are not unique");
-
-        for (UserDTO userDTO : userService.findAll()) {
-            userService.delete(userDTO.getUserId());
-        }
-    }
 
 
 }
