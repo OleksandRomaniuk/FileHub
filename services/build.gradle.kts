@@ -28,16 +28,17 @@ apply(plugin = "net.ltgt.errorprone")
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+
 
     // This dependency is used by the application.
-    testImplementation("com.google.guava:guava-testlib:31.1-jre")
-    implementation("com.google.guava:guava:31.1-jre")
+
     implementation(project(":persistent"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     compileOnly("com.google.errorprone:error_prone_core:2.15.0")
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
 
-
+    testImplementation("com.google.guava:guava-testlib:31.1-jre")
+    implementation("com.google.guava:guava:31.1-jre")
 
 //    implementation(project(":calculator"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")

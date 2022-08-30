@@ -2,7 +2,7 @@ package dto;
 
 
 import entities.tinytype.SecurityTokenId;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 public class SecurityTokenDTO {
 
     private final SecurityTokenId tokenId;
-    private final UserId userId;
+    private final UserID userId;
     private final LocalDateTime expiredTime;
 
-    public SecurityTokenDTO(SecurityTokenId tokenId, UserId userId , LocalDateTime expiredTime) {
+    public SecurityTokenDTO(SecurityTokenId tokenId, UserID userId , LocalDateTime expiredTime) {
         this.tokenId = tokenId;
         this.userId = userId;
         this.expiredTime = expiredTime;
@@ -28,7 +28,7 @@ public class SecurityTokenDTO {
         return tokenId;
     }
 
-    public UserId getUserId() {
+    public UserID getUserId() {
         return userId;
     }
 

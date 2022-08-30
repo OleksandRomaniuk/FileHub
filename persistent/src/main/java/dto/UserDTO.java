@@ -1,22 +1,22 @@
 package dto;
 
 
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 
 /**
  * Data transfer object for user entity
  */
 public class UserDTO {
 
-    private final UserId userId;
+    private final UserID userId;
     private final String email;
 
-    public UserDTO(UserId userId, String email) {
+    public UserDTO(UserID userId, String email) {
         this.userId = userId;
         this.email = email;
     }
 
-    public UserId getUserId() {
+    public UserID getUserId() {
         return userId;
     }
 

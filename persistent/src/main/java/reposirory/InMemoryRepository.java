@@ -1,15 +1,12 @@
 package reposirory;
 
-
-
 import com.google.gson.Gson;
 import entities.Entity;
 import entities.tinytype.EntityId;
-import org.json.JSONObject;
-
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * Abstract implementation of {@link Repository} interface
@@ -17,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class InMemoryRepository<TypeId extends EntityId, Type extends Entity>
         implements Repository<TypeId, Type> {
 
-    private final Map<TypeId, Type> entities = new ConcurrentHashMap<>();
+    private final Map<TypeId, Type> entities = new HashMap<>();
 
     @Override
     public TypeId add(Type type) {
@@ -30,6 +27,7 @@ public abstract class InMemoryRepository<TypeId extends EntityId, Type extends E
 
         return typeId;
     }
+
 
     @Override
     public Type findById(TypeId typeId) {

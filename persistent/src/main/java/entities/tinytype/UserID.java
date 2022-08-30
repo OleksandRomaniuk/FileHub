@@ -3,9 +3,9 @@ package entities.tinytype;
 /**
  * Tiny type for user's unique identifier
  */
-public class UserId extends EntityId {
+public class UserID extends EntityId {
 
-    public UserId(long id) {
+    public UserID(long id) {
         super(id);
     }
 }

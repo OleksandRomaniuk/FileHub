@@ -3,24 +3,24 @@ package entities;
 
 import entities.tinytype.Email;
 import entities.tinytype.Password;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 
 /**
  * User entity implementation
  */
-public class User implements Entity<UserId> {
+public class User implements Entity<UserID> {
 
-    private UserId userId;
+    private UserID userId;
     private final Email email;
     private final Password password;
 
     @Override
-    public UserId getId() {
+    public UserID getId() {
         return userId;
     }
 
     @Override
-    public void setId(UserId id) {
+    public void setId(UserID id) {
         this.userId = id;
     }
 

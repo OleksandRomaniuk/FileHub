@@ -2,14 +2,13 @@ package service.impl;
 
 
 import com.google.common.base.Preconditions;
-import com.google.errorprone.bugpatterns.OptionalEquality;
 import dto.*;
 import entities.SecurityToken;
 import entities.User;
 import entities.tinytype.Email;
 import entities.tinytype.Password;
 import entities.tinytype.SecurityTokenId;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reposirory.impl.SecurityTokenRepository;
@@ -19,7 +18,6 @@ import service.UserRegistrationException;
 import service.UserService;
 
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -51,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserId register(RegistrationDTO registrationDTO)
+    public UserID register(RegistrationDTO registrationDTO)
             throws UserRegistrationException {
 
         if (log.isInfoEnabled()) {
@@ -90,7 +88,7 @@ public class UserServiceImpl implements UserService {
             throw new UserRegistrationException(EQUALS_PASSWORD);
         }
 
-        final User user = new User(new Email(email), new Password(passwordService.encrypt(password)));
+        final User user = new User(new Email(email), new Password(PasswordService.encrypt(password)));
 
         try {
             return userRepository.add(user);
@@ -123,7 +121,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findById(UserId userId) {
+    public UserDTO findById(UserID userId) {
 
         if (log.isInfoEnabled()) {
             log.info("Start looking for user with id: " + userId.getId());
@@ -167,20 +165,7 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
-    @Override
-    public void logout(SecurityTokenId tokenId) {
 
-        if (log.isInfoEnabled()) {
-            log.info("Start logout user with security token: " + tokenId.getId());
-        }
-
-        tokenRepository.delete(tokenId);
-
-        if (log.isInfoEnabled()) {
-            log.info("User successfully logged out.");
-        }
-
-    }
 
 
     @Override
@@ -190,9 +175,8 @@ public class UserServiceImpl implements UserService {
         if (log.isInfoEnabled()) {
             log.info("Start login user...");
         }
-        SecurityTokenDTO tokenDTO=null;
-
         final String email = Preconditions.checkNotNull(loginDTO.getEmail(),"Email cannot be null");
+
         final String password = Preconditions.checkNotNull(loginDTO.getPassword(),"Password cannot be null");
 
         final User user = userRepository.findByEmail(email);
@@ -217,7 +201,7 @@ public class UserServiceImpl implements UserService {
 
         final SecurityToken token = tokenService.findTokenByUser(user.getId());
         if(token!=null){
-            return   tokenDTO = new SecurityTokenDTO(token.getId(), token.getUserId() , token.getExpireTime());
+            return new SecurityTokenDTO(token.getId(), token.getUserId() , token.getExpireTime());
         }
 
         SecurityToken newToken = new SecurityToken(user.getId());
@@ -228,9 +212,8 @@ public class UserServiceImpl implements UserService {
         final SecurityTokenId tokenId = tokenRepository.add(newToken);
         final SecurityToken tokenById = tokenRepository.findById(tokenId);
 
-        tokenDTO = new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId() , expireDate);
         try {
-            return tokenDTO;
+            return new SecurityTokenDTO(tokenById.getId(), tokenById.getUserId() , expireDate);
         } finally {
 
             if (log.isInfoEnabled()) {
@@ -253,7 +236,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        final UserId userId = token.getUserId();
+        final UserID userId = token.getUserId();
 
         final User user = userRepository.findById(userId);
 
@@ -268,7 +251,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(UserId userId) {
+    public void delete(UserID userId) {
 
         userRepository.delete(userId);
 

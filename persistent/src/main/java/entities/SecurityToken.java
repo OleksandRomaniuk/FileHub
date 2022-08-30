@@ -2,10 +2,9 @@ package entities;
 
 
 import entities.tinytype.SecurityTokenId;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Security token entity implementation
@@ -14,11 +13,11 @@ public class SecurityToken implements Entity<SecurityTokenId> {
 
     private SecurityTokenId tokenId;
 
-    private UserId userId;
+    private final UserID userId;
 
     private LocalDateTime expireTime;
 
-    public SecurityToken(UserId userId) {
+    public SecurityToken(UserID userId) {
         this.userId = userId;
     }
 
@@ -32,7 +31,7 @@ public class SecurityToken implements Entity<SecurityTokenId> {
         this.tokenId = id;
     }
 
-    public UserId getUserId() {
+    public UserID getUserId() {
         return userId;
     }
 

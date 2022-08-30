@@ -5,7 +5,7 @@ import dto.RegistrationDTO;
 import dto.SecurityTokenDTO;
 import dto.UserDTO;
 import entities.tinytype.Email;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import service.impl.UserServiceImpl;
@@ -33,7 +33,7 @@ public class UserLoginTest {
     public void allowRegisteredUserToLogin()
             throws UserRegistrationException, UserAuthenticationException {
 
-        final UserId userId =
+        final UserID userId =
                 userService.register(new RegistrationDTO(email, password, password));
 
         final SecurityTokenDTO tokenDTO = userService.login(new LoginDTO(email, password));
@@ -63,7 +63,7 @@ public class UserLoginTest {
     public void prohibitLoginOfUserWithIncorrectPassword()
             throws UserRegistrationException {
 
-        final UserId userId =
+        final UserID userId =
                 userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findByEmail(new Email(email));
 
@@ -93,7 +93,7 @@ public class UserLoginTest {
         final ExecutorService executorService =
                 Executors.newFixedThreadPool(threadPoolSize);
 
-        final Set<UserId> uniqueUserIds = new HashSet<>();
+        final Set<UserID> uniqueUserIDS = new HashSet<>();
 
         final Set<UserDTO> loggedUsers = new HashSet<>();
 
@@ -105,15 +105,18 @@ public class UserLoginTest {
 
             final Future<UserDTO> future = executorService.submit(() -> {
                 startLatch.countDown();
+
                 startLatch.await();
+
+
 
                 final String email = "User_" + currentIndex + "@user.com";
                 final String password = "password_" + currentIndex;
 
-                final UserId userId = userService.register(new RegistrationDTO(email, password, password));
+                final UserID userId = userService.register(new RegistrationDTO(email, password, password));
                 final UserDTO userDTO = userService.findById(userId);
 
-                uniqueUserIds.add(userDTO.getUserId());
+                uniqueUserIDS.add(userDTO.getUserId());
 
                 Assertions.assertEquals(
                         email, userDTO.getEmail(),"Actual email of registered user does not equal expected.");
@@ -144,7 +147,7 @@ public class UserLoginTest {
                 loggedUsers.size(),"Logged users number must be " + threadPoolSize);
 
         Assertions.assertEquals( threadPoolSize,
-                uniqueUserIds.size(),"Ids are not unique");
+                uniqueUserIDS.size(),"Ids are not unique");
 
         for (UserDTO userDTO : userService.findAll()) {
             userService.delete(userDTO.getUserId());

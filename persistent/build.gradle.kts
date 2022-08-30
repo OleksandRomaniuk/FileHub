@@ -34,20 +34,24 @@ buildscript {
 apply(plugin = "net.ltgt.errorprone")
 
 dependencies {
-    implementation("org.jetbrains:annotations:20.1.0")
-    // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    compileOnly("com.google.errorprone:error_prone_core:2.15.0")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
 
-    // This dependency is used by the application.
     testImplementation("com.google.guava:guava-testlib:31.1-jre")
     implementation("com.google.guava:guava:31.1-jre")
-    implementation ("org.json:json:20211205")
-    compileOnly("com.google.errorprone:error_prone_core:2.15.0")
-    implementation ("com.google.code.gson:gson:2.9.1")
 
+//    implementation(project(":calculator"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("com.google.guava:guava-testlib:31.1-jre")
+    testImplementation("org.slf4j:slf4j-log4j12:2.0.0-alpha7")
     // Logging libs
     implementation("com.google.flogger:flogger:0.7.4")
     implementation("com.google.flogger:flogger-log4j2-backend:0.7.4")
+    implementation ("org.json:json:20211205")
+    implementation ("com.google.code.gson:gson:2.9.1")
+    implementation(project(":services"))
+
 }
 
 application {

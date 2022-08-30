@@ -2,7 +2,7 @@ package service;
 
 import dto.RegistrationDTO;
 import dto.UserDTO;
-import entities.tinytype.UserId;
+import entities.tinytype.UserID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import service.impl.UserServiceImpl;
@@ -19,7 +19,7 @@ public class UserRegistrationTest {
     @Test
     public void allowToCreateUser() throws UserRegistrationException {
 
-        final UserId userId = userService.register(new RegistrationDTO(email, password, password));
+        final UserID userId = userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findById(userId);
 
         Assertions.assertEquals(email, userDTO.getEmail() , "Cant login user");
@@ -30,7 +30,7 @@ public class UserRegistrationTest {
     @Test
     public void registrationOfAlreadyExistingUser() throws UserRegistrationException {
 
-        final UserId userId = userService.register(new RegistrationDTO(email, password, password));
+        final UserID userId = userService.register(new RegistrationDTO(email, password, password));
         final UserDTO userDTO = userService.findById(userId);
 
         Assertions.assertEquals(email, userDTO.getEmail() , "Actual email of registered user does not equal expected.");
