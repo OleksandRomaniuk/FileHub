@@ -27,29 +27,50 @@ buildscript {
 apply(plugin = "net.ltgt.errorprone")
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    // This dependency is used by the application.
+    implementation("com.google.flogger:flogger:0.1")
+    implementation("com.google.flogger:flogger-system-backend:0.5.1")
+
+    compileOnly("com.google.errorprone:error_prone_core:2.15.0")
+    implementation("junit:junit:4.13.1")
+    implementation("junit:junit:4.13.1")
 
     implementation(project(":persistent"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    compileOnly("com.google.errorprone:error_prone_core:2.15.0")
-    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
 
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation("commons-io:commons-io:2.4")
+
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation("org.json:json:20160810")
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.8.5")
+
+// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+
+    implementation("com.google.guava:guava:30.1.1-jre")
     testImplementation("com.google.guava:guava-testlib:31.1-jre")
-    implementation("com.google.guava:guava:31.1-jre")
 
-//    implementation(project(":calculator"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    testImplementation("com.google.guava:guava-testlib:31.1-jre")
-    testImplementation("org.slf4j:slf4j-log4j12:2.0.0-alpha7")
-    // Logging libs
-    implementation("com.google.flogger:flogger:0.7.4")
-    implementation("com.google.flogger:flogger-log4j2-backend:0.7.4")
-    implementation ("org.json:json:20211205")
-    implementation ("com.google.code.gson:gson:2.9.1")
+    implementation("javax.validation:validation-api:2.0.1.Final")
 
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
+
+    // https://mvnrepository.com/artifact/com.google.truth/truth
+    testImplementation("com.google.truth:truth:1.1.3")
+
+    // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
 }
 
 application {
