@@ -95,7 +95,7 @@ body{
 .account {
     font-weight: bold;
     font-size: 14px;
-    margin-left: 100px;
+    margin-left: 93px;
     color: #0385D3;
     text-decoration: none;
 
@@ -210,6 +210,246 @@ Registration page
     width: 400px;
     height: 65px;
     margin-top: 23px;
+}
+/**
+Index page
+ */
+
+.index-wrapper{
+    width: 1143px;
+    margin: 28px 0 0 188px;
+}
+.index_page-header{
+    padding: 0px 0 24px;
+}
+.logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 970px;
+}
+.glyphicon{
+    font-size: 14px;
+}
+.glyphicon-user{
+    margin-left: 6px;
+    margin-top: -20px;
+}
+.pib{
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 4px;
+    margin-top: -20px;
+}
+.vertical_line{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 7px;
+    margin-top: -24px;
+}
+.log_out{
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 14px;
+    color: #0C87D4;
+    margin-left: 5px;
+    margin-top: -20px;
+    text-decoration: none;
+}
+.glyphicon-log-out{
+    color: #0C87D4;
+    margin-left: 0px;
+    margin-top: -20px;
+}
+.index_box{
+    margin: 25px auto;
+    background: #fff;
+    border-radius: 20px;
+    height: 200px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 20px #999;
+    padding: 20px;
+    height: 567px;
+}
+.home{
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    background: #F5F5F5;
+    color: #8A8A8A;
+    border-radius: 5px;
+    width: 70px;
+    height: 35px;
+}
+.index_hr{
+    margin: 20px 0 0 0;
+    border: 0;
+    height: 2px;
+    background: #000;
+}
+.index_search{
+    display: flex;
+}
+.index_search input{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    height: 34px;
+    margin-top: 20px;
+    margin-left: 1px;
+    width: 475px;
+}
+.index_search button{
+    border-radius: 0 5px 5px 0;
+    margin-top: 20px;
+    margin-left: -10px;
+}
+.top_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.right_tree_buttons{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-left: 450px;
+}
+.first_button{
+    position: absolute;
+    background: none;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    height: 34px;
+    width: 40px;
+}
+.second_button{
+    position: absolute;
+    background: none;
+    border: 1px solid #ccc;
+    height: 34px;
+    width: 40px;
+    margin-left: 39px;
+
+
+}
+.third_button{
+    position: absolute;
+    color: #F5F5F5;
+    border-radius: 0 5px 5px 0;
+    background: none;
+    border: 1px solid #ccc;
+    height: 34px;
+    width: 40px;
+    background: #D9534F;
+    margin-left: 76px;
+}
+/**
+table
+ */
+
+.table_content{
+    border-spacing:0; /* Removes the cell spacing via CSS */
+    border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
+    height: auto;
+    border: 0.5px  solid #ccc;
+    border-left: 0px;
+    width: 1090px;
+    border-bottom: 0px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    max-height: 450px;
+
+}
+.table_content tbody{
+    max-height: 450px;
+    flex: 1 1 auto;
+    display: block;
+    display: block;
+    overflow-y: scroll;
+}
+.table_content td{
+    display:inline-block;
+    line-height: 39px;
+}
+.table_content tr{
+    display: table;
+    table-layout: fixed;
+    border-bottom: 0px;
+    border-top:  0.5px  solid #ccc;
+}
+.table_content tr :last-child {
+    border-top:  0px;
+}
+.first_td{
+    padding-left: 10px;
+    padding-top: 5px;
+    width: 30px;
+}
+.second_td{
+    width: 42px;
+    margin-left: 3px;
+    margin-top: 4px;
+}
+.second_td span{
+    font-size: 20px;
+}
+.third_td{
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 3px;
+    color: #0385D3;
+    width: 640px;
+}
+.third_td_black{
+    margin-left: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    width: 640px;
+}
+.fourth_td{
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.fifth_td{
+    width: 120px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 25px;
+}
+
+.footer{
+    height: 150px;
+    width: 80%;
+    padding: 5px;
+}
+.company_links{
+    font-size: 20px;
+    text-align: center;
+}
+.logo_instagram{
+    padding-left: 10px;
+}
+.logo_facebook{
+    padding-left: 10px;
+}
+.copyright{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 14px;
+
+}
+.copyright a{
+    text-decoration: none;
 }
 
 
