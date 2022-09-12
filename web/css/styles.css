@@ -367,7 +367,6 @@ table
     margin-top: 15px;
     margin-bottom: 10px;
     max-height: 450px;
-
 }
 .table_content tbody{
     max-height: 450px;
@@ -389,6 +388,8 @@ table
 .table_content tr :last-child {
     border-top:  0px;
 }
+
+
 .first_td{
     padding-left: 10px;
     padding-top: 5px;
@@ -401,6 +402,7 @@ table
 }
 .second_td span{
     font-size: 20px;
+
 }
 .third_td{
     font-size: 14px;
@@ -409,18 +411,20 @@ table
     margin-left: 3px;
     color: #0385D3;
     width: 640px;
-}
+    }
 .third_td_black{
     margin-left: 5px;
     font-size: 14px;
     text-decoration: none;
     font-weight: bold;
     width: 640px;
+
 }
 .fourth_td{
     width: 150px;
     font-size: 14px;
     font-weight: bold;
+
 }
 .fifth_td{
     width: 120px;
@@ -428,6 +432,7 @@ table
     font-weight: bold;
     text-align: right;
     margin-right: 25px;
+
 }
 
 .footer{
