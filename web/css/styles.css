@@ -214,7 +214,9 @@ Registration page
 /**
 Index page
  */
-
+.glyphicon{
+    font-size: 20px;
+}
 .index-wrapper{
     width: 1143px;
     margin: 28px 0 0 188px;
@@ -229,9 +231,10 @@ Index page
     margin-left: 970px;
 }
 .glyphicon{
-    font-size: 14px;
+    font-size: 20px;
 }
 .glyphicon-user{
+    font-size: 14px;
     margin-left: 6px;
     margin-top: -20px;
 }
@@ -258,6 +261,7 @@ Index page
     text-decoration: none;
 }
 .glyphicon-log-out{
+    font-size: 14px;
     color: #0C87D4;
     margin-left: 0px;
     margin-top: -20px;
@@ -328,6 +332,17 @@ Index page
     height: 34px;
     width: 40px;
 }
+.glyphicon-upload{
+    font-size: 14px;
+}
+.glyphicon-plus{
+    font-size: 14px;
+}{
+    font-size: 14px;
+}
+.glyphicon-remove-circle{
+    font-size: 14px;
+}
 .second_button{
     position: absolute;
     background: none;
@@ -353,53 +368,41 @@ Index page
 table
  */
 
-.table_content{
+.table-wrapper{
     border-spacing:0; /* Removes the cell spacing via CSS */
     border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
-    height: auto;
-    border: 0.5px  solid #ccc;
-    border-left: 0px;
-    width: 1090px;
-    border-bottom: 0px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    max-height: 450px;
-
-}
-.table_content tbody{
-    max-height: 450px;
-    flex: 1 1 auto;
-    display: block;
-    display: block;
     overflow-y: scroll;
+    margin-top: 15px;
+    width: 1100px;
+    max-height: 450px;
 }
-.table_content td{
-    display:inline-block;
-    line-height: 39px;
+.table{
+    border-collapse: collapse;
+    width: 100%;
 }
-.table_content tr{
-    display: table;
-    table-layout: fixed;
-    border-bottom: 0px;
-    border-top:  0.5px  solid #ccc;
+.table tr{
+    margin: 0;
+    border-top: 0.5px  solid #ccc;
 }
-.table_content tr :last-child {
-    border-top:  0px;
+.table td{
+    height: 42px;
 }
-.first_td{
+.glyphicon-chevron-right{
+    font-size: 14px;
+}
+
+.first_td {
     padding-left: 10px;
-    padding-top: 5px;
     width: 30px;
 }
 .second_td{
-    width: 42px;
-    margin-left: 3px;
-    margin-top: 4px;
-}
-.second_td span{
-    font-size: 20px;
+    padding-left: 10px;
+    text-align: center;
+    width: 30px;
 }
 .third_td{
+    padding-top: 2px;
+    padding-left: 20px;
     font-size: 14px;
     text-decoration: none;
     font-weight: bold;
@@ -408,25 +411,31 @@ table
     width: 640px;
 }
 .third_td_black{
-    margin-left: 5px;
+    padding-top: 2px;
+    padding-left: 20px;
     font-size: 14px;
     text-decoration: none;
     font-weight: bold;
+    margin-left: 3px;
     width: 640px;
 }
 .fourth_td{
-    width: 150px;
+    padding-top: 2px;
+    padding-left: 235px;
+    width: 200px;
     font-size: 14px;
     font-weight: bold;
 }
 .fifth_td{
-    width: 120px;
+    padding-right: 15px;
     font-size: 14px;
     font-weight: bold;
     text-align: right;
-    margin-right: 25px;
+    width: 200px;
 }
-
+.sixth_td{
+    width: 130px;
+}
 .footer{
     height: 150px;
     width: 80%;
@@ -451,6 +460,7 @@ table
 .copyright a{
     text-decoration: none;
 }
+
 
 
 
