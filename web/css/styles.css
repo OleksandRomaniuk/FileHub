@@ -22,6 +22,15 @@ body{
 .page-header{
     padding: 30px 0 24px;
 }
+.a:hover{
+    text-decoration: underline;
+    color: #0385D3;
+}
+.a_link:hover{
+    text-decoration: underline;
+    color: #0385D3;
+}
+
 .box{
     margin: 25px auto;
     background: #fff;
@@ -251,7 +260,7 @@ Index page
     margin-left: 7px;
     margin-top: -24px;
 }
-.log_out{
+.a_link{
     white-space: nowrap;
     font-weight: bold;
     font-size: 14px;
@@ -328,16 +337,15 @@ Index page
     position: absolute;
     background: none;
     border-radius: 5px 0 0 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #606060;
     height: 34px;
     width: 40px;
+    background: #0C87D4;
 }
 .glyphicon-upload{
     font-size: 14px;
 }
 .glyphicon-plus{
-    font-size: 14px;
-}{
     font-size: 14px;
 }
 .glyphicon-remove-circle{
@@ -346,19 +354,18 @@ Index page
 .second_button{
     position: absolute;
     background: none;
-    border: 1px solid #ccc;
+    border: 1px solid #606060;
     height: 34px;
     width: 40px;
     margin-left: 39px;
-
-
+    background: #0C87D4;
 }
 .third_button{
     position: absolute;
     color: #F5F5F5;
     border-radius: 0 5px 5px 0;
     background: none;
-    border: 1px solid #ccc;
+    border: 1px solid #606060;
     height: 34px;
     width: 40px;
     background: #D9534F;
@@ -411,6 +418,7 @@ table
     width: 640px;
 }
 .third_td_black{
+    color: #ccc;
     padding-top: 2px;
     padding-left: 20px;
     font-size: 14px;
@@ -420,6 +428,7 @@ table
     width: 640px;
 }
 .fourth_td{
+    color: #ccc;
     padding-top: 2px;
     padding-left: 235px;
     width: 200px;
@@ -427,6 +436,7 @@ table
     font-weight: bold;
 }
 .fifth_td{
+    color: #ccc;
     padding-right: 15px;
     font-size: 14px;
     font-weight: bold;
@@ -452,12 +462,13 @@ table
     padding-left: 10px;
 }
 .copyright{
-    padding-top: 10px;
+    padding-top: 5px;
     text-align: center;
     font-size: 14px;
 
 }
 .copyright a{
+    color: #0C87D4;
     text-decoration: none;
 }
 
