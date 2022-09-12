@@ -228,8 +228,10 @@ Index page
     font-size: 20px;
 }
 .index-wrapper{
+
     width: 1143px;
-    margin: 28px 0 0 188px;
+    margin: 31px 0 0 188px;
+
 }
 .index_page-header{
     padding: 0px 0 24px;
@@ -508,9 +510,7 @@ inner
     padding-right: 5px;
     padding-top: 5px;
     font-size: 13px;
-
 }
-
 
 
 
