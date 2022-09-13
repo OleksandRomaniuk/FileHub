@@ -4,37 +4,44 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Index-empty</title>
+    <title>Index-error</title>
 </head>
 <body>
 
 <div class="index-wrapper">
     <head class="index_page-header">
         <img src="images/logo.png" alt="TeamDev" width="200" height="37">
-        <div class="error_logos"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load user data</div>
+        <div class="loading-table_logos">
+            <div class="repeat"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></div>
+            <div class="vertical_line">|</div>
+            <a href="" class="a_link">
+                Log Out
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+            </a>
+        </div>
     </head>
 
     <main class="index_box">
-        <button class="breadcrumb"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load breadcrumb data</button>
+        <button class="home_load"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
 
         <hr class="index_hr">
 
         <div class="top_buttons">
 
-            <div class="index_search">
-                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..."><br><br>
-                <button class="sign_in">Search</button>
+            <div class="reload_index_search">
+                <input type="search_reload_input" id="ffile" name="ffile" placeholder="Enter entity name..."><br><br>
+                <button class="reload_search"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Search</button>
             </div>
 
-            <div class="empty_right_two_buttons">
-                <button class="empty_first_button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
+            <div class="loading-table_buttons">
+                <button class="reload_button"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> </button>
                 <button class="empty_second_button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
             </div>
         </div>
 
 
 
-        <div class="error_message"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load directory data</div>
+        <div class="reload_table"><span class="glyphicon glyphicon-repeat rep" aria-hidden="true"></span></div>
 
 
 

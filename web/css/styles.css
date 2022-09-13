@@ -590,6 +590,106 @@ Index error
     margin-left: 995px;
     margin-top: -18px;
 }
+/**
+loading-table
+ */
+.repeat{
+    margin-left: 4px;
+    margin-top: -20px;
+}
+.glyphicon-repeat{
+    font-size: 14px;
+    transform: rotate(250deg);
+    animation-name: rotate;
+    animation-delay: 0s;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(30deg);
+    }
+    50%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+
+}
+.loading-table_logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 1035px;
+}
+.home_load{
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    background: #F5F5F5;
+    color: #8A8A8A;
+    border-radius: 5px;
+    width: 44px;
+    height: 35px;
+}
+.reload_button{
+    position: absolute;
+    background: none;
+    border-radius: 5px 0 0 5px;
+    border: 0.5px solid #606060;
+    height: 34px;
+    width: 40px;
+    background: #6EB1E3;
+    color: #F5F5F5;
+}
+.loading-table_buttons{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-left: 483px;
+}
+.reload_table{
+    font-weight: bold;
+    text-align: center;
+    margin-left: -10px;
+    margin-top: 215px;
+}
+.reload_index_search{
+    display: flex;
+}
+.reload_index_search input{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 29px;
+    margin-top: 20px;
+    margin-left: 1px;
+    width: 435px;
+}
+.reload_index_search button{
+    color: #F5F5F5;
+    border: 1px solid #ccc;
+    background: #0385D3;
+    font-weight: bold;
+    width: 90px;
+    height: 34px;
+    border-radius: 0 5px 5px 0;
+    margin-top: 20px;
+    margin-left: -10px;
+}
+.rep{
+
+    font-size: 20px;
+}
 
 
 
