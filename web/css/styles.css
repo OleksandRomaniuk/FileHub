@@ -690,6 +690,90 @@ loading-table
 
     font-size: 20px;
 }
+/**
+inline-error
+ */
+
+.whitespaces_message{
+    font-weight: bold;
+    color: #FF6058;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: -8px;
+    margin-bottom: 5px;
+}
+.error_td input{
+    font-weight: bold;
+    color: #ccc;
+    font-size: 13px;
+    padding-left: 10px;
+    height: 27px;
+    width: 298px;
+    border-radius: 4px;
+    border: 2px solid #FF6058;
+    margin-top: 5px;
+    margin-left: -10px;
+}
+.error-table-wrapper{
+    border-spacing:0; /* Removes the cell spacing via CSS */
+    border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
+    overflow-y: scroll;
+    margin-top: 15px;
+    width: 1100px;
+    height: 450px;
+    max-height: 450px;
+}
+.error_first_td {
+    padding-left: 10px;
+    width: 30px;
+}
+.error_second_td{
+    padding-left: 10px;
+    text-align: center;
+    width: 30px;
+}
+.error_third_td{
+    padding-top: 2px;
+    padding-left: 19px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 3px;
+    color: #0385D3;
+    width: 640px;
+}
+.error_third_td_black{
+    color: #ccc;
+    padding-top: 2px;
+    padding-left: 20px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 3px;
+    width: 640px;
+}
+.error_fourth_td{
+    color: #ccc;
+    padding-top: 2px;
+    padding-left: 160px;
+    width: 200px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.error_fifth_td{
+    color: #ccc;
+    padding-right: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    width: 200px;
+}
+.error_sixth_td{
+    width: 130px;
+}
+
 
 
 
