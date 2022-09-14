@@ -854,28 +854,33 @@ index loading
     color: #a0a0a0;
    margin: 10px;
 }
-.reload_delete_green{
+.hidden-button a{
+    text-decoration: none;
+
+}
+.hidden-button{
+    text-decoration: none;
     margin-left: 25px;
 }
-.reload_delete_green .glyphicon-repeat{
+.hidden-button .glyphicon-repeat{
     padding-left: 5px;
     font-size: 20px;
     color: #9DD088;
 }
-.reload_delete_green .glyphicon-remove-circle{
+.hidden-button .glyphicon-remove-circle{
     padding-left: 4px;
     font-size: 20px;
     color: #b60808;
 }
-.reload_delete_blue{
+.hidden-button-blue{
     margin-left: 25px;
 }
-.reload_delete_blue .glyphicon-repeat{
+.hidden-button-blue .glyphicon-repeat{
     padding-left: 5px;
     font-size: 20px;
     color: #6EB1E3;
 }
-.reload_delete_blue .glyphicon-remove-circle{
+.hidden-button-blue .glyphicon-remove-circle{
     padding-left: 4px;
     font-size: 20px;
     color: #b60808;
@@ -884,6 +889,23 @@ input:focus{
     outline: none;
     border-color: #77bef2;
     box-shadow: 0 0 5px #77bef2;
+}
+tr:hover{
+    background: #F5F5F5;
+}
+.hidden-button-blue{
+    visibility: hidden;
+}
+.table-wrapper tr:hover > td .hidden-button-blue{
+    visibility: visible;
+}
+
+.hidden-button{
+
+    visibility: hidden;
+}
+.table-wrapper tr:hover > td .hidden-button{
+    visibility: visible;
 }
 
 
