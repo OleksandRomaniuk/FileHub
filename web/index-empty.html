@@ -4,46 +4,44 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Index-empty</title>
+    <title>Index</title>
 </head>
 <body>
 
-<div class="index-wrapper">
-    <head class="index_page-header">
-        <img src="images/logo.png" alt="TeamDev" width="200" height="37">
-        <div class="logos">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <div class="pib">John Doe</div>
-            <div class="vertical_line">|</div>
-            <a href="" class="a_link">
-                Log Out
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            </a>
+<div class="index_wrapper">
+    <head class="page-header">
+        <span class="teamDev-logo"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></span>
+
+        <div class="user-panel">
+            <ul class="breadcrumb-ul">
+                <li class="user"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> John Doe </li>
+                <li><a class="log-out">Log Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+            </ul>
         </div>
     </head>
 
-    <main class="index_box">
-        <button class="home">Home</button>
+    <main class="index-box">
+        <div class="breadcrumb-home">
+            <ul class="breadcrumb-ul">
+                <li>Home</li>
+            </ul>
+        </div>
 
-        <hr class="index_hr">
+        <hr class="index-hr">
 
-        <div class="top_buttons">
-
-            <div class="index_search">
-                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..."><br><br>
-                <button class="sign_in">Search</button>
+        <div class="top-buttons">
+            <div class="search-field">
+                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..." class="search-input">
+                <button class="search-button">Search</button>
             </div>
 
-            <div class="empty_right_two_buttons">
-                <button class="empty_first_button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
-                <button class="empty_second_button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+            <div class="editing-button">
+                <button class="simple-button empty upload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
+                <button class="simple-button empty add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
             </div>
         </div>
 
-
-        <div class="empty_message">There are no files/directories created yet.</div>
-
-
+    <div class="center-message">There are no files/directories created yet.</div>
 
     </main>
 </div>

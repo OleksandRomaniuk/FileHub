@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Index-error</title>
+    <title>Index</title>
 </head>
 <body>
 
-<div class="index-wrapper">
-    <head class="index_page-header">
-        <img src="images/logo.png" alt="TeamDev" width="200" height="37">
-        <div class="error_logos"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load user data</div>
+<div class="index_wrapper">
+    <head class="page-header">
+        <span class="teamDev-logo"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></span>
+
+        <div class="user-panel error">
+            <ul class="breadcrumb-ul">
+                <li class="user-error"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load user data</li>
+            </ul>
+        </div>
     </head>
 
-    <main class="index_box">
-        <button class="breadcrumb"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load breadcrumb data</button>
+    <main class="index-box">
+        <div class="breadcrumb-home">
+            <ul class="breadcrumb-ul">
+                <li class="error-message" ><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load breadcrumb data</li>
+            </ul>
+        </div>
 
-        <hr class="index_hr">
+        <hr class="index-hr">
 
-        <div class="top_buttons">
-
-            <div class="index_search">
-                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..."><br><br>
-                <button class="sign_in">Search</button>
+        <div class="top-buttons">
+            <div class="search-field">
+                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..." class="search-input">
+                <button class="search-button">Search</button>
             </div>
 
-            <div class="empty_right_two_buttons">
-                <button class="empty_first_button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
-                <button class="empty_second_button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+            <div class="editing-button">
+                <button class="simple-button empty upload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
+                <button class="simple-button empty add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
             </div>
         </div>
 
 
 
-        <div class="error_message_page"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load directory data</div>
-
-
+        <div class="center-message error-message cen"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load directory data</div>
 
     </main>
 </div>
