@@ -4,98 +4,151 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Index-html</title>
+    <title>Index</title>
 </head>
 <body>
 
-<div class="index-wrapper">
-    <head class="index_page-header">
-        <img src="images/logo.png" alt="TeamDev" width="200" height="37">
-        <div class="logos">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <div class="pib">John Doe</div>
-            <div class="vertical_line">|</div>
-            <a href="" class="a_link">
-                Log Out
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            </a>
+<div class="index_wrapper">
+    <head class="page-header">
+        <span class="teamDev-logo"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></span>
+
+        <div class="user-panel">
+            <ul class="breadcrumb-ul">
+                <li class="user"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> John Doe </li>
+                <li><a class="log-out">Log Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+            </ul>
         </div>
     </head>
 
-    <main class="index_box">
-        <button class="inner_home"><a href="" class="folder_link">Home</a> <span> / </span>  <span> Documents </span> </button>
+    <main class="index-box">
+        <div class="breadcrumb-home">
+            <ul class="breadcrumb-ul link">
+                <li><a href="#">Home</a></li>
+                <li>Documents</li>
+            </ul>
+        </div>
 
-        <hr class="index_hr">
+        <hr class="index-hr">
 
-        <div class="top_buttons">
-
-            <div class="index_search">
-                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..."><br><br>
-                <button class="sign_in">Search</button>
+        <div class="top-buttons">
+            <div class="search-field">
+                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..." class="search-input">
+                <button class="search-button">Search</button>
             </div>
 
-            <div class="right_tree_buttons">
-                <button class="first_button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
-                <button class="second_button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                <button class="third_button"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </button>
+            <div class="editing-button">
+                <button class="simple-button upload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
+                <button class="simple-button add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
+                <button class="simple-button remove"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </button>
             </div>
         </div>
 
-        <div class="table-wrapper">
-            <table class="table">
+        <div class="div-table">
+            <table class="main-table">
+
                 <tr>
-                    <td class="first_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-                    <td class="second_td"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
-                    <td class="third_td"><a href="" class="folder_link">Montenegro2020</a></td>
-                    <td class="fourth_td">Folder</td>
-                    <td class="fifth_td"> — </span></td>
-                    <td class="sixth_td"> </td>
+                    <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                    <td class="name_td"><a href="" class="folder_link">Montenegro2020</a></td>
+                    <td class="type_td">Folder</td>
+                    <td class="size_td"> — </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td class="first_td"></td>
-                    <td class="second_td"> <span class="glyphicon glyphicon-book" aria-hidden="true"></span></td>
-                    <td class="third_td_black">HTML_guidlines.pdf</td>
-                    <td class="fourth_td">PDF Document</td>
-                    <td class="fifth_td">100 KB</td>
-                    <td class="sixth_td"> </td>
+                    <td></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-book" aria-hidden="true"></span></td>
+                    <td class="name_td file">HTML_guidlines.pdf</td>
+                    <td class="type_td">PDF Document</td>
+                    <td class="size_td"> 100 KB </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button-blue">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td class="first_td"></td>
-                    <td class="second_td"> <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></td>
-                    <td class="third_td_black">vacation_schedule.xlsx</td>
-                    <td class="fourth_td">Excel WorkBook</td>
-                    <td class="fifth_td">5 KB</td>
-                    <td class="sixth_td"> </td>
+                    <td></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></td>
+                    <td class="name_td file">vacation_schedule.xlsx</td>
+                    <td class="type_td">Excel WorkBook</td>
+                    <td class="size_td"> 5 KB </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button-blue">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-picture" aria-hidden="true"></span></td>
+                    <td class="name_td file">selfire.jpg</td>
+                    <td class="type_td">JPEG image</td>
+                    <td class="size_td"> 4.1 MB </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button-blue">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-film" aria-hidden="true"></span></td>
+                    <td class="name_td file">summer_party.avi</td>
+                    <td class="type_td">AVI movie</td>
+                    <td class="size_td"> 1.2 GB </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button-blue">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
 
                 <tr>
-                    <td class="first_td"></td>
-                    <td class="second_td"> <span class="glyphicon glyphicon-picture" aria-hidden="true"></span></td>
-                    <td class="third_td_black">selfire.jpg</td>
-                    <td class="fourth_td">JPEG image</td>
-                    <td class="fifth_td">4.1 MB</td>
-                    <td class="sixth_td"> </td>
+                    <td></td>
+                    <td class="icon_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
+                    <td class="name_td file">hello.mp3</td>
+                    <td class="type_td">MP3 audio</td>
+                    <td class="size_td"> 12.5 MB </span></td>
+                    <td class="buttons_td">
+                        <div class="hidden-button-blue">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                            </a>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
-
-                <tr>
-                    <td class="first_td"></td>
-                    <td class="second_td"> <span class="glyphicon glyphicon-film" aria-hidden="true"></span></td>
-                    <td class="third_td_black">summer_party.avi</td>
-                    <td class="fourth_td">AVI movie</td>
-                    <td class="fifth_td">1.2 GB</td>
-                    <td class="sixth_td"> </td>
-                </tr>
-
-
-                <tr>
-                    <td class="first_td"></td>
-                    <td class="second_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
-                    <td class="third_td_black">hello.mp3</td>
-                    <td class="fourth_td">MP3 audio</td>
-                    <td class="fifth_td">12.5 MB</td>
-                    <td class="sixth_td"> </td>
-                </tr>
-
 
                 </tbody>
             </table>
