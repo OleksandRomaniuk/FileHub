@@ -16,11 +16,17 @@ body{
     font-size: 14px;
     font-weight: bold;
 }
-.wrapper-auth{
+.wrapper{
     position: relative;
-    width: 35%;
     min-width: 500px;
     margin: 0px auto;
+}
+.wrapper.auth{
+    width: 35%;
+}
+.wrapper.index{
+    width: 75%;
+    padding-top: 30px;
 }
 
 input {
@@ -162,13 +168,7 @@ button:hover{
 Optimize index page
  */
 
-.index_wrapper{
-    position: relative;
-    width: 75%;
-    min-width: 500px;
-    margin: 0px auto;
-    padding-top: 30px;
-}
+
 .page-header{
     position: relative;
     width: 100%;
@@ -333,7 +333,7 @@ ul.breadcrumb-ul.link li a:hover {
     overflow-y: scroll;
     width: 94.5%;
     height: max-content;
-    max-height: 460px;
+    max-height: 450px;
     margin-top: 15px;
     margin-left: 19px;
 }
@@ -852,7 +852,7 @@ Adapting
         overflow-y: hidden;
         width: 91.5%;
         height: max-content;
-        min-height: max-content;
+        min-height: 617px;
         margin-top: 15px;
         margin-left: 19px;
     }
