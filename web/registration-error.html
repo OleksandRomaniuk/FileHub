@@ -2,44 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Authorization</title>
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Registration-error</title>
 </head>
-
 <body>
-<div class="wrapper">
-    <head class="page-header">
-        <img src="images/logo.png" alt="TeamDev" width="200" height="37">
-    </head>
-    <main class="registration_error_box">
-        <h1>Sign up to FileHub</h1>
-        <hr>
-        <form action="">
-            <div class="error_email_row">
-                <label for="femail">Email</label>
-                <input type="email" id="femail" name="femail" placeholder="Email" class="error-input"><br><br>
+
+<div class="wrapper-auth">
+    <header class="page-header">
+        <a href="#"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></a>
+    </header>
+    <main class="box registration-error">
+        <h1 class="sign-message">Sign up to FileHub</h1>
+        <hr class="horizontal-line">
+
+        <form action="file.txt">
+            <div class="row error">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group error">
+                    <input type="email" id="email" name="email" placeholder="Email" class="text-input">
+                    <span class="error-message">Please include an '@' in the email address.</span>
+                </div>
             </div>
-            <div class="error_message">Please include an '@' in the email address.</div>
 
-           <div class="error_password_row">
-                <label for="fpassword">Password</label>
-                <input type="password" id="fpassword" name="fpassword" placeholder="Password" class="error-input"><br><br>
+            <div class="row error">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group error">
+                    <input type="password" id="password" name="email" placeholder="Password" class="text-input">
+                    <span class="error-message">Password can't be empty.</span>
+                </div>
             </div>
-            <div class="error_message">Password can't be empty.</div>
 
-            <div class="error_confirm_password_row">
-                <label for="fconfirm_password">Confirm Password</label>
-                <input type="password" id="fconfirm_password" name="fconfirm_password" placeholder="Confirm Password" class="error-input"><br><br>
-            </div>
-            <div class="error_message">Password don't match.</div>
-
-
-            <div class="error_button_row">
-                <button class="sign_in">Sign Up</button>
-                <a href="authorization.html" class="account">Already have an account?</a>
+            <div class="row error">
+                <label for="confirm-password" class="form-label">Confirm Password</label>
+                <div class="input-group error">
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" class="text-input">
+                    <span class="error-message">Passwords don't match.</span>
+                </div>
             </div>
         </form>
+
+        <div class="button-row down">
+            <button class="blue-button registration">Sign Up</button>
+            <a href="authorization.html" class="account-link">Already have an account?</a>
+        </div>
+
     </main>
 </div>
 </body>
