@@ -842,6 +842,20 @@ button[disabled]{
 button[disabled]{
     background-color: #E8918E;
 }
+.main-table .glyphicon-upload{
+    padding-left: 5px;
+    font-size: 20px;
+    color: #9DD088;
+}
+.main-table .glyphicon-download{
+    padding-left: 5px;
+    font-size: 20px;
+    color: #6EB1E3;
+}
+
+/**
+Adapting
+ */
 
 
 
