@@ -798,3 +798,87 @@ button[disabled]{
     color: #6EB1E3;
 }
 
+/**
+Adapting
+ */
+@media screen and (max-width: 767px){
+    .form-label{
+        margin-left: 10px;
+        margin-top: -10px;
+    }
+    .box .row input{
+        width: 100%;
+        height: 34px;
+    }
+    .box .row .input-group{
+        width: 97%;
+        float: left;
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    .row{
+        margin-bottom: 50px;
+    }
+    .button-row{
+        margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .blue-button{
+        margin-left: 20px;
+    }
+    .box.authorization-error{
+        height: 305px;
+    }
+    .row.error{
+        margin-bottom: 60px;
+    }
+    .box ,  .box.registration , .box.registration-error{
+        height: max-content;
+    }
+    .button-row.er{
+        margin-bottom: 20px;
+    }
+    .button-row.down{
+        margin-bottom: 0px;
+    }
+    .button-row.down{
+        margin-bottom: 40px;
+    }
+    .main-table .type_td  , .main-table .size_td{
+        display: none;
+    }
+    .div-table{
+        overflow-y: hidden;
+        width: 91.5%;
+        height: max-content;
+        min-height: 617px;
+        margin-top: 15px;
+        margin-left: 19px;
+    }
+    .main-table{
+        height: max-content;
+    }
+    .index-box{
+        height: max-content;
+        min-height: 607px;
+    }
+    .fdirectory{
+        width: 100%;
+    }
+    .name-input{
+        width: 70%;
+    }
+    body{
+
+    }
+}
+@media screen and (min-width: 767px) and (max-width: 1198px){
+    .main-table .type_td{
+        display: none;
+    }
+
+}
+
+
