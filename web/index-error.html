@@ -12,10 +12,9 @@
     <head class="page-header">
         <span class="teamDev-logo"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></span>
 
-        <div class="user-panel">
+        <div class="user-panel error">
             <ul class="breadcrumb-ul">
-                <li class="user"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></li>
-                <li><a class="log-out">Log Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+                <li class="user-error"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load user data</li>
             </ul>
         </div>
     </head>
@@ -23,7 +22,7 @@
     <main class="index-box">
         <div class="breadcrumb-home">
             <ul class="breadcrumb-ul">
-                <li><span class="glyphicon glyphicon-repeat rep" aria-hidden="true"></span></li>
+                <li class="error-message" ><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load breadcrumb data</li>
             </ul>
         </div>
 
@@ -31,17 +30,19 @@
 
         <div class="top-buttons">
             <div class="search-field">
-                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..." class="search-input reload">
-                <button class="search-button reload"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Search</button>
+                <input type="search" id="ffile" name="ffile" placeholder="Enter entity name..." class="search-input">
+                <button class="search-button">Search</button>
             </div>
 
             <div class="editing-button">
-                <button class="simple-button empty reload"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> </button>
+                <button class="simple-button empty upload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> </button>
                 <button class="simple-button empty add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
             </div>
         </div>
 
-        <div class="center-message"><span class="glyphicon glyphicon-repeat rep" aria-hidden="true"></span></div>
+
+
+        <div class="center-message error-message cen"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Can't load directory data</div>
 
     </main>
     <footer>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="wrapper-auth">
+    <header class="page-header">
+        <a href="#"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></a>
+    </header>
+    <main class="box authorization-error">
+        <h1 class="sign-message">Sign up to FileHub</h1>
+        <hr class="horizontal-line">
+
+        <form action="file.txt">
+            <div class="row error">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group error">
+                    <input type="email" id="email" name="email" placeholder="Email" class="text-input">
+                    <span class="error-message">Please include an '@' in the email address.</span>
+                </div>
+            </div>
+
+            <div class="row error">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group error">
+                    <input type="password" id="password" name="email" placeholder="Password" class="text-input">
+                    <span class="error-message">Password can't be empty.</span>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="button-row er">
+            <button class="blue-button">Sign In</button>
+            <a href="registration.html" class="account-link">Don't have an account yet?</a>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>

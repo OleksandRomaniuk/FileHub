@@ -6,520 +6,169 @@
     src: local(''),
     url('../fonts/roboto-regular.woff2') format('woff2')
 }
-
 body{
     margin: 0;
     background: #f2f2f2;
     font: 12px "Roboto" , "Times New Roman" , Times , serif;
+    font-weight: 600;
     color: #000;
-    min-width: 1000px;
+    min-width: 520px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.wrapper{
+    position: relative;
+    min-width: 500px;
+    margin: 0px auto;
+}
+.wrapper.auth{
+    width: 35%;
+}
+.wrapper.index{
+    width: 75%;
+    padding-top: 30px;
 }
 
-.wrapper{
-    width: 560px;
-    margin: 30px auto;
+input {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    font-weight: bold;
+}
+a {
+    color: #0385D3;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    color: #0385D3;
 }
 .page-header{
-    padding: 30px 0 24px;
+    padding-top: 30px;
+    padding-bottom: 12px;
 }
-.a:hover{
-    padding: 0;
-    text-decoration: underline;
-    color: #0385D3;
-}
-.a_link:hover{
-    text-decoration: underline;
-    color: #0385D3;
-}
-
 .box{
-    margin: 25px auto;
+    position: relative;
+    margin: 15px auto;
     background: #fff;
     border-radius: 20px;
-    height: 200px;
     border: 1px solid #ccc;
     box-shadow: 0 0 20px #999;
-    padding: 20px;
+    height: 240px;
 }
-.box h1{
-    margin: 2px;
+.box.authorization-error{
+    height: 275px;
+}
+.sign-message{
+    margin: 18px 20px 8px;
     font-size: 30px;
 }
-.hr{
-    margin: 0;
+.row.error{
+    margin-bottom: 47px;
+}
+.row{
+    padding: 13px;
+    margin-bottom: 24px;
+}
+.horizontal-line{
+    pading: auto;
     border: 0;
-    height: 0px;
+    height: 1px;
+    width: 93%;
     background: #000;
 }
-.email_row{
+.box .row::after{
+    display: block;
+    clear: both;
+}
+.box .row .label{
+    float: right;
+    width: 40%;
+}
+.form-label{
+    position: absolute;
+    margin-left: 7px;
+    margin-top: 10px;
+}
+.box .row input{
+    width: 100%;
+    height: 34px;
+
+}
+.box .row .input-group{
+    width: 63%;
+    float: right;
+    margin-right: 8px;
+}
+.box .row .text-input{
+    width: 100%;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+    color: #FF6058;
+}
+
+.button-row{
+    width:100%;
+    text-align:center;
     margin-top: 30px;
 }
-.email_row label{
-    font-weight: bold;
-    font-size: 14px;
-
+.button-row.down{
+    margin-top: 55px;
 }
-.email_row input{
-    margin-top: -10px;
-    padding-left: 14px;
-    height: 30px;
-    width: 318px;
-    float: right;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.password_row{
-    margin-top: 15px;
-}
-.password_row label{
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.password_row input{
-    margin-top: -8px;
-    padding-left: 14px;
-    height: 29px;
-    width: 316px;
-    float: right;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.button_row{
-    margin-left: 183px;
-    width: 400px;
-    height: 65px;
-    margin-top: 15px;
-}
-.sign_in{
+.blue-button{
+    text-align: center;
     color: #fff;
     border-radius: 5px;
-    margin-top: -5px;
     border: none;
     width: 68px;
     height: 34px;
     background: #0385D3;
+    display: inline-block;
+    margin-left: 110px;
+    margin-top: 5px;
 }
-.account {
-    font-weight: bold;
-    font-size: 14px;
-    margin-left: 93px;
-    color: #0385D3;
-    text-decoration: none;
-
+button:hover{
+    background: #286090;
 }
-/**
-Registration page
- */
-.registration_box{
-    margin: 25px auto;
-    background: #fff;
-    border-radius: 20px;
-    height: 250px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 20px #999;
-    padding: 20px;
-}
-.registration_box h1{
-    margin: 2px;
-    font-size: 30px;
-}
-.confirm_password_row{
-    margin-top: 20px;
-}
-.confirm_password_row label{
-    font-weight: bold;
-    font-size: 14px;
-}
-.confirm_password_row input{
-    margin-top: -8px;
-    padding-left: 14px;
-    height: 29px;
-    width: 316px;
-    float: right;
+.input-group input:hover , input:focus{
     outline: none;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-color: #77bef2;
+    box-shadow: 0 0 5px #77bef2;
 }
-.registration_error_box{
-    margin: 25px auto;
-    background: #fff;
-    border-radius: 20px;
-    height: 327px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 20px #999;
-    padding: 20px;
-}
-.registration_error_box h1{
-    margin: 2px;
-    font-size: 30px;
-}
-.error_message{
-    font-weight: bold;
-    color: #FF6058;
-    font-size: 14px;
-    margin-left: 184px;
-}
-.error_email_row label{
-    font-weight: bold;
-    font-size: 14px;
-
-}
-.error_email_row{
-    margin-top: 30px;
-}
-.error_email_row input{
-    margin-top: -10px;
-    padding-left: 14px;
-    height: 30px;
-    width: 318px;
+.account-link{
     float: right;
-    outline: none;
-    border-radius: 5px;
-    border: 2px solid #FF6058;
-}
-.error_password_row{
-    margin-top: 27px;
-}
-.error_password_row label{
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.error_password_row input{
-    margin-top: -8px;
-    padding-left: 14px;
-    height: 29px;
-    width: 316px;
-    float: right;
-    outline: none;
-    border-radius: 5px;
-    border: 2px solid #FF6058;
-}
-.error_confirm_password_row{
-    margin-top: 22px;
-}
-.error_confirm_password_row label{
-    font-weight: bold;
-    font-size: 14px;
-}
-.error_confirm_password_row input{
-    margin-top: -8px;
-    padding-left: 14px;
-    height: 29px;
-    width: 316px;
-    float: right;
-    outline: none;
-    border-radius: 5px;
-    border: 2px solid #FF6058;
-}
-.error_button_row{
-    margin-left: 183px;
-    width: 400px;
-    height: 65px;
-    margin-top: 23px;
-}
-/**
-Index page
- */
-.glyphicon{
-    font-size: 20px;
-}
-.index-wrapper{
-
-    width: 1143px;
-    margin: 31px 0 0 188px;
-
-}
-.index_page-header{
-    padding: 0px 0 24px;
-}
-.logos{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-left: 970px;
-}
-.glyphicon{
-    font-size: 20px;
-}
-.glyphicon-user{
-    font-size: 14px;
-    margin-left: 6px;
-    margin-top: -20px;
-}
-.pib{
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 14px;
-    margin-left: 4px;
-    margin-top: -20px;
-}
-.vertical_line{
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 7px;
-    margin-top: -24px;
-}
-.a_link{
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 14px;
-    color: #0C87D4;
-    margin-left: 5px;
-    margin-top: -20px;
-    text-decoration: none;
-}
-.glyphicon-log-out{
-    font-size: 14px;
-    color: #0C87D4;
-    margin-left: 0px;
-    margin-top: -20px;
-}
-.index_box{
-    margin: 25px auto;
-    background: #fff;
-    border-radius: 20px;
-    height: 200px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 20px #999;
-    padding: 20px;
-    height: 567px;
-}
-.home{
-    font-weight: bold;
-    font-size: 14px;
-    border: none;
-    background: #F5F5F5;
-    color: #8A8A8A;
-    border-radius: 5px;
-    width: 70px;
-    height: 35px;
-}
-.index_hr{
-    margin: 20px 0 0 0;
-    border: 0;
-    height: 2px;
-    background: #000;
-}
-.index_search{
-    display: flex;
-}
-.index_search input{
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 14px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    height: 34px;
-    margin-top: 20px;
-    margin-left: 1px;
-    width: 475px;
-}
-.index_search button{
-    border-radius: 0 5px 5px 0;
-    margin-top: 20px;
-    margin-left: -10px;
-}
-.top_buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-.right_tree_buttons{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-top: 20px;
-    margin-left: 450px;
-}
-.first_button{
-    position: absolute;
-    background: none;
-    border-radius: 5px 0 0 5px;
-    border: 1px solid #606060;
-    height: 34px;
-    width: 40px;
-    background: #0C87D4;
-    color: #F5F5F5;
-}
-.glyphicon-upload{
-    font-size: 14px;
-}
-.glyphicon-plus{
-    font-size: 14px;
-}
-.glyphicon-remove-circle{
-    font-size: 14px;
-}
-.second_button{
-    color: #F5F5F5;
-    position: absolute;
-    background: none;
-    border: 1px solid #606060;
-    height: 34px;
-    width: 40px;
-    margin-left: 39px;
-    background: #0C87D4;
-}
-.third_button{
-    position: absolute;
-    color: #F5F5F5;
-    border-radius: 0 5px 5px 0;
-    background: none;
-    border: 1px solid #606060;
-    height: 34px;
-    width: 40px;
-    background: #D9534F;
-    margin-left: 76px;
-}
-/**
-table
- */
-
-.table-wrapper{
-    border-spacing:0; /* Removes the cell spacing via CSS */
-    border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
-    overflow-y: scroll;
+    margin-right: 20px;
     margin-top: 15px;
-    width: 1100px;
-    height: 450px;
-    max-height: 450px;
 }
-.table{
-    border-collapse: collapse;
-    width: 100%;
+.box.registration{
+    height: 290px;
 }
-.table tr{
-    margin: 0;
-    border-top: 0.5px  solid #ccc;
+.blue-button.registration{
+    width: 76px;
+    height: 34px;
 }
-.table td{
-    height: 42px;
+.box.registration-error{
+    height: 365px;
 }
-.glyphicon-chevron-right{
-    font-size: 14px;
+.input-group.error input{
+    border: 2px solid #FF6058;
+}
+.input-group.error input:hover , .input-group.error input:focus{
+    outline: none;
+    border-color: #FF6058;
+    box-shadow: 0 0 5px #FF6058;
+}
+.error-message{
+    color: #FF6058;
 }
 
-.first_td {
-    padding-left: 10px;
-    width: 30px;
-}
-.second_td{
-    padding-left: 10px;
-    text-align: center;
-    width: 30px;
-}
-.third_td{
-    padding-top: 2px;
-    padding-left: 19px;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 3px;
-    color: #0385D3;
-    width: 640px;
-}
-.third_td_black{
-    color: #ccc;
-    padding-top: 2px;
-    padding-left: 20px;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 3px;
-    width: 640px;
-}
-.fourth_td{
-    color: #ccc;
-    padding-top: 2px;
-    padding-left: 235px;
-    width: 200px;
-    font-size: 14px;
-    font-weight: bold;
-}
-.fifth_td{
-    color: #ccc;
-    padding-right: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: right;
-    width: 200px;
-}
-.sixth_td{
-    width: 130px;
-}
-.footer{
-    height: 150px;
-    width: 80%;
-    padding: 5px;
 
-}
-.company_links{
-    font-size: 20px;
-    text-align: center;
-}
-.logo_instagram{
-    padding-left: 10px;
-}
-.logo_facebook{
-    padding-left: 10px;
-}
-.copyright{
-    padding-top: 5px;
-    text-align: center;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-.folder_link:hover {
-    font-weight: bold;
-    font-size: 14px;
-    color: #0C87D4;
-    text-decoration: underline;
-}
-.folder_link {
-    font-weight: bold;
-    font-size: 14px;
-    color: #0385D3;
-    text-decoration: none;
-}
 /**
-inner
+Optimize index page
  */
-.inner_home{
-    font-weight: bold;
-    font-size: 14px;
-    border: none;
-    background: #F5F5F5;
-    color: #8A8A8A;
-    border-radius: 5px;
-    width: max-content;
-    height: 35px;
-}
-.inner_home a{
-    padding-top: 5px;
-    font-size: 13px;
-    padding-left: 10px;
-
-}
-.inner_home span{
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    font-size: 13px;
-}
 
 
-.index_wrapper{
-    position: relative;
-    width: 75%;
-    min-width: 560px;
-    margin: 0px auto;
-    padding-top: 30px;
-}
 .page-header{
     position: relative;
     width: 100%;
@@ -682,19 +331,21 @@ ul.breadcrumb-ul.link li a:hover {
     border-spacing:0; /* Removes the cell spacing via CSS */
     border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
     overflow-y: scroll;
-    width: 96.5%;
-    height: 460px;
-    max-height: 460px;
+    width: 94.5%;
+    height: max-content;
+    max-height: 450px;
     margin-top: 15px;
     margin-left: 19px;
 }
 .main-table{
     border-collapse: collapse;
     width: 100%;
+    height: max-content;
 }
 .main-table tr{
     border-top: 0.5px  solid #ccc;
 }
+
 .main-table td{
     height: 43.2px;
     border-top: 0.5px  solid #ccc;
@@ -882,8 +533,120 @@ footer{
 .search-button.reload{
     width: 88px;
 }
+.name-input{
+    color: #ccc;
+    font-size: 13px;
+    padding-left: 10px;
+    height: 27px;
+    width: 297px;
+    border-radius: 4px;
+    border: 2px solid #FF6058;
+    margin-top: 4px;
+    margin-left: -12px;
+}
+.name-input:hover {
+    border: 2px solid #FF6058;
+    outline: none;
+    box-shadow: 0 0 5px #FF6058;
+}
+.name-input:hover{
+    border: 2px solid #FF6058;
+    outline: none;
+    box-shadow: 0 0 5px #FF6058;
+}
+.error-input:hover{
+    border: 2px solid #FF6058;
+    outline: none;
+    box-shadow: 0 0 5px #FF6058;
+}
 
+.whitespaces_message{
+    font-weight: bold;
+    color: #FF6058;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: -12px;
+    margin-bottom: 5px;
+}
+.directory_name{
+    display: flex;
+}
+.fdirectory{
+    height: 29px;
+    width: 290px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 2px;
+    margin-left: -10px;
+}
+.fdirectory:hover{
+    border: 2px solid  #0385D3;;
+    outline: none;
+    box-shadow: 0 0 5px #0385D3;;
+}
+.reload_directory{
+    color: #a0a0a0;
+    margin: 10px;
+}
 
+.authorization_error_box{
+    margin: 25px auto;
+    background: #fff;
+    border-radius: 20px;
+    height: 287px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 20px #999;
+    padding: 20px;
+}
+.authorization_error_row{
+    margin-left: 183px;
+    width: 400px;
+    height: 65px;
+    margin-top: 35px;
+}
 
+/**
+Index error
+ */
 
+.glyphicon-exclamation-sign{
+    color: #FF0100;
+    font-size: 14px;
+}
+
+/**
+Error
+ */
+
+.glyphicon-repeat{
+    font-size: 14px;
+    transform: rotate(250deg);
+    animation-name: rotate;
+    animation-delay: 0s;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(30deg);
+    }
+    50%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+/*****
+    Modal icon
+ */
 
