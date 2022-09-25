@@ -327,7 +327,7 @@ ul.breadcrumb-ul.link li a:hover {
 /**
     Table
  */
-.div-table{
+.table-area{
     border-spacing:0; /* Removes the cell spacing via CSS */
     border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
     overflow-y: scroll;
@@ -849,13 +849,11 @@ Adapting
     .main-table .type_td  , .main-table .size_td{
         display: none;
     }
-    .div-table{
+    .table-area{
         overflow-y: hidden;
         width: 91.5%;
         height: max-content;
         min-height: 617px;
-        margin-top: 15px;
-        margin-left: 19px;
     }
     .main-table{
         height: max-content;
