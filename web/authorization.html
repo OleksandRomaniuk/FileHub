@@ -5,6 +5,7 @@
     <title>Authorization</title>
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js-app/index.js"></script>
 </head>
 <body>
 
@@ -16,26 +17,27 @@
         <h1 class="sign-message">Sign in to FileHub</h1>
         <hr class="horizontal-line">
 
-        <form action="file.txt">
+        <form action="#" id="form">
             <div class="row">
                 <label for="email" class="form-label">Email</label>
                 <div class="input-group">
-                    <input type="email" id="email" name="email" placeholder="Email" class="text-input">
+                    <input type="email" id="email"  placeholder="Email" class="text-input">
                 </div>
             </div>
 
             <div class="row">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
-                    <input type="password" id="password" name="email" placeholder="Password" class="text-input">
+                    <input type="password" id="password"  placeholder="Password" class="text-input">
                 </div>
+            </div>
+            <div class="button-row">
+                <button class="blue-button" type="submit">Sign In</button>
+                <a href="registration.html" class="account-link">Don't have an account yet?</a>
             </div>
         </form>
 
-        <div class="button-row">
-            <button class="blue-button">Sign In</button>
-            <a href="registration.html" class="account-link">Don't have an account yet?</a>
-        </div>
+
 
     </main>
 </div>
