@@ -1,28 +1,29 @@
-
 export function checkInputLength(value , length){
-    if(value.length>=length){
-        return true;
-    }
-    console.log('input length fail')
-    return false;
+    return new Promise((resolve,reject)=>{
+        if(value.length>=length){
+           resolve('Input length is valid')
+        }else{
+            reject('Input length isnt valid')
+        }
+    })
 }
 
 export function checkPasswordMatch(password , confirmPassword){
-    return password == confirmPassword;
+    return new Promise((resolve,reject)=>{
+        if(password == confirmPassword){
+            resolve('Input login validate successfully')
+        }else{
+            reject('Input login validate not successfully')
+        }
+    })
 }
 
 export function validateLogin(login){
-    return /^[a-z\d+.\-_@]+$/.test(login);
-}
-
-export function checkLogin(login){
-    if(!checkInputLength(login,5)){
-        console.log('fail length')
-        return false;
-    }
-    if(!validateLogin(login)){
-        console.log('fail reg')
-        return false;
-    }
-    return true;
+    return new Promise((resolve,reject)=>{
+        if(/^[a-z\d+.\-_@]+$/.test(login)){
+            resolve('Input login validate successfully')
+        }else{
+            reject('Input login validate not successfully')
+        }
+    })
 }
