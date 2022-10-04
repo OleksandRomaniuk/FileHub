@@ -1,5 +1,5 @@
 import {checkInputLength , checkPasswordMatch , validateLogin} from "./validation.js"
-import {REGISTRATION, EMAIL, PASSWORD ,CONFIRM_PASSWORD } from "./consts.js";
+import {REGISTRATION, EMAIL, PASSWORD ,CONFIRM_PASSWORD } from "./constants.js";
 
 document.getElementById(REGISTRATION).addEventListener('submit' , ()=>{
 
