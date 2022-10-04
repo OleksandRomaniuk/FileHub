@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="javascript" src="js/bootstrap.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="wrapper index">
+        <header class="page-header">
+            <a href="#"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></a>
+            <ul class="breadcrumb user">
+                <li class="user"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> John Doe</li>
+                <li><a class="log-out">Log Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+            </ul>
+        </header>
+        <main class="box">
+            <ol class="breadcrumb">
+                <li class="active">Home</li>
+            </ol>
+            <hr class="horizontal-line">
+
+            <div class="top-row">
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter entity name..">
+                    <span class="input-group-btn"><button class="btn btn-default blue" type="button">Search</button></span>
+                </div>
+
+                <div class="btn-group right-side blue" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default blue"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>
+                    <button type="button" class="btn btn-default blue"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                </div>
+            </div>
+
+            <div class="table-area">
+                <table class="main-table">
+                    <tr>
+                        <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                        <td class="name_td"><a href="#">Documents</a></td>
+                        <td class="type_td visible-lg visible-md">Folder</td>
+                        <td class="size_td hidden-xs"> — </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                        <td class="name_td"><a href="#">Images</a></td>
+                        <td class="type_td visible-lg visible-md">Folder</td>
+                        <td class="size_td hidden-xs"> — </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                        <td class="name_td"><a href="#">Videos</a></td>
+                        <td class="type_td visible-lg visible-md">Folder</td>
+                        <td class="size_td hidden-xs"> — </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                        <td class="name_td">
+                            <form action="" class="form-horizontal">
+                                <div class="form-group">
+                                     <div class="col-sm-6 has-error">
+                                        <input type="text" class="form-control" id="email" placeholder="Music">
+                                        <p class="help-block">No whitespaces allowed.</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="type_td visible-lg visible-md">Folder</td>
+                        <td class="size_td hidden-xs"> — </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="arrow_td"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></td>
+                        <td class="name_td"><a href="#">Other</a></td>
+                        <td class="type_td visible-lg visible-md">Folder</td>
+                        <td class="size_td hidden-xs"> — </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-book" aria-hidden="true"></span></td>
+                        <td class="name_td file">HTML_guidelines.pdf</td>
+                        <td class="type_td visible-lg visible-md">PDF Document</td>
+                        <td class="size_td hidden-xs"> 100 KB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></td>
+                        <td class="name_td file">vacation_schedule.xlsx</td>
+                        <td class="type_td visible-lg visible-md">Excel Workbook</td>
+                        <td class="size_td hidden-xs"> 5 KB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-picture" aria-hidden="true"></span></td>
+                        <td class="name_td file">selfie.jpg</td>
+                        <td class="type_td visible-lg visible-md">JPEG image</td>
+                        <td class="size_td hidden-xs"> 4.1 MB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-film" aria-hidden="true"></span></td>
+                        <td class="name_td file">summer_party.avi</td>
+                        <td class="type_td visible-lg visible-md">AVI movie</td>
+                        <td class="size_td hidden-xs"> 1.2 GB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
+                        <td class="name_td file">hello.mp3</td>
+                        <td class="type_td visible-lg visible-md">MP3 audio</td>
+                        <td class="size_td hidden-xs"> 12.5 MB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
+                        <td class="name_td file">hello.mp3</td>
+                        <td class="type_td visible-lg visible-md">MP3 audio</td>
+                        <td class="size_td hidden-xs"> 12.5 MB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
+                        <td class="name_td">hello.mp3</td>
+                        <td class="type_td visible-lg visible-md">MP3 audio</td>
+                        <td class="size_td hidden-xs"> 12.5 MB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="icon_td"> <span class="glyphicon glyphicon-music" aria-hidden="true"></span></td>
+                        <td class="name_td file">hello.mp3</td>
+                        <td class="type_td visible-lg visible-md">MP3 audio</td>
+                        <td class="size_td hidden-xs"> 12.5 MB </span></td>
+                        <td class="buttons_td">
+                            <div class="hidden-button blue">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <div class="company_links">
+                <a href="https://ru.linkedin.com/company/teamdev-ltd-" class="logo_in"><img src="images/icon-linkedin.png" alt="in" width="20" height="20"></a>
+                <a href="https://www.facebook.com/TeamDev" class="logo_facebook"><img src="images/icon-facebook.png" alt="facebook" width="20" height="20"></a>
+                <a href="https://www.instagram.com/teamdev_ltd/" class="logo_instagram"><img src="images/icon-instagram.png" alt="instagram" width="20" height="20"></a>
+            </div>
+            <div class="copyright">Copyright © 2020 <a href="https://www.teamdev.com/">TeamDev</a>. All rights reserved.</div>
+        </footer>
+
+    </div>
+</div>
+</body>
+</html>
