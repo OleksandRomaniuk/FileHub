@@ -2,43 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Authorization</title>
+    <script src="validation/authorization.js" type="module"></script>
+     <title>FileHub</title>
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script type="module" src="authorization.js"></script>
 </head>
 <body>
-
-<div class="wrapper auth">
+<div class="wrapper">
     <header class="page-header">
-        <a href="#"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></a>
+        <a href="#">
+            <img src="images/logo.png" class="logo" alt="TeamDev"  height="37"   width="200">
+        </a>
     </header>
+
     <main class="box">
-        <h1 class="sign-message">Sign in to FileHub</h1>
-        <hr class="horizontal-line">
-
-        <form action="#" id="authorization-form">
-            <div class="row">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                    <input type="text" id="email"  placeholder="Email" class="text-input" name="email">
+        <h1>Sign in to FileHub</h1>
+        <hr class="hr">
+        <form action="authorization.html" id="authorization-form" >
+            <div class="fields-wrapper">
+                <label for="email" > Email</label>
+                <div>
+                    <input name="email" id="email" class="input-text" placeholder="Email"  >
+                </div>
+                <label for="password" class="password">Password</label>
+                <div>
+                    <input class ="input-text" name="password" id="password" placeholder="Password">
                 </div>
             </div>
-
-            <div class="row">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <input type="password" id="password"  placeholder="Password" class="text-input" name="password">
+            <div class="buttons-wrapper">
+                <div>
+                    <button class="button primary" title = "Sign In">Sign In</button>
                 </div>
-            </div>
-            <div class="button-row">
-                <button class="blue-button" type="submit">Sign In</button>
-                <a href="registration.html" class="account-link">Don't have an account yet?</a>
+                <div class="blue-text account authorization">
+                    <a href="registration.html" class="blue-text" title="Don't have an account yet?">
+                        Don't have an account yet?
+                    </a>
+                </div>
             </div>
         </form>
-
-
-
     </main>
 </div>
 </body>

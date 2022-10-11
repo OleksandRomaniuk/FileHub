@@ -1,16 +1,18 @@
 {
-  "name": "js-app",
+  "name": "filehub",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "validation/authorization.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./**.js"
+    "lint": "eslint ./**/**.js"
   },
-  "author": "Romaniuk Olksandr",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.22.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint": "^8.24.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-qunit": "^7.3.1",
+    "qunit": "^2.19.1"
   }
 }
