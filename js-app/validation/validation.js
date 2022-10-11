@@ -9,8 +9,8 @@ export function validateEmail(email) {
     if ((/^[a-zA-Z1-9+.-\\-_@]+$/.test(email))) {
       resolve();
     } else {
-      reject(new Error(`only Latin, numbers and symbols +.-_@ are allowed in email`));
-      reject(new ValidationError(`only Latin, numbers and symbols +.-_@ are allowed in email`));
+      reject(new Error(`Only latin and number symbols are allowed in email`));
+      reject(new ValidationError(`Only latin and number symbols are allowed in email`));
     }
   });
 }
@@ -26,7 +26,7 @@ export function validateSize(minSize) {
       if (typeof text === 'string' && (text.length >= minSize) ) {
         resolve();
       } else {
-        reject(new Error(`have to be more than ${minSize}`));
+        reject(new Error(`Size must be at list  ${minSize} symbols`));
       }
     });
   };
@@ -43,7 +43,7 @@ export function validatePasswordEquality(password) {
       if ((password === confirmPassword)) {
         resolve();
       } else {
-        reject(new Error('Passwords aren\'nt equals'));
+        reject(new Error('Passwords do not match'));
       }
     });
   };

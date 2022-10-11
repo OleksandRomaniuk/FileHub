@@ -10,7 +10,7 @@ module('validateAuthorization', (hooks) =>{
     const fixture = document.getElementById('qunit-fixture');
     fixture.innerHTML = `
         <form  id="authorization-form" >
-            <div class="fields-wrapper">
+            <div class="input-wrapper">
                 <label for="email" > Email</label>
                 <div>
                     <input name="email" id="email" class="input-text" placeholder="Email"  >

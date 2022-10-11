@@ -9,7 +9,7 @@ module('validateRegistration', (hooks) =>{
     const fixture = document.getElementById('qunit-fixture');
     fixture.innerHTML = `
          <form action="registration-error.html" method="post" id="registration-form">
-            <div class="fields-wrapper registration">
+            <div class="input-wrapper registration">
                 <label for="email">
                     Email
                 </label>

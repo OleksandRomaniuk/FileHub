@@ -52,20 +52,20 @@ p{
     margin:0 0 9px;
     background: #000;
 }
-.fields-wrapper{
+.input-wrapper{
     display: grid;
     grid-template-columns: 35% 65%;
     font-size: 14px;
     margin-bottom: 14px;
 }
-.fields-wrapper label{
+.input-wrapper label{
     margin-top: 20px;
 }
-.fields-wrapper input{
+.input-wrapper input{
     margin-top: 12px;
     margin-bottom: 2px;
 }
-.fields-wrapper .error-text{
+.input-wrapper .error-text{
     padding: 4px 0 5px 0;
 }
 .input-text:focus{
