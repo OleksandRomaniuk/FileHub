@@ -65,8 +65,8 @@ input{
     height: 34px;
     background: #0385d3;
     display: inline-block;
-    margin-left: 220px;
- }
+
+}
 button:hover{
     background: #286090;
 }
@@ -93,7 +93,7 @@ button:hover{
 }
 .row{
     padding: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .input-group{
     margin-top: -7px;
@@ -110,18 +110,16 @@ button:hover{
 
 .button-row{
     display: flex;
-    width: 100%;
-    margin-top: 31px;
+    width: 65%;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    margin-left: -25px;
+    margin-left: 10px;
+    margin-left: 36%;
+    margin-bottom: 20px;
  }
 .account-link{
     float: right;
-    margin-top: 2px;
-    margin-right: -12px;
-    justify-content: space-between;
+    margin-top: 7px;
+    margin-right: 26px;
 }
 .error-form .row{
     margin-bottom: 43.5px;
