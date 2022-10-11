@@ -2,48 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Authorization</title>
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script type="module" src="registration.js"></script>
+    <script src="validation/registration.js" type="module"></script>
+    <title>FileHub</title>
 </head>
 <body>
-
-<div class="wrapper auth">
+<div class="wrapper">
     <header class="page-header">
-        <a href="#"><img src="images/logo.png" alt="TeamDev" width="200" height="37"></a>
+        <a href="https://jobs.dou.ua/companies/teamdev/">
+            <img src="images/logo.png" class="logo" alt="TeamDev"  height="37"   width="200">
+        </a>
     </header>
-    <main class="box registration">
-        <h1 class="sign-message">Sign up to FileHub</h1>
-        <hr class="horizontal-line">
 
-        <form action="#" id="registration-form">
-            <div class="row">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                    <input type="text" id="email" name="email" placeholder="Email" class="text-input">
+    <main class="box">
+        <h1>Sign up to FileHub</h1>
+        <hr class="hr">
+        <form action="registration-error.html" method="post" id="registration-form">
+            <div class="fields-wrapper registration">
+                <label for="email">
+                    Email
+                </label>
+                <div>
+                    <input id="email" name="email" class="input-text" placeholder="Email" >
+                </div>
+                <label for="password" class="grid-password">
+                    Password
+                </label>
+                <div>
+                    <input id="password" type="password" name="password" placeholder="Password"  class="input-text">
+                </div>
+                <label for="confirm-password">
+                    Confirm Password
+                </label>
+                <div>
+                    <input  id="confirm-password" type="password" placeholder="Confirm Password" name="confirm-password" class="input-text">
                 </div>
             </div>
 
-            <div class="row">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <input type="password" id="password" name="email" placeholder="Password" class="text-input">
+            <div class="buttons-wrapper">
+                <div>
+                    <button class="button primary" title="Sign Up">Sign Up</button>
                 </div>
-            </div>
-
-            <div class="row">
-                <label for="confirm-password" class="form-label">Confirm Password</label>
-                <div class="input-group">
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password"class="text-input">
+                <div class="blue-text account">
+                    <a href="authorization.html" class="blue-text link" title="Already have an account?">
+                        Already have an account?</a>
                 </div>
-            </div>
-            <div class="button-row">
-                <button class="blue-button registration" type="submit">Sign Up</button>
-                <a href="authorization.html" class="account-link">Already have an account?</a>
             </div>
         </form>
-
 
     </main>
 </div>
