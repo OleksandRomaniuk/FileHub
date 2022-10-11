@@ -92,7 +92,7 @@ button:hover{
     font-size: 30px;
 }
 .row{
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 30px;
 }
 .input-group{
@@ -114,6 +114,7 @@ button:hover{
     justify-content: space-between;
     margin-left: 10px;
     margin-left: 36%;
+    margin-top: 5px;
     margin-bottom: 20px;
  }
 .account-link{
