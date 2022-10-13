@@ -6,17 +6,18 @@ const SUBMIT_EVENT = 'submit_event';
  * The component for generate form.
  */
 export class Form extends Component {
-  _buttonText;
-  _inputCreators = [];
-  _submitTarget = new EventTarget();
-
+  #buttonText;
+  #inputCreators = [];
+  #submitTarget = new EventTarget();
 
   /**
-   * @param {string} text
+   * @param {HTMLElement} parent
+   * @param {string} buttonText
    */
-  set buttonText(text) {
-    this._buttonText = text;
-    this.render();
+  constructor(parent, buttonText) {
+    super(parent);
+    this.#buttonText = buttonText;
+    this.init();
   }
 
   /**
@@ -24,15 +25,14 @@ export class Form extends Component {
    */
   afterRender() {
     const buttonSlot = this.getSlot('button');
-    const button = new Button(buttonSlot);
-    button.title = this._buttonText;
+    new Button(buttonSlot, this.#buttonText);
     const inputsSlot = this.getSlot('inputs');
-    this._inputCreators?.forEach((creator)=>{
+    this.#inputCreators?.forEach((creator)=>{
       creator(inputsSlot);
     });
     this.rootElement.addEventListener('submit', (e)=>{
       e.preventDefault();
-      this._submitTarget.dispatchEvent(new Event(SUBMIT_EVENT));
+      this.#submitTarget.dispatchEvent(new Event(SUBMIT_EVENT));
     });
   }
 
@@ -40,19 +40,26 @@ export class Form extends Component {
    * @param {function()} inputCreator
    */
   addInput(inputCreator) {
-    this._inputCreators.push(inputCreator);
+    this.#inputCreators.push(inputCreator);
     this.render();
   }
 
   /**
-   *
    * @param {function(FormData)} listener
    */
   onSubmit(listener) {
-    this._submitTarget.addEventListener(SUBMIT_EVENT, (e)=>{
+    this.#submitTarget.addEventListener(SUBMIT_EVENT, (e)=>{
       const formData = new FormData(this.rootElement);
       listener(formData);
     });
+  }
+  /**
+   * Returns thml attribute to mark element.
+   * @param {string}name
+   * @returns {string}
+   */
+  markElement(name) {
+    return `data-td=${name}`;
   }
 
   /**
@@ -60,7 +67,7 @@ export class Form extends Component {
    * @returns {string} form html as string
    */
   markup() {
-    return ` <form>
+    return ` <form ${this.markElement('form')}>
             <div class="fields-wrapper">
                  ${this.addSlot('inputs')} 
             </div>

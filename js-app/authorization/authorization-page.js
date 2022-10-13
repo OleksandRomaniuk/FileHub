@@ -6,6 +6,14 @@ import {AuthorizationForm} from './authorization-form.js';
  */
 export class AuthorizationPage extends Component {
   /**
+   * @param {HTMLElement} parent
+   */
+  constructor(parent) {
+    super(parent);
+    this.init();
+  }
+
+  /**
    * Add values for different inner slots.
    */
   afterRender() {

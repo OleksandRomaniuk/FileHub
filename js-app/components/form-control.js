@@ -4,84 +4,106 @@ import {Component} from './component.js';
  * The component for form row with label and input.
  */
 export class FormControl extends Component {
-  _errorMessages = [];
-  _labelText;
-  _type = 'text';
-  _name;
-  _placeholder;
-  _id = crypto.randomUUID();
-  _value ='';
+  #errorMessages = [];
+  #labelText;
+  #type = 'text';
+  #name;
+  #placeholder;
+  #id = crypto.randomUUID();
+  #value ='';
+
+
+  /**
+   * @typedef {Object} FormControlConfig
+   * @property {string} labelText
+   * @property {string} type
+   * @property {string} name
+   * @property {string} name
+   * @property {string} value
+   * @property {string} [placeholder = ]
+   */
+  /**
+   * @param {HTMLElement} parent
+   * @param {FormControlConfig} config
+   */
+  constructor(parent, {
+    labelText,
+    type='text',
+    name,
+    placeholder=''}) {
+    super(parent);
+    this.#labelText = labelText;
+    this.#type = type;
+    this.#name = name;
+    this.#placeholder = placeholder;
+    this.init();
+  }
+
   /**
    * @param {string} error
    */
   set errorMessages(error) {
-    this._errorMessages.push(error);
-    this.render();
+    if (error) {
+      this.#errorMessages.push(error);
+      this.render();
+    }
   }
   /**
    * Clear array of errors by initialization.
    */
   deleteErrorsMessages() {
-    this._errorMessages = [];
-    this.render();
-  }
-  /**
-   * @param {string} text
-   */
-  set labelText(text) {
-    this._labelText = text;
+    this.#errorMessages = [];
     this.render();
   }
   /**
    * @param {string} value
    */
   set value(value) {
-    this._value = value;
+    this.#value = value;
     this.render();
   }
   /**
    * @param {string} type
    */
   set type(type) {
-    this._type = type;
+    this.#type = type;
     this.render();
   }
-
-  /**
-   * @param {string} name
-   */
-  set name(name) {
-    this._name = name;
-    this.render();
-  }
-
   /**
    * @returns {string}
    */
   get name() {
-    return this._name;
+    return this.#name;
   }
   /**
    * @param {string} text
    */
   set placeholder(text) {
-    this._placeholder = text;
+    this.#placeholder = text;
     this.render();
+  }
+  /**
+   * Returns thml attribute to mark element.
+   * @param {string} name
+   * @returns {string}
+   */
+  markElement(name) {
+    return `data-td=${name}`;
   }
 
   /**
-   * @returns {string} form control row with label and input html as string
+   * @inheritDoc
    */
   markup() {
-    const errorMessages = this._errorMessages?.map((error) => `
+    const errorMessages = this.#errorMessages?.map((error) => `
     <p class="error-text">${error}</p>
     `).join(' ');
     return ` 
-    <div class="form-control">
-        <label for="${this._id}">${this._labelText} </label>
+    <div class="form-control" ${this.markElement('form-control')}>
+        <label for="${this.#id}">${this.#labelText} </label>
         <div>
-            <input class="input-text ${errorMessages? 'input-error' : ''}"  type="${this._type}" id="${this._id}" 
-            name="${this._name}" placeholder="${this._placeholder}" value="${this._value}">
+            <input class="input-text ${errorMessages? 'input-error' : ''}"  type="${this.#type}" id="${this.#id}" 
+            name="${this.#name}" placeholder="${this.#placeholder}" value="${this.#value}">
             ${errorMessages ?? ''}
         </div>
     </div>

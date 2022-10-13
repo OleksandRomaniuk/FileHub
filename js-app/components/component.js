@@ -10,16 +10,13 @@ export class Component {
    */
   constructor(parent) {
     this.parentElement = parent;
-    this.init();
-    this.render();
   }
   /**
    * Implements logic before rendering.
    */
   init() {
+    this.render();
   }
-
-
   /**
    * @abstract
    */
@@ -49,7 +46,6 @@ export class Component {
     this.#createDomTree();
     this.afterRender();
   }
-
 
   /**
    * Implements logic after rendering.

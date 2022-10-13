@@ -13,26 +13,35 @@ export const PASSWORD = 'password';
  * The component for rendering authorization with form controls and button.
  */
 export class AuthorizationForm extends Component {
+  #inputs = {};
+
+  /**
+   * @param {HTMLElement} parent
+   */
+  constructor(parent) {
+    super(parent);
+    this.init();
+  }
   /**
    * Add values for form-control and button slots.
    */
   afterRender() {
-    this._inputs = {};
-    const form = new Form(this.rootElement);
-    form.buttonText = 'Sign in';
+    const form = new Form(this.rootElement, 'Sign in');
     form.addInput((slot) => {
-      const emailFormControl = new FormControl(slot);
-      emailFormControl.labelText = 'Email';
-      emailFormControl.placeholder = 'Email';
-      emailFormControl.name = 'email';
-      this._inputs.email = emailFormControl;
+      this.#inputs.email = new FormControl(slot,
+          {
+            labelText: 'Email',
+            placeholder: 'Email',
+            name: 'email',
+          });
     });
     form.addInput((slot) => {
-      const passwordFormControl = new FormControl(slot);
-      passwordFormControl.labelText = 'Password';
-      passwordFormControl.placeholder = 'Password';
-      passwordFormControl.name = 'password';
-      this._inputs.password = passwordFormControl;
+      this.#inputs.password = new FormControl(slot,
+          {
+            labelText: 'Password',
+            placeholder: 'Password',
+            name: 'password',
+          });
     });
 
     form.onSubmit((formData) => {
@@ -57,7 +66,7 @@ export class AuthorizationForm extends Component {
         .validate(config, formData)
         .catch((result) => {
           result.errors.forEach((error) => {
-            const input = this._inputs[error.name];
+            const input = this.#inputs[error.name];
             const message = error.message;
             this.#renderError(input, message);
           });
@@ -65,7 +74,7 @@ export class AuthorizationForm extends Component {
   }
 
   /**
-   * @returns {string} - form html for authorization as string
+   * @inheritDoc
    */
   markup() {
     return '<slot></slot>';
@@ -75,7 +84,7 @@ export class AuthorizationForm extends Component {
    * Clear error messages for all inputs.
    */
   #clearError() {
-    Object.entries(this._inputs).forEach(([name, input])=> {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
       input.deleteErrorsMessages();
     });
   }
@@ -93,7 +102,7 @@ export class AuthorizationForm extends Component {
    */
   saveValue() {
     const formData = new FormData(this.rootElement.firstElementChild);
-    Object.entries(this._inputs).forEach(([name, input])=> {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
       input.value = formData.get(name);
     });
   }

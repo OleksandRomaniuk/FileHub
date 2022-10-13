@@ -4,29 +4,40 @@ import {Component} from './component.js';
  * The component for generate button.
  */
 export class Button extends Component {
-  _text;
+  #text;
 
   /**
-   * @param{string} text
+   * @param {HTMLElement} parent
+   * @param {string} title
    */
-  set title(text) {
-    this._text = text;
-    this.render();
+  constructor(parent, title) {
+    super(parent);
+    this.#text = title;
+    this.init();
   }
-
   /**
    * @returns {string}
    */
   get title() {
-    return this._text;
+    return this.#text;
   }
 
   /**
-   * @returns {string} button html as string
+   * Returns thml attribute to mark element.
+   * @param {string}name
+   * @returns {string}
+   */
+  markElement(name) {
+    return `data-td=${name}`;
+  }
+
+  /**
+   * @inheritDoc
    */
   markup() {
     const text = this.title;
-    return ` <button class="button primary" type="submit" title="${text}">${text}</button>`;
+    return ` <button class="button primary" ${this.markElement('button')}  type="submit" title="${text}">${text}
+ </button>`;
   }
 }
 
