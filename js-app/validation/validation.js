@@ -41,7 +41,7 @@ export function validatePasswordEquality(password) {
       if ((password === confirmPassword)) {
         resolve();
       } else {
-        reject(new Error('Passwords aren\'nt equals'));
+        reject(new Error('Passwords aren\'t equals'));
       }
     });
   };

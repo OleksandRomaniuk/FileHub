@@ -6,6 +6,13 @@ import {RegistrationForm} from './registration-form.js';
  */
 export class RegistrationPage extends Component {
   /**
+   * @param {HTMLElement} parent
+   */
+  constructor(parent) {
+    super(parent);
+    this.init();
+  }
+  /**
    * Fills fields for different inner slots.
    */
   afterRender() {

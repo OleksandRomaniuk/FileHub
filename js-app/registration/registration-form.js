@@ -13,40 +13,48 @@ export const CONFIRM_PASSWORD = 'confirm-password';
  * The component for rendering registration form controls and button.
  */
 export class RegistrationForm extends Component {
+  #inputs = {};
+
+  /**
+   * @param {HTMLElement} parent
+   */
+  constructor(parent) {
+    super(parent);
+    this.init();
+  }
   /**
    * Add values for form-control and button slots.
    */
   afterRender() {
-    this._inputs = {};
-    const form = new Form(this.rootElement);
-    form.buttonText = 'Sign in';
+    const form = new Form(this.rootElement, 'Sign up');
     form.addInput((slot) => {
-      const emailFormControl = new FormControl(slot);
-      emailFormControl.labelText = 'Email';
-      emailFormControl.placeholder = 'Email';
-      emailFormControl.name = 'email';
-      this._inputs.email = emailFormControl;
+      this.#inputs.email = new FormControl(slot,
+          {
+            labelText: 'Email',
+            placeholder: 'Email',
+            name: 'email',
+          });
     });
     form.addInput((slot) => {
-      const passwordFormControl = new FormControl(slot);
-      passwordFormControl.labelText = 'Password';
-      passwordFormControl.placeholder = 'Password';
-      passwordFormControl.name = 'password';
-      this._inputs.password = passwordFormControl;
+      this.#inputs.password = new FormControl(slot,
+          {
+            labelText: 'Password',
+            placeholder: 'Password',
+            name: 'password',
+          });
     });
     form.addInput((slot) => {
-      const confirmPasswordFormControl = new FormControl(slot);
-      confirmPasswordFormControl.labelText = 'Confirm password';
-      confirmPasswordFormControl.placeholder = 'Confirm-password';
-      confirmPasswordFormControl.name = 'confirm-password';
-      this._inputs['confirm-password'] = confirmPasswordFormControl;
+      this.#inputs['confirm-password'] = new FormControl(slot,
+          {
+            labelText: 'Confirm password',
+            placeholder: 'Confirm-password',
+            name: 'confirm-password',
+          });
     });
-
     form.onSubmit((formData) => {
       this.validateForm(formData);
     });
   }
-
   /**
    * Validates form on correct password and login.
    * @param {FormData} formData
@@ -55,17 +63,17 @@ export class RegistrationForm extends Component {
     this.saveValue();
     this.#clearError();
     const config =
-      new FormValidationConfig
-          .Builder()
-          .addFields(EMAIL, [validateEmail, validateSize(5)])
-          .addFields(PASSWORD, [validateSize(6)])
-          .addFields(CONFIRM_PASSWORD, [validatePasswordEquality(formData.get(PASSWORD))])
-          .build();
+        new FormValidationConfig
+            .Builder()
+            .addFields(EMAIL, [validateEmail, validateSize(5)])
+            .addFields(PASSWORD, [validateSize(6)])
+            .addFields(CONFIRM_PASSWORD, [validatePasswordEquality(formData.get(PASSWORD))])
+            .build();
     new ValidatorService()
         .validate(config, formData)
         .catch((result) => {
           result.errors.forEach((error) => {
-            const input = this._inputs[error.name];
+            const input = this.#inputs[error.name];
             const message = error.message;
             this.#renderError(input, message);
           });
@@ -73,7 +81,7 @@ export class RegistrationForm extends Component {
   }
 
   /**
-   * @returns {string}
+   * @inheritDoc
    */
   markup() {
     return '<slot></slot>';
@@ -83,7 +91,7 @@ export class RegistrationForm extends Component {
    * Clear error messages for all inputs.
    */
   #clearError() {
-    Object.entries(this._inputs).forEach(([name, input])=> {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
       input.deleteErrorsMessages();
     });
   }
@@ -101,7 +109,7 @@ export class RegistrationForm extends Component {
    */
   saveValue() {
     const formData = new FormData(this.rootElement.firstElementChild);
-    Object.entries(this._inputs).forEach(([name, input])=> {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
       input.value = formData.get(name);
     });
   }

@@ -125,7 +125,7 @@ module('validatePasswordEquality', () =>{
           .catch((e) => {
             // eslint-disable-next-line max-len
             assert.ok(true, `Should catch error when when password is ${value} and password confirm is ${values[i][0]}`);
-            assert.strictEqual(e.message, 'Passwords aren\'nt equals', 'should return error message');
+            assert.strictEqual(e.message, 'Passwords aren\'t equals', 'should return error message');
           });
     }
   });
