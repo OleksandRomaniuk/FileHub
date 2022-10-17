@@ -5,6 +5,8 @@ import {AuthorizationForm} from './authorization-form.js';
  * The component for generate authorization page.
  */
 export class AuthorizationPage extends Component {
+  #navigateListener;
+
   /**
    * @param {HTMLElement} parent
    */
@@ -17,8 +19,17 @@ export class AuthorizationPage extends Component {
    * Add values for different inner slots.
    */
   afterRender() {
-    const formSlot = this.getSlot('form');
-    new AuthorizationForm(formSlot);
+    const form = new AuthorizationForm( this.getSlot('form'));
+    form.onNavigateToRegistration(()=>{
+      this?.#navigateListener();
+    });
+  }
+
+  /**
+   * @param {function} listener
+   */
+  onNavigateToRegistration(listener) {
+    this.#navigateListener = listener;
   }
 
   /**
