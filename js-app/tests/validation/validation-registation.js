@@ -45,19 +45,6 @@ module('validateRegistration', (hooks) =>{
     validateRegistration(form);
     button = form.querySelector('button.primary');
   });
-
-
-  test('Should add submit event listener', async function(assert) {
-    const done = assert.async();
-    assert.expect(1);
-    button.click();
-    setTimeout(()=>{
-      const errors = document.getElementsByClassName('error-text');
-      assert.strictEqual(errors.length, 3, 'Should show 3 errors');
-      done();
-    }, 100);
-  });
-
   test('Should validate incorrect password', (assert) =>{
     const done = assert.async();
     assert.expect(3);
@@ -110,59 +97,7 @@ module('validateRegistration', (hooks) =>{
       done();
     }, 100);
   });
-  test('Should validate incorrect email symbol input', (assert) =>{
-    const done = assert.async();
-    assert.expect(3);
 
-    const inputPassword = form.querySelector('input#password');
-    inputPassword.value = 'a64514cxzsdsd';
-
-
-    const inputConfirmPassword = form.querySelector('input#confirm-password');
-    inputConfirmPassword.value = 'a64514cxzsdsd';
-
-    const inputEmail = form.querySelector('input#email');
-    inputEmail.value = 'mari$%^&#@';
-    button.click();
-
-
-    setTimeout(()=>{
-      const errors =[...document.getElementsByClassName('error-text')];
-      assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
-
-      assert.strictEqual(errors[0].innerText,
-          'only Latin, numbers and symbols +.-_@ are allowed in email', 'Should show error text.');
-      const input = errors[0].previousElementSibling;
-      assert.strictEqual(input.id, 'email', 'Should show sibling element input.');
-      done();
-    }, 100);
-  });
-  test('Should validate incorrect confirm password', (assert) =>{
-    const done = assert.async();
-    assert.expect(3);
-
-    const inputPassword = form.querySelector('input#password');
-    inputPassword.value = 'a64514cxzsdsd';
-
-    const inputConfirmPassword = form.querySelector('input#confirm-password');
-    inputConfirmPassword.value = 'a';
-
-    const inputEmail = form.querySelector('input#email');
-    inputEmail.value = 'mari@gmail.com';
-    button.click();
-
-
-    setTimeout(()=>{
-      const errors =[...document.getElementsByClassName('error-text')];
-      assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
-
-      assert.strictEqual(errors[0].innerText,
-          'Passwords aren\'nt equals');
-      const input = errors[0].previousElementSibling;
-      assert.strictEqual(input.id, 'confirm-password', 'Should show sibling element input.');
-      done();
-    }, 100);
-  });
   test('Should validate incorrect confirm password and invalid password', (assert) =>{
     const done = assert.async();
     assert.expect(5);
@@ -234,5 +169,59 @@ module('validateRegistration', (hooks) =>{
       });
       done();
     }, 1000);
+  });
+
+  test('Should validate incorrect email symbol input', (assert) =>{
+    const done = assert.async();
+    assert.expect(3);
+
+    const inputPassword = form.querySelector('input#password');
+    inputPassword.value = 'a64514cxzsdsd';
+
+
+    const inputConfirmPassword = form.querySelector('input#confirm-password');
+    inputConfirmPassword.value = 'a64514cxzsdsd';
+
+    const inputEmail = form.querySelector('input#email');
+    inputEmail.value = 'mari$%^&#@';
+    button.click();
+
+
+    setTimeout(()=>{
+      const errors =[...document.getElementsByClassName('error-text')];
+      assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
+
+      assert.strictEqual(errors[0].innerText,
+          'only Latin, numbers and symbols +.-_@ are allowed in email', 'Should show error text.');
+      const input = errors[0].previousElementSibling;
+      assert.strictEqual(input.id, 'email', 'Should show sibling element input.');
+      done();
+    }, 100);
+  });
+  test('Should validate incorrect confirm password', (assert) =>{
+    const done = assert.async();
+    assert.expect(3);
+
+    const inputPassword = form.querySelector('input#password');
+    inputPassword.value = 'a64514cxzsdsd';
+
+    const inputConfirmPassword = form.querySelector('input#confirm-password');
+    inputConfirmPassword.value = 'a';
+
+    const inputEmail = form.querySelector('input#email');
+    inputEmail.value = 'mari@gmail.com';
+    button.click();
+
+
+    setTimeout(()=>{
+      const errors =[...document.getElementsByClassName('error-text')];
+      assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
+
+      assert.strictEqual(errors[0].innerText,
+          'Passwords aren\'nt equals');
+      const input = errors[0].previousElementSibling;
+      assert.strictEqual(input.id, 'confirm-password', 'Should show sibling element input.');
+      done();
+    }, 100);
   });
 });
