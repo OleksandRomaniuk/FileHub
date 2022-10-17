@@ -1,7 +1,7 @@
 import {Component} from './component.js';
 
 /**
- * Generating button component
+ * The component for generate button.
  */
 export class Button extends Component {
   #text;
@@ -16,18 +16,18 @@ export class Button extends Component {
     this.init();
   }
   /**
-   * @returns {string}
-   */
-  get title() {
-    return this.#text;
-  }
-  /**
    * @inheritDoc
    */
   markup() {
     const text = this.title;
     return ` <button class="button primary" ${this.markElement('button')}  type="submit" title="${text}">${text}
  </button>`;
+  }
+  /**
+   * @returns {string}
+   */
+  get title() {
+    return this.#text;
   }
 }
 

@@ -43,8 +43,6 @@ module('registration-form', () =>{
     ['emai', 'pasw', 'pas', 3, 'have to be more than 5', 'have to be more than 6', 'Passwords aren\'t equals', false],
     ['em@#ai', 'p', 'er', 3, 'only Latin, numbers and symbols +.-_@ are allowed in email', 'have to be more than 6',
       'Passwords aren\'t equals', false],
-    ['@#ai', 'p', 'passwod', 4, 'only Latin, numbers and symbols +.-_@ are allowed in email', 'have to be more than 6',
-      'Passwords aren\'t equals', true, 'have to be more than 5'],
   ].forEach(([email, password, confirmPassword, countError, textErrorEmail,
     textErrorPassword, textErrorConfirmPassword, isSecondErrorEmail,
     secondTextErrorEmail])=>{

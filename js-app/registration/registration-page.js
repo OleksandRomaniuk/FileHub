@@ -5,6 +5,8 @@ import {RegistrationForm} from './registration-form.js';
  * The component for generate registration page.
  */
 export class RegistrationPage extends Component {
+  #navigateListener;
+
   /**
    * @param {HTMLElement} parent
    */
@@ -16,10 +18,18 @@ export class RegistrationPage extends Component {
    * Fills fields for different inner slots.
    */
   afterRender() {
-    const formSlot = this.getSlot('form');
-    new RegistrationForm(formSlot);
+    const form = new RegistrationForm(this.getSlot('form'));
+    form.onNavigateToLogin(()=>{
+      this?.#navigateListener();
+    });
   }
 
+  /**
+   * @param {function} listener
+   */
+  onNavigateToLogin(listener) {
+    this.#navigateListener = listener;
+  }
   /**
    * @returns {string} registration page html as string
    */

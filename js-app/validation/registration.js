@@ -1,3 +1,3 @@
-import {RegistrationPage} from '../registration/registration-page.js';
+import {Application} from '../application/application.js';
 
-new RegistrationPage(document.body);
+new Application(document.body);

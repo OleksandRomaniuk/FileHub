@@ -1,5 +1,5 @@
-import {AuthorizationPage} from '../authorization/authorization-page.js';
+import {Application} from '../application/application.js';
 
-new AuthorizationPage(document.body);
+new Application(document.body);
 
 

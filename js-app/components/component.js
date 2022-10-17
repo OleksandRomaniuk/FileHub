@@ -1,5 +1,5 @@
 /**
- * Simple realization of virtual DOM of the element.
+ * Virtual DOM of the element.
  */
 export class Component {
   parentElement;

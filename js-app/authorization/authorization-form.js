@@ -76,11 +76,11 @@ export class AuthorizationForm extends Component {
     this.saveValue();
     this.#clearError();
     const config =
-        new FormValidationConfig
-            .Builder()
-            .addFields(EMAIL, [validateEmail, validateSize(5)])
-            .addFields(PASSWORD, [validateSize(6)])
-            .build();
+      new FormValidationConfig
+          .Builder()
+          .addFields(EMAIL, [validateEmail, validateSize(5)])
+          .addFields(PASSWORD, [validateSize(6)])
+          .build();
     new ValidatorService()
         .validate(config, formData)
         .catch((result) => {
@@ -108,16 +108,6 @@ export class AuthorizationForm extends Component {
   markup() {
     return '<slot></slot>';
   }
-
-  /**
-   * Clear error messages for all inputs.
-   */
-  #clearError() {
-    Object.entries(this.#inputs).forEach(([name, input])=> {
-      input.deleteErrorsMessages();
-    });
-  }
-
   /**
    * @param {FormControl} name
    * @param {string} message
@@ -133,6 +123,14 @@ export class AuthorizationForm extends Component {
     const formData = new FormData(this.rootElement.firstElementChild);
     Object.entries(this.#inputs).forEach(([name, input])=> {
       input.value = formData.get(name);
+    });
+  }
+  /**
+   * Clear error messages for all inputs.
+   */
+  #clearError() {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
+      input.deleteErrorsMessages();
     });
   }
 }
