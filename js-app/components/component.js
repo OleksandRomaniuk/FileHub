@@ -1,5 +1,5 @@
 /**
- * Virtual DOM of the element.
+ * Simple realization of virtual DOM of the element.
  */
 export class Component {
   parentElement;
@@ -46,7 +46,23 @@ export class Component {
     this.#createDomTree();
     this.afterRender();
   }
+  /**
+   * Returns html attribute to mark element.
+   * @param {string}name
+   * @returns {string}
+   */
+  markElement(name) {
+    return `data-td="${name}"`;
+  }
 
+  /**
+   * Finds the element by attribute data-td.
+   * @param {string} name
+   * @returns {HTMLElement}
+   */
+  getElement(name) {
+    return this.rootElement.querySelector(`[data-td="${name}"]`);
+  }
   /**
    * Implements logic after rendering.
    */
@@ -72,8 +88,7 @@ export class Component {
   #createNewElement() {
     const tempElement = document.createElement('div');
     tempElement.innerHTML = this.markup();
-    const rootElement = tempElement.firstElementChild;
-    return rootElement;
+    return tempElement.firstElementChild;
   }
 }
 

@@ -83,15 +83,6 @@ export class FormControl extends Component {
     this.render();
   }
   /**
-   * Returns thml attribute to mark element.
-   * @param {string} name
-   * @returns {string}
-   */
-  markElement(name) {
-    return `data-td=${name}`;
-  }
-
-  /**
    * @inheritDoc
    */
   markup() {

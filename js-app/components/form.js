@@ -8,15 +8,18 @@ const SUBMIT_EVENT = 'submit_event';
 export class Form extends Component {
   #buttonText;
   #inputCreators = [];
+  #linkCreator;
   #submitTarget = new EventTarget();
 
   /**
    * @param {HTMLElement} parent
    * @param {string} buttonText
+   * @param {function} linkCreator
    */
-  constructor(parent, buttonText) {
+  constructor(parent, buttonText, linkCreator ) {
     super(parent);
     this.#buttonText = buttonText;
+    this.#linkCreator = linkCreator;
     this.init();
   }
 
@@ -30,6 +33,9 @@ export class Form extends Component {
     this.#inputCreators?.forEach((creator)=>{
       creator(inputsSlot);
     });
+    const linkSlot = this.getSlot('link');
+    this.#linkCreator?.(linkSlot);
+
     this.rootElement.addEventListener('submit', (e)=>{
       e.preventDefault();
       this.#submitTarget.dispatchEvent(new Event(SUBMIT_EVENT));
@@ -54,15 +60,6 @@ export class Form extends Component {
     });
   }
   /**
-   * Returns thml attribute to mark element.
-   * @param {string}name
-   * @returns {string}
-   */
-  markElement(name) {
-    return `data-td=${name}`;
-  }
-
-  /**
    *
    * @returns {string} form html as string
    */
@@ -73,9 +70,7 @@ export class Form extends Component {
             </div>
             <div class="buttons-wrapper">
                  ${this.addSlot('button')}
-                <a href="registration.html" title="Don't have an account yet?">
-                    Don't have an account yet?
-                </a>
+                 ${this.addSlot('link')}
             </div>
         </form>`;
   }

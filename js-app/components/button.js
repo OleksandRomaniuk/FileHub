@@ -1,7 +1,7 @@
 import {Component} from './component.js';
 
 /**
- * The component for generate button.
+ * Generating button component
  */
 export class Button extends Component {
   #text;
@@ -21,16 +21,6 @@ export class Button extends Component {
   get title() {
     return this.#text;
   }
-
-  /**
-   * Returns thml attribute to mark element.
-   * @param {string}name
-   * @returns {string}
-   */
-  markElement(name) {
-    return `data-td=${name}`;
-  }
-
   /**
    * @inheritDoc
    */
