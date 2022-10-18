@@ -7,6 +7,7 @@ import {AuthorizationForm} from './authorization-form.js';
 export class AuthorizationPage extends Component {
   #navigateListener;
 
+
   /**
    * @param {HTMLElement} parent
    */

@@ -1,6 +1,6 @@
 import {Component} from '../components/component.js';
 import {FormControl} from '../components/form-control.js';
-import {validateEmail, validatePasswordEquality, validateSize} from '../validation/validation.js';
+import {validateEmail, validatePasswordEquality, validateSize} from '../validation/validators.js';
 import {ValidatorService} from '../validation/validator-service.js';
 import {Form} from '../components/form.js';
 import {FormValidationConfig} from '../validation/form-validation-Config.js';
@@ -18,6 +18,15 @@ export const NAVIGATE = 'navigate-event';
 export class RegistrationForm extends Component {
   #inputs = {};
   #submitTarget = new EventTarget();
+
+  email ='';
+  password ='';
+  confirm_password ='';
+  #validationErrors = {
+    [EMAIL]: [],
+    [PASSWORD]: [],
+    [CONFIRM_PASSWORD]: [],
+  };
 
   /**
    * @param {HTMLElement} parent
@@ -43,6 +52,8 @@ export class RegistrationForm extends Component {
             labelText: 'Email',
             placeholder: 'Email',
             name: 'email',
+            value: this.email,
+            errorMessages: this.#validationErrors[EMAIL],
           });
     });
     form.addInput((slot) => {
@@ -51,6 +62,9 @@ export class RegistrationForm extends Component {
             labelText: 'Password',
             placeholder: 'Password',
             name: 'password',
+            value: this.password,
+            type: 'password',
+            errorMessages: this.#validationErrors[PASSWORD],
           });
     });
     form.addInput((slot) => {
@@ -59,15 +73,29 @@ export class RegistrationForm extends Component {
             labelText: 'Confirm password',
             placeholder: 'Confirm-password',
             name: 'confirm-password',
+            value: this.confirm_password,
+            type: 'password',
+            errorMessages: this.#validationErrors[CONFIRM_PASSWORD],
           });
     });
     form.onSubmit((formData) => {
       this.validateForm(formData);
+      this.email = formData.get('email');
+      this.password = formData.get('password');
+      this.confirm_password = formData.get('confirm-password');
     });
   }
 
   /**
-   * @param {finction} listener
+   * @param {Object} validationErrors
+   */
+  set validationErrors(validationErrors) {
+    this.#validationErrors = validationErrors;
+    this.render();
+  }
+
+  /**
+   * @param {function} listener
    */
   onNavigateToLogin(listener) {
     this.#submitTarget.addEventListener(NAVIGATE, (e)=>{
@@ -91,11 +119,13 @@ export class RegistrationForm extends Component {
     new ValidatorService()
         .validate(config, formData)
         .catch((result) => {
-          result.errors.forEach((error) => {
-            const input = this.#inputs[error.name];
-            const message = error.message;
-            this.#renderError(input, message);
-          });
+          const validationErrorsByField = result.errors.reduce((hash, error)=>{
+            const key = error.name;
+            const prevErrors = hash[key] || [];
+            hash[key] = [...prevErrors, error.message];
+            return hash;
+          }, {});
+          this.validationErrors = validationErrorsByField;
         });
   }
 
@@ -124,13 +154,6 @@ export class RegistrationForm extends Component {
     });
   }
 
-  /**
-   * @param {FormControl} name
-   * @param {string} message
-   */
-  #renderError(name, message) {
-    name.errorMessages = message;
-  }
 
   /**
    * Gets values from inputs and put into FormControl.
