@@ -48,13 +48,14 @@ module('authorization-form', () =>{
       new AuthorizationForm(fixture);
       const form = fixture.querySelector('form');
       const inputs = form.querySelectorAll('input');
-      inputs[0].value =email;
-      inputs[1].value =password;
+      inputs[0].value = email;
+      inputs[1].value = password;
       form.querySelector('button[data-td="button"]').click();
 
       setTimeout(() => {
         let i = 0;
-        const formControls = form.querySelectorAll('[data-td="form-control"] p');
+        const formControls = fixture.querySelectorAll('[data-td="form-control"] p');
+
         if (!secondErrorEmail) {
           assert.strictEqual(formControls.length, 2, 'Should return count of error texts.');
         } else {
