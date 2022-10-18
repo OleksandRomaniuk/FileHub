@@ -19,8 +19,9 @@ export class FormControl extends Component {
    * @property {string} type
    * @property {string} name
    * @property {string} name
-   * @property {string} value
-   * @property {string} [placeholder = ]
+   * @property {string} [value]
+   * @property {string} [placeholder ]
+   * @property {string[]} [errorMessages ]
    */
   /**
    * @param {HTMLElement} parent
@@ -30,12 +31,17 @@ export class FormControl extends Component {
     labelText,
     type='text',
     name,
-    placeholder=''}) {
+    placeholder='',
+    errorMessages=[],
+    value = '',
+  }) {
     super(parent);
     this.#labelText = labelText;
     this.#type = type;
     this.#name = name;
     this.#placeholder = placeholder;
+    this.#errorMessages = errorMessages;
+    this.#value = value;
     this.init();
   }
 
