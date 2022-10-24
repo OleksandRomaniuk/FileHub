@@ -98,11 +98,11 @@ export class AuthorizationForm extends Component {
   validateForm(formData) {
     this.#clearError();
     const config =
-        new FormValidationConfig
-            .Builder()
-            .addFields(EMAIL, [validateEmail, validateSize(5)])
-            .addFields(PASSWORD, [validateSize(6)])
-            .build();
+      new FormValidationConfig
+          .Builder()
+          .addFields(EMAIL, [validateEmail, validateSize(5)])
+          .addFields(PASSWORD, [validateSize(6)])
+          .build();
     new ValidatorService()
         .validate(config, formData)
         .catch((result) => {
