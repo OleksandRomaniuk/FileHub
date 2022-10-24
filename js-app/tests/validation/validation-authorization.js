@@ -3,14 +3,14 @@ import {validateAuthorization} from '../../validation/validate-forms.js';
 
 const {module, test} = QUnit;
 
-module('validateAuthorization', (hooks) =>{
+module('validateAuthorization', (hooks) => {
   let form;
   let button;
-  hooks.beforeEach((assert)=>{
+  hooks.beforeEach((assert) => {
     const fixture = document.getElementById('qunit-fixture');
     fixture.innerHTML = `
         <form  id="authorization-form" >
-            <div class="input-wrapper">
+            <div class="fields-wrapper">
                 <label for="email" > Email</label>
                 <div>
                     <input name="email" id="email" class="input-text" placeholder="Email"  >
@@ -24,11 +24,9 @@ module('validateAuthorization', (hooks) =>{
                 <div>
                     <button type="submit" class="button primary" title = "Sign In">Sign In</button>
                 </div>
-                <div class="blue-text account authorization">
-                    <a href="registration.html" class="blue-text" title="Don't have an account yet?">
+                <a href="registration.html" class="blue-text" title="Don't have an account yet?">
                         Don't have an account yet?
-                    </a>
-                </div>
+                </a>
             </div>
         </form>`;
     form = fixture.firstElementChild;
@@ -41,14 +39,14 @@ module('validateAuthorization', (hooks) =>{
     const done = assert.async();
     assert.expect(1);
     button.click();
-    setTimeout(()=>{
+    setTimeout(() => {
       const errors = document.getElementsByClassName('error-text');
       assert.strictEqual(errors.length, 3, 'Should show 3 errors');
       done();
     }, 100);
   });
 
-  test('Should validate incorrect password', (assert) =>{
+  test('Should validate incorrect password', (assert) => {
     const done = assert.async();
     assert.expect(3);
 
@@ -60,8 +58,8 @@ module('validateAuthorization', (hooks) =>{
 
     button.click();
 
-    setTimeout(()=>{
-      const errors =[...document.getElementsByClassName('error-text')];
+    setTimeout(() => {
+      const errors = [...document.getElementsByClassName('error-text')];
       assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
       assert.strictEqual(errors[0].innerText, 'have to be more than 6', 'Should show error text.');
       const input = errors[0].previousElementSibling;
@@ -70,7 +68,7 @@ module('validateAuthorization', (hooks) =>{
       done();
     }, 100);
   });
-  test('Should validate incorrect email size', (assert) =>{
+  test('Should validate incorrect email size', (assert) => {
     const done = assert.async();
     assert.expect(3);
 
@@ -82,8 +80,8 @@ module('validateAuthorization', (hooks) =>{
     button.click();
 
 
-    setTimeout(()=>{
-      const errors =[...document.getElementsByClassName('error-text')];
+    setTimeout(() => {
+      const errors = [...document.getElementsByClassName('error-text')];
       assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
       assert.strictEqual(errors[0].innerText, 'have to be more than 5', 'Should show error text.');
       const input = errors[0].previousElementSibling;
@@ -92,7 +90,7 @@ module('validateAuthorization', (hooks) =>{
       done();
     }, 100);
   });
-  test('Should validate incorrect email symbol input', (assert) =>{
+  test('Should validate incorrect email symbol input', (assert) => {
     const done = assert.async();
     assert.expect(3);
 
@@ -104,8 +102,8 @@ module('validateAuthorization', (hooks) =>{
     button.click();
 
 
-    setTimeout(()=>{
-      const errors =[...document.getElementsByClassName('error-text')];
+    setTimeout(() => {
+      const errors = [...document.getElementsByClassName('error-text')];
       assert.strictEqual(errors.length, 1, 'Should show 1 errors.');
 
       assert.strictEqual(errors[0].innerText,

@@ -6,7 +6,7 @@ export class ValidationError {
   message;
 
   /**
-   * @param {string} name
+   * @param {FormControl} name
    * @param {string} message
    */
   constructor(name, message) {

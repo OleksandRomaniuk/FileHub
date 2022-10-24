@@ -5,8 +5,7 @@ export class ValidationErrorResult extends Error {
   errors;
 
   /**
-   *
-   * @param {*[]} errors
+   * @param {[ValidationError]} errors
    */
   constructor(errors) {
     super();

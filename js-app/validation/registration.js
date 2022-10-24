@@ -1,6 +1,3 @@
-import {validateRegistration} from './validate-forms.js';
-import {REGISTRATION_FORM} from './constants.js';
+import {Application} from '../application/application.js';
 
-
-const formForRegistration = document.getElementById(REGISTRATION_FORM);
-validateRegistration(formForRegistration);
+new Application(document.body);

@@ -1,5 +1,5 @@
-import {AUTHORIZATION_FORM} from './constants.js';
-import {validateAuthorization} from './validate-forms.js';
+import {Application} from '../application/application.js';
 
-const formForAuthorization = document.getElementById(AUTHORIZATION_FORM);
-validateAuthorization(formForAuthorization);
+new Application(document.body);
+
+
