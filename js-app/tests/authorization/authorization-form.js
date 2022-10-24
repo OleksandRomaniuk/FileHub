@@ -34,8 +34,10 @@ module('authorization-form', () =>{
     assert.strictEqual(inputsFromDocument[1].value, 'password', 'Should return value of the input for password.');
   });
   [
-    ['e', 'p', 'have to be more than 5', 'have to be more than 6', false],
+    ['emai', 'pasw', 'have to be more than 5', 'have to be more than 6', false],
     ['em@#ai', 'p', 'only Latin, numbers and symbols +.-_@ are allowed in email', 'have to be more than 6', false],
+    ['@#ai', 'p', 'only Latin, numbers and symbols +.-_@ are allowed in email', 'have to be more than 6',
+      true, 'have to be more than 5'],
   ].forEach(([email, password, textErrorEmail,
     textErrorPassword, secondErrorEmail, secondTextErrorEmail])=>{
     test('validateForm', async function(assert) {

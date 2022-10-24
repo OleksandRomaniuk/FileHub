@@ -4,7 +4,9 @@ import {RegistrationPage} from '../registration/registration-page.js';
 import {ErrorComponent} from '../error/error.js';
 import {Router} from './router.js';
 
-
+/**
+ * Creates router for moving on right components.
+ */
 export class Application extends Component {
   #router;
   /**

@@ -108,6 +108,16 @@ export class AuthorizationForm extends Component {
   markup() {
     return '<slot></slot>';
   }
+
+  /**
+   * Clear error messages for all inputs.
+   */
+  #clearError() {
+    Object.entries(this.#inputs).forEach(([name, input])=> {
+      input.deleteErrorsMessages();
+    });
+  }
+
   /**
    * @param {FormControl} name
    * @param {string} message
@@ -123,14 +133,6 @@ export class AuthorizationForm extends Component {
     const formData = new FormData(this.rootElement.firstElementChild);
     Object.entries(this.#inputs).forEach(([name, input])=> {
       input.value = formData.get(name);
-    });
-  }
-  /**
-   * Clear error messages for all inputs.
-   */
-  #clearError() {
-    Object.entries(this.#inputs).forEach(([name, input])=> {
-      input.deleteErrorsMessages();
     });
   }
 }
