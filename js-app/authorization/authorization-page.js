@@ -7,12 +7,15 @@ import {AuthorizationForm} from './authorization-form.js';
 export class AuthorizationPage extends Component {
   #navigateListener;
 
+
   /**
    * @param {HTMLElement} parent
+   * @param {TitleService} titleService
    */
-  constructor(parent) {
+  constructor(parent, titleService) {
     super(parent);
     this.init();
+    titleService.setTitle(['Sign in']);
   }
 
   /**

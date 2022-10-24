@@ -5,28 +5,17 @@
   "main": "validation/authorization.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./**/**.js",
-    "prestart": "rimraf dist",
-    "start": "rollup --config rollup.config.js --watch",
-    "prebuild": "rimraf dist",
-    "build": "rollup --config rollup.config.dev.js"
+    "lint": "eslint ./**/**.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^14.1.0",
     "eslint": "^8.24.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-qunit": "^7.3.1",
-    "qunit": "^2.19.1",
-    "rollup-plugin-generate-html-template": "^1.7.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-serve": "^2.0.1",
-    "rollup-plugin-terser": "^7.0.2"
+    "qunit": "^2.19.1"
   },
   "dependencies": {
-    "@trendyminds/rollup-plugin-hashed-mapping": "^0.1.2",
-    "rollup-plugin-copy": "^3.4.0",
     "uuid": "^9.0.0"
   }
 }

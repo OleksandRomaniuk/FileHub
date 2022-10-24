@@ -6,13 +6,17 @@ import {RegistrationForm} from './registration-form.js';
  */
 export class RegistrationPage extends Component {
   #navigateListener;
+  #titleService;
 
   /**
    * @param {HTMLElement} parent
+   * @param {TitleService} titleService
    */
-  constructor(parent) {
+  constructor(parent, titleService) {
     super(parent);
     this.init();
+    this.#titleService = titleService;
+    this.#titleService.setTitle(['Sign up']);
   }
   /**
    * Fills fields for different inner slots.

@@ -21,7 +21,7 @@ module('registration-form', () =>{
     const buttonText = form[0].querySelector('button').innerText;
     assert.strictEqual(buttonText, 'Sign up', 'Should return title of the button: Sign up.');
     const textLink = form[0].querySelector('a').innerText;
-    assert.strictEqual(textLink, 'Don\'t have an account yet?', 'Should return text of link.');
+    assert.strictEqual(textLink, 'Already have an account?', 'Should return text of link.');
   });
   test('setValueForInputs', async function(assert) {
     assert.expect(3);
@@ -65,7 +65,7 @@ module('registration-form', () =>{
 
       setTimeout(() => {
         let i = 0;
-        const formControls = form.querySelectorAll('[data-td="form-control"] p');
+        const formControls = fixture.querySelectorAll('[data-td="form-control"] p');
         assert.strictEqual(formControls.length, countError, 'Should return count of error texts.');
         assert.strictEqual(formControls[i++].innerText, textErrorEmail, 'Should return text of error.');
         if (isSecondErrorEmail) {

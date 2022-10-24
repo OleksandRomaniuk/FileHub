@@ -4,7 +4,7 @@ import {FormControl} from '../components/form-control.js';
 
 import {Form} from '../components/form.js';
 import {FormValidationConfig} from '../validation/form-validation-Config.js';
-import {validateEmail, validateSize} from '../validation/validation.js';
+import {validateEmail, validateSize} from '../validation/validators.js';
 import {ValidatorService} from '../validation/validator-service.js';
 import {Link} from '../components/link.js';
 
@@ -18,6 +18,14 @@ export const LINK_EVENT = 'link-event';
 export class AuthorizationForm extends Component {
   #inputs = {};
   #submitTarget = new EventTarget();
+
+  email ='';
+  password ='';
+  #validationErrors = {
+    [EMAIL]: [],
+    [PASSWORD]: [],
+  };
+
 
   /**
    * @param {HTMLElement} parent
@@ -43,6 +51,8 @@ export class AuthorizationForm extends Component {
             labelText: 'Email',
             placeholder: 'Email',
             name: 'email',
+            value: this.email,
+            errorMessages: this.#validationErrors[EMAIL],
           });
     });
     form.addInput((slot) => {
@@ -51,12 +61,25 @@ export class AuthorizationForm extends Component {
             labelText: 'Password',
             placeholder: 'Password',
             name: 'password',
+            value: this.password,
+            type: 'password',
+            errorMessages: this.#validationErrors[PASSWORD],
           });
     });
 
     form.onSubmit((formData) => {
       this.validateForm(formData);
+      this.email = formData.get('email');
+      this.password = formData.get('password');
     });
+  }
+
+  /**
+   * @param {Object} validationErrors
+   */
+  set validationErrors(validationErrors) {
+    this.#validationErrors = validationErrors;
+    this.render();
   }
 
   /**
@@ -73,7 +96,6 @@ export class AuthorizationForm extends Component {
    * @param {FormData} formData
    */
   validateForm(formData) {
-    this.saveValue();
     this.#clearError();
     const config =
       new FormValidationConfig
@@ -84,11 +106,13 @@ export class AuthorizationForm extends Component {
     new ValidatorService()
         .validate(config, formData)
         .catch((result) => {
-          result.errors.forEach((error) => {
-            const input = this.#inputs[error.name];
-            const message = error.message;
-            this.#renderError(input, message);
-          });
+          const validationErrorsByField = result.errors.reduce((hash, error)=>{
+            const key = error.name;
+            const prevErrors = hash[key] || [];
+            hash[key] = [...prevErrors, error.message];
+            return hash;
+          }, {});
+          this.validationErrors = validationErrorsByField;
         });
   }
 
@@ -118,13 +142,6 @@ export class AuthorizationForm extends Component {
     });
   }
 
-  /**
-   * @param {FormControl} name
-   * @param {string} message
-   */
-  #renderError(name, message) {
-    name.errorMessages = message;
-  }
 
   /**
    * Gets values from inputs and put into FormControl.

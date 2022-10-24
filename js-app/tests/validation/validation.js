@@ -2,7 +2,7 @@ import {
   validateEmail,
   validateSize,
   validatePasswordEquality,
-} from '../../validation/validation.js';
+} from '../../validation/validators.js';
 
 
 const {module, test} = QUnit;
