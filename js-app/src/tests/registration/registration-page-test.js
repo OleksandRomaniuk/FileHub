@@ -1,4 +1,5 @@
 import {RegistrationPage} from '../../registration/registration-page.js';
+import {TitleService} from '../../title-service.js';
 
 const {module, test} = QUnit;
 
@@ -12,7 +13,9 @@ module('Registration page component', () => {
 
     assert.strictEqual(element, null, 'Should be null');
 
-    new RegistrationPage(fixture);
+    const titleService = new TitleService();
+
+    new RegistrationPage(fixture, titleService);
     const actualPageMarkup = fixture.querySelector('[data-td="registration-page"]');
 
     assert.ok(actualPageMarkup, 'Page should be rendered on the page');

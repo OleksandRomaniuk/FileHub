@@ -4,7 +4,7 @@ import {Button} from './button.js';
 const SUBMIT_EVENT = 'form-submit';
 
 /**
- * Base form component class, that allows to render general structure for form
+ * Base form component class, that allows to render general structure for form, with functionality to specify it.
  */
 export class Form extends Component {
   #buttonText;

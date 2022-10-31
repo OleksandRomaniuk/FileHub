@@ -1,5 +1,6 @@
 /**
- * Abstract class for JS component that functionality for rendering and configuring inheritors.
+ * Abstract class for JS component that is independent and reusable.
+ * Have functionality for rendering and configuring inheritors.
  */
 export class Component {
   parentElement;

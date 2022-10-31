@@ -9,10 +9,12 @@ export class AuthorisationPage extends Component {
 
   /**
    * @param {HTMLElement} parent
+   * @param {TitleService} titleService
    */
-  constructor(parent) {
+  constructor(parent, titleService) {
     super(parent);
     this.init();
+    titleService.title = ['Sign In'];
   }
 
   /**
