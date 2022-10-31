@@ -7,16 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./**/**.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Artem-Semenov-dev/FileHUB.git"
-  },
   "author": "Artem Semenov",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Artem-Semenov-dev/FileHUB/issues"
-  },
-  "homepage": "https://github.com/Artem-Semenov-dev/FileHUB#readme",
   "devDependencies": {
     "eslint": "^8.24.0",
     "eslint-config-google": "^0.14.0",

@@ -1,5 +1,5 @@
 /**
- * {@code ValidationError} was invented to store name of field with error and message that need to be shown.
+ * {@code ValidationError}  class  store name of field with error and message that need to be shown.
  */
 export class ValidationError {
   #fieldName;
