@@ -1,8 +1,9 @@
 import {Component} from '../components/component.js';
 import {AuthorisationForm} from './authorisation-form.js';
+import {TitleService} from '../title-service.js';
 
 /**
- * Implementation of {@link Component} that represent page with {@link AuthorisationForm}.
+ * Authorisation page component.
  */
 export class AuthorisationPage extends Component {
   #navigateListener;
@@ -29,15 +30,15 @@ export class AuthorisationPage extends Component {
   }
 
   /**
-   * Subscribe user for navigate event and forward event to upper level.
-   * @param {function} listener
+   * Adds listener for 'navigate' event.
+   * @param {Function} listener
    */
   onNavigateToRegistration(listener) {
     this.#navigateListener = listener;
   }
 
   /**
-   * @returns {string} - HTML code for authorisation page.
+   * @inheritDoc
    */
   markup() {
     return `

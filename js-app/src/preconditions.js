@@ -1,11 +1,12 @@
 /**
- *
+ * Provide static methods that invented for value validation.
  */
 export class Preconditions {
   /**
-   * Provided for check if {@link valueToCheck} is a type of {@link type}.
+   * Checks if {@link valueToCheck} is a type of {@link type}.
    * @param {any} valueToCheck
    * @param {string} type
+   * @throws {Error}
    */
   static checkType(valueToCheck, type) {
     if (typeof valueToCheck !== type) {
@@ -14,8 +15,9 @@ export class Preconditions {
   }
 
   /**
-   * Provided for argument validation with {@link RegExp} type.
+   * Checks argument validation with {@link RegExp} type.
    * @param {any} valueToCheck
+   * @throws {Error}
    */
   static checkForRegExp(valueToCheck) {
     if (valueToCheck.constructor.name !== 'RegExp') {
@@ -24,9 +26,10 @@ export class Preconditions {
   }
 
   /**
-   * Provided for check if {@link valueToCheck} is an instance of {@link type}.
+   * Checks if {@link valueToCheck} is an instance of {@link type}.
    * @param {any} valueToCheck
    * @param {any} type
+   * @throws {Error}
    */
   static checkInstance(valueToCheck, type) {
     if (!(valueToCheck instanceof type)) {
@@ -35,8 +38,9 @@ export class Preconditions {
   }
 
   /**
-   * Provided for check if {@link valueToCheck} is undefined.
+   * Checks if {@link valueToCheck} is undefined.
    * @param {any} valueToCheck
+   * @throws {Error}
    */
   static checkNotUndefined(valueToCheck) {
     if (typeof valueToCheck == 'undefined') {

@@ -24,6 +24,7 @@ export class TitleService {
   }
 
   /**
+   * Construct full title that separated by '-'.
    * @returns {string}
    */
   #createFullTitle() {

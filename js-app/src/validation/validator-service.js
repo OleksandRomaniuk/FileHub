@@ -1,8 +1,9 @@
 import {ValidationError} from './validation-error.js';
 import {ValidationErrorResult} from './validation-error-result.js';
+import {FormValidationConfig} from './form-validation-config.js';
 
 /**
- * {@code ValidatorService} was invented like a service for form validation.
+ * Service for form validation.
  */
 export class ValidatorService {
   /**

@@ -1,14 +1,14 @@
 import {Preconditions} from '../preconditions.js';
 
 /**
- * Invented to configure {@link Router}.
+ * Router configuration class.
  */
 export class RouterConfig {
   #routeToHandler;
   #homeRoute;
 
   /**
-   * @typedef {Object} RouteToPageHandler
+   * @typedef {object} RouteToPageHandler
    * @property {string} route
    * @property {Function} routeHandler
    */
@@ -37,6 +37,7 @@ export class RouterConfig {
   }
 
   /**
+   * Returns builder class for {@link RouterConfig}.
    * @returns {RouterConfigBuilder}
    */
   static getBuilder() {
@@ -52,9 +53,9 @@ class RouterConfigBuilder {
   #homeRoute;
 
   /**
-   * Map handler by route.
+   * Maps handler by route.
    * @param {string} route
-   * @param {function} pageHandler
+   * @param {Function} pageHandler
    * @returns {RouterConfigBuilder}
    */
   addRoute(route, pageHandler) {
@@ -65,7 +66,7 @@ class RouterConfigBuilder {
   }
 
   /**
-   * Map handler with reserved route '404' with handler for it.
+   * Maps handler with reserved route '404' with handler for it.
    * @param {function(HTMLElement)} pageHandler
    * @returns {RouterConfigBuilder}
    */
@@ -76,7 +77,7 @@ class RouterConfigBuilder {
   }
 
   /**
-   * Set route to home.
+   * Sets route to home.
    * @param {string} homeRoute
    * @returns {RouterConfigBuilder}
    */
@@ -87,7 +88,9 @@ class RouterConfigBuilder {
   }
 
   /**
+   * Creates and returns {@link RouterConfig}.
    * @returns {RouterConfig}
+   * @throws Error - In case when route to home is defined, but its handler is not defined.
    */
   build() {
     Preconditions.checkNotUndefined(this.#routeToHandler['404']);

@@ -1,5 +1,7 @@
+import {RouterConfig} from './router-config.js';
+
 /**
- * Was invented like routing class for web pages. It can be configured with {@link RouterConfig}.
+ * Router class for web pages. It can be configured with {@link RouterConfig}.
  */
 export class Router {
   #routerConfig;
@@ -17,7 +19,7 @@ export class Router {
   }
 
   /**
-   * Change hash in URL to {@link path}.
+   * Changes hash in URL to {@link path}.
    * @param {string} path
    */
   redirect(path) {
@@ -25,9 +27,10 @@ export class Router {
   }
 
   /**
-   * Return page handler by route.
+   * Returns page handler by route.
    * @param {string} route
-   * @returns {function}
+   * @returns {Function}
+   * @private
    */
   #routeToPage(route) {
     if (route === '') {

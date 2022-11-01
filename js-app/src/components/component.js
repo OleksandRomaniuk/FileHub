@@ -1,6 +1,5 @@
 /**
- * Abstract class for JS component that is independent and reusable.
- * Have functionality for rendering and configuring inheritors.
+ * Abstract class for JS component that must be inherited by all components.
  */
 export class Component {
   parentElement;
@@ -14,7 +13,8 @@ export class Component {
   }
 
   /**
-   * @abstract method that performed before render.
+   * Lifecycle hook that performed before render.
+   * @abstract
    * @protected
    */
   init() {
@@ -22,38 +22,43 @@ export class Component {
   }
 
   /**
-   * @abstract method that was invented for defining html code that must be rendered.
+   * Method that was invented for defining html code that must be rendered.
+   * @abstract
+   * @returns {string}
    * @protected
    */
   markup() {
   }
 
   /**
-   * @abstract lifecycle hook that performed after render.
+   * Lifecycle hook that performed after render.
+   * @abstract
    * @protected
    */
   afterRender() {}
 
   /**
-   * @protected
+   * Returns slot by its name.
    * @param {string} slotName
    * @returns {HTMLElement}
+   * @protected
    */
   getSlot(slotName) {
     return this.rootElement.querySelector(`[data-td=${slotName}]`);
   }
 
   /**
-   * @protected
+   * Creates slot with name.
    * @param {string} slotName
    * @returns {string}
+   * @protected
    */
   addSlot(slotName) {
     return `<slot data-td="${slotName}"></slot>`;
   }
 
   /**
-   * Render component.
+   * Renders component and call afterRender lifecycle hook.
    * @protected
    */
   render() {
@@ -61,8 +66,7 @@ export class Component {
     this.afterRender();
   }
   /**
-   * Render html element returned from {@link this.#createNewElement} inside {@link parentElement}
-   * if it doesn't exist before or instead of {@link rootElement}.
+   * @private
    */
   #createDomTree() {
     const isFirstRendering = !this.rootElement;
@@ -78,8 +82,8 @@ export class Component {
   }
 
   /**
-   * Crete temporary html element that contain element form {@link markup} and return it.
    * @returns {Element}
+   * @private
    */
   #createNewElement() {
     const tempElement = document.createElement('div');

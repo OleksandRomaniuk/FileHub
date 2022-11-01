@@ -1,6 +1,6 @@
 /**
- * {@code FormValidationConfig} was invented to define validation configuration for fields in forms.
- * {@link this.#fieldValidators} is an object which was intended to store kat value pair,
+ * {@code FormValidationConfig} Was invented to define validation configuration for fields in forms.
+ * {@link this.#fieldValidators} Is an object which was intended to store kat value pair,
  * where key is name attribute for input tag,
  * and value is array of validation function which must return {@link Promise}.
  */
@@ -32,7 +32,7 @@ export class FormValidationConfig {
 }
 
 /**
- * {@code FormValidationConfigBuilder} was invented
+ * {@code FormValidationConfigBuilder} Was invented
  * as a realisation of builder pattern builder
  * for simple defining {@link FormValidationConfig}.
  */
@@ -51,6 +51,7 @@ export class FormValidationConfigBuilder {
   }
 
   /**
+   * Create {@link FormValidationConfig} with {@link this.##configs}.
    * @returns {FormValidationConfig}
    */
   build() {

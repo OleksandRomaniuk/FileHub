@@ -1,8 +1,9 @@
 import {Component} from '../components/component.js';
 import {RegistrationForm} from './registration-form.js';
+import {TitleService} from '../title-service.js';
 
 /**
- * Implementation of {@link Component} that represent page with {@link RegistrationForm}.
+ * Registration page component.
  */
 export class RegistrationPage extends Component {
   #navigateListener;
@@ -29,8 +30,8 @@ export class RegistrationPage extends Component {
   }
 
   /**
-   * Subscribe user for navigate event and forward event to upper level.
-   * @param {function} listener
+   * Add listener for 'navigate' event.
+   * @param {Function} listener
    */
   onNavigateToAuthorisation(listener) {
     this.#navigateListener = listener;

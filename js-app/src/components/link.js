@@ -3,7 +3,7 @@ import {Component} from './component.js';
 const CLICK_EVENT = 'click-event';
 
 /**
- * An implementation of {@link Component} that represent link element.
+ * Link component.
  */
 export class Link extends Component {
   #linkText;
@@ -30,8 +30,8 @@ export class Link extends Component {
   }
 
   /**
-   * Subscribe user for link click event and forward event to upper level.
-   * @param {function} listener
+   * Adds listener for click event.
+   * @param {Function} listener
    */
   onClick(listener) {
     this.#eventTarget.addEventListener(CLICK_EVENT, listener);

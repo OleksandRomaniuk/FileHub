@@ -4,7 +4,7 @@ import {Button} from './button.js';
 const SUBMIT_EVENT = 'form-submit';
 
 /**
- * Base form component class, that allows to render general structure for form, with functionality to specify it.
+ * Form component.
  */
 export class Form extends Component {
   #buttonText;
@@ -23,7 +23,8 @@ export class Form extends Component {
   }
 
   /**
-   * @param {function} inputCreator
+   * Adds {@link inputCreator} to {@link this.#inputCreators}.
+   * @param {Function} inputCreator
    */
   addInput(inputCreator) {
     this.#inputCreators.push(inputCreator);
@@ -31,7 +32,7 @@ export class Form extends Component {
   }
 
   /**
-   * Add html element on the right side of the button.
+   * Adds html element on the right side of the button.
    * @param {function(HTMLElement)} footerCreator
    */
   addFooter(footerCreator) {
@@ -40,7 +41,7 @@ export class Form extends Component {
   }
 
   /**
-   * Add event listener on form.
+   * Adds event listener on form.
    * @param {function(FormData)} listener
    */
   onSubmit(listener) {

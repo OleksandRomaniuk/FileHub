@@ -7,13 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./**/**.js"
   },
-
-  "author": "Artem Semenov",
   "license": "ISC",
 
   "devDependencies": {
     "eslint": "^8.24.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-jsdoc": "^39.3.13",
     "eslint-plugin-qunit": "^7.3.1",
     "qunit": "^2.19.1"
   },

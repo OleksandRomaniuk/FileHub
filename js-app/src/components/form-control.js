@@ -1,7 +1,7 @@
 import {Component} from './component.js';
 
 /**
- * An implementation of {@link Component} that represent form group.
+ * Form control component.
  */
 export class FormControl extends Component {
   #label;
@@ -13,14 +13,14 @@ export class FormControl extends Component {
   #errorMessages = [];
 
   /**
-  * @typedef {Object} FormControlConfig
-  * @property {string} label
-  * @property {string} [type = text]
-  * @property {string} name
-  * @property {string} [placeholder]
-  * @property {string} [value]
-  * @property {[string]} [errorMessages]
-  */
+   * @typedef {object} FormControlConfig
+   * @property {string} label
+   * @property {string} [type = text]
+   * @property {string} name
+   * @property {string} [placeholder]
+   * @property {string} [value]
+   * @property {string[]} [errorMessages]
+   */
 
   /**
    * @param {HTMLElement} parent

@@ -1,11 +1,11 @@
+import {Preconditions} from '../preconditions.js';
+
 /**
  * Verify that the input values are equal.
  * @param {string} referenceValue
- * @returns {(function(*): Promise<void>)|*}
+ * @returns {(function(string): Promise<void>)|*}
  */
-import {Preconditions} from '../preconditions.js';
-
-export const validateValueEquals = (referenceValue) => { // Rename
+export const validateValueEquals = (referenceValue) => {
   Preconditions.checkType(referenceValue, 'string');
 
   return async (actualValue) => {
@@ -51,30 +51,3 @@ export const validateValueLength = (minInputLength) => {
     }
   };
 };
-
-/**
- * Render error state for input.
- * @param {HTMLElement} input
- * @param {string} message
- */
-export function renderInputError(input, message) {
-  input.classList.add('input-error');
-
-  const errorElement = document.createElement('p');
-  errorElement.classList.add('error-label');
-  errorElement.textContent = message;
-  input.parentElement.append(errorElement);
-}
-
-/**
- * Return input to normal state.
- */
-export function clearError() {
-  const inputs = [...document.getElementsByTagName('input')];
-  inputs.forEach((input) => {
-    input.classList.remove('input-error');
-    [...input.parentElement
-        .getElementsByClassName('error-label')]
-        .forEach((errorLabel) => errorLabel.remove());
-  });
-}

@@ -11,7 +11,7 @@ const REGISTRATION_PATH = 'registration';
 const AUTHORISATION_PATH = 'login';
 
 /**
- * An implementation of component that was invented like single point of entry ro FileHub application.
+ * Single point of entry to FileHub application.
  */
 export class Application extends Component {
   /**
@@ -50,7 +50,6 @@ export class Application extends Component {
 
   /**
    * @inheritDoc
-   * @returns {string}
    */
   markup() {
     return `<slot></slot>`;

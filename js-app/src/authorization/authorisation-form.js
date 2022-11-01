@@ -15,18 +15,13 @@ const EMAIL_REGEX = /^[a-z\d+.\-_@]+$/;
 const NAVIGATE_EVENT = 'navigate';
 
 /**
- * Implementation of {@link Component} that represent authorisation form.
+ * Authorisation form component.
  */
 export class AuthorisationForm extends Component {
   #inputs = {};
   #eventTarget = new EventTarget();
   #email = '';
   #password = '';
-
-  /**
-   * @typedef ValidationErrors
-   * @type {{'[EMAIL_NAME]': [string], '[PASSWORD_NAME]': [string]}}
-   */
   #validationErrors = {
     [EMAIL_NAME]: [],
     [PASSWORD_NAME]: [],
@@ -41,7 +36,7 @@ export class AuthorisationForm extends Component {
   }
 
   /**
-   * Configure {@link Form} with inputs, footer and validation.
+   * @inheritDoc
    */
   afterRender() {
     const form = new Form(this.rootElement, 'Sign Up');
@@ -85,8 +80,8 @@ export class AuthorisationForm extends Component {
   }
 
   /**
-   * Forward navigate event to upper level.
-   * @param {function} listener
+   * Adds listener for navigate event.
+   * @param {Function} listener
    */
   onNavigateToRegistration(listener) {
     this.#eventTarget.addEventListener(NAVIGATE_EVENT, () => {
@@ -96,6 +91,7 @@ export class AuthorisationForm extends Component {
 
   /**
    * @param {FormData} formData
+   * @private
    */
   #validateForm(formData) {
     this.#setValidationErrors([]);
@@ -118,7 +114,8 @@ export class AuthorisationForm extends Component {
   }
 
   /**
-   * @param {ValidationErrors} errors
+   * @param {{}} errors
+   * @private
    */
   #setValidationErrors(errors) {
     this.#validationErrors = errors;

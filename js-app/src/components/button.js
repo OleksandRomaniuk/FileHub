@@ -1,14 +1,14 @@
 import {Component} from './component.js';
 
 /**
- * An implementation of {@link Component} that represent button.
+ * Button component.
  */
 export class Button extends Component {
   #text;
 
   /**
    * @param {HTMLElement} parent
-   * @param {string} title - text in button.
+   * @param {string} title - Text in button.
    */
   constructor(parent, title) {
     super(parent);
