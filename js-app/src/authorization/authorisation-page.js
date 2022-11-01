@@ -7,7 +7,8 @@ import {TitleService} from '../title-service.js';
  */
 export class AuthorisationPage extends Component {
   #navigateListener;
-
+  #submitListener;
+  #authorisationData;
   /**
    * @param {HTMLElement} parent
    * @param {TitleService} titleService
@@ -27,6 +28,11 @@ export class AuthorisationPage extends Component {
     form.onNavigateToRegistration(() => {
       this?.#navigateListener();
     });
+
+    form.onSubmit((authorisationData) => {
+      this.#authorisationData = authorisationData;
+      this?.#submitListener();
+    });
   }
 
   /**
@@ -35,6 +41,14 @@ export class AuthorisationPage extends Component {
    */
   onNavigateToRegistration(listener) {
     this.#navigateListener = listener;
+  }
+
+  /**
+   * Subscribe user on success submit event and forward event to upper level.
+   * @param {Function} listener
+   */
+  onSuccessSubmit(listener) {
+    this.#submitListener = listener;
   }
 
   /**

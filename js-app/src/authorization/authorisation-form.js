@@ -5,6 +5,7 @@ import {validateValueLength, validateValueWithRegex} from '../validation/validat
 import {ValidatorService} from '../validation/validator-service.js';
 import {FormValidationConfig} from '../validation/form-validation-config.js';
 import {Link} from '../components/link.js';
+import {AuthorisationData} from '../authorisation-data.js';
 
 const EMAIL_NAME = 'email';
 
@@ -13,6 +14,8 @@ const PASSWORD_NAME = 'password';
 const EMAIL_REGEX = /^[a-z\d+.\-_@]+$/;
 
 const NAVIGATE_EVENT = 'navigate';
+
+const SUBMIT_EVENT = 'form-submit';
 
 /**
  * Authorisation form component.
@@ -72,10 +75,20 @@ export class AuthorisationForm extends Component {
     });
 
     form.onSubmit((formData) => {
-      this.#validateForm(formData);
-      this.#email = formData.get(EMAIL_NAME);
-      this.#password = formData.get(PASSWORD_NAME);
-      this.render();
+      this.#validateForm(formData)
+          .then(() => {
+            this.#email = '';
+            this.#password = '';
+            this.render();
+            const event = new CustomEvent(SUBMIT_EVENT,
+                {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
+            this.#eventTarget.dispatchEvent(event);
+          })
+          .catch(() => {
+            this.#email = formData.get(EMAIL_NAME);
+            this.#password = formData.get(PASSWORD_NAME);
+            this.render();
+          });
     });
   }
 
@@ -90,7 +103,18 @@ export class AuthorisationForm extends Component {
   }
 
   /**
+   * Add listener for submit event.
+   * @param {Function} listener
+   */
+  onSubmit(listener) {
+    this.#eventTarget.addEventListener(SUBMIT_EVENT, (event) => {
+      listener(event.detail);
+    });
+  }
+
+  /**
    * @param {FormData} formData
+   * @returns {Promise}
    * @private
    */
   #validateForm(formData) {
@@ -101,7 +125,7 @@ export class AuthorisationForm extends Component {
         .addField(PASSWORD_NAME, [validateValueLength(6)])
         .build();
 
-    ValidatorService.validate(formData, config)
+    return ValidatorService.validate(formData, config)
         .catch((result) => {
           const errors = result.errors.reduce((hash, error) => {
             const prevErrors = hash[error.fieldName] || [];
@@ -110,6 +134,7 @@ export class AuthorisationForm extends Component {
           }, {});
 
           this.#setValidationErrors(errors);
+          return Promise.reject(new Error());
         });
   }
 

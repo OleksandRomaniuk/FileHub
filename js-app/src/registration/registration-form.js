@@ -5,6 +5,7 @@ import {FormValidationConfig} from '../validation/form-validation-config.js';
 import {validateValueEquals, validateValueLength, validateValueWithRegex} from '../validation/validators.js';
 import {ValidatorService} from '../validation/validator-service.js';
 import {Link} from '../components/link.js';
+import {AuthorisationData} from '../authorisation-data.js';
 
 const EMAIL_NAME = 'email';
 
@@ -15,6 +16,8 @@ const CONFIRM_PASSWORD_NAME = 'confirmPassword';
 const EMAIL_REGEX = /^[a-z\d+.\-_@]+$/;
 
 const NAVIGATE_EVENT = 'navigate';
+
+const SUBMIT_EVENT = 'form-submit';
 
 /**
  * Registration form component.
@@ -87,11 +90,22 @@ export class RegistrationForm extends Component {
     });
 
     form.onSubmit((formData) => {
-      this.#validateForm(formData);
-      this.#email = formData.get(EMAIL_NAME);
-      this.#password = formData.get(PASSWORD_NAME);
-      this.#confirmPassword = formData.get(CONFIRM_PASSWORD_NAME);
-      this.render();
+      this.#validateForm(formData)
+          .then(() => {
+            this.#email = '';
+            this.#password = '';
+            this.#confirmPassword = '';
+            this.render();
+            const event = new CustomEvent(SUBMIT_EVENT,
+                {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
+            this.#eventTarget.dispatchEvent(event);
+          })
+          .catch(() => {
+            this.#email = formData.get(EMAIL_NAME);
+            this.#password = formData.get(PASSWORD_NAME);
+            this.#confirmPassword = formData.get(CONFIRM_PASSWORD_NAME);
+            this.render();
+          });
     });
   }
 
@@ -106,7 +120,18 @@ export class RegistrationForm extends Component {
   }
 
   /**
+   * Adds listener for submit event.
+   * @param {Function} listener
+   */
+  onSubmit(listener) {
+    this.#eventTarget.addEventListener(SUBMIT_EVENT, (event) => {
+      listener(event.detail);
+    });
+  }
+
+  /**
    * @param {FormData} formData
+   * @returns {Promise}
    * @private
    */
   #validateForm(formData) {
@@ -119,7 +144,7 @@ export class RegistrationForm extends Component {
           validateValueEquals(formData.get(PASSWORD_NAME))])
         .build();
 
-    ValidatorService.validate(formData, config)
+    return ValidatorService.validate(formData, config)
         .catch((result) => {
           const errors = result.errors.reduce((hash, error) => {
             const prevErrors = hash[error.fieldName] || [];
@@ -128,6 +153,7 @@ export class RegistrationForm extends Component {
           }, {});
 
           this.#setValidationErrors(errors);
+          return Promise.reject(new Error());
         });
   }
 
