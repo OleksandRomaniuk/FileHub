@@ -1,14 +1,16 @@
 {
-  "name": "filehub",
+  "name": "js-app",
   "version": "1.0.0",
   "description": "",
-  "main": "validation/authorization.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./**/**.js"
   },
-  "author": "",
+
+  "author": "Artem Semenov",
   "license": "ISC",
+
   "devDependencies": {
     "eslint": "^8.24.0",
     "eslint-config-google": "^0.14.0",
