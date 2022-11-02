@@ -1,7 +1,6 @@
 /**
  * Provided as a service for title creating.
  */
-
 export class TitleService {
   #mainTitle;
   #separator;

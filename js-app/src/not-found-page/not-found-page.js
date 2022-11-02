@@ -1,5 +1,5 @@
-import {Link} from '../link.js';
-import {Component} from '../component.js';
+import {Component} from '../components/component.js';
+import {Link} from '../components/link.js';
 
 /**
  * An implementation of {@link Component} that represent 404 error page.
@@ -9,12 +9,10 @@ export class NotFoundPage extends Component {
 
   /**
    * @param {HTMLElement} parent
-   * @param {TitleService} titleService
    */
-  constructor(parent, titleService) {
+  constructor(parent) {
     super(parent);
     this.init();
-    titleService.title = ['404'];
   }
 
   /**
@@ -57,6 +55,5 @@ export class NotFoundPage extends Component {
 </div>
 
     `;
-
   }
 }

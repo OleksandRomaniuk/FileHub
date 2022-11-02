@@ -1,5 +1,5 @@
 /**
- * {@code FormValidationConfig} was invented to define validation configuration for fields in forms.
+ * FormValidationConfig was invented to define validation configuration for fields in forms.
  * {@link this.#fieldValidators} is an object which was intended to store kat value pair,
  * where key is name attribute for input tag,
  * and value is array of validation function which must return {@link Promise}.
