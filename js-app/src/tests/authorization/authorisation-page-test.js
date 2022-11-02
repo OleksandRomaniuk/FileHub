@@ -13,7 +13,7 @@ module('Authorisation page component', () => {
 
     assert.strictEqual(element, null, 'Should be null');
 
-    const titleService = new TitleService();
+     const titleService = new TitleService();
 
     new AuthorisationPage(fixture, titleService);
     const actualPageMarkup = fixture.querySelector('[data-td="authorisation-page"]');

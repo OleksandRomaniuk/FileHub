@@ -14,7 +14,7 @@ export class RegistrationPage extends Component {
   constructor(parent, titleService) {
     super(parent);
     this.init();
-    titleService.title = ['Sign Up'];
+     titleService.title = ['Sign Up'];
   }
 
   /**
