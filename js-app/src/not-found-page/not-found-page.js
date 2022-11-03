@@ -1,21 +1,18 @@
 import {Component} from '../components/component.js';
 import {Link} from '../components/link.js';
-import {TitleService} from '../title-service.js';
 
 /**
- * 404 error page component.
+ * An implementation of {@link Component} that represent 404 error page.
  */
 export class NotFoundPage extends Component {
   #navigateListener;
 
   /**
    * @param {HTMLElement} parent
-   * @param {TitleService} titleService
    */
-  constructor(parent, titleService) {
+  constructor(parent) {
     super(parent);
     this.init();
-    titleService.title = ['404'];
   }
 
   /**
@@ -31,8 +28,8 @@ export class NotFoundPage extends Component {
   }
 
   /**
-   * Adds listener for 'navigate' event.
-   * @param {Function} listener
+   * Subscribe user for navigate event and forward event to upper level.
+   * @param {function} listener
    */
   onNavigateToHome(listener) {
     this.#navigateListener = listener;
@@ -58,6 +55,5 @@ export class NotFoundPage extends Component {
 </div>
 
     `;
-
   }
 }
