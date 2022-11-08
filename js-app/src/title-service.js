@@ -1,3 +1,5 @@
+import {Preconditions} from './preconditions.js';
+
 /**
  * Provided as a service for title creating.
  */
@@ -11,6 +13,8 @@ export class TitleService {
    * @param {string} separator
    */
   constructor(mainTitle, separator) {
+    Preconditions.checkType(mainTitle, 'string');
+    Preconditions.checkType(separator, 'string');
     this.#mainTitle = mainTitle;
     this.#separator = separator;
   }

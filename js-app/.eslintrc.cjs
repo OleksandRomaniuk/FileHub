@@ -5,7 +5,8 @@ module.exports = {
   },
   'extends': [
     'google',
-    'plugin:qunit/recommended',
+    "plugin:jest/recommended",
+    "plugin:jest/style"
   ],
   'overrides': [],
   'parserOptions': {
@@ -13,7 +14,6 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
-    'eslint-plugin-qunit',
     'jsdoc',
   ],
   'rules': {

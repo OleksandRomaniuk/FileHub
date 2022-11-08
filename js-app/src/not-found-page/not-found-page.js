@@ -1,18 +1,21 @@
 import {Component} from '../components/component.js';
 import {Link} from '../components/link.js';
+import {TitleService} from '../title-service.js';
 
 /**
- * An implementation of {@link Component} that represent 404 error page.
+ * 404 error page component.
  */
 export class NotFoundPage extends Component {
   #navigateListener;
 
   /**
    * @param {HTMLElement} parent
+   * @param {TitleService} titleService
    */
-  constructor(parent) {
+  constructor(parent, titleService) {
     super(parent);
     this.init();
+    titleService.title = ['404'];
   }
 
   /**
@@ -28,8 +31,8 @@ export class NotFoundPage extends Component {
   }
 
   /**
-   * Subscribe user for navigate event and forward event to upper level.
-   * @param {function} listener
+   * Adds listener for 'navigate' event.
+   * @param {Function} listener
    */
   onNavigateToHome(listener) {
     this.#navigateListener = listener;
@@ -41,19 +44,21 @@ export class NotFoundPage extends Component {
    */
   markup() {
     return `
-    <div id="notfound">
-    <div class="notfound">
-        <div class="notfound-bg">
-            <div></div>
-            <div></div>
-            <div></div>
+        <section class="notFound" data-td="page-not-found">
+        <div class="img">
+        <img src="https://assets.codepen.io/5647096/backToTheHomepage.png" alt="Back to the Homepage"/>
+        <img src="https://assets.codepen.io/5647096/Delorean.png" alt="El Delorean, El Doc y Marti McFly"/>
         </div>
-        <h1>oops!</h1>
-        <h2>Error 404 : Page Not Found</h2>
-        <a href="#">go back</a>
-    </div>
-</div>
-
-    `;
+        <div class="text">
+        <h1>404</h1>
+        <h2 class="page-not">PAGE NOT FOUND</h2>
+        <h3>BACK TO HOME?</h3>
+        <p>
+            ${this.addSlot('link')}
+        </p>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">NO</a>
+        </div>
+        </section>
+        `;
   }
 }

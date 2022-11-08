@@ -26,25 +26,14 @@ export class Preconditions {
   }
 
   /**
-   * Checks if {@link valueToCheck} is an instance of {@link type}.
-   * @param {any} valueToCheck
-   * @param {any} type
-   * @throws {Error}
-   */
-  static checkInstance(valueToCheck, type) {
-    if (!(valueToCheck instanceof type)) {
-      throw new Error(`Expected ${type} but ${valueToCheck.constructor.name} provided`);
-    }
-  }
-
-  /**
    * Checks if {@link valueToCheck} is undefined.
    * @param {any} valueToCheck
+   * @param {string} errorMessage
    * @throws {Error}
    */
-  static checkNotUndefined(valueToCheck) {
+  static checkNotUndefined(valueToCheck, errorMessage) {
     if (typeof valueToCheck == 'undefined') {
-      throw new Error(`Value is undefined.`);
+      throw new Error(errorMessage);
     }
   }
 }

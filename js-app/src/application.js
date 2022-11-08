@@ -1,11 +1,11 @@
 import {Component} from './components/component.js';
 import {AuthorisationPage} from './authorization/authorisation-page.js';
 import {RegistrationPage} from './registration/registration-page.js';
-import {NotFoundPage} from './not-found-page/not-found-page.js';
 import {TitleService} from './title-service.js';
 import {Router} from './router/router.js';
 import {RouterConfig} from './router/router-config.js';
 import {FilePage} from './file-page/file-page.js';
+import {NotFoundPage} from './not-found-page/not-found-page.js';
 
 const REGISTRATION_PATH = 'registration';
 
