@@ -15,17 +15,20 @@ describe('Registration page component', () => {
   let password;
   let confirmPassword;
   let formMarkup;
+  let apiService;
 
   beforeEach(() => {
     document.body.innerHTML = '';
     fixture = document.body;
 
-    jest.spyOn(TitleService.prototype, 'title', 'set')
-        .mockImplementation(() => {});
-
     const titleService = new TitleService('', '');
 
-    page = new RegistrationPage(fixture, titleService, new ApiService(new RequestService()));
+    jest.spyOn(titleService, 'title', 'set')
+        .mockImplementation(() => {});
+
+    apiService = new ApiService(new RequestService());
+
+    page = new RegistrationPage(fixture, apiService, titleService);
     const formControls = fixture.querySelectorAll('[data-td="form-control"]');
 
     email = formControls[0].getElementsByTagName('input')[0];
@@ -57,7 +60,7 @@ describe('Registration page component', () => {
   });
 
   test('Should add listener for submit event', (done) => {
-    const registerMock = jest.spyOn(ApiService.prototype, 'register')
+    const registerMock = jest.spyOn(apiService, 'register')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             resolve();
@@ -91,9 +94,9 @@ describe('Registration page component', () => {
   });
 
   test('Should render server error in form', (done) => {
-    const registerMock = jest.spyOn(ApiService.prototype, 'register')
+    const registerMock = jest.spyOn(apiService, 'register')
         .mockImplementation(async () => {
-          return await new Promise((resolve) => {
+          return await new Promise(() => {
             throw new DefaultServerError();
           });
         });
@@ -116,7 +119,7 @@ describe('Registration page component', () => {
   });
 
   test('Should render server validation error in form', (done) => {
-    const registerMock = jest.spyOn(ApiService.prototype, 'register')
+    const registerMock = jest.spyOn(apiService, 'register')
         .mockImplementation(async () => {
           throw new ServerValidationError(
               [{field: 'email', message: 'Email error'},

@@ -12,15 +12,15 @@ describe('logIn', () => {
   });
 
   test('LogIn method throw an error with response status 401', (done) => {
-    jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(401, {});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -34,17 +34,16 @@ describe('logIn', () => {
     });
   });
 
-
   test('LogIn method is called', (done) => {
-    const postMock = jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    const postMock = jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(200, {});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -60,15 +59,15 @@ describe('logIn', () => {
 
 
   test('LogIn method throw an error with response status 400', (done) => {
-    jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(400, {});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -91,15 +90,15 @@ describe('register', () => {
   test('Register method throw an error with response status 422', (done) => {
     const errors = [{field: 'email', message: 'Email error'},
       {field: 'password', message: 'Password error'}];
-    jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(422, {errors: errors});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -115,15 +114,15 @@ describe('register', () => {
 
 
   test('Register method is called', (done) => {
-    const postMock = jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    const postMock = jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(200, {});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -140,15 +139,15 @@ describe('register', () => {
 
 
   test('Register method throw an error with response status 400', (done) => {
-    jest.spyOn(RequestService.prototype, 'postJson')
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             const response = new Response(400, {});
             resolve(response);
           });
         });
-
-    const requestService = new RequestService();
 
     const apiService = new ApiService(requestService);
 
@@ -158,6 +157,75 @@ describe('register', () => {
             expect(error.getError()).toBe('Error occurred. Please try again.');
           });
 
+      done();
+    });
+  });
+});
+
+describe('getUser', () => {
+  test('Should throw default server error with not 200 response status', (done) => {
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'getJson')
+        .mockImplementation(async () => {
+          return await new Promise((resolve) => {
+            const response = new Response(400, {});
+            resolve(response);
+          });
+        });
+
+    const apiService = new ApiService(requestService);
+
+    setTimeout(() => {
+      apiService.getUser()
+          .catch((error) => {
+            expect(error.getError()).toEqual('Error occurred. Please try again.');
+          });
+
+      done();
+    });
+  });
+
+  test('Should return username when response status 200', (done) => {
+    const requestService = new RequestService();
+
+    jest.spyOn(requestService, 'getJson')
+        .mockImplementation(async () => {
+          return await new Promise((resolve) => {
+            const response = new Response(200, {username: 'testName'});
+            resolve(response);
+          });
+        });
+
+    const apiService = new ApiService(requestService);
+
+    setTimeout(() => {
+      apiService.getUser()
+          .then((username) => {
+            expect(username).toEqual('testName');
+          });
+
+      done();
+    });
+  });
+
+  test('Should call getJson method', (done) => {
+    const requestService = new RequestService();
+
+    const getJsonMock = jest.spyOn(requestService, 'getJson')
+        .mockImplementation(async () => {
+          return await new Promise((resolve) => {
+            const response = new Response(200, {username: 'testName'});
+            resolve(response);
+          });
+        });
+
+    const apiService = new ApiService(requestService);
+
+    setTimeout(() => {
+      apiService.getUser();
+      expect(getJsonMock).toHaveBeenCalledTimes(1);
+      expect(getJsonMock).toHaveBeenLastCalledWith('api/getUser', undefined);
       done();
     });
   });

@@ -12,17 +12,19 @@ describe('Authorisation page component', () => {
   let email;
   let password;
   let formMarkup;
+  let apiService;
 
   beforeEach(() => {
     document.body.innerHTML = '';
     fixture = document.body;
 
-    jest.spyOn(TitleService.prototype, 'title', 'set')
-        .mockImplementation(() => {});
-
     const titleService = new TitleService('', '');
 
-    page = new AuthorisationPage(fixture, titleService, new ApiService(new RequestService()));
+    jest.spyOn(titleService, 'title', 'set')
+        .mockImplementation(() => {});
+
+    apiService = new ApiService(new RequestService());
+    page = new AuthorisationPage(fixture, apiService, titleService);
 
     const formControls = fixture.querySelectorAll('[data-td="form-control"]');
 
@@ -56,7 +58,7 @@ describe('Authorisation page component', () => {
   });
 
   test('Should add listener for submit event', (done) => {
-    const logInMock = jest.spyOn(ApiService.prototype, 'logIn')
+    const logInMock = jest.spyOn(apiService, 'logIn')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
             resolve();
@@ -84,7 +86,7 @@ describe('Authorisation page component', () => {
   });
 
   test('Should render server error in form', (done) => {
-    const logInMock = jest.spyOn(ApiService.prototype, 'logIn')
+    const logInMock = jest.spyOn(apiService, 'logIn')
         .mockImplementation(async () => {
           throw new ServerLoginError();
         });

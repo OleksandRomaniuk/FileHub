@@ -32,7 +32,7 @@ export class UserProfile extends Component {
       }
     });
     this.#stateManagementService.addStateListener('userError', () => {
-      if (this.#stateManagementService.state.error) {
+      if (this.#stateManagementService.state.userError) {
         this.parentElement.innerHTML = '';
         new ErrorMessage(this.parentElement,
             this.#stateManagementService.state.userError.getError());
@@ -45,12 +45,5 @@ export class UserProfile extends Component {
       }
     });
     this.#stateManagementService.dispatch(new UserAction());
-  }
-
-  /**
-   * @inheritDoc
-   */
-  markup() {
-    return ``;
   }
 }

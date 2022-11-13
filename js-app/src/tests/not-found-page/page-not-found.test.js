@@ -18,23 +18,22 @@ describe('Page not found component', () => {
     expect.assertions(1);
 
     const pageMarkup =
-            `<section class="notFound" data-td="page-not-found">
-        <div class="img">
-        <img src="https://assets.codepen.io/5647096/backToTheHomepage.png" alt="Back to the Homepage"\>
-        <img src="https://assets.codepen.io/5647096/Delorean.png" alt="El Delorean, El Doc y Marti McFly"\>
+        `
+    <div id="notfound">
+    <div class="notfound">
+        <div class="notfound-bg">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <div class="text">
-        <h1>404</h1>
-        <h2 class="page-not">PAGE NOT FOUND</h2>
-        <h3>BACK TO HOME?</h3>
-        <p>
-            <slot data-td="link"><a href="" title="YES" data-td="link">
-            YES
-        </a></slot>
-        </p>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">NO</a>
-        </div>
-        </section>`;
+        <h1>oops!</h1>
+        <h2>Error 404 : Page Not Found</h2>
+        <a href="#">go back</a>
+    </div>
+</div>
+
+    `;
+
 
     expect(fixture.innerHTML).toBe(pageMarkup);
   });

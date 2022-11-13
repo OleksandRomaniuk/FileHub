@@ -65,10 +65,10 @@ export class ApiService {
     return this.#requestService.getJson('api/getUser', this.#userToken)
         .then((response) => {
           if (response.code !== 200) {
-            return Promise.reject(new DefaultServerError());
+            throw new DefaultServerError();
           }
           if (response.code === 200) {
-            return Promise.resolve(response.body.userName);
+            return response.body.username;
           }
         });
   }
