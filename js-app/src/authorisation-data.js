@@ -13,4 +13,18 @@ export class AuthorisationData {
     this.#loginName = loginName;
     this.#password = password;
   }
+
+  /**
+   * @returns {string}
+   */
+  get loginName() {
+    return this.#loginName;
+  }
+
+  /**
+   * @returns {string}
+   */
+  get password() {
+    return this.#password;
+  }
 }

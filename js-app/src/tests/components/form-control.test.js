@@ -18,7 +18,7 @@ describe('Form control component', () => {
       name: 'test-name',
     });
     formControl.value = 'Password';
-    const errors = ['You can use only latin letters, numbers, and _,@,.,+.-', 'Field is not match regex'];
+    const errors = ['Field is not valid', 'Field is not match regex'];
     formControl.errorMessages = errors;
 
     const actualFormControl = fixture.querySelector('[data-td="form-control"]');

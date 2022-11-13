@@ -10,6 +10,7 @@ export class Form extends Component {
   #buttonText;
   #inputCreators = [];
   #footerCreator;
+  #serverError;
   #submitTarget = new EventTarget();
 
   /**
@@ -52,6 +53,14 @@ export class Form extends Component {
   }
 
   /**
+   * @param {string} value
+   */
+  set serverError(value) {
+    this.#serverError = value;
+    this.render();
+  }
+
+  /**
    * @inheritDoc
    */
   afterRender() {
@@ -82,7 +91,10 @@ export class Form extends Component {
             <div class="form-footer">
                 ${this.addSlot('button')}
                 ${this.addSlot('footer')}
-            </div>        
+            </div>  
+            <div class="${this.#serverError ? 'server-error' : ''}">
+                ${this.#serverError ?? ''}
+            </div>      
         </form>
         `;
   }

@@ -1,6 +1,6 @@
 import {Component} from '../components/component.js';
 import {Link} from '../components/link.js';
-import {TitleService} from '../title-service.js';
+import {TitleService} from '../services/title-service.js';
 
 /**
  * 404 error page component.

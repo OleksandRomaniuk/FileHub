@@ -1,5 +1,5 @@
 import {Link} from '../../components/link.js';
-import {jest} from '@jest/globals';
+
 
 describe('Link component', () => {
   let fixture;
@@ -24,13 +24,11 @@ describe('Link component', () => {
   test('Should add listener on click event', () => {
     expect.assertions(1);
 
-    const mockFn = jest.fn();
-
-    link.onClick(mockFn);
+    link.onClick(() => {
+      expect(true).toBe(true);
+    });
 
     const renderedLink = fixture.querySelector(`[data-td="link"]`);
     renderedLink.click();
-
-    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 });

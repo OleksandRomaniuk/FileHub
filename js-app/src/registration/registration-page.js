@@ -1,6 +1,7 @@
 import {Component} from '../components/component.js';
 import {RegistrationForm} from './registration-form.js';
-import {TitleService} from '../title-service.js';
+import {TitleService} from '../services/title-service.js';
+import {ApiService} from '../rest/api-service.js';
 
 /**
  * Registration page component.
@@ -8,16 +9,18 @@ import {TitleService} from '../title-service.js';
 export class RegistrationPage extends Component {
   #navigateListener;
   #submitListener;
-  #registrationData;
+  #apiService;
 
   /**
    * @param {HTMLElement} parent
    * @param {TitleService} titleService
+   * @param  {ApiService} apiService
    */
-  constructor(parent, titleService) {
+  constructor(parent, titleService, apiService) {
     super(parent);
     this.init();
     titleService.title = ['Sign Up'];
+    this.#apiService = apiService;
   }
 
   /**
@@ -31,8 +34,13 @@ export class RegistrationPage extends Component {
     });
 
     form.onSubmit((registrationData) => {
-      this.#registrationData = registrationData;
-      this?.#submitListener();
+      this.#apiService.register(registrationData)
+          .then(() => {
+            this?.#submitListener();
+          })
+          .catch((error) => {
+            form.handleServerError(error);
+          });
     });
   }
 
@@ -59,7 +67,9 @@ export class RegistrationPage extends Component {
     return `
       <div class="wrapper" data-td="registration-page">
         <header class="page-header">
-            <a href="#" title="TeamDev"><img src="./images/logo.png" alt="TeamDev" width="200" height="37"></a>
+            <a href="#" title="TeamDev">
+                <img src="../../static/images/logo.png" alt="TeamDev" width="200" height="37">\
+            </a>
         </header>
         <div class="box">
             <h1>Sign up to FileHub</h1>

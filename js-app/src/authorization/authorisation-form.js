@@ -25,6 +25,7 @@ export class AuthorisationForm extends Component {
   #eventTarget = new EventTarget();
   #email = '';
   #password = '';
+  #serverError;
   #validationErrors = {
     [EMAIL_NAME]: [],
     [PASSWORD_NAME]: [],
@@ -74,21 +75,20 @@ export class AuthorisationForm extends Component {
       });
     });
 
+    form.serverError = this.#serverError;
+
     form.onSubmit((formData) => {
+      this.serverError = '';
       this.#validateForm(formData)
           .then(() => {
-            this.#email = '';
-            this.#password = '';
-            this.render();
             const event = new CustomEvent(SUBMIT_EVENT,
                 {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
             this.#eventTarget.dispatchEvent(event);
           })
-          .catch(() => {
-            this.#email = formData.get(EMAIL_NAME);
-            this.#password = formData.get(PASSWORD_NAME);
-            this.render();
-          });
+          .catch(() => {});
+      this.#email = formData.get(EMAIL_NAME);
+      this.#password = formData.get(PASSWORD_NAME);
+      this.render();
     });
   }
 
@@ -110,6 +110,14 @@ export class AuthorisationForm extends Component {
     this.#eventTarget.addEventListener(SUBMIT_EVENT, (event) => {
       listener(event.detail);
     });
+  }
+
+  /**
+   * @param {string} value
+   */
+  set serverError(value) {
+    this.#serverError = value;
+    this.render();
   }
 
   /**
