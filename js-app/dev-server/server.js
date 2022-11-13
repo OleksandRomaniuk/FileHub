@@ -19,7 +19,7 @@ app.post('/register', (req, res) => {
 app.get('/getUser', (req, res) => {
   setTimeout(() => {
     res.statusCode = 200;
-    res.send({username: 'Artem Semenov'});
+    res.send({username: 'Oleksandr Romaniuk'});
   }, 1000);
 });
 
