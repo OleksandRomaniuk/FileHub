@@ -1,6 +1,7 @@
 import {Component} from '../components/component.js';
 import {RegistrationForm} from './registration-form.js';
-import {ApplicationContext} from '../application-context.js';
+import {ApiService} from '../rest/api-service.js';
+import {TitleService} from '../services/title-service.js';
 
 /**
  * Registration page component.
@@ -12,13 +13,14 @@ export class RegistrationPage extends Component {
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
+   * @param {ApiService} apiService
+   * @param {TitleService} titleService
    */
-  constructor(parent, applicationContext) {
+  constructor(parent, apiService, titleService) {
     super(parent);
     this.init();
-    applicationContext.titleService.title = ['Sign Up'];
-    this.#apiService = applicationContext.apiService;
+    titleService.title = ['Sign Up'];
+    this.#apiService = apiService;
   }
 
   /**

@@ -119,7 +119,8 @@ describe('Registration page component', () => {
     const registerMock = jest.spyOn(ApiService.prototype, 'register')
         .mockImplementation(async () => {
           throw new ServerValidationError(
-              {'email': ['Email error'], 'password': ['Password error']});
+              [{field: 'email', message: 'Email error'},
+                {field: 'password', message: 'Password error'}]);
         });
 
     expect.assertions(4);

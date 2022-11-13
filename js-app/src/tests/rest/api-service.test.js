@@ -89,7 +89,8 @@ describe('register', () => {
   });
 
   test('Register method throw an error with response status 422', (done) => {
-    const errors = {'email': 'Error', 'password': 'Error'};
+    const errors = [{field: 'email', message: 'Email error'},
+      {field: 'password', message: 'Password error'}];
     jest.spyOn(RequestService.prototype, 'postJson')
         .mockImplementation(async () => {
           return await new Promise((resolve) => {
@@ -105,7 +106,7 @@ describe('register', () => {
     setTimeout(() => {
       apiService.register(new AuthorisationData('', ''))
           .catch((error) => {
-            expect(error.getError()).toEqual(errors);
+            expect(error.getError()).toEqual({'email': ['Email error'], 'password': ['Password error']});
           });
 
       done();

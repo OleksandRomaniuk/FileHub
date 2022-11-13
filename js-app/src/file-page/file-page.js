@@ -1,25 +1,26 @@
 import {Component} from '../components/component.js';
-import {UserMenu} from '../user-menu/user-menu.js';
-import {ApplicationContext} from '../application-context.js';
+import {UserProfile} from '../user-menu/user-profile.js';
+import {Link} from '../components/link.js';
+import {StateManagementService} from '../services/state-management-service.js';
+import {TitleService} from '../services/title-service.js';
 
 /**
  * Implementation of {@link Component} that represent page with user files.
  */
 export class FilePage extends Component {
   #stateManagementService;
-  #applicationContext;
   #logOutListener;
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
+   * @param {StateManagementService} stateManagementService
+   * @param {TitleService} titleService
    */
-  constructor(parent, applicationContext) {
+  constructor(parent, stateManagementService, titleService) {
     super(parent);
-    this.#stateManagementService = applicationContext.stateManagementService;
-    this.#applicationContext = applicationContext;
+    this.#stateManagementService = stateManagementService;
     this.init();
-    applicationContext.titleService.title = ['Files'];
+    titleService.title = ['Files'];
   }
 
   /**
@@ -27,9 +28,12 @@ export class FilePage extends Component {
    */
   afterRender() {
     const userSlot = this.getSlot('user-data');
-    const userMenu = new UserMenu(userSlot, this.#applicationContext);
-    userMenu.onLogOut(() =>{
-      this?.#logOutListener();
+    new UserProfile(userSlot, this.#stateManagementService);
+    const logOutLinkSlot = this.getSlot('log-out-link');
+    const logOutLink = new Link(logOutLinkSlot, 'Log Out');
+    logOutLink.iconClass = 'glyphicon-log-out';
+    logOutLink.onClick(() => {
+      this.#logOutListener();
     });
   }
 
@@ -52,7 +56,14 @@ export class FilePage extends Component {
             <img src="../../static/images/logo.png" alt="TeamDev" width="200" height="37">
         </a>
         <div class="user-menu">
-            ${this.addSlot('user-data')}
+            <ul class="menu-content">
+                <li>
+                    ${this.addSlot('user-data')}
+                </li>
+                <li>
+                    ${this.addSlot('log-out-link')}
+                </li>
+            </ul>
         </div>
     </header>
       </div>`;

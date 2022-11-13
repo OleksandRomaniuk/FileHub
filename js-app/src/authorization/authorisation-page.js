@@ -1,6 +1,7 @@
 import {Component} from '../components/component.js';
 import {AuthorisationForm} from './authorisation-form.js';
-import {ApplicationContext} from '../application-context.js';
+import {ApiService} from '../rest/api-service.js';
+import {TitleService} from '../services/title-service.js';
 
 /**
  * Authorisation page component.
@@ -13,13 +14,14 @@ export class AuthorisationPage extends Component {
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
+   * @param {ApiService} apiService
+   * @param {TitleService} titleService
    */
-  constructor(parent, applicationContext) {
+  constructor(parent, apiService, titleService) {
     super(parent);
     this.init();
-    this.#apiService = applicationContext.apiService;
-    applicationContext.titleService.title = ['Sign In'];
+    this.#apiService = apiService;
+    titleService.title = ['Sign In'];
   }
 
   /**

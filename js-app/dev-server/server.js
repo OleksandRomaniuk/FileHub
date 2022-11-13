@@ -9,7 +9,11 @@ app.post('/login', (req, res) => {
 
 app.post('/register', (req, res) => {
   res.statusCode = 422;
-  res.send({errors: {'email': ['Error']}});
+  res.send({errors: [{field: 'email', message: 'Error'},
+    {field: 'email', message: 'Error1'},
+    {field: 'email', message: 'Error2'},
+    {field: 'password', message: 'Error1'}]});
+  // {'Email': ['Error1', 'Error2']}
 });
 
 app.get('/getUser', (req, res) => {

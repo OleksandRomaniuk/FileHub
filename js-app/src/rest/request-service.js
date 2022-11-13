@@ -11,37 +11,37 @@ export class RequestService {
    * @returns {Promise<Response>}
    */
   async postJson(url, data) {
-    let fetchResult;
-    return await fetch(url, {
-      method: 'POST',
-      body: data,
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
-    }).then(async (response) => {
-      await response.json().then((data) => {
-        fetchResult = new Response(response.status, data);
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: data,
+        headers: {'Content-Type': 'application/json;charset=utf-8'},
       });
-      return fetchResult;
-    });
+
+      const jsonData = await response.json();
+
+      return new Response(response.status, jsonData);
+    } catch (e) {
+      return new Response(505);
+    }
   }
 
   /**
-   * Get json.
+   * Sends get request to the server. Can work only with JSON data type.
    * @param {string} url
    * @param {string} token
    * @returns {Promise<Response>}
    */
   async getJson(url, token) {
-    let fetchResult;
-    return await fetch(url, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         'Authorization': `Bearer ${token}`},
-    }).then(async (response) => {
-      await response.json().then((data) => {
-        fetchResult = new Response(response.status, data);
-      });
-      return fetchResult;
     });
+
+    const data = await response.json();
+
+    return new Response(response.status, data);
   }
 }

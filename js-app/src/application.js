@@ -6,6 +6,8 @@ import {RouterConfig} from './router/router-config.js';
 import {FilePage} from './file-page/file-page.js';
 import {NotFoundPage} from './not-found-page/not-found-page.js';
 import {ApplicationContext} from './application-context.js';
+import {StateManagementService} from './services/state-management-service.js';
+import {mutators} from './mutators/mutators.js';
 
 const REGISTRATION_PATH = 'registration';
 
@@ -26,6 +28,15 @@ export class Application extends Component {
 
     const applicationContext = new ApplicationContext();
 
+    const initialState = {
+      isUserLoading: false,
+      username: null,
+      userError: null,
+    };
+
+    const stateManagementService =
+        new StateManagementService(mutators, initialState, applicationContext);
+
     const routerConfig = RouterConfig.getBuilder()
         .addRouteToHome(AUTHORISATION_PATH)
         .addRouteToNotFound(() => {
@@ -37,7 +48,9 @@ export class Application extends Component {
         }).addRoute(AUTHORISATION_PATH, () => {
           this.rootElement.innerHTML = '';
           const authorisationPage =
-              new AuthorisationPage(this.rootElement, applicationContext);
+              new AuthorisationPage(this.rootElement,
+                  applicationContext.apiService,
+                  applicationContext.titleService);
           authorisationPage.onNavigateToRegistration(() => {
             router.redirect(REGISTRATION_PATH);
           });
@@ -47,7 +60,9 @@ export class Application extends Component {
         }).addRoute(REGISTRATION_PATH, () => {
           this.rootElement.innerHTML = '';
           const registrationPage =
-              new RegistrationPage(this.rootElement, applicationContext);
+              new RegistrationPage(this.rootElement,
+                  applicationContext.apiService,
+                  applicationContext.titleService);
           registrationPage.onNavigateToAuthorisation(() => {
             router.redirect(AUTHORISATION_PATH);
           });
@@ -56,7 +71,9 @@ export class Application extends Component {
           });
         }).addRoute(FILE_PATH, () => {
           this.rootElement.innerHTML = '';
-          const filePage = new FilePage(this.rootElement, applicationContext);
+          const filePage = new FilePage(this.rootElement,
+              stateManagementService,
+              applicationContext.titleService);
           filePage.onLogOut(() => {
             router.redirect(AUTHORISATION_PATH);
           });

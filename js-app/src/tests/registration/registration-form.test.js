@@ -74,7 +74,8 @@ describe('Registration form component', () => {
     expect.assertions(2);
 
     form.handleServerError(new ServerValidationError(
-        {'email': ['Email error'], 'password': ['Password error']}));
+        [{field: 'email', message: 'Email error'},
+          {field: 'password', message: 'Password error'}]));
 
     const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
     expect(errors.length).toBe(2);

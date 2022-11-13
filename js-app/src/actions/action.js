@@ -1,14 +1,13 @@
+/**
+ * Abstract action class that must be inherited by all actions.
+ */
 export class Action {
-  title;
   payload;
 
   /**
+   * Execute an action and mutate the state.
    * @abstract
    */
   execute() {
-  }
-
-  get title() {
-    return this.title;
   }
 }

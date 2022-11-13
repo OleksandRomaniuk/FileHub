@@ -4,7 +4,7 @@ import {ApiService} from '../../rest/api-service.js';
 import {RequestService} from '../../rest/request-service.js';
 import {jest} from '@jest/globals';
 import {AuthorisationData} from '../../authorisation-data.js';
-import {UnauthorizedServerError} from '../../rest/errors/unauthorized-server-error.js';
+import {ServerLoginError} from '../../rest/errors/server-login-error.js';
 
 describe('Authorisation page component', () => {
   let fixture;
@@ -86,7 +86,7 @@ describe('Authorisation page component', () => {
   test('Should render server error in form', (done) => {
     const logInMock = jest.spyOn(ApiService.prototype, 'logIn')
         .mockImplementation(async () => {
-          throw new UnauthorizedServerError();
+          throw new ServerLoginError();
         });
 
     expect.assertions(3);

@@ -2,7 +2,7 @@ import {RequestService} from './request-service.js';
 import {AuthorisationData} from '../authorisation-data.js';
 import {ServerValidationError} from './errors/server-validation-error.js';
 import {DefaultServerError} from './errors/default-server-error.js';
-import {UnauthorizedServerError} from './errors/unauthorized-server-error.js';
+import {ServerLoginError} from './errors/server-login-error.js';
 
 /**
  * Service that use {@link RequestService} to communicate with server according to the needs of processes.
@@ -31,10 +31,10 @@ export class ApiService {
             this.#userToken = response.body.token;
           }
           if (response.code === 401) {
-            return Promise.reject(new UnauthorizedServerError());
+            throw new ServerLoginError();
           }
           if (response.code !== 200) {
-            return Promise.reject(new DefaultServerError());
+            throw new DefaultServerError();
           }
         });
   }
@@ -49,17 +49,17 @@ export class ApiService {
     return this.#requestService.postJson('api/register', data)
         .then((response) => {
           if (response.code === 422) {
-            return Promise.reject(new ServerValidationError(response.body.errors));
+            throw new ServerValidationError(response.body.errors);
           }
           if (response.code !== 200) {
-            return Promise.reject(new DefaultServerError());
+            throw new DefaultServerError();
           }
         });
   }
 
   /**
-   *
-   * @returns {Promise<T>}
+   * Gets information about user.
+   * @returns {Promise}
    */
   getUser() {
     return this.#requestService.getJson('api/getUser', this.#userToken)

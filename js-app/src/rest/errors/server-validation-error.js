@@ -9,15 +9,15 @@ export class ServerValidationError extends ServerError {
   /**
    * @typedef {object} ValidationErrors
    * @property {string} fieldName
-   * @property {string[]} errors
+   * @property {string} error
    */
 
   /**
-   * @param {ValidationErrors} errors
+   * @param {ValidationErrors[]} errors
    */
   constructor(errors) {
     super();
-    this.#errors = errors;
+    this.#errors = this.#castToObject(errors);
   }
 
   /**
@@ -26,5 +26,18 @@ export class ServerValidationError extends ServerError {
    */
   getError() {
     return this.#errors;
+  }
+
+  /**
+   * @param {ValidationErrors[]} errors
+   * @returns {{}}
+   * @private
+   */
+  #castToObject(errors) {
+    const errorsObject = {};
+    errors.forEach((error) => {
+      errorsObject[error.field] = [...errorsObject[error.field] ? errorsObject[error.field] : [], error.message];
+    });
+    return errorsObject;
   }
 }
