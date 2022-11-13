@@ -12,4 +12,11 @@ app.post('/register', (req, res) => {
   res.send({errors: {'email': ['Error']}});
 });
 
+app.get('/getUser', (req, res) => {
+  setTimeout(() => {
+    res.statusCode = 200;
+    res.send({userName: 'Artem Semenov'});
+  }, 1000);
+});
+
 app.listen(port, () => {});

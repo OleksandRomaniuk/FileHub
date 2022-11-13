@@ -1,26 +1,44 @@
 import {Component} from '../components/component.js';
-import {TitleService} from '../services/title-service.js';
-import {UserData} from '../components/user-data.js';
+import {UserMenu} from '../user-menu/user-menu.js';
+import {ApplicationContext} from '../application-context.js';
 
 /**
  * Implementation of {@link Component} that represent page with user files.
  */
 export class FilePage extends Component {
-  #userName;
+  #stateManagementService;
+  #applicationContext;
+  #logOutListener;
 
   /**
    * @param {HTMLElement} parent
-   * @param {TitleService} titleService
+   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, titleService) {
+  constructor(parent, applicationContext) {
     super(parent);
+    this.#stateManagementService = applicationContext.stateManagementService;
+    this.#applicationContext = applicationContext;
     this.init();
-    titleService.title = ['Files'];
+    applicationContext.titleService.title = ['Files'];
   }
 
+  /**
+   * @inheritDoc
+   */
   afterRender() {
     const userSlot = this.getSlot('user-data');
-    new UserData(userSlot, this.#userName);
+    const userMenu = new UserMenu(userSlot, this.#applicationContext);
+    userMenu.onLogOut(() =>{
+      this?.#logOutListener();
+    });
+  }
+
+  /**
+   * Adds listener for 'log out' event.
+   * @param {Function} listener
+   */
+  onLogOut(listener) {
+    this.#logOutListener = listener;
   }
 
   /**
@@ -35,8 +53,6 @@ export class FilePage extends Component {
         </a>
         <div class="user-menu">
             ${this.addSlot('user-data')}
-            <ul class="menu-content">
-            </ul>
         </div>
     </header>
       </div>`;

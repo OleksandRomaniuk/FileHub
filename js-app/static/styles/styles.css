@@ -207,3 +207,20 @@ fieldset{
     font: 14px "Roboto", "Times New Roman", Times, serif;
     color: #999;
 }
+
+.glyphicon-loader{
+    animation: rotate 1s linear 0s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.glyphicon-loader:before{
+    content: "\e030";
+}

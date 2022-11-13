@@ -21,7 +21,6 @@ export class StateManagementService {
 
   #mutate(mutatorKey, payload) {
     if (typeof this.#mutators[mutatorKey] !== 'function') {
-      // console.log(`Mutator "${mutatorKey}" doesn't exist`);
       throw new Error(`Expected function but ${typeof this.#mutators[mutatorKey]} provided.`);
     }
 
@@ -31,10 +30,10 @@ export class StateManagementService {
     return true;
   }
 
-  dispatch(action, payload) {
+  dispatch(action) {
     return action.execute((mutatorKey, payload) => {
       this.#mutate(mutatorKey, payload);
-    }, payload);
+    });
   }
 
   get state() {
@@ -42,7 +41,7 @@ export class StateManagementService {
   }
 
   addStateListener(fieldName, listener) {
-    // listener(this.#state);
+    listener(this.#state);
     this.#eventTarget.addEventListener(`stateChanged.${fieldName}`,
         (event) => listener(event.detail));
   }

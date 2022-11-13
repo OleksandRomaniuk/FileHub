@@ -27,14 +27,16 @@ export class RequestService {
   /**
    * Get json.
    * @param {string} url
-   * @param {string} userId
-   * @returns {Promise<*>}
+   * @param {string} token
+   * @returns {Promise<Response>}
    */
-  async getJson(url, userId) {
+  async getJson(url, token) {
     let fetchResult;
-    return await fetch(url+'?'+new URLSearchParams(userId), {
+    return await fetch(url, {
       method: 'GET',
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': `Bearer ${token}`},
     }).then(async (response) => {
       await response.json().then((data) => {
         fetchResult = new Response(response.status, data);

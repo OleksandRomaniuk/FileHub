@@ -1,13 +1,11 @@
 import {Component} from './components/component.js';
 import {AuthorisationPage} from './authorization/authorisation-page.js';
 import {RegistrationPage} from './registration/registration-page.js';
-import {TitleService} from './services/title-service.js';
 import {Router} from './router/router.js';
 import {RouterConfig} from './router/router-config.js';
 import {FilePage} from './file-page/file-page.js';
 import {NotFoundPage} from './not-found-page/not-found-page.js';
-import {RequestService} from './rest/request-service.js';
-import {ApiService} from './rest/api-service.js';
+import {ApplicationContext} from './application-context.js';
 
 const REGISTRATION_PATH = 'registration';
 
@@ -26,23 +24,20 @@ export class Application extends Component {
     super(parent);
     this.init();
 
-    const titleService = new TitleService('FileHub', '-');
-
-    const requestService = new RequestService();
-
-    const apiService = new ApiService(requestService);
+    const applicationContext = new ApplicationContext();
 
     const routerConfig = RouterConfig.getBuilder()
         .addRouteToHome(AUTHORISATION_PATH)
         .addRouteToNotFound(() => {
           this.rootElement.innerHTML = '';
-          const errorPage = new NotFoundPage(this.rootElement, titleService);
+          const errorPage = new NotFoundPage(this.rootElement, applicationContext.titleService);
           errorPage.onNavigateToHome(() => {
             router.redirect(AUTHORISATION_PATH);
           });
         }).addRoute(AUTHORISATION_PATH, () => {
           this.rootElement.innerHTML = '';
-          const authorisationPage = new AuthorisationPage(this.rootElement, titleService, apiService);
+          const authorisationPage =
+              new AuthorisationPage(this.rootElement, applicationContext);
           authorisationPage.onNavigateToRegistration(() => {
             router.redirect(REGISTRATION_PATH);
           });
@@ -51,7 +46,8 @@ export class Application extends Component {
           });
         }).addRoute(REGISTRATION_PATH, () => {
           this.rootElement.innerHTML = '';
-          const registrationPage = new RegistrationPage(this.rootElement, titleService, apiService);
+          const registrationPage =
+              new RegistrationPage(this.rootElement, applicationContext);
           registrationPage.onNavigateToAuthorisation(() => {
             router.redirect(AUTHORISATION_PATH);
           });
@@ -60,7 +56,10 @@ export class Application extends Component {
           });
         }).addRoute(FILE_PATH, () => {
           this.rootElement.innerHTML = '';
-          new FilePage(this.rootElement, titleService);
+          const filePage = new FilePage(this.rootElement, applicationContext);
+          filePage.onLogOut(() => {
+            router.redirect(AUTHORISATION_PATH);
+          });
         }).build();
 
     const router = new Router(routerConfig);

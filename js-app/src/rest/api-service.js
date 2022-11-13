@@ -3,7 +3,6 @@ import {AuthorisationData} from '../authorisation-data.js';
 import {ServerValidationError} from './errors/server-validation-error.js';
 import {DefaultServerError} from './errors/default-server-error.js';
 import {UnauthorizedServerError} from './errors/unauthorized-server-error.js';
-import {ForbiddenServerError} from './errors/forbidden-server-error.js';
 
 /**
  * Service that use {@link RequestService} to communicate with server according to the needs of processes.
@@ -60,15 +59,11 @@ export class ApiService {
 
   /**
    *
-   * @param {string} userId
-   * @returns {Promise<*>}
+   * @returns {Promise<T>}
    */
-  getUser(userId) {
-    return this.#requestService.getJson('api/getUser', userId)
+  getUser() {
+    return this.#requestService.getJson('api/getUser', this.#userToken)
         .then((response) => {
-          if (response.code === 403) {
-            return Promise.reject(new ForbiddenServerError());
-          }
           if (response.code !== 200) {
             return Promise.reject(new DefaultServerError());
           }
