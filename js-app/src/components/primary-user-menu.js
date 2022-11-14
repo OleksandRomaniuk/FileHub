@@ -52,7 +52,7 @@ export class PrimaryUserMenu extends Component {
               </li>
               <li>
                   ${this.addSlot('link')}
-<!--                  <a href="#">Log Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>-->
+
               </li>
             </ul>`;
   }
