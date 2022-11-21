@@ -1,6 +1,4 @@
-/**
- *
- */
+
 export class Preconditions {
   /**
    * Provided for check if {@link valueToCheck} is a type of {@link type}.
