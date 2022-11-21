@@ -10,12 +10,10 @@
 body{
     margin: 0;
     background: #f2f2f2;
-    font: 12px "Roboto" , "Times New Roman" , Times , serif;
+    font: 14px "Roboto" ,  "Times New Roman" , Times , serif , bold ;
     color: #000;
-    min-width: 520px;
-    font-size: 14px;
-    font-weight: bold;
-}
+    min-width: 1000px;
+  }
 a {
     color: #0385d3;
     text-decoration: none;
@@ -27,10 +25,9 @@ a:hover {
 .horizontal-line{
     border: 0;
     height: 1px;
-    width: 93%;
     background: #000;
 }
-input{
+.text-input{
     width: 100%;
     padding: 4px 10px;
     box-sizing: border-box;
@@ -39,25 +36,23 @@ input{
     font-size: 13px ;
     font-weight: bold;
     height: 34px;
-    width: 100%;
 }
 
 .text-input.error {
     border: 2px solid #ff6058;
     margin-bottom: 5px;
 }
-.text-input.error:hover  , .text-input.error:focus{
+.text-input.error:hover, .text-input.error:focus{
     outline: none;
     border-color: #ff6058;
     box-shadow: 0 0 5px #FF6058;
 }
-.text-input:hover  , .text-input:focus{
+.text-input:hover, .text-input:focus{
     outline: none;
     border-color: #0385d3;
     box-shadow: 0 0 5px #0385d3;
 }
 .blue-button{
-    text-align: center;
     color: #fff;
     border-radius: 5px;
     border: none;
@@ -67,39 +62,40 @@ input{
     display: inline-block;
 
 }
-button:hover{
+.blue-button:hover{
     background: #286090;
 }
-
+.row::after {
+    display: block;
+    content: "";
+    clear: both;
+}
 .wrapper-auth{
-    width: 37%;
+    width: 540px;
     margin: 0px auto;
 }
 .page-header{
-    padding-top: 30px;
-    padding-bottom: 27px;
+    padding: 30px 0 27px;
 }
 .box{
     background: #fff;
-    padding: 0 8px;
+    padding: 0 20px;
     border-radius: 20px;
     border: 1px solid #ccc;
     box-shadow: 0 0 20px #999;
-    height: max-content;
 }
 .box h1{
-    margin: 18px 13px 8px;
-    font-size: 30px;
+      font-size: 30px;
 }
 .row{
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 20px 0 20px 0px;
 }
 .input-group{
     margin-top: -7px;
     width: 64%;
     float: right;
-    padding: 5px;
+
+
 }
 
 .form-label{
@@ -112,8 +108,7 @@ button:hover{
     display: flex;
     width: 65%;
     justify-content: space-between;
-    margin-left: 10px;
-    margin-left: 36%;
+    margin-left: 35%;
     margin-top: 5px;
     margin-bottom: 20px;
  }
@@ -122,15 +117,10 @@ button:hover{
     margin-top: 7px;
     margin-right: 26px;
 }
-.error-form .row{
-    margin-bottom: 43.5px;
-}
+
 .error-message{
     padding-top:10px;
     color: #ff6058;
-}
-.error-form .button-row{
-    margin-top: 60px;
 }
 
 
