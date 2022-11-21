@@ -54,7 +54,7 @@ module('authFormValidation', (hooks) => {
           'Should show regex validation error under password input.');
 
       inputPassword.value = 'asdasdasd';
-      inputEmail.value = 'artem@g';
+      inputEmail.value = 'alex@g';
 
       form = fixture.firstElementChild.firstElementChild;
 
@@ -75,7 +75,7 @@ module('authFormValidation', (hooks) => {
       ['Text must be more than 5 symbols', 'Field is not valid',
         'Text must be more than 6 symbols'],
     ],
-    ['artem@g', 'asdasdasd',
+    ['alexm@g', 'asdasdasd',
       [],
     ],
     ['%@g', 'asdasdasd',

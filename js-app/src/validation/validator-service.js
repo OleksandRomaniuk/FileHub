@@ -2,7 +2,7 @@ import {ValidationError} from './validation-error.js';
 import {ValidationErrorResult} from './validation-error-result.js';
 
 /**
- * {@code ValidatorService} was invented like a service for form validation.
+ * ValidatorService was invented like a service for form validation.
  */
 export class ValidatorService {
   /**
