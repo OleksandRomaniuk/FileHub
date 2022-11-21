@@ -13,7 +13,6 @@ app.post('/register', (req, res) => {
     {field: 'email', message: 'Error1'},
     {field: 'email', message: 'Error2'},
     {field: 'password', message: 'Error1'}]});
-  // {'Email': ['Error1', 'Error2']}
 });
 
 app.get('/getUser', (req, res) => {
