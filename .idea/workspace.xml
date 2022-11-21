@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="39aea515-ca34-4069-bfef-bd37585f2a2e" name="Changes" comment="Refactoring" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="breadcrumb" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ERhayjTcJtWIBYfGjCGjlwlyFK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Oleksandr/Downloads/111/FileHUB-task-state-management&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;C:/Users/Oleksandr/WebstormProjects/FileHub/js-app/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app" />
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app\src" />
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app\css" />
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app\validation" />
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app\tests" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub\js-app\src" />
+      <recent name="C:\Users\Oleksandr\WebstormProjects\FileHub" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Button component.Should check button creation and inner text." type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/js-app/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/js-app" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/js-app/src/tests/components/button.test.js" />
+      <test-names>
+        <test-name value="Button component" />
+        <test-name value="Should check button creation and inner text." />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="prebuild" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/js-app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prebuild" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="prestart" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/js-app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prestart" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/js-app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/js-app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.prestart" />
+        <item itemvalue="npm.prebuild" />
+        <item itemvalue="Jest.Button component.Should check button creation and inner text." />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39aea515-ca34-4069-bfef-bd37585f2a2e" name="Changes" comment="" />
+      <created>1662564372868</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1662564372868</updated>
+      <workItem from="1662564377166" duration="17384000" />
+      <workItem from="1662630796747" duration="1584000" />
+      <workItem from="1662653776781" duration="32714000" />
+      <workItem from="1662892651406" duration="7853000" />
+      <workItem from="1662979794894" duration="29433000" />
+      <workItem from="1663064082965" duration="33702000" />
+      <workItem from="1663226029862" duration="1030000" />
+      <workItem from="1663323686416" duration="2066000" />
+      <workItem from="1663333589400" duration="24300000" />
+      <workItem from="1663396050257" duration="11126000" />
+      <workItem from="1663505188352" duration="1797000" />
+      <workItem from="1663578137295" duration="39083000" />
+      <workItem from="1663688764796" duration="1880000" />
+      <workItem from="1663766467149" duration="10506000" />
+      <workItem from="1663784653023" duration="30948000" />
+      <workItem from="1663927633812" duration="5293000" />
+      <workItem from="1664111173833" duration="9324000" />
+      <workItem from="1664210687993" duration="3845000" />
+      <workItem from="1664293512806" duration="1536000" />
+      <workItem from="1664299524666" duration="9941000" />
+      <workItem from="1664394148741" duration="2600000" />
+      <workItem from="1664732802816" duration="2375000" />
+      <workItem from="1664816343544" duration="7436000" />
+      <workItem from="1664905949891" duration="11178000" />
+      <workItem from="1665078287706" duration="3461000" />
+      <workItem from="1665485604396" duration="7132000" />
+      <workItem from="1665607415777" duration="712000" />
+      <workItem from="1665680115311" duration="2596000" />
+      <workItem from="1666032518759" duration="13120000" />
+      <workItem from="1666111699119" duration="599000" />
+      <workItem from="1666120101420" duration="3257000" />
+      <workItem from="1666556963600" duration="3664000" />
+      <workItem from="1666777502472" duration="1374000" />
+      <workItem from="1667253351280" duration="8293000" />
+      <workItem from="1667381583270" duration="279000" />
+      <workItem from="1667469358214" duration="1006000" />
+      <workItem from="1667773635186" duration="3331000" />
+      <workItem from="1667935338916" duration="1536000" />
+      <workItem from="1668113394716" duration="2698000" />
+      <workItem from="1668362018371" duration="1897000" />
+      <workItem from="1668454007397" duration="4890000" />
+      <workItem from="1668774546847" duration="1296000" />
+      <workItem from="1668984725471" duration="6974000" />
+      <workItem from="1669040244511" duration="1804000" />
+    </task>
+    <task id="LOCAL-00060" summary="Realization of tests for component">
+      <created>1665741509144</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1665741509144</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Update authorization component">
+      <created>1666033437009</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1666033437009</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Update realization of components">
+      <created>1666034984714</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1666034984714</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Refactor existing files. Add new implementation to them">
+      <created>1666041075910</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1666041075920</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Update gitignore file">
+      <created>1666042106182</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1666042106182</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Add teh files and page not found">
+      <created>1666042924457</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1666042924457</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Refactoring">
+      <created>1666042953469</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1666042953469</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Reading styles.css">
+      <created>1666043132227</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1666043132227</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Reading styles.css">
+      <created>1666043164631</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1666043164631</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Change fonts in program">
+      <created>1666043814721</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1666043814721</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Implement rollup">
+      <created>1666121358656</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1666121358658</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Add HashRouter for handling pages">
+      <created>1666122005774</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1666122005774</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Update authorization and registration pages">
+      <created>1666122163606</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1666122163606</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Update components">
+      <created>1666122276268</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1666122276268</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Add new and update old test.">
+      <created>1666122344933</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1666122344933</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Refactoring code">
+      <created>1666122367447</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1666122367447</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Refactoring code">
+      <created>1666604723127</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1666604723128</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Refactoring code">
+      <created>1666604876838</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1666604876838</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Implement title service">
+      <created>1666604961730</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1666604961730</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Add eslint plugin">
+      <created>1666777706595</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1666777706596</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Refactoring all project">
+      <created>1667258652958</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1667258652978</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Refactoring all project">
+      <created>1667258773253</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1667258773253</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Delete unnecessary files">
+      <created>1667259167619</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1667259167620</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Implement all logic for adding title to pages">
+      <created>1667260065113</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260065113</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Remove last commit">
+      <created>1667260494982</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260494983</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Remove last commit">
+      <created>1667260640254</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260640254</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Remove previous implementation and add new taking into account all changes in the component branch">
+      <created>1667260838558</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260838558</updated>
+    </task>
+    <task id="LOCAL-00087" summary="To previous commit">
+      <created>1667260871534</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260871534</updated>
+    </task>
+    <task id="LOCAL-00088" summary="To previous commit">
+      <created>1667260905899</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1667260905899</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Add plugin for JSDoc validation.">
+      <created>1667261220086</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1667261220086</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Fix code">
+      <created>1667261295434</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1667261295434</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Fix some files before checkout">
+      <created>1667261444210</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1667261444210</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Add event on success submit for authorisation and registration form.">
+      <created>1667261729898</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1667261729898</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Fix success event dispatching.">
+      <created>1667470244053</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1667470244053</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Add all necessary tests">
+      <created>1667816976922</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1667816976974</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Refactor class">
+      <created>1667935527990</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1667935527992</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Start working with state management">
+      <created>1668362443488</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1668362443489</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Add user menu to application">
+      <created>1668362584327</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1668362584327</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Implement loading state and error-message in case of unsuccessful actions">
+      <created>1668362746662</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1668362746662</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Refactoring program">
+      <created>1668362963712</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1668362963713</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Add test to previous implementations">
+      <created>1668363013043</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1668363013043</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Adding new tests">
+      <created>1668363032661</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1668363032661</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Refactoring code">
+      <created>1668363324182</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1668363324182</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Refactoring code">
+      <created>1668454643551</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1668454643552</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Refactoring code">
+      <created>1669020258705</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1669020258705</updated>
+    </task>
+    <task id="LOCAL-00105" summary="server.js cleaning">
+      <created>1669020781105</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1669020781106</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Start working with breadcrumb">
+      <created>1669026448577</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1669026448577</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Refactoring">
+      <created>1669041970292</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1669041970292</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Refactoring">
+      <created>1669041994046</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1669041994046</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Delete unnecessary files" />
+    <MESSAGE value="Implement all logic for adding title to pages" />
+    <MESSAGE value="Remove lat commit" />
+    <MESSAGE value="Remove last commit" />
+    <MESSAGE value="Remove previous implementation and add new taking into account all changes in the component branch" />
+    <MESSAGE value="To previous commit" />
+    <MESSAGE value="Add plugin for JSDoc validation." />
+    <MESSAGE value="Fix code" />
+    <MESSAGE value="Fix some files before checkout" />
+    <MESSAGE value="Add event on success submit for authorisation and registration form." />
+    <MESSAGE value="Add event on success submit for authorisation form." />
+    <MESSAGE value="Add event on success submit for registration form." />
+    <MESSAGE value="Fix success event dispatching." />
+    <MESSAGE value="Add all necessary tests" />
+    <MESSAGE value="Refactor class" />
+    <MESSAGE value="Start working with state management" />
+    <MESSAGE value="Add user menu to application" />
+    <MESSAGE value="Implement loading state and error-message in case of unsuccessful actions" />
+    <MESSAGE value="Refactoring program" />
+    <MESSAGE value="Add test to previous implementations" />
+    <MESSAGE value="Adding new tests" />
+    <MESSAGE value="Refactoring code" />
+    <MESSAGE value="server.js cleaning" />
+    <MESSAGE value="Start working with breadcrumb" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+  </component>
+</project>
