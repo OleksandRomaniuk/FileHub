@@ -1,0 +1,74 @@
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -22,7 +22,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="breadcrumb" />
++        <entry key="$PROJECT_DIR$" value="web" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -186,28 +186,7 @@
+       <workItem from="1668454007397" duration="4890000" />
+       <workItem from="1668774546847" duration="1296000" />
+       <workItem from="1668984725471" duration="6974000" />
+-      <workItem from="1669040244511" duration="1804000" />
+-    </task>
+-    <task id="LOCAL-00060" summary="Realization of tests for component">
+-      <created>1665741509144</created>
+-      <option name="number" value="00060" />
+-      <option name="presentableId" value="LOCAL-00060" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1665741509144</updated>
+-    </task>
+-    <task id="LOCAL-00061" summary="Update authorization component">
+-      <created>1666033437009</created>
+-      <option name="number" value="00061" />
+-      <option name="presentableId" value="LOCAL-00061" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666033437009</updated>
+-    </task>
+-    <task id="LOCAL-00062" summary="Update realization of components">
+-      <created>1666034984714</created>
+-      <option name="number" value="00062" />
+-      <option name="presentableId" value="LOCAL-00062" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1666034984714</updated>
++      <workItem from="1669040244511" duration="2115000" />
+     </task>
+     <task id="LOCAL-00063" summary="Refactor existing files. Add new implementation to them">
+       <created>1666041075910</created>
+@@ -531,7 +510,28 @@
+       <option name="project" value="LOCAL" />
+       <updated>1669041994046</updated>
+     </task>
+-    <option name="localTasksCounter" value="109" />
++    <task id="LOCAL-00109" summary="Refactoring">
++      <created>1669042081611</created>
++      <option name="number" value="00109" />
++      <option name="presentableId" value="LOCAL-00109" />
++      <option name="project" value="LOCAL" />
++      <updated>1669042081611</updated>
++    </task>
++    <task id="LOCAL-00110" summary="Refactoring">
++      <created>1669042318569</created>
++      <option name="number" value="00110" />
++      <option name="presentableId" value="LOCAL-00110" />
++      <option name="project" value="LOCAL" />
++      <updated>1669042318569</updated>
++    </task>
++    <task id="LOCAL-00111" summary="Refactoring">
++      <created>1669042370825</created>
++      <option name="number" value="00111" />
++      <option name="presentableId" value="LOCAL-00111" />
++      <option name="project" value="LOCAL" />
++      <updated>1669042370825</updated>
++    </task>
++    <option name="localTasksCounter" value="112" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
