@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39aea515-ca34-4069-bfef-bd37585f2a2e" name="Changes" comment="Refactoring" />
+    <list default="true" id="39aea515-ca34-4069-bfef-bd37585f2a2e" name="Changes" comment="mark it to add to pr">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="breadcrumb" />
+        <entry key="$PROJECT_DIR$" value="form" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,7 +35,10 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2ERhayjTcJtWIBYfGjCGjlwlyFK" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -187,13 +192,7 @@
       <workItem from="1668774546847" duration="1296000" />
       <workItem from="1668984725471" duration="6974000" />
       <workItem from="1669040244511" duration="1804000" />
-    </task>
-    <task id="LOCAL-00060" summary="Realization of tests for component">
-      <created>1665741509144</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1665741509144</updated>
+      <workItem from="1669044906084" duration="445000" />
     </task>
     <task id="LOCAL-00061" summary="Update authorization component">
       <created>1666033437009</created>
@@ -531,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669041994046</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="mark it to add to pr">
+      <created>1669045180872</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1669045180872</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +555,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Delete unnecessary files" />
     <MESSAGE value="Implement all logic for adding title to pages" />
     <MESSAGE value="Remove lat commit" />
     <MESSAGE value="Remove last commit" />
@@ -574,6 +579,7 @@
     <MESSAGE value="server.js cleaning" />
     <MESSAGE value="Start working with breadcrumb" />
     <MESSAGE value="Refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+    <MESSAGE value="mark it to add to pr" />
+    <option name="LAST_COMMIT_MESSAGE" value="mark it to add to pr" />
   </component>
 </project>
