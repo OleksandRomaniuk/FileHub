@@ -58,7 +58,7 @@ module('registrationFormValidation', (hooks) => {
             'Should show length validation error under password input.');
       }
 
-      inputEmail.value = 'artem@g';
+      inputEmail.value = 'alex@g';
       inputPassword.value = 'asdasdasd';
       inputConfirm.value = 'asdasdasd';
 
@@ -80,9 +80,9 @@ module('registrationFormValidation', (hooks) => {
     ['Field is not valid']],
   ['%@g', 'password', 'password',
     ['Text must be more than 5 symbols', 'Field is not valid']],
-  ['artem@g', 'passw', 'password',
+  ['alex@g', 'passw', 'password',
     ['Text must be more than 6 symbols', 'passw is not equal to password']],
-  ['artem@g', 'passphrases', 'password',
+  ['alex@g', 'passphrases', 'password',
     ['passphrases is not equal to password']],
   ['a@g', 'passphrases', 'password',
     ['Text must be more than 5 symbols', 'passphrases is not equal to password']],
