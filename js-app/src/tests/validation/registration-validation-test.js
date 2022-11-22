@@ -8,7 +8,6 @@ module('registrationFormValidation', (hooks) => {
   let inputPassword;
   let inputEmail;
   let inputConfirm;
-  let button;
 
   hooks.beforeEach((assert) => {
     assert.ok(true, 'beforeEach called');

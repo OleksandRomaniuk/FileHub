@@ -14,7 +14,7 @@ export class AuthorisationPage extends Component {
   constructor(parent, titleService) {
     super(parent);
     this.init();
-    titleService.title = ['Sign In'];
+     titleService.title = ['Sign In'];
   }
 
   /**
