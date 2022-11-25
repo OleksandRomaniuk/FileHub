@@ -15,16 +15,14 @@ describe('Registration page component', () => {
   let password;
   let confirmPassword;
   let formMarkup;
+  let mockFn;
   let apiService;
 
   beforeEach(() => {
     document.body.innerHTML = '';
     fixture = document.body;
-
-    const titleService = new TitleService('', '');
-
-    jest.spyOn(titleService, 'title', 'set')
-        .mockImplementation(() => {});
+    const titleService = new TitleService('FileHub', '/');
+    mockFn = jest.fn();
 
     apiService = new ApiService(new RequestService());
 
@@ -37,110 +35,107 @@ describe('Registration page component', () => {
     formMarkup = fixture.querySelector('[data-td="form"]').firstElementChild.firstElementChild;
   });
   test('Should render registration page component', function() {
-    expect.assertions(2);
+    expect.assertions(4);
     const actualPageMarkup = fixture.querySelector('[data-td="registration-page"]');
+    const form = actualPageMarkup.getElementsByTagName('form')[0];
 
     expect(actualPageMarkup).toBeTruthy();
-    expect(actualPageMarkup.getElementsByTagName('form')[0]).toBeTruthy();
+    expect(form).toBeTruthy();
+    expect(form.getElementsByTagName('input')).toHaveLength(3);
+    expect(document.title).toBe('FileHub / Sign Up');
   });
 
   test('Should add listener for navigate event', () => {
     expect.assertions(1);
 
-    const navigateListener = jest.fn(() => {});
-
-    page.onNavigateToAuthorisation(() => {
-      navigateListener();
-    });
+    page.onNavigateToAuthorisation(mockFn);
 
     const link = fixture.querySelector('[data-td="link"]');
     link.click();
 
-    expect(navigateListener).toHaveBeenCalledTimes(1);
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
-  test('Should add listener for submit event', (done) => {
-    const registerMock = jest.spyOn(apiService, 'register')
-        .mockImplementation(async () => {
-          return await new Promise((resolve) => {
-            resolve();
+  test('Should add listener for submit event', () => {
+    return new Promise((done) => {
+      const registerMock = jest.spyOn(apiService, 'register')
+          .mockImplementation(async () => {
+            return await new Promise((resolve) => {
+              resolve();
+            });
           });
-        });
 
-    expect.assertions(4);
+      page.onSuccessSubmit(mockFn);
 
-    const submitListener = jest.fn(() => {});
+      email.value = 'artem@gmail';
+      password.value = 'aaaaaaa';
+      confirmPassword.value = 'aaaaaaa';
 
-    page.onSuccessSubmit(() => {
-      submitListener();
-      expect(true).toBe(true);
-      expect(registerMock).toHaveBeenCalledTimes(1);
-      expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
-    });
+      const formMarkup = fixture.querySelector('[data-td="form"]').firstElementChild.firstElementChild;
 
-    email.value = 'artem@gmail';
-    password.value = 'aaaaaaa';
-    confirmPassword.value = 'aaaaaaa';
+      formMarkup.requestSubmit();
 
-
-    const formMarkup = fixture.querySelector('[data-td="form"]').firstElementChild.firstElementChild;
-
-    formMarkup.requestSubmit();
-
-    setTimeout(() => {
-      expect(submitListener).toHaveBeenCalledTimes(1);
-      done();
+      setTimeout(() => {
+        expect(mockFn).toHaveBeenCalledTimes(1);
+        expect(registerMock).toHaveBeenCalledTimes(1);
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        done();
+      });
     });
   });
 
-  test('Should render server error in form', (done) => {
-    const registerMock = jest.spyOn(apiService, 'register')
-        .mockImplementation(async () => {
-          return await new Promise(() => {
-            throw new DefaultServerError();
+  test('Should render server error in form', () => {
+    return new Promise((done) => {
+      const registerMock = jest.spyOn(apiService, 'register')
+          .mockImplementation(async () => {
+            return await new Promise((resolve) => {
+              throw new DefaultServerError();
+            });
           });
-        });
 
-    expect.assertions(3);
+      expect.assertions(3);
 
-    email.value = 'artem@gmail';
-    password.value = 'aaaaaaa';
-    confirmPassword.value = 'aaaaaaa';
+      email.value = 'alex@gmail';
+      password.value = 'aaaaaaa';
+      confirmPassword.value = 'aaaaaaa';
 
-    formMarkup.requestSubmit();
+      formMarkup.requestSubmit();
 
-    setTimeout(() => {
-      expect(registerMock).toHaveBeenCalledTimes(1);
-      expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
-      const error = fixture.querySelector('[class="server-error"]');
-      expect(error.textContent.trim()).toBe('Error occurred. Please try again.');
-      done();
-    }, 100);
+      setTimeout(() => {
+        expect(registerMock).toHaveBeenCalledTimes(1);
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        const error = fixture.querySelector('[class="server-error"]');
+        expect(error.textContent.trim()).toBe('Error occurred. Please try again.');
+        done();
+      }, 100);
+    });
   });
 
-  test('Should render server validation error in form', (done) => {
-    const registerMock = jest.spyOn(apiService, 'register')
-        .mockImplementation(async () => {
-          throw new ServerValidationError(
-              [{field: 'email', message: 'Email error'},
-                {field: 'password', message: 'Password error'}]);
-        });
+  test('Should render server validation error in form', () => {
+    return new Promise((done) => {
+      const registerMock = jest.spyOn(apiService, 'register')
+          .mockImplementation(async () => {
+            throw new ServerValidationError(
+                [{field: 'email', message: 'Email error'},
+                  {field: 'password', message: 'Password error'}]);
+          });
 
-    expect.assertions(4);
+      expect.assertions(4);
 
-    email.value = 'artem@gmail';
-    password.value = 'aaaaaaa';
-    confirmPassword.value = 'aaaaaaa';
+      email.value = 'alex@gmail';
+      password.value = 'aaaaaaa';
+      confirmPassword.value = 'aaaaaaa';
 
-    formMarkup.requestSubmit();
+      formMarkup.requestSubmit();
 
-    setTimeout(() => {
-      expect(registerMock).toHaveBeenCalledTimes(1);
-      expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
-      const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
-      expect(errors.length).toBe(2);
-      expect(errors.map((error) => error.textContent)).toEqual(['Email error', 'Password error']);
-      done();
-    }, 100);
+      setTimeout(() => {
+        expect(registerMock).toHaveBeenCalledTimes(1);
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
+        expect(errors).toHaveLength(2);
+        expect(errors.map((error) => error.textContent)).toEqual(['Email error', 'Password error']);
+        done();
+      }, 100);
+    });
   });
 });
