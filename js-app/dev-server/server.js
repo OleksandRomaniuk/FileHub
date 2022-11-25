@@ -18,7 +18,7 @@ app.post('/register', (req, res) => {
 app.get('/getUser', (req, res) => {
   setTimeout(() => {
     res.statusCode = 200;
-    res.send({username: 'Oleksandr Romaniuk'});
+    res.send({username: 'alex'});
   }, 1000);
 });
 
