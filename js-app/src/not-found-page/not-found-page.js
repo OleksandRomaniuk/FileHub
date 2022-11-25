@@ -43,7 +43,6 @@ export class NotFoundPage extends Component {
    * @returns {string}
    */
   markup() {
-
     return `
     <div id="notfound">
     <div class="notfound">

@@ -53,7 +53,9 @@ export class NotFoundPage extends Component {
         </div>
         <h1>oops!</h1>
         <h2>Error 404 : Page Not Found</h2>
-        <a href="#">go back</a>
+       ${this.addSlot('link')}
+
+       
     </div>
 </div>
 

@@ -85,7 +85,15 @@ export class AuthorisationForm extends Component {
                 {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
             this.#eventTarget.dispatchEvent(event);
           })
-          .catch(() => {});
+          .catch((result) => {
+            const errors = result.errors.reduce((hash, error) => {
+              const prevErrors = hash[error.fieldName] || [];
+              hash[error.fieldName] = [...prevErrors, error.message];
+              return hash;
+            }, {});
+
+            this.#setValidationErrors(errors);
+          });
       this.#email = formData.get(EMAIL_NAME);
       this.#password = formData.get(PASSWORD_NAME);
       this.render();
@@ -133,17 +141,7 @@ export class AuthorisationForm extends Component {
         .addField(PASSWORD_NAME, [validateValueLength(6)])
         .build();
 
-    return ValidatorService.validate(formData, config)
-        .catch((result) => {
-          const errors = result.errors.reduce((hash, error) => {
-            const prevErrors = hash[error.fieldName] || [];
-            hash[error.fieldName] = [...prevErrors, error.message];
-            return hash;
-          }, {});
-
-          this.#setValidationErrors(errors);
-          return Promise.reject(new Error());
-        });
+    return ValidatorService.validate(formData, config);
   }
 
   /**
