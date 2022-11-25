@@ -59,7 +59,7 @@ describe('Registration form component', () => {
       submitListener();
     });
 
-    email.value = 'artem@gmail';
+    email.value = 'alex@gmail';
     password.value = 'aaaaaaa';
     confirmPassword.value = 'aaaaaaa';
     formMarkup.requestSubmit();
@@ -122,7 +122,7 @@ describe('Registration form component', () => {
         expect(error.textContent.trim()).toBe(errorMessages[index]);
       });
 
-      email.value = 'artem@g';
+      email.value = 'alex@g';
       password.value = 'asdasdasd';
       confirmPassword.value = 'asdasdasd';
 
@@ -138,19 +138,19 @@ describe('Registration form component', () => {
 
   [['%%%@g', 'password', 'password',
     ['Field is not valid']],
-  ['%@g', 'password', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid']],
-  ['artem@g', 'passw', 'password',
-    ['Text must be more than 6 symbols', 'passw is not equal to password']],
-  ['artem@g', 'passphrases', 'password',
-    ['passphrases is not equal to password']],
-  ['a@g', 'passphrases', 'password',
-    ['Text must be more than 5 symbols', 'passphrases is not equal to password']],
-  ['%@g', 'passphrases', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid', 'passphrases is not equal to password']],
-  ['%@g', 'pas', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid',
-      'Text must be more than 6 symbols', 'pas is not equal to password']],
+    ['%@g', 'password', 'password',
+      ['Text must be more than 5 symbols', 'Field is not valid']],
+    ['alex@g', 'passw', 'password',
+      ['Text must be more than 6 symbols', 'passw is not equal to password']],
+    ['alex@g', 'passphrases', 'password',
+      ['passphrases is not equal to password']],
+    ['a@g', 'passphrases', 'password',
+      ['Text must be more than 5 symbols', 'passphrases is not equal to password']],
+    ['%@g', 'passphrases', 'password',
+      ['Text must be more than 5 symbols', 'Field is not valid', 'passphrases is not equal to password']],
+    ['%@g', 'pas', 'password',
+      ['Text must be more than 5 symbols', 'Field is not valid',
+        'Text must be more than 6 symbols', 'pas is not equal to password']],
   ].forEach(([emailValue, passwordValue, confirmValue, errorMessages]) => {
     test(`Registration validation with args - Email: ${emailValue}, password: ${passwordValue},
       confirm password: ${confirmValue}`, function(done) {

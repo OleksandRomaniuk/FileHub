@@ -27,6 +27,22 @@ describe('Request service', () => {
     expect(postJsonResult).toEqual(new Response(200, {data: 'responseBody'}));
   });
 
+  test('Should return response with status 200 when json method throw an error', async () => {
+    expect.assertions(1);
+    global.fetch = jest.fn(() => {
+      return Promise.resolve({
+        status: 200,
+        json: () => {
+          throw new Error();
+        },
+      });
+    });
+
+    const requestService = new RequestService();
+    const postJsonResult = await requestService.postJson();
+    expect(postJsonResult).toEqual(new Response(200));
+  });
+
   test('Should call fetch method in getJson.', async function() {
     expect.assertions(4);
     global.fetch = jest.fn(() => {
