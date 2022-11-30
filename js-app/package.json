@@ -11,7 +11,7 @@
     "prestart": "rimraf dist",
     "start": "rollup --config rollup.config.dev.js --watch",
     "build": "rollup --config rollup.config.prod.js",
-    "dev-server": "node dev-server/server.js"
+
   },
 
   "devDependencies": {
