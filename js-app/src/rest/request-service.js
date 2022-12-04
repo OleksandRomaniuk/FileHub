@@ -11,18 +11,16 @@ export class RequestService {
    * @returns {Promise<Response>}
    */
   async postJson(url, data) {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: data,
+      headers: {'Content-Type': 'application/json;charset=utf-8'},
+    });
+
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: data,
-        headers: {'Content-Type': 'application/json;charset=utf-8'},
-      });
-
-      const jsonData = await response.json();
-
-      return new Response(response.status, jsonData);
+      return new Response(response.status, await response.json());
     } catch (e) {
-      return new Response(505);
+      return new Response(response.status);
     }
   }
 
@@ -37,7 +35,8 @@ export class RequestService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        'Authorization': `Bearer ${token}`},
+        'Authorization': `Bearer ${token}`,
+      },
     });
 
     const data = await response.json();

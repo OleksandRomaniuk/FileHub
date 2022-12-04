@@ -28,11 +28,12 @@ export class Preconditions {
   /**
    * Checks if {@link valueToCheck} is undefined.
    * @param {any} valueToCheck
+   * @param {string} errorMessage
    * @throws {Error}
    */
-  static checkNotUndefined(valueToCheck) {
+  static checkNotUndefined(valueToCheck, errorMessage) {
     if (typeof valueToCheck == 'undefined') {
-      throw new Error(`Value is undefined.`);
+      throw new Error(errorMessage);
     }
   }
 }

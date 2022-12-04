@@ -6,6 +6,8 @@ import {Preconditions} from '../preconditions.js';
 export class RouterConfig {
   #routeToHandler;
   #homeRoute;
+  #dynamicRoutes;
+  #eventTarget;
 
   /**
    * @typedef {object} RouteToPageHandler
@@ -16,10 +18,14 @@ export class RouterConfig {
   /**
    * @param {RouteToPageHandler} routeToPageHandler
    * @param {string} homeRoute
+   * @param {DynamicRoutes[]} dynamicRoutes
+   * @param {EventTarget} eventTarget
    */
-  constructor(routeToPageHandler, homeRoute) {
+  constructor(routeToPageHandler, homeRoute, dynamicRoutes, eventTarget) {
     this.#routeToHandler = routeToPageHandler;
     this.#homeRoute = homeRoute;
+    this.#dynamicRoutes = dynamicRoutes;
+    this.#eventTarget = eventTarget;
   }
 
   /**
@@ -30,10 +36,24 @@ export class RouterConfig {
   }
 
   /**
+   * @returns {DynamicRoutes}
+   */
+  get dynamicRoutes() {
+    return this.#dynamicRoutes;
+  }
+
+  /**
    * @returns {string}
    */
   get homeRoute() {
     return this.#homeRoute;
+  }
+
+  /**
+   * @returns {EventTarget}
+   */
+  get eventTarget() {
+    return this.#eventTarget;
   }
 
   /**
@@ -45,12 +65,26 @@ export class RouterConfig {
   }
 }
 
+const ROUTE_SEPARATOR = '/:';
+
 /**
  * Builder for {@link RouterConfig}.
  */
 class RouterConfigBuilder {
   #routeToHandler = {};
   #homeRoute;
+  #eventTarget = new EventTarget();
+
+  /**
+   * @typedef DynamicRoutes
+   * @property {string} mainRoute
+   * @property {string} dynamicRoute
+   */
+
+  /**
+   * @type {DynamicRoutes[]}
+   */
+  #dynamicRoutes = [];
 
   /**
    * Maps handler by route.
@@ -61,7 +95,26 @@ class RouterConfigBuilder {
   addRoute(route, pageHandler) {
     Preconditions.checkType(route, 'string');
     Preconditions.checkType(pageHandler, 'function');
+    if (route.includes(ROUTE_SEPARATOR)) {
+      const [mainRoute, dynamicRoute] = route.split(ROUTE_SEPARATOR);
+      this.#dynamicRoutes.push({mainRoute, dynamicRoute});
+      this.#routeToHandler[mainRoute] = pageHandler;
+      return this;
+    }
     this.#routeToHandler[route] = pageHandler;
+    return this;
+  }
+
+  /**
+   * Adds listener for route change.
+   * @param {string} route
+   * @param {Function} routeChangeListener
+   * @returns {RouterConfigBuilder}
+   */
+  addMetadataChangeListener(route, routeChangeListener) {
+    this.#eventTarget.addEventListener(route, (event) => {
+      routeChangeListener(event.detail.route, event.detail.metadata);
+    });
     return this;
   }
 
@@ -93,12 +146,13 @@ class RouterConfigBuilder {
    * @throws Error - In case when route to home is defined, but its handler is not defined.
    */
   build() {
-    Preconditions.checkNotUndefined(this.#routeToHandler['404']);
-    Preconditions.checkNotUndefined(this.#homeRoute);
+    Preconditions.checkNotUndefined(this.#routeToHandler['404'],
+        'Handler for route to \'404 not found page\' is not defined.');
+    Preconditions.checkNotUndefined(this.#homeRoute, 'Route to home page is not defined');
     if (!this.#routeToHandler[this.#homeRoute]) {
       throw new Error('Route for home page is defined, but there is no such page. ' +
           'Please define it with \'addRoute\' method.');
     }
-    return new RouterConfig(this.#routeToHandler, this.#homeRoute);
+    return new RouterConfig(this.#routeToHandler, this.#homeRoute, this.#dynamicRoutes, this.#eventTarget);
   }
 }
