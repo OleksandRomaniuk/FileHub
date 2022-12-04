@@ -17,8 +17,7 @@ describe('Page not found component', () => {
   test('Should render page not found component', function() {
     expect.assertions(1);
 
-    const pageMarkup =
-     `
+    const pageMarkup = `
     <div id="notfound">
     <div class="notfound">
         <div class="notfound-bg">
@@ -35,7 +34,7 @@ describe('Page not found component', () => {
     `;
 
 
-    expect(fixture.innerHTML).toBe(pageMarkup);
+      expect(fixture.innerHTML).toBe(pageMarkup);
   });
 
   test('Should add listener for navigate event', () => {
