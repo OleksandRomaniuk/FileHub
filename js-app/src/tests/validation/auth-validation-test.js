@@ -75,7 +75,7 @@ module('authFormValidation', (hooks) => {
       ['Text must be more than 5 symbols', 'Field is not valid',
         'Text must be more than 6 symbols'],
     ],
-    ['artem@g', 'asdasdasd',
+    ['alexm@g', 'asdasdasd',
       [],
     ],
     ['%@g', 'asdasdasd',
@@ -84,7 +84,7 @@ module('authFormValidation', (hooks) => {
     ['aaa%%%@g', 'asdasdasd',
       ['Field is not valid'],
     ],
-    ['artem@gmail.com', 'asd',
+    ['alex@gmail.com', 'asd',
       ['Text must be more than 6 symbols'],
     ],
   ].forEach(([email, password, errorMessages]) => {

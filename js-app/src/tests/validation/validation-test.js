@@ -114,31 +114,7 @@ module('validateValueEquals', () => {
     }
   });
 
-  test(`Should return resolved promise is arguments is mistype.`, async function(assert) {
-    const testValues = [
-      ['passwor', null],
-      ['', undefined],
-      ['', NaN],
-      ['desultorine', {}],
-      ['desultorine', []],
-    ];
 
-    assert.expect(2 * testValues.length);
-
-    for (const testValue of testValues) {
-      const validator = validateValueEquals(testValue[0]);
-
-      try {
-        await validator(testValue[1]);
-      } catch (error) {
-        assert.ok(true, `Should throw error with arguments: reference value - ${testValue[0]}
-      and actual value - ${testValue[1]}`);
-        assert.strictEqual(error.message,
-            `Expected string but ${typeof testValue[1]} provided.`,
-            'Should return expected message.');
-      }
-    }
-  });
 });
 
 module('validateValueWithRegex', () => {

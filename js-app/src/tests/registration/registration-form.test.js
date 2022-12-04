@@ -1,6 +1,9 @@
 import {RegistrationForm} from '../../registration/registration-form.js';
+import {ServerValidationError} from '../../rest/errors/server-validation-error.js';
+import {DefaultServerError} from '../../rest/errors/default-server-error.js';
 import {jest} from '@jest/globals';
 import {AuthorisationData} from '../../authorisation-data.js';
+
 
 describe('Registration form component', () => {
   let fixture;
@@ -64,6 +67,26 @@ describe('Registration form component', () => {
         done();
       });
     });
+  });
+
+  test('Should render validation errors', () => {
+    expect.assertions(1);
+
+    form.handleServerError(new ServerValidationError(
+        [{field: 'email', message: 'Email error'},
+          {field: 'password', message: 'Password error'}]));
+
+    const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
+    expect(errors.map((error) => error.textContent)).toEqual(['Email error', 'Password error']);
+  });
+
+  test('Should render server error', () => {
+    expect.assertions(1);
+
+    form.handleServerError(new DefaultServerError());
+
+    const error = fixture.querySelector('[class="server-error"]');
+    expect(error.textContent.trim()).toBe('Error occurred. Please try again.');
   });
 
   test('Should show 4 errors while inputs are empty', function() {

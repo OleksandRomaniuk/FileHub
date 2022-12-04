@@ -19,6 +19,10 @@ body{
     color: #000;
 }
 
+ul{
+    list-style: none;
+}
+
 a {
     color: #2699dc;
     text-decoration: none;
@@ -82,8 +86,15 @@ fieldset{
     margin: 0 auto;
 }
 
+.table-wrapper{
+    width: 1142px;
+}
+
 .page-header{
     padding: 30px 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-end;
 }
 
 .box {
@@ -142,4 +153,74 @@ fieldset{
 
 .error-label{
     color: #f00;
+}
+
+.server-error {
+    color: #f00;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.user-menu{
+    padding-right: 6px;
+    padding-bottom: 0px;
+}
+
+.menu-content{
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+}
+
+.menu-content li{
+    border-right: 2px solid #000;
+    padding-right: 8px;
+    margin-right: 8px;
+}
+
+.menu-content li:last-child{
+    border: none;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.error-logout-container{
+    padding: 0 5px 2px 0;
+}
+
+.vl{
+
+    border-left: 1px solid #000;
+    height: 20px;
+    margin-right: -2px;
+    /* padding: 0 ; */
+}
+
+.acc-container{
+    display: flex;
+    gap: 3px;
+    color: #999;
+}
+
+.user-icon{
+    align-self: flex-start;
+    font: 14px "Roboto", "Times New Roman", Times, serif;
+    color: #999;
+}
+
+.glyphicon-loader{
+    animation: rotate 1s linear 0s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.glyphicon-loader:before{
+    content: "\e030";
 }

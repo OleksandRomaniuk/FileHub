@@ -6,6 +6,8 @@ import {validateValueEquals, validateValueLength, validateValueWithRegex} from '
 import {ValidatorService} from '../validation/validator-service.js';
 import {Link} from '../components/link.js';
 import {AuthorisationData} from '../authorisation-data.js';
+import {ServerError} from '../rest/errors/server-error.js';
+import {ServerValidationError} from '../rest/errors/server-validation-error.js';
 
 const EMAIL_NAME = 'email';
 
@@ -33,6 +35,7 @@ export class RegistrationForm extends Component {
     [PASSWORD_NAME]: [],
     [CONFIRM_PASSWORD_NAME]: [],
   };
+  #serverError;
 
   /**
    * @param {HTMLElement} parent
@@ -89,24 +92,36 @@ export class RegistrationForm extends Component {
       });
     });
 
+    form.serverError = this.#serverError;
+
     form.onSubmit((formData) => {
+      this.#serverError = '';
       this.#validateForm(formData)
           .then(() => {
-            this.#email = '';
-            this.#password = '';
-            this.#confirmPassword = '';
             this.render();
             const event = new CustomEvent(SUBMIT_EVENT,
                 {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
             this.#eventTarget.dispatchEvent(event);
           })
-          .catch(() => {
-            this.#email = formData.get(EMAIL_NAME);
-            this.#password = formData.get(PASSWORD_NAME);
-            this.#confirmPassword = formData.get(CONFIRM_PASSWORD_NAME);
-            this.render();
-          });
+          .catch(() => {});
+      this.#email = formData.get(EMAIL_NAME);
+      this.#password = formData.get(PASSWORD_NAME);
+      this.#confirmPassword = formData.get(CONFIRM_PASSWORD_NAME);
+      this.render();
     });
+  }
+
+  /**
+   * Handles error that comes from server and render it.
+   * @param {ServerError} error
+   */
+  handleServerError(error) {
+    if (error instanceof ServerValidationError) {
+      this.#validationErrors = error.getError();
+    } else {
+      this.#serverError = error.getError();
+    }
+    this.render();
   }
 
   /**

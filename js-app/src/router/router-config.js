@@ -93,9 +93,8 @@ class RouterConfigBuilder {
    * @throws Error - In case when route to home is defined, but its handler is not defined.
    */
   build() {
-    Preconditions.checkNotUndefined(this.#routeToHandler['404'],
-        'Handler for route to \'404 not found page\' is not defined.');
-    Preconditions.checkNotUndefined(this.#homeRoute, 'Route to home page is not defined');
+    Preconditions.checkNotUndefined(this.#routeToHandler['404']);
+    Preconditions.checkNotUndefined(this.#homeRoute);
     if (!this.#routeToHandler[this.#homeRoute]) {
       throw new Error('Route for home page is defined, but there is no such page. ' +
           'Please define it with \'addRoute\' method.');
