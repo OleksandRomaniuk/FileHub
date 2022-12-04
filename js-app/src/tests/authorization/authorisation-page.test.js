@@ -74,13 +74,13 @@ describe('Authorisation page component', () => {
 
       page.onSuccessSubmit(mockFn);
 
-      email.value = 'alex@gmail';
+      email.value = 'artem@gmail';
       password.value = 'aaaaaaa';
       formMarkup.requestSubmit();
       setTimeout(() => {
         expect(mockFn).toHaveBeenCalledTimes(1);
         expect(logInMock).toHaveBeenCalledTimes(1);
-        expect(logInMock).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
+        expect(logInMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
         done();
       });
     });
@@ -95,14 +95,14 @@ describe('Authorisation page component', () => {
 
       expect.assertions(3);
 
-      email.value = 'alex@gmail';
+      email.value = 'artem@gmail';
       password.value = 'aaaaaaa';
 
       formMarkup.requestSubmit();
 
       setTimeout(() => {
         expect(logInMock).toHaveBeenCalledTimes(1);
-        expect(logInMock).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
+        expect(logInMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
         const error = fixture.querySelector('[class="server-error"]');
         expect(error.textContent.trim()).toBe('Invalid user name or password.');
         done();

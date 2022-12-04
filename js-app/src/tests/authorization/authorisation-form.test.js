@@ -51,13 +51,13 @@ describe('Authorisation form component', () => {
 
       form.onSubmit(mockFn);
 
-      emailInput.value = 'alex@gmail';
+      emailInput.value = 'artem@gmail';
       passwordInput.value = 'aaaaaaa';
 
       formMarkup.requestSubmit();
       setTimeout(() => {
         expect(mockFn).toHaveBeenCalledTimes(1);
-        expect(mockFn).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
+        expect(mockFn).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
         done();
       });
     });
@@ -94,7 +94,7 @@ describe('Authorisation form component', () => {
         expect(errors[2].textContent).toBe('Text must be more than 6 symbols');
 
         passwordInput.value = 'asdasdasd';
-        emailInput.value = 'alex@g';
+        emailInput.value = 'artem@g';
 
         formMarkup.requestSubmit();
 
@@ -114,7 +114,7 @@ describe('Authorisation form component', () => {
         'Text must be more than 6 symbols'],
     },
     {
-      username: 'alex@g', password: 'asdasdasd',
+      username: 'artem@g', password: 'asdasdasd',
       expectedErrors: [],
     },
     {
@@ -126,7 +126,7 @@ describe('Authorisation form component', () => {
       expectedErrors: ['You can use only latin letters, numbers, and _,@,.,+.-'],
     },
     {
-      username: 'alex@gmail.com', password: 'asd',
+      username: 'artem@gmail.com', password: 'asd',
       expectedErrors: ['Text must be more than 6 symbols'],
     },
   ].forEach(({username, password, expectedErrors}) => {

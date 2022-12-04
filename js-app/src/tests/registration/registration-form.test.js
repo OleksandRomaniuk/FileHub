@@ -56,14 +56,14 @@ describe('Registration form component', () => {
 
       form.onSubmit(mockFn);
 
-      emailInput.value = 'alex@gmail';
+      emailInput.value = 'artem@gmail';
       passwordInput.value = 'aaaaaaa';
       confirmPasswordInput.value = 'aaaaaaa';
       formMarkup.requestSubmit();
 
       setTimeout(() => {
         expect(mockFn).toHaveBeenCalledTimes(1);
-        expect(mockFn).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
+        expect(mockFn).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
         done();
       });
     });
@@ -124,7 +124,7 @@ describe('Registration form component', () => {
           expect(error.textContent.trim()).toBe(errorMessages[index]);
         });
 
-        emailInput.value = 'alex@g';
+        emailInput.value = 'artem@g';
         passwordInput.value = 'asdasdasd';
         confirmPasswordInput.value = 'asdasdasd';
 
@@ -145,10 +145,10 @@ describe('Registration form component', () => {
     {username: '%@g', password: 'password', confirmPassword: 'password',
       expectedErrors: ['Text must be more than 5 symbols', 'You can use only latin letters, numbers, and _,@,.,+.-'],
     },
-    {username: 'alex@g', password: 'passw', confirmPassword: 'password',
+    {username: 'artem@g', password: 'passw', confirmPassword: 'password',
       expectedErrors: ['Text must be more than 6 symbols', 'Passwords are not equal'],
     },
-    {username: 'alex@g', password: 'passphrases', confirmPassword: 'password',
+    {username: 'artem@g', password: 'passphrases', confirmPassword: 'password',
       expectedErrors: ['Passwords are not equal'],
     },
     {username: 'a@g', password: 'passphrases', confirmPassword: 'password',
