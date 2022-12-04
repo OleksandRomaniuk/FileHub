@@ -67,7 +67,7 @@ describe('Registration page component', () => {
 
       page.onSuccessSubmit(mockFn);
 
-      email.value = 'artem@gmail';
+      email.value = 'alex@gmail';
       password.value = 'aaaaaaa';
       confirmPassword.value = 'aaaaaaa';
 
@@ -78,7 +78,7 @@ describe('Registration page component', () => {
       setTimeout(() => {
         expect(mockFn).toHaveBeenCalledTimes(1);
         expect(registerMock).toHaveBeenCalledTimes(1);
-        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
         done();
       });
     });
@@ -103,7 +103,7 @@ describe('Registration page component', () => {
 
       setTimeout(() => {
         expect(registerMock).toHaveBeenCalledTimes(1);
-        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
         const error = fixture.querySelector('[class="server-error"]');
         expect(error.textContent.trim()).toBe('Error occurred. Please try again.');
         done();
@@ -130,7 +130,7 @@ describe('Registration page component', () => {
 
       setTimeout(() => {
         expect(registerMock).toHaveBeenCalledTimes(1);
-        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('artem@gmail', 'aaaaaaa'));
+        expect(registerMock).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
         const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
         expect(errors).toHaveLength(2);
         expect(errors.map((error) => error.textContent)).toEqual(['Email error', 'Password error']);
