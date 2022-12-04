@@ -12,7 +12,7 @@ export const validateValueEquals = (referenceValue) => {
     Preconditions.checkType(actualValue, 'string');
 
     if (actualValue !== referenceValue) {
-      throw new Error(`${referenceValue} is not equal to ${actualValue}`);
+      throw new Error(`Passwords are not equal`);
     }
   };
 };
@@ -30,7 +30,7 @@ export const validateValueWithRegex = (regex) => {
 
 
     if (!inputValue.match(regex)) {
-      throw new Error('Field is not valid');
+      throw new Error('You can use only latin letters, numbers, and _,@,.,+.-');
     }
   };
 };

@@ -51,11 +51,9 @@ export class Link extends Component {
    * @returns {string}
    */
   markup() {
-    return `
-        <a href="" title="${this.#linkText}" data-td="link">
-            ${this.#linkText}
-            <span class="glyphicon ${this.#iconClass}" aria-hidden="true"></span>
-        </a>
-    `;
+    const linkMarkup = `
+        <a href="" title="${this.#linkText}"data-td="link">${this.#linkText}
+<span class="glyphicon ${this.#iconClass}" aria-hidden="true"></span></a>`;
+    return linkMarkup.replace(/\n|\r/g, '');
   }
 }
