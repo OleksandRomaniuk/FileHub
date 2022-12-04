@@ -49,7 +49,7 @@ describe('Registration page component', () => {
       const inputPassword = formControls[1].getElementsByTagName('input')[0];
       const confirmPassword = formControls[2].getElementsByTagName('input')[0];
 
-      inputEmail.value = 'artem@gmail';
+      inputEmail.value = 'alex@gmail';
       inputPassword.value = 'aaaaaaa';
       confirmPassword.value = 'aaaaaaa';
 

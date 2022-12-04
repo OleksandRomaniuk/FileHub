@@ -49,7 +49,7 @@ describe('Authorisation page component', () => {
       const inputEmail = formControls[0].getElementsByTagName('input')[0];
       const inputPassword = formControls[1].getElementsByTagName('input')[0];
 
-      inputEmail.value = 'artem@gmail';
+      inputEmail.value = 'alex@gmail';
       inputPassword.value = 'aaaaaaa';
 
 
