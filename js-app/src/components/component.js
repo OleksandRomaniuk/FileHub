@@ -4,6 +4,7 @@
 export class Component {
   parentElement;
   rootElement;
+  #isInitDone;
 
   /**
    * @param {HTMLElement} parent
@@ -18,8 +19,10 @@ export class Component {
    * @protected
    */
   init() {
+    this.#isInitDone = true;
     this.render();
   }
+
 
   /**
    * Method that was invented for defining html code that must be rendered.
@@ -44,7 +47,10 @@ export class Component {
    * @protected
    */
   getSlot(slotName) {
-    return this.rootElement.querySelector(`[data-td=${slotName}]`);
+    if (this.rootElement.getAttribute('data-td') === slotName) {
+      return this.rootElement;
+    }
+    return this.rootElement.querySelector(`[data-td="${slotName}"]`);
   }
 
   /**
@@ -58,12 +64,24 @@ export class Component {
   }
 
   /**
+   * Marks element data-td attribute.
+   * @param {string} value
+   * @returns {string}
+   * @protected
+   */
+  markElement(value) {
+    return `data-td=${value}`;
+  }
+
+  /**
    * Renders component and call afterRender lifecycle hook.
    * @protected
    */
   render() {
-    this.#createDomTree();
-    this.afterRender();
+    if (this.#isInitDone) {
+      this.#createDomTree();
+      this.afterRender();
+    }
   }
   /**
    * @private
@@ -86,9 +104,9 @@ export class Component {
    * @private
    */
   #createNewElement() {
-    const tempElement = document.createElement('div');
+    const tempElement = document.createElement('template');
     tempElement.innerHTML = this.markup();
 
-    return tempElement.firstElementChild;
+    return tempElement.content.firstElementChild;
   }
 }

@@ -1,7 +1,7 @@
-import {IdService} from '../id-service.js';
+import {IdService} from '../services/id-service.js';
 
 describe('Id service', () => {
-  test('Should create unique IDs', function() {
+  test('Should create unique id', function() {
     expect.assertions(1);
 
     const generatedIds = [];

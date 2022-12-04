@@ -151,4 +151,14 @@ describe('Authorisation form component', () => {
           });
         });
   });
+
+  test(`Should render server error.`, function() {
+    expect.assertions(1);
+
+    form.serverError = 'Test error from server';
+
+    const error = fixture.querySelector('[class="server-error"]');
+
+    expect(error.textContent.trim()).toBe('Test error from server');
+  });
 });

@@ -1,5 +1,5 @@
 import {Component} from './component.js';
-import {IdService} from '../id-service.js';
+import {IdService} from '../services/id-service.js';
 
 /**
  * Form control component.

@@ -1,6 +1,7 @@
 import {Component} from '../components/component.js';
 import {AuthorisationForm} from './authorisation-form.js';
-import {TitleService} from '../title-service.js';
+import {ApiService} from '../rest/api-service.js';
+import {TitleService} from '../services/title-service.js';
 
 /**
  * Authorisation page component.
@@ -9,13 +10,17 @@ export class AuthorisationPage extends Component {
   #navigateListener;
   #submitListener;
   #authorisationData;
+  #apiService;
+
   /**
    * @param {HTMLElement} parent
+   * @param {ApiService} apiService
    * @param {TitleService} titleService
    */
-  constructor(parent, titleService) {
+  constructor(parent, apiService, titleService) {
     super(parent);
     this.init();
+    this.#apiService = apiService;
     titleService.title = ['Sign In'];
   }
 
@@ -30,8 +35,14 @@ export class AuthorisationPage extends Component {
     });
 
     form.onSubmit((authorisationData) => {
-      this.#authorisationData = authorisationData;
-      this?.#submitListener();
+      this.#apiService.logIn(authorisationData)
+          .then(() => {
+            this.#authorisationData = authorisationData;
+            this?.#submitListener();
+          })
+          .catch((error) => {
+            form.serverError = error.getError();
+          });
     });
   }
 
@@ -58,7 +69,9 @@ export class AuthorisationPage extends Component {
     return `
       <div class="wrapper" data-td="authorisation-page">
         <header class="page-header">
-            <a href="#" title="TeamDev"><img src="./images/logo.png" alt="TeamDev" width="200" height="37"></a>
+            <a href="#" title="TeamDev">
+                <img src="../../static/images/logo.png" alt="TeamDev" width="200" height="37">
+            </a>
         </header>
         <div class="box">
             <h1>Sign in to FileHub</h1>

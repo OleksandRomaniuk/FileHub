@@ -25,6 +25,7 @@ export class AuthorisationForm extends Component {
   #eventTarget = new EventTarget();
   #email = '';
   #password = '';
+  #serverError;
   #validationErrors = {
     [EMAIL_NAME]: [],
     [PASSWORD_NAME]: [],
@@ -74,21 +75,28 @@ export class AuthorisationForm extends Component {
       });
     });
 
+    form.serverError = this.#serverError;
+
     form.onSubmit((formData) => {
+      this.serverError = '';
       this.#validateForm(formData)
           .then(() => {
-            this.#email = '';
-            this.#password = '';
-            this.render();
             const event = new CustomEvent(SUBMIT_EVENT,
                 {detail: new AuthorisationData(formData.get(EMAIL_NAME), formData.get(PASSWORD_NAME))});
             this.#eventTarget.dispatchEvent(event);
           })
-          .catch(() => {
-            this.#email = formData.get(EMAIL_NAME);
-            this.#password = formData.get(PASSWORD_NAME);
-            this.render();
+          .catch((result) => {
+            const errors = result.errors.reduce((hash, error) => {
+              const prevErrors = hash[error.fieldName] || [];
+              hash[error.fieldName] = [...prevErrors, error.message];
+              return hash;
+            }, {});
+
+            this.#setValidationErrors(errors);
           });
+      this.#email = formData.get(EMAIL_NAME);
+      this.#password = formData.get(PASSWORD_NAME);
+      this.render();
     });
   }
 
@@ -113,6 +121,14 @@ export class AuthorisationForm extends Component {
   }
 
   /**
+   * @param {string} value
+   */
+  set serverError(value) {
+    this.#serverError = value;
+    this.render();
+  }
+
+  /**
    * @param {FormData} formData
    * @returns {Promise}
    * @private
@@ -125,17 +141,7 @@ export class AuthorisationForm extends Component {
         .addField(PASSWORD_NAME, [validateValueLength(6)])
         .build();
 
-    return ValidatorService.validate(formData, config)
-        .catch((result) => {
-          const errors = result.errors.reduce((hash, error) => {
-            const prevErrors = hash[error.fieldName] || [];
-            hash[error.fieldName] = [...prevErrors, error.message];
-            return hash;
-          }, {});
-
-          this.#setValidationErrors(errors);
-          return Promise.reject(new Error());
-        });
+    return ValidatorService.validate(formData, config);
   }
 
   /**

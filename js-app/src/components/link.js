@@ -7,6 +7,7 @@ const CLICK_EVENT = 'click-event';
  */
 export class Link extends Component {
   #linkText;
+  #iconClass = '';
   #eventTarget = new EventTarget();
 
   /**
@@ -30,6 +31,14 @@ export class Link extends Component {
   }
 
   /**
+   * @param {string} value
+   */
+  set iconClass(value) {
+    this.#iconClass = value;
+    this.render();
+  }
+
+  /**
    * Adds listener for click event.
    * @param {Function} listener
    */
@@ -42,10 +51,9 @@ export class Link extends Component {
    * @returns {string}
    */
   markup() {
-    return `
-        <a href="" title="${this.#linkText}" data-td="link">
-            ${this.#linkText}
-        </a>
-    `;
+    const linkMarkup = `
+        <a href="" title="${this.#linkText}"data-td="link">${this.#linkText}
+<span class="glyphicon ${this.#iconClass}" aria-hidden="true"></span></a>`;
+    return linkMarkup.replace(/\n|\r/g, '');
   }
 }
