@@ -39,12 +39,6 @@ describe('State management service', () => {
     expect(listener).toHaveBeenCalledWith({'value': null});
   });
 
-  test('Should return frozen state on getter', () => {
-    expect.assertions(1);
-
-    expect(Object.isFrozen(stateManagementService.state)).toBe(true);
-  });
-
   test('Should dispatch action and change state', () => {
     const executeMock = jest.spyOn(action, 'execute')
         .mockImplementation((mutationExecutor) => {
@@ -62,5 +56,24 @@ describe('State management service', () => {
     expect(executeMock).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledTimes(2);
     expect(stateManagementService.state).toEqual({'value': 'value'});
+  });
+
+  test('Should throw error if mutator is not a function', () => {
+    expect.assertions(1);
+
+    mutators = {
+      [mutatorName]: '',
+    };
+
+    stateManagementService = new StateManagementService(mutators, {}, applicationContext);
+
+    jest.spyOn(action, 'execute')
+        .mockImplementation((mutationExecutor) => {
+          mutationExecutor(mutatorName, 'value');
+        });
+
+    expect(() => {
+      stateManagementService.dispatch(action);
+    }).toThrow('Expected function but string provided.');
   });
 });

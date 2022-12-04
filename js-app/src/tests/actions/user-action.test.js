@@ -1,73 +1,79 @@
 import {UserAction} from '../../actions/user-action.js';
-import {ApplicationContext} from '../../application-context.js';
+import {ApiService} from '../../rest/api-service.js';
 import {jest} from '@jest/globals';
 
 describe('User action', () => {
-  let applicationContext;
+  let apiService;
   let userAction;
   let mutationExecutorMock;
 
   beforeEach(() => {
     mutationExecutorMock = jest.fn();
 
-    applicationContext = new ApplicationContext();
+    apiService = new ApiService();
 
-    userAction = new UserAction();
+    userAction = new UserAction(apiService);
   });
 
   test('Should call get user method in from api service', () => {
-    const getUserMock = jest.spyOn(applicationContext.apiService, 'getUser')
+    const getUserMock = jest.spyOn(apiService, 'getUser')
         .mockImplementation(() => {
           return new Promise((resolve) => {
             resolve({});
           });
         });
 
-    userAction.execute(mutationExecutorMock, applicationContext);
+    userAction.execute(mutationExecutorMock);
 
     expect(getUserMock).toHaveBeenCalledTimes(1);
   });
 
-  test('Should call mutation executor function with right arguments', (done) => {
-    jest.spyOn(applicationContext.apiService, 'getUser')
-        .mockImplementation(() => {
-          return new Promise((resolve) => {
-            resolve('name');
+  test('Should call mutation executor function with right arguments', () => {
+    return new Promise((done) => {
+      jest.spyOn(apiService, 'getUser')
+          .mockImplementation(() => {
+            return new Promise((resolve) => {
+              resolve( {username: 'test name', rootFolderId: 1});
+            });
           });
-        });
 
-    setTimeout(async () => {
-      await userAction.execute(mutationExecutorMock, applicationContext);
-      expect(mutationExecutorMock).toHaveBeenCalledTimes(3);
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(1, 'is-user-loading', true);
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(2, 'set-username', 'name');
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(3, 'is-user-loading', false);
-      done();
+      setTimeout(async () => {
+        await userAction.execute(mutationExecutorMock);
+        expect(mutationExecutorMock).toHaveBeenCalledTimes(3);
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(1, 'set-user-loading', true);
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(2, 'set-user-profile', {username: 'test name', rootFolderId: 1});
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(3, 'set-user-loading', false);
+        done();
+      });
     });
   });
 
-  test('Should call mutation executor function with right arguments when server return error', (done) => {
-    const error = new Error('test error');
-    jest.spyOn(applicationContext.apiService, 'getUser')
-        .mockImplementation(() => {
-          return new Promise((resolve, reject) => {
-            reject(error);
+  test('Should call mutation executor function with right arguments when server return error', () => {
+    return new Promise((done) => {
+      const error = {getError() {
+        return 'test error';
+      }};
+      jest.spyOn(apiService, 'getUser')
+          .mockImplementation(() => {
+            return new Promise((resolve, reject) => {
+              reject(error);
+            });
           });
-        });
 
-    setTimeout(async () => {
-      await userAction.execute(mutationExecutorMock, applicationContext);
-      expect(mutationExecutorMock).toHaveBeenCalledTimes(3);
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(1, 'is-user-loading', true);
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(2, 'set-user-error', error);
-      expect(mutationExecutorMock)
-          .toHaveBeenNthCalledWith(3, 'is-user-loading', false);
-      done();
+      setTimeout(async () => {
+        await userAction.execute(mutationExecutorMock);
+        expect(mutationExecutorMock).toHaveBeenCalledTimes(3);
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(1, 'set-user-loading', true);
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(2, 'set-user-error', 'test error');
+        expect(mutationExecutorMock)
+            .toHaveBeenNthCalledWith(3, 'set-user-loading', false);
+        done();
+      });
     });
   });
 });

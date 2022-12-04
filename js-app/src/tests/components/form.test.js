@@ -1,7 +1,7 @@
 import {Form} from '../../components/form.js';
 import {FormControl} from '../../components/form-control.js';
 import {Link} from '../../components/link.js';
-
+import {jest} from '@jest/globals';
 
 describe('Form component', () => {
   let fixture;
@@ -36,16 +36,22 @@ describe('Form component', () => {
     expect(button.firstElementChild.title).toBe('ButtonText');
     expect(link.textContent.trim()).toBe('LinkText');
     expect(actualFormControl).toBeTruthy();
-    // expect(onSubmitCheck, 'Should change ');
   });
 
   test('Should add listener to submit event', () => {
-    expect.assertions(1);
+    return new Promise((done) => {
+      expect.assertions(1);
 
-    form.onSubmit(() => {
-      expect(true).toBe(true);
+      const mockFn = jest.fn();
+
+      form.onSubmit(mockFn);
+      const actualFormMarkup = fixture.querySelector('[data-td="form"]');
+      actualFormMarkup.requestSubmit();
+
+      setTimeout(() => {
+        expect(mockFn).toHaveBeenCalledTimes(1);
+        done();
+      });
     });
-    const actualFormMarkup = fixture.querySelector('[data-td="form"]');
-    actualFormMarkup.requestSubmit();
   });
 });

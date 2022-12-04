@@ -1,6 +1,6 @@
 import {TitleService} from '../../services/title-service.js';
 import {NotFoundPage} from '../../not-found-page/not-found-page.js';
-
+import {jest} from '@jest/globals';
 
 describe('Page not found component', () => {
   let fixture;
@@ -18,7 +18,7 @@ describe('Page not found component', () => {
     expect.assertions(1);
 
     const pageMarkup =
-        `
+     `
     <div id="notfound">
     <div class="notfound">
         <div class="notfound-bg">
@@ -41,11 +41,13 @@ describe('Page not found component', () => {
   test('Should add listener for navigate event', () => {
     expect.assertions(1);
 
-    page.onNavigateToHome(() => {
-      expect(true).toBe(true);
-    });
+    const mockFn = jest.fn();
+
+    page.onNavigateToHome(mockFn);
 
     const link = fixture.querySelector(`[data-td="link"]`).firstElementChild;
     link.click();
+
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 });

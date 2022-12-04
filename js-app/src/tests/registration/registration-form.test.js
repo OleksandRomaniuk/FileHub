@@ -2,6 +2,7 @@ import {RegistrationForm} from '../../registration/registration-form.js';
 import {ServerValidationError} from '../../rest/errors/server-validation-error.js';
 import {DefaultServerError} from '../../rest/errors/default-server-error.js';
 import {jest} from '@jest/globals';
+import {AuthorisationData} from '../../authorisation-data.js';
 
 
 describe('Registration form component', () => {
@@ -9,9 +10,10 @@ describe('Registration form component', () => {
   let form;
   let formMarkup;
   let formControls;
-  let email;
-  let password;
-  let confirmPassword;
+  let emailInput;
+  let passwordInput;
+  let confirmPasswordInput;
+  let mockFn;
 
   beforeEach(() => {
     document.body.innerHTML = '';
@@ -20,65 +22,61 @@ describe('Registration form component', () => {
     formMarkup = fixture.querySelector('[data-td="form"]').firstElementChild;
     formControls = fixture.querySelectorAll('[data-td="form-control"]');
 
-    email = formControls[0].getElementsByTagName('input')[0];
-    password = formControls[1].getElementsByTagName('input')[0];
-    confirmPassword = formControls[2].getElementsByTagName('input')[0];
+    emailInput = formControls[0].getElementsByTagName('input')[0];
+    passwordInput = formControls[1].getElementsByTagName('input')[0];
+    confirmPasswordInput = formControls[2].getElementsByTagName('input')[0];
+    mockFn = jest.fn();
   });
   test('Should render registration form component', function() {
     expect.assertions(7);
 
     expect(formMarkup).toBeTruthy();
-    expect(email.name).toBe('email');
-    expect(email.placeholder).toBe('Email');
-    expect(password.name).toBe('password');
-    expect(password.placeholder).toBe('Password');
-    expect(confirmPassword.name).toBe('confirmPassword');
-    expect(confirmPassword.placeholder).toBe('Confirm Password');
+    expect(emailInput.name).toBe('email');
+    expect(emailInput.placeholder).toBe('Email');
+    expect(passwordInput.name).toBe('password');
+    expect(passwordInput.placeholder).toBe('Password');
+    expect(confirmPasswordInput.name).toBe('confirmPassword');
+    expect(confirmPasswordInput.placeholder).toBe('Confirm Password');
   });
 
   test('Should add listener for navigate event', () => {
     expect.assertions(1);
 
-    const navigateListener = jest.fn(() => {});
-
-    form.onNavigateToAuthorisation(() => {
-      navigateListener();
-    });
+    form.onNavigateToAuthorisation(mockFn);
 
     const link = fixture.querySelector('[data-td="link"]');
     link.click();
 
-    expect(navigateListener).toHaveBeenCalledTimes(1);
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
-  test('Should add listener for submit event', (done) => {
-    expect.assertions(1);
+  test('Should add listener for submit event', () => {
+    return new Promise((done) => {
+      expect.assertions(2);
 
-    const submitListener = jest.fn(() => {});
-    form.onSubmit(() => {
-      submitListener();
-    });
+      form.onSubmit(mockFn);
 
-    email.value = 'artem@gmail';
-    password.value = 'aaaaaaa';
-    confirmPassword.value = 'aaaaaaa';
-    formMarkup.requestSubmit();
+      emailInput.value = 'alex@gmail';
+      passwordInput.value = 'aaaaaaa';
+      confirmPasswordInput.value = 'aaaaaaa';
+      formMarkup.requestSubmit();
 
-    setTimeout(() => {
-      expect(submitListener).toHaveBeenCalledTimes(1);
-      done();
+      setTimeout(() => {
+        expect(mockFn).toHaveBeenCalledTimes(1);
+        expect(mockFn).toHaveBeenCalledWith(new AuthorisationData('alex@gmail', 'aaaaaaa'));
+        done();
+      });
     });
   });
 
   test('Should render validation errors', () => {
-    expect.assertions(2);
+    expect.assertions(1);
 
     form.handleServerError(new ServerValidationError(
         [{field: 'email', message: 'Email error'},
           {field: 'password', message: 'Password error'}]));
 
     const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
-    expect(errors.length).toBe(2);
     expect(errors.map((error) => error.textContent)).toEqual(['Email error', 'Password error']);
   });
 
@@ -91,85 +89,100 @@ describe('Registration form component', () => {
     expect(error.textContent.trim()).toBe('Error occurred. Please try again.');
   });
 
-  test('Should show 4 errors while inputs are empty', function(done) {
-    expect.assertions(1);
-
-    formMarkup.requestSubmit();
-
-    setTimeout(() => {
-      const errors = fixture.querySelectorAll('[data-td="error-messages"]');
-      expect(errors.length).toBe(4);
-      done();
-    }, 100);
-  });
-
-  test('Should clear errors in authorisation form', function(done) {
-    expect.assertions(7);
-
-    email.value = '%@g';
-    password.value = 'asd';
-    confirmPassword.value = 'asds';
-
-    formMarkup.requestSubmit();
-
-    const errorMessages = ['Text must be more than 5 symbols', 'Field is not valid',
-      'Text must be more than 6 symbols', 'Text must be more than 6 symbols', 'asd is not equal to asds'];
-
-    setTimeout(() => {
-      let errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
-      expect(errors.length).toBe(errorMessages.length);
-      errors.forEach((error, index) => {
-        expect(error.textContent.trim()).toBe(errorMessages[index]);
-      });
-
-      email.value = 'artem@g';
-      password.value = 'asdasdasd';
-      confirmPassword.value = 'asdasdasd';
+  test('Should show 4 errors while inputs are empty', function() {
+    return new Promise((done) => {
+      expect.assertions(1);
 
       formMarkup.requestSubmit();
 
       setTimeout(() => {
-        errors = fixture.querySelectorAll('[data-td="error-messages"]');
-        expect(errors.length).toBe(0);
+        const errors = fixture.querySelectorAll('[data-td="error-messages"]');
+        expect(errors).toHaveLength(4);
         done();
-      });
-    }, 100);
+      }, 100);
+    });
   });
 
-  [['%%%@g', 'password', 'password',
-    ['Field is not valid']],
-  ['%@g', 'password', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid']],
-  ['artem@g', 'passw', 'password',
-    ['Text must be more than 6 symbols', 'passw is not equal to password']],
-  ['artem@g', 'passphrases', 'password',
-    ['passphrases is not equal to password']],
-  ['a@g', 'passphrases', 'password',
-    ['Text must be more than 5 symbols', 'passphrases is not equal to password']],
-  ['%@g', 'passphrases', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid', 'passphrases is not equal to password']],
-  ['%@g', 'pas', 'password',
-    ['Text must be more than 5 symbols', 'Field is not valid',
-      'Text must be more than 6 symbols', 'pas is not equal to password']],
-  ].forEach(([emailValue, passwordValue, confirmValue, errorMessages]) => {
-    test(`Registration validation with args - Email: ${emailValue}, password: ${passwordValue},
-      confirm password: ${confirmValue}`, function(done) {
-      expect.assertions(errorMessages.length + 1);
+  test('Should clear errors in authorisation form', function() {
+    return new Promise((done) => {
+      expect.assertions(7);
 
-      email.value = emailValue;
-      password.value = passwordValue;
-      confirmPassword.value = confirmValue;
+      emailInput.value = '%@g';
+      passwordInput.value = 'asd';
+      confirmPasswordInput.value = 'asds';
 
       formMarkup.requestSubmit();
 
+      const errorMessages = ['Text must be more than 5 symbols',
+        'You can use only latin letters, numbers, and _,@,.,+.-',
+        'Text must be more than 6 symbols', 'Text must be more than 6 symbols', 'Passwords are not equal'];
+
       setTimeout(() => {
-        const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
-        expect(errors.length).toBe(errorMessages.length);
+        let errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
+        expect(errors).toHaveLength(errorMessages.length);
         errors.forEach((error, index) => {
           expect(error.textContent.trim()).toBe(errorMessages[index]);
         });
-        done();
+
+        emailInput.value = 'alex@g';
+        passwordInput.value = 'asdasdasd';
+        confirmPasswordInput.value = 'asdasdasd';
+
+        formMarkup.requestSubmit();
+
+        setTimeout(() => {
+          errors = fixture.querySelectorAll('[data-td="error-messages"]');
+          expect(errors).toHaveLength(0);
+          done();
+        });
       }, 100);
+    });
+  });
+
+  [
+    {username: '%%%@g', password: 'password', confirmPassword: 'password',
+      expectedErrors: ['You can use only latin letters, numbers, and _,@,.,+.-']},
+    {username: '%@g', password: 'password', confirmPassword: 'password',
+      expectedErrors: ['Text must be more than 5 symbols', 'You can use only latin letters, numbers, and _,@,.,+.-'],
+    },
+    {username: 'alex@g', password: 'passw', confirmPassword: 'password',
+      expectedErrors: ['Text must be more than 6 symbols', 'Passwords are not equal'],
+    },
+    {username: 'alex@g', password: 'passphrases', confirmPassword: 'password',
+      expectedErrors: ['Passwords are not equal'],
+    },
+    {username: 'a@g', password: 'passphrases', confirmPassword: 'password',
+      expectedErrors: ['Text must be more than 5 symbols', 'Passwords are not equal'],
+    },
+    {username: '%@g', password: 'passphrases', confirmPassword: 'password',
+      expectedErrors: ['Text must be more than 5 symbols', 'You can use only latin letters, numbers, and _,@,.,+.-',
+        'Passwords are not equal'],
+    },
+    {username: '%@g', password: 'pas', confirmPassword: 'password',
+      expectedErrors: ['Text must be more than 5 symbols', 'You can use only latin letters, numbers, and _,@,.,+.-',
+        'Text must be more than 6 symbols', 'Passwords are not equal'],
+    },
+  ].forEach(({username, password, confirmPassword, expectedErrors}) => {
+    test(`Registration validation with args - Email: ${username}, password: ${password},
+      confirm password: ${confirmPassword}`, function() {
+      return new Promise((done) => {
+        expect.assertions(expectedErrors.length + 1);
+
+        emailInput.value = username;
+        passwordInput.value = password;
+        confirmPasswordInput.value = confirmPassword;
+
+        formMarkup.requestSubmit();
+
+        setTimeout(() => {
+          const errors = [...fixture.querySelectorAll('[data-td="error-messages"]')];
+          expect(errors).toHaveLength(expectedErrors.length);
+          errors.forEach((error, index) => {
+            expect(error.textContent.trim()).toBe(expectedErrors[index]);
+          });
+          done();
+        }, 100);
+      });
     });
   });
 });
