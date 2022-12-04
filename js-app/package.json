@@ -8,7 +8,6 @@
     "lint": "eslint ./**/**.js"
   },
   "license": "ISC",
-
   "devDependencies": {
     "eslint": "^8.24.0",
     "eslint-config-google": "^0.14.0",
