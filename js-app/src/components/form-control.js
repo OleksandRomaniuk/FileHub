@@ -1,4 +1,5 @@
 import {Component} from './component.js';
+import {IdService} from '../id-service.js';
 
 /**
  * Form control component.
@@ -6,7 +7,7 @@ import {Component} from './component.js';
 export class FormControl extends Component {
   #label;
   #type;
-  #id = crypto.randomUUID();
+  #id = IdService.getId();
   #name;
   #placeholder;
   #value = '';
