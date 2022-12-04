@@ -5,16 +5,16 @@ import {RouterConfig} from './router-config.js';
  */
 export class Router {
   #routerConfig;
+  #currentDynamicRoute;
 
   /**
    * @param {RouterConfig} routerConfig
    */
   constructor(routerConfig) {
     this.#routerConfig = routerConfig;
-    this.#routeToPage(window.location.hash.replace('#', ''))();
+    this.#routeToPage(window.location.hash.replace('#', ''));
     window.addEventListener('hashchange', () => {
-      const hash = window.location.hash;
-      this.#routeToPage(hash.replace('#', ''))();
+      this.#routeToPage(window.location.hash.replace('#', ''));
     });
   }
 
@@ -29,20 +29,58 @@ export class Router {
   /**
    * Returns page handler by route.
    * @param {string} route
-   * @returns {Function}
    * @private
    */
   #routeToPage(route) {
     if (route === '') {
-      return () => {
-        this.redirect(this.#routerConfig.homeRoute);
-      };
-    }
-    if (!this.#routerConfig.routeToHandler[route]) {
-      return this.#routerConfig.routeToHandler['404'];
+      this.redirect(this.#routerConfig.homeRoute);
     }
 
-    return this.#routerConfig.routeToHandler[route];
+    const path = this.#parseRoute(route);
+
+    const dynamicRouteFromConfig = this.#findConfiguredDynamicRoute(path.mainRoute);
+
+    if (dynamicRouteFromConfig) {
+      if (dynamicRouteFromConfig.mainRoute !== this.#currentDynamicRoute) {
+        this.#currentDynamicRoute = dynamicRouteFromConfig.mainRoute;
+        this.#routerConfig.routeToHandler[dynamicRouteFromConfig.mainRoute]();
+      }
+
+      this.#routerConfig.eventTarget.dispatchEvent(
+          new CustomEvent(dynamicRouteFromConfig.mainRoute,
+              {detail: {route: dynamicRouteFromConfig.mainRoute,
+                metadata: {[dynamicRouteFromConfig.dynamicRoute]: path.dynamicRoute}}}));
+      return;
+    }
+    this.#currentDynamicRoute = null;
+
+    if (!this.#routerConfig.routeToHandler[route]) {
+      this.#routerConfig.routeToHandler['404']();
+    }
+
+    this.#routerConfig.routeToHandler[route]();
+  }
+
+  /**
+   * @param {string} route
+   * @returns {{}}
+   * @private
+   */
+  #findConfiguredDynamicRoute(route) {
+    return this.#routerConfig.dynamicRoutes.filter((dynamicRoute) => dynamicRoute.mainRoute === route)[0];
+  }
+
+  /**
+   * @param {string} route
+   * @returns {{}}
+   * @private
+   */
+  #parseRoute(route) {
+    const routeParts = route.split('/');
+    if (routeParts.length === 1) {
+      return {mainRoute: routeParts[0], dynamicRoute: ''};
+    }
+    return {mainRoute: routeParts[0], dynamicRoute: routeParts[1]};
   }
 }
 

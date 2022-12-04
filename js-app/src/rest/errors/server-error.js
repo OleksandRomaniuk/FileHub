@@ -6,5 +6,7 @@ export class ServerError {
    * Must be overridden by all inheritors and return data with error that came from server.
    * @abstract
    */
-  getError() {}
+  getError() {
+    throw new Error('Method getError() must be overridden by the inheritor');
+  }
 }

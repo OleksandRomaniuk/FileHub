@@ -42,23 +42,22 @@ export class NotFoundPage extends Component {
    * @inheritDoc
    * @returns {string}
    */
-  markup() {
+    markup() {
 
     return `
-    <div id="notfound">
-    <div class="notfound">
+        <div id="notfound">
+        <div class="notfound">
         <div class="notfound-bg">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <h1>oops!</h1>
-        <h2>Error 404 : Page Not Found</h2>
-        <a href="#">go back</a>
-    </div>
-</div>
+        <div></div>
+    <div></div>
+    <div></div>
+  </div>
+    <h1>oops!</h1>
+    <h2>Error 404 : Page Not Found</h2>
+    <a href="#">go back</a>
+  </div>
+  </div>
 
     `;
-
   }
 }

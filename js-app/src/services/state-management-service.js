@@ -1,6 +1,5 @@
 import {Action} from '../actions/action.js';
-import {deepFreeze} from '../utils/deepFreeze.js';
-import {ApplicationContext} from '../application-context.js';
+import {State} from '../state/state.js';
 
 /**
  * Service that manage the state of application.
@@ -9,18 +8,15 @@ export class StateManagementService {
   #eventTarget;
   #mutators;
   #state;
-  #applicationContext;
 
   /**
    * @param {{}} mutators
-   * @param {{}} state
-   * @param {ApplicationContext} applicationContext
+   * @param {State} state
    */
-  constructor(mutators, state, applicationContext) {
+  constructor(mutators, state) {
     this.#eventTarget = new EventTarget();
     this.#mutators = mutators || {};
-    this.#state = deepFreeze(state || {});
-    this.#applicationContext = applicationContext;
+    this.#state = state;
   }
 
   /**
@@ -34,7 +30,7 @@ export class StateManagementService {
       throw new Error(`Expected function but ${typeof this.#mutators[mutatorKey]} provided.`);
     }
 
-    const newState = this.#mutators[mutatorKey](this.state, payload);
+    const newState = this.#mutators[mutatorKey](this.#state, payload);
 
     const proxyState = new Proxy(({...this.#state}), {
       set: (state, key, value) => {
@@ -42,16 +38,16 @@ export class StateManagementService {
         const successfullyChanged = Reflect.set(state, key, value);
         if (successfullyChanged && isValueDifferent) {
           this.#eventTarget.dispatchEvent(new CustomEvent(`stateChanged.${key}`, {
-            detail: state,
+            detail: this.#state,
           }));
         }
         return successfullyChanged;
       },
     });
 
-    this.#state = deepFreeze(newState);
+    this.#state = newState;
 
-    Object.assign(proxyState, newState);
+    Object.assign(proxyState, this.#state);
   }
 
   /**
@@ -61,24 +57,36 @@ export class StateManagementService {
   dispatch(action) {
     action.execute((mutatorKey, payload) => {
       this.#mutate(mutatorKey, payload);
-    }, this.#applicationContext);
+    });
   }
 
   /**
-   * @returns {{}}
+   * @returns {State}
    */
   get state() {
-    return Object.freeze(Object.assign({}, this.#state));
+    return this.#state;
+  }
+
+  /**
+   * Removes concrete event listener from event target.
+   * @param {string} fieldName
+   * @param {string} listener
+   */
+  removeStateListener(fieldName, listener) {
+    this.#eventTarget.removeEventListener(`stateChanged.${fieldName}`, listener);
   }
 
   /**
    * Adds listener for state change event.
    * @param {string} fieldName
    * @param {Function} listener
+   * @returns {Function}
    */
   addStateListener(fieldName, listener) {
     listener(this.#state);
+    const listenerFunction = (event) => listener(event.detail);
     this.#eventTarget.addEventListener(`stateChanged.${fieldName}`,
-        (event) => listener(event.detail));
+        listenerFunction);
+    return listenerFunction;
   }
 }
