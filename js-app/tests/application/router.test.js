@@ -15,20 +15,20 @@ describe('Router', () => {
       expect.assertions(5);
       const listener = jest.fn(()=>{});
       Router.getBuilder()
-          .addPage('login', () => {
-            fixture.innerHTML = 'loginRouter';
-          })
-          .addPage('registration', () => {
-            fixture.innerHTML = 'registrationRouter';
-          })
-          .addPage('file-list/:folderId', (params) => {
-            fixture.innerHTML = 'file-list-' + params.folderId;
-          })
-          .addRouteChangeListener(listener)
-          .setDefaultPage('registration')
-          .setErrorPageCreator(() => {
-            fixture.innerHTML = 'ERROR';
-          }).build();
+        .addPage('login', () => {
+          fixture.innerHTML = 'loginRouter';
+        })
+        .addPage('registration', () => {
+          fixture.innerHTML = 'registrationRouter';
+        })
+        .addPage('file-list/:folderId', (params) => {
+          fixture.innerHTML = 'file-list-' + params.folderId;
+        })
+        .addRouteChangeListener(listener)
+        .setDefaultPage('registration')
+        .setErrorPageCreator(() => {
+          fixture.innerHTML = 'ERROR';
+        }).build();
       setTimeout(()=>{
         expect(fixture.innerHTML).toBe('registrationRouter');
         window.location.hash = 'login';
@@ -57,9 +57,9 @@ describe('Router', () => {
     expect.assertions(1);
     expect(()=>{
       Router.getBuilder()
-          .addPage(()=>{
-            return 'string';
-          });
+        .addPage(()=>{
+          return 'string';
+        });
     }).toThrow('wrong type of arguments');
   });
 });

@@ -42,11 +42,11 @@ describe('Form', () =>{
     expect(formLabels.length).toBe(0);
     form.addInput((slot) => {
       new FormControl(slot,
-          {
-            labelText: 'Email',
-            placeholder: 'Email',
-            name: 'email',
-          });
+        {
+          labelText: 'Email',
+          placeholder: 'Email',
+          name: 'email',
+        });
     });
     formFromDocument = fixture.querySelector('form[data-td="form"]');
     formInputs = formFromDocument.querySelectorAll('input');
@@ -68,5 +68,15 @@ describe('Form', () =>{
     const formFromDocument = fixture.querySelector('button[data-td="button"]');
     formFromDocument.click();
     expect(mockFn).toHaveBeenCalled();
+  });
+  test('Should create form with inputCrator', async function() {
+    expect.assertions(2);
+    const form = new Form(fixture, 'Sign up');
+    const mockFn1 = jest.fn();
+    const mockFn2 = jest.fn();
+    form.addInput(mockFn1);
+    form.addInput(mockFn2);
+    expect(mockFn1).toHaveBeenCalled();
+    expect(mockFn2).toHaveBeenCalled();
   });
 });

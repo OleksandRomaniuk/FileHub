@@ -24,14 +24,14 @@ describe('UserInfo', () => {
     eventTarget.dispatchEvent(new Event(`stateChanged.isUserProfileLoading`));
 
     expect(userInfo.markup())
-        .toBe(`<slot><span class="glyphicon glyphicon-repeat loading" aria-hidden="true"></span></slot>`);
+      .toBe(`<slot><span class="glyphicon glyphicon-repeat loading" aria-hidden="true"></span></slot>`);
 
     userInfo.isError = true;
     userInfo.isLoading = false;
     eventTarget.dispatchEvent(new Event(`stateChanged.isUserProfileError`));
 
     expect(userInfo.markup())
-        .toBe(`<slot><span class="error-text">
+      .toBe(`<slot><span class="error-text">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                    Can't load user data
                 </span></slot>`);

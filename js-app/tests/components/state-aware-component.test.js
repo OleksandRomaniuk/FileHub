@@ -1,7 +1,7 @@
 import {StateAwareComponent} from '../../components/state-aware-component';
 import {jest} from '@jest/globals';
 import {ApplicationContext} from '../../application/application-context';
-import {StateManagementService} from '../../service/state-management/state-management-service';
+import {registry} from '../../application/registry.js';
 
 /**
  * Spy class for state aware component.
@@ -9,10 +9,9 @@ import {StateManagementService} from '../../service/state-management/state-manag
 class TestStateAwareComponent extends StateAwareComponent {
   /**
    * @param {HTMLElement} parent
-   * @param {StateManagementService} stateManagementService
    */
-  constructor(parent, stateManagementService) {
-    super(parent, stateManagementService);
+  constructor(parent) {
+    super(parent);
     this.init();
   }
 
@@ -45,17 +44,17 @@ describe('State aware component', () => {
     return new Promise((done) => {
       expect.assertions(4);
 
-      const applicationContext = new ApplicationContext();
+      new ApplicationContext();
 
       const returnedMock = jest.fn();
 
-      const addStateListenerMock = jest.spyOn(applicationContext.stateManagementService, 'addStateListener')
-          .mockImplementation(() => {
-            return returnedMock;
-          });
-      const removeStateListenerMock = jest.spyOn(applicationContext.stateManagementService, 'removeStateListener');
+      const addStateListenerMock = jest.spyOn(registry.getInstance('stateManagementService'), 'addStateListener')
+        .mockImplementation(() => {
+          return returnedMock;
+        });
+      const removeStateListenerMock = jest.spyOn(registry.getInstance('stateManagementService'), 'removeStateListener');
 
-      new TestStateAwareComponent(fixture.firstElementChild, applicationContext.stateManagementService);
+      new TestStateAwareComponent(fixture.firstElementChild);
 
       expect(addStateListenerMock).toHaveBeenCalledTimes(1);
       expect(addStateListenerMock).toHaveBeenCalledWith('testField', 'listenerFunction');

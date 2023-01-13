@@ -4,6 +4,7 @@ import {TableWrapper} from '../../../components/wrappers/table-wrapper';
 import {State} from '../../../service/state-management/state';
 import {BaseAction} from '../../../actions/base-action';
 import {MUTATOR_NAME} from '../../../service/state-management/constatns/mutators';
+import {registry} from "../../../application/registry.js";
 
 describe('TableWrapper', () => {
   let fixture;
@@ -11,6 +12,7 @@ describe('TableWrapper', () => {
 
   beforeEach(() => {
     fixture = document.body;
+    new ApplicationContext();
     fixture.innerHTML = '';
     eventTarget = new EventTarget();
   });
@@ -18,58 +20,59 @@ describe('TableWrapper', () => {
   test('Should change markup when get data about userProfile.', ()=> {
     return new Promise((done) => {
       expect.assertions(2);
-      const applicationContext = new ApplicationContext();
+      const stateManagementService = registry.getInstance('stateManagementService');
+      const apiService = registry.getInstance('apiService');
       jest
-          .spyOn(applicationContext.stateManagementService, 'addStateListener')
-          .mockImplementation((fieldName, listener)=> {
-            eventTarget.addEventListener(`stateChanged.${fieldName}`,
-                (event) => listener(event.detail));
-          });
-      const tableWrapper = new TableWrapper(fixture, applicationContext);
+        .spyOn(stateManagementService, 'addStateListener')
+        .mockImplementation((fieldName, listener)=> {
+          eventTarget.addEventListener(`stateChanged.${fieldName}`,
+            (event) => listener(event.detail));
+        });
+      const tableWrapper = new TableWrapper(fixture);
       const mockRender = jest.fn();
       jest
-          .spyOn(tableWrapper, 'render')
-          .mockImplementation(mockRender);
-      jest.spyOn(applicationContext.apiService, 'getFolderContent')
-          .mockImplementation(async ()=>{
-            return {
-              folderContent: {
-                items: [
-                  {
-                    type: 'folder',
-                    name: 'Montenegro',
-                    size: null,
-                    id: 'folder2',
-                  },
-                  {
-                    type: 'folder',
-                    name: 'My Trip',
-                    size: null,
-                    id: 'folder3',
-                  },
-                  {
-                    type: 'PDF Document',
-                    name: 'HTML_guidelines.pdf',
-                    size: '100 KB',
-                    id: 'file4',
-                  },
-                ],
-              },
-            };
-          });
+        .spyOn(tableWrapper, 'render')
+        .mockImplementation(mockRender);
+      jest.spyOn(apiService, 'getFolderContent')
+        .mockImplementation(async ()=>{
+          return {
+            folderContent: {
+              items: [
+                {
+                  type: 'folder',
+                  name: 'Montenegro',
+                  size: null,
+                  id: 'folder2',
+                },
+                {
+                  type: 'folder',
+                  name: 'My Trip',
+                  size: null,
+                  id: 'folder3',
+                },
+                {
+                  type: 'PDF Document',
+                  name: 'HTML_guidelines.pdf',
+                  size: '100 KB',
+                  id: 'file4',
+                },
+              ],
+            },
+          };
+        });
 
 
       eventTarget.dispatchEvent(new CustomEvent(
-          'stateChanged.isFolderContentLoading',
-          {detail: new State({isFolderInfoLoading: false})},
+        'stateChanged.isFolderContentLoading',
+        {detail: new State({isFolderInfoLoading: false})},
       ));
       eventTarget.dispatchEvent(new CustomEvent(
-          'stateChanged.isFolderContentError',
-          {detail: new State({isFolderContentError: true})},
+        'stateChanged.isFolderContentError',
+        {detail: new State({isFolderContentError: true})},
       ));
       eventTarget.dispatchEvent(new CustomEvent(
-          'stateChanged.folderContent',
-          {detail: new State({folderContent:
+        'stateChanged.folderContent',
+        {detail: new State({folderContent:
                   {
                     items: [
                       {
@@ -105,47 +108,47 @@ describe('TableWrapper', () => {
           },
         })}));
       setTimeout(()=>{
-        expect(applicationContext.stateManagementService.state.folderContent)
-            .toStrictEqual({
-              'items': [
-                {
-                  'id': 'folder2',
-                  'name': 'Montenegro',
-                  'size': null,
-                  'type': 'folder',
-                },
-                {
-                  'id': 'folder3',
-                  'name': 'My Trip',
-                  'size': null,
-                  'type': 'folder',
-                },
-                {
-                  'id': 'file4',
-                  'name': 'HTML_guidelines.pdf',
-                  'size': '100 KB',
-                  'type': 'PDF Document',
-                },
-              ],
-            });
+        expect(stateManagementService.state.folderContent)
+          .toStrictEqual({
+            'items': [
+              {
+                'id': 'folder2',
+                'name': 'Montenegro',
+                'size': null,
+                'type': 'folder',
+              },
+              {
+                'id': 'folder3',
+                'name': 'My Trip',
+                'size': null,
+                'type': 'folder',
+              },
+              {
+                'id': 'file4',
+                'name': 'HTML_guidelines.pdf',
+                'size': '100 KB',
+                'type': 'PDF Document',
+              },
+            ],
+          });
         done();
       });
     });
   });
   test('Should method destroy delete listeners on states.', ()=>{
     expect.assertions(2);
-    const applicationContext = new ApplicationContext();
-    const tableWrapper = new TableWrapper(fixture, applicationContext);
+    const stateManagementService = registry.getInstance('stateManagementService');
+    const tableWrapper = new TableWrapper(fixture);
     const mockRender = jest
-        .spyOn(tableWrapper, 'render')
-        .mockImplementation(()=>{});
+      .spyOn(tableWrapper, 'render')
+      .mockImplementation(()=>{});
 
-    applicationContext.stateManagementService.dispatch(new TestSetFolderContentAction('testFolderContent'));
+    stateManagementService.dispatch(new TestSetFolderContentAction('testFolderContent'));
 
     expect(mockRender).toHaveBeenCalledTimes(1);
     tableWrapper.onDestroy();
 
-    applicationContext.stateManagementService.dispatch(new TestSetFolderContentAction('secondTestFolderContent'));
+    stateManagementService.dispatch(new TestSetFolderContentAction('secondTestFolderContent'));
 
     expect(mockRender).toHaveBeenCalledTimes(1);
   });

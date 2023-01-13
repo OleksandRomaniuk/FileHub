@@ -3,7 +3,7 @@ import {UserData} from '../../application/user-data';
 describe('UserData', () =>{
   test('Should check data from UserData', () => {
     expect.assertions(4);
-    const userdata = new UserData('oleksnadr@gmail.com', 'password451441');
+    const userdata = new UserData('cherhynska@gmail.com', 'password451441');
 
     expect(typeof userdata.email).toBe('string');
     expect(typeof userdata.password).toBe('string');

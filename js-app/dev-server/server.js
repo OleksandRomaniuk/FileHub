@@ -10,7 +10,7 @@ app.get('/user', (req, res)=>{
   setTimeout(()=>{
     res.send({
       userProfile: {
-        username: 'Cherhynska',
+        username: 'alex',
         rootFolderId: 'folder1',
       }});
   }, 1000);

@@ -18,9 +18,7 @@ describe('Link', () => {
     expect(tmpLink).toBeDefined();
 
     tmpLink.click();
-    const markup = `<a href="#" data-td="link" title="Already have an account?">
-                   Already have an account?
-                </a>`;
+    const markup = '<a href="#" data-td="link" title="Already have an account?">Already have an account?</a>';
     expect(fixture.innerHTML).toEqual(markup);
 
     expect(tmpLink.innerHTML).toMatch('Already have an account?');

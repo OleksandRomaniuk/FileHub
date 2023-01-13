@@ -2,17 +2,19 @@ import {ApplicationContext} from '../../application/application-context';
 import {jest} from '@jest/globals';
 import {MUTATOR_NAME} from '../../service/state-management/constatns/mutators';
 import {DeleteItemAction} from '../../actions/delete-item-action';
+import {registry} from '../../application/registry';
 
 describe('DeleteItemAction', () => {
   test('Should call mutators when server gives data.', ()=> {
     expect.assertions(5);
-    const applicationContext = new ApplicationContext();
+    new ApplicationContext();
+    const apiService = registry.getInstance('apiService');
     const apiServiceMock = jest
-        .spyOn(applicationContext.apiService, 'deleteItem')
-        .mockImplementation(async ()=>{});
+      .spyOn( apiService, 'deleteItem')
+      .mockImplementation(async ()=>{});
 
     const executor = jest.fn(()=>{});
-    const deleteItemAction = new DeleteItemAction(applicationContext);
+    const deleteItemAction = new DeleteItemAction();
     return deleteItemAction.execute(executor).then(()=>{
       expect(apiServiceMock).toHaveBeenCalledTimes(1);
       expect(executor).toHaveBeenCalledTimes(4);
@@ -23,15 +25,16 @@ describe('DeleteItemAction', () => {
   });
   test('Should call mutators when server returns error.', ()=> {
     expect.assertions(5);
-    const applicationContext = new ApplicationContext();
+    new ApplicationContext();
+    const apiService = registry.getInstance('apiService');
     const apiServiceMock = jest
-        .spyOn(applicationContext.apiService, 'deleteItem')
-        .mockImplementation(async ()=> {
-          throw new Error();
-        });
+      .spyOn(apiService, 'deleteItem')
+      .mockImplementation(async ()=> {
+        throw new Error();
+      });
 
     const executor = jest.fn(()=>{});
-    const deleteItemAction = new DeleteItemAction(applicationContext);
+    const deleteItemAction = new DeleteItemAction();
     return deleteItemAction.execute(executor).then(()=>{
       expect(apiServiceMock).toHaveBeenCalledTimes(1);
       expect(executor).toHaveBeenCalledTimes(3);
