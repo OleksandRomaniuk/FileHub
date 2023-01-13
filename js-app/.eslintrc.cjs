@@ -1,12 +1,11 @@
 module.exports = {
   'env': {
     'browser': true,
-    'es2021': true,
+    'es2021': true
   },
   'extends': [
     'google',
-    "plugin:jest/recommended",
-    "plugin:jest/style"
+    'plugin:jest/recommended',
   ],
   'overrides': [],
   'parserOptions': {
@@ -14,6 +13,7 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
+    'jest',
     'jsdoc',
   ],
   'rules': {
@@ -46,8 +46,8 @@ module.exports = {
         exemptedBy: ['inheritDoc', 'private'],
         checkConstructors: false,
         checkGetters: false,
-        checkSetters: false
-      }
+        checkSetters: false,
+      },
     ],
     'jsdoc/require-description-complete-sentence': 'error',
     'jsdoc/require-hyphen-before-param-description': 'error',

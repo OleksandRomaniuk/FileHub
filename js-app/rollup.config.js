@@ -1,8 +1,7 @@
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import htmlTemplate from 'rollup-plugin-generate-html-template';
 import copy from 'rollup-plugin-copy';
-import livereload from 'rollup-plugin-livereload';
-import dev from 'rollup-plugin-dev';
+import {terser} from 'rollup-plugin-terser';
 
 export default {
   input: 'index.js',
@@ -17,6 +16,7 @@ export default {
       template: 'index.html',
       target: 'dist/index.html',
     }),
+    terser(),
     copy({
       targets: [
         {src: 'css', dest: 'dist'},
@@ -24,12 +24,5 @@ export default {
         {src: 'fonts', dest: 'dist'},
       ],
     }),
-    dev({
-      port: 3000,
-      dirs: ['dist'],
-      proxy: [{from: '/api', to: 'http://localhost:3001'}],
-    }),
-    livereload(),
-
   ],
 };
