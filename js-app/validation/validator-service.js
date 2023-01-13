@@ -18,15 +18,15 @@ export class ValidatorService {
     const promises = configs.map(({field, validators}) => {
       const value = formData.get(field);
       return validators.map((validator) => validator(value)
-          .catch((error) => {
-            throw new ValidationError(field, error.message);
-          }));
+        .catch((error) => {
+          throw new ValidationError(field, error.message);
+        }));
     }).flat();
     const promise = Promise.allSettled(promises);
     return promise.then((results) => {
       const validatorErrors = results
-          .filter((result) => result.status==='rejected')
-          .map((error) => error.reason);
+        .filter((result) => result.status==='rejected')
+        .map((error) => error.reason);
       if (validatorErrors.length > 0) {
         throw new ValidationErrorResult(validatorErrors);
       }

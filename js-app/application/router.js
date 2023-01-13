@@ -165,9 +165,9 @@ class RouterConfigBuilder {
    */
   build() {
     return new Router(
-        this.#pathToPageCreatorMap,
-        this.#defaultPage,
-        this.#routeChangeListener,
-        this.#errorPageCreator);
+      this.#pathToPageCreatorMap,
+      this.#defaultPage,
+      this.#routeChangeListener,
+      this.#errorPageCreator);
   }
 }

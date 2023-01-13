@@ -26,21 +26,21 @@ export class ApiService {
    */
   logIn(userData) {
     return this.#requestService.post('api/login',
-        JSON.stringify({username: userData.email, password: userData.password}))
-        .catch(()=>{
+      JSON.stringify({username: userData.email, password: userData.password}))
+      .catch(()=>{
+        throw new GeneralServerError();
+      })
+      .then((response)=>{
+        if (response.status === 200) {
+          this.#userToken = response.body.token;
+        }
+        if (response.status === 401) {
+          throw new LoginFailedError();
+        }
+        if (response.status !== 200 && response.status !== 401) {
           throw new GeneralServerError();
-        })
-        .then((response)=>{
-          if (response.status === 200) {
-            this.#userToken = response.body.token;
-          }
-          if (response.status === 401) {
-            throw new LoginFailedError();
-          }
-          if (response.status !== 200 && response.status !== 401) {
-            throw new GeneralServerError();
-          }
-        });
+        }
+      });
   }
   /**
    * Works with {@link RequestService} for register new users.
@@ -49,18 +49,18 @@ export class ApiService {
    */
   register(userData) {
     return this.#requestService.post('api/register',
-        JSON.stringify({username: userData.email, password: userData.password}))
-        .catch(()=>{
+      JSON.stringify({username: userData.email, password: userData.password}))
+      .catch(()=>{
+        throw new GeneralServerError();
+      })
+      .then((response) => {
+        if (response.status === 422) {
+          throw new RegisterError(response.body.errors);
+        }
+        if (response.status !== 200) {
           throw new GeneralServerError();
-        })
-        .then((response) => {
-          if (response.status === 422) {
-            throw new RegisterError(response.body.errors);
-          }
-          if (response.status !== 200) {
-            throw new GeneralServerError();
-          }
-        });
+        }
+      });
   }
   /**
    * Get data about user.
@@ -68,12 +68,12 @@ export class ApiService {
    */
   getUser() {
     return this.#requestService.get('api/user', this.#userToken)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error('Error occurred. Please try again.');
-          }
-          return response.body;
-        });
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+        return response.body;
+      });
   }
   /**
    * Get data about folder.
@@ -82,12 +82,12 @@ export class ApiService {
    */
   getFolder(id) {
     return this.#requestService.get('api/folders/'+id, this.#userToken)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error('Error occurred. Please try again.');
-          }
-          return response.body;
-        });
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+        return response.body;
+      });
   }
   /**
    * Get data about files and folder in current folder.
@@ -96,12 +96,12 @@ export class ApiService {
    */
   getFolderContent(id) {
     return this.#requestService.get('api/folders/'+id+'/content', this.#userToken)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error('Error occurred. Please try again.');
-          }
-          return response.body;
-        });
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+        return response.body;
+      });
   }
 
   /**
@@ -112,13 +112,13 @@ export class ApiService {
   deleteItem(item) {
     const type = item.type === 'folder' ? 'folder' : 'file';
     return this.#requestService.delete(`api/${type}/`+ item.id, this.#userToken)
-        .catch(()=>{
-          throw new GeneralServerError();
-        })
-        .then((response)=>{
-          if (response.status !== 200) {
-            throw new Error('Error occurred. Please try again.');
-          }
-        });
+      .catch(()=>{
+        throw new GeneralServerError();
+      })
+      .then((response)=>{
+        if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+      });
   }
 }

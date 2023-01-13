@@ -1,6 +1,5 @@
 import {LoadFolderInfoAction} from '../../actions/load-folder-info-action';
 import {State} from '../../service/state-management/state';
-import {ApplicationContext} from '../../application/application-context';
 import {StateAwareComponent} from '../state-aware-component';
 import {Breadcrumb} from '../breadcrumb';
 
@@ -16,25 +15,23 @@ export class BreadcrumbWrapper extends StateAwareComponent {
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, applicationContext) {
-    super(parent, applicationContext.stateManagementService);
-    this.isFolderInfoLoading = this.stateManagementService.state.isFolderInfoLoading;
-
+  constructor(parent) {
+    super(parent);
     this.addStateListener('locationMetaData', (state)=>{
       if (state.locationMetaData && state.userProfile) {
         this.stateManagementService.dispatch(
-            new LoadFolderInfoAction(applicationContext, state.locationMetaData.folderId));
+          new LoadFolderInfoAction(state.locationMetaData.folderId));
       }
     });
+
     this.addStateListener('userProfile', (state)=>{
       if (state.userProfile) {
         if (!state.locationMetaData || !state.locationMetaData.folderId) {
           this.#listenerNavigateToFolder(state.userProfile.rootFolderId);
         } else {
           this.stateManagementService.dispatch(
-              new LoadFolderInfoAction(applicationContext, state.locationMetaData.folderId));
+            new LoadFolderInfoAction(state.locationMetaData.folderId));
         }
       }
     });
@@ -43,6 +40,11 @@ export class BreadcrumbWrapper extends StateAwareComponent {
     });
     this.addStateListener('isFolderInfoLoading', (state) => {
       this.isFolderInfoLoading = state.isFolderInfoLoading;
+    });
+    this.addStateListener('isUserProfileLoading', (state) => {
+      if (state.isUserProfileLoading) {
+        this.isFolderInfoLoading = state.isFolderInfoLoading;
+      }
     });
     this.addStateListener('isFolderInfoError', (state) => {
       this.isFolderInfoError = state.isFolderInfoError;
@@ -57,10 +59,10 @@ export class BreadcrumbWrapper extends StateAwareComponent {
     const slot = this.getSlot('breadcrumb');
     if (this.#breadcrumbCreator) {
       return this.#breadcrumbCreator(
-          slot,
-          this.#path,
-          this.#isFolderInfoLoading,
-          this.#isFolderInfoError,
+        slot,
+        this.#path,
+        this.#isFolderInfoLoading,
+        this.#isFolderInfoError,
       );
     }
   }

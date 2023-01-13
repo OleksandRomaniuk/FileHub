@@ -38,42 +38,42 @@ export class AuthorizationForm extends Component {
    */
   afterRender() {
     const form = new Form(this.rootElement, 'Sign in',
-        (slot)=>{
-          const link = new Link(slot, 'Don\'t have an account yet?');
-          link.onClick(()=>{
-            this.#submitTarget.dispatchEvent(new Event(NAVIGATE));
-          });
+      (slot)=>{
+        const link = new Link(slot, 'Don\'t have an account yet?');
+        link.onClick(()=>{
+          this.#submitTarget.dispatchEvent(new Event(NAVIGATE));
         });
+      });
     form.addInput((slot) => {
       this.#inputs.email = new FormControl(slot,
-          {
-            labelText: 'Email',
-            placeholder: 'Email',
-            name: 'email',
-            value: this.#email,
-            errorMessages: this.#validationErrors[EMAIL],
-          });
+        {
+          labelText: 'Email',
+          placeholder: 'Email',
+          name: 'email',
+          value: this.#email,
+          errorMessages: this.#validationErrors[EMAIL],
+        });
     });
     form.addInput((slot) => {
       this.#inputs.password = new FormControl(slot,
-          {
-            labelText: 'Password',
-            placeholder: 'Password',
-            name: 'password',
-            value: this.#password,
-            type: 'password',
-            errorMessages: this.#validationErrors[PASSWORD],
-          });
+        {
+          labelText: 'Password',
+          placeholder: 'Password',
+          name: 'password',
+          value: this.#password,
+          type: 'password',
+          errorMessages: this.#validationErrors[PASSWORD],
+        });
     });
 
     form.onSubmit((formData) => {
       this.#email = formData.get('email');
       this.#password = formData.get('password');
       this.validateForm(formData)
-          .then( () => {
-            const event = new CustomEvent(FORM_EVENT, {detail: new UserData(this.#email, this.#password)});
-            this.#submitTarget.dispatchEvent(event);
-          }).catch(()=>{});
+        .then( () => {
+          const event = new CustomEvent(FORM_EVENT, {detail: new UserData(this.#email, this.#password)});
+          this.#submitTarget.dispatchEvent(event);
+        }).catch(()=>{});
     });
   }
 
@@ -107,22 +107,22 @@ export class AuthorizationForm extends Component {
     };
     const config =
       FormValidationConfig
-          .getBuilder()
-          .addField(EMAIL, [validateEmail, validateSize(5)])
-          .addField(PASSWORD, [validateSize(6)])
-          .build();
+        .getBuilder()
+        .addField(EMAIL, [validateEmail, validateSize(5)])
+        .addField(PASSWORD, [validateSize(6)])
+        .build();
     return new ValidatorService()
-        .validate(config, formData)
-        .catch((result) => {
-          const validationErrorsByField = result.errors.reduce((hash, error)=>{
-            const key = error.name;
-            const prevErrors = hash[key] || [];
-            hash[key] = [...prevErrors, error.message];
-            return hash;
-          }, {});
-          this.validationErrors = validationErrorsByField;
-          return Promise.reject(new Error());
-        });
+      .validate(config, formData)
+      .catch((result) => {
+        const validationErrorsByField = result.errors.reduce((hash, error)=>{
+          const key = error.name;
+          const prevErrors = hash[key] || [];
+          hash[key] = [...prevErrors, error.message];
+          return hash;
+        }, {});
+        this.validationErrors = validationErrorsByField;
+        return Promise.reject(new Error());
+      });
   }
 
   /**

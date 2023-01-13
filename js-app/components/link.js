@@ -51,9 +51,7 @@ export class Link extends Component {
    * @inheritDoc
    */
   markup() {
-    return `  <a href="#" ${this.markElement('link')} title="${this.#text}">
-                   ${this.#text}${this.#innerHTML ?? ''}
-                </a>`;
+    return `<a href="#" ${this.markElement('link')} title="${this.#text}">${this.#text}${this.#innerHTML ?? ''}</a>`;
   }
 }
 
