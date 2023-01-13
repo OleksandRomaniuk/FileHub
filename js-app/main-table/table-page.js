@@ -6,11 +6,11 @@ import {BreadcrumbWrapper} from '../components/wrappers/breadcrumb-wrapper';
 import {Breadcrumb} from '../components/breadcrumb';
 import {TableWrapper} from '../components/wrappers/table-wrapper';
 import {Table} from '../components/file-list/table';
-import {ApplicationContext} from '../application/application-context';
 import {DeleteItemAction} from '../actions/delete-item-action';
 import {DeleteModalWindowWrapper} from '../components/wrappers/delete-modal-window-wrapper';
 import {DeleteModalWindow} from '../components/delete-modal-window';
 import {SetItemInRemovingStateAction} from '../actions/set-item-in-removing-state-action';
+import {inject} from '../application/registry.js';
 
 const NAVIGATE_TO_FOLDER = 'navigateToFolder';
 /**
@@ -18,17 +18,16 @@ const NAVIGATE_TO_FOLDER = 'navigateToFolder';
  */
 export class TablePage extends Component {
   #eventTarget;
-  #applicationContext;
+  @inject stateManagementService;
+  @inject titleService;
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, applicationContext) {
+  constructor(parent) {
     super(parent);
     this.#eventTarget = new EventTarget();
-    applicationContext.titleService.setTitle(['files']);
-    this.#applicationContext = applicationContext;
+    this.titleService.setTitle(['files']);
     this.init();
   }
   /**
@@ -44,15 +43,14 @@ export class TablePage extends Component {
    * Add values for different inner slots.
    */
   afterRender() {
-    const userInfoWrapper = new UserInfoWrapper(this.getSlot('user-information'), this.#applicationContext);
+    const userInfoWrapper = new UserInfoWrapper(this.getSlot('user-information'));
     userInfoWrapper.userInfoCreator = (slot, userProfile, isLoading, isError)=>{
       return new UserInfo(slot, userProfile, isLoading, isError);
     };
     const linkLogOut = new Link(this.getSlot('link-log-out'), 'Log Out');
     linkLogOut.addInnerHTML('  <span class="glyphicon glyphicon-log-out log-out" aria-hidden="true"></span>');
     const breadcrumbWrapper = new BreadcrumbWrapper(
-        this.getSlot('breadcrumb'),
-        this.#applicationContext);
+      this.getSlot('breadcrumb'));
     breadcrumbWrapper.onNavigateToFolder((folderId)=>{
       this.#eventTarget.dispatchEvent(new CustomEvent(NAVIGATE_TO_FOLDER, {
         detail: {
@@ -69,7 +67,7 @@ export class TablePage extends Component {
       });
       return breadcrumb;
     };
-    const tableWrapper = new TableWrapper(this.getSlot('main-table'), this.#applicationContext);
+    const tableWrapper = new TableWrapper(this.getSlot('main-table'));
     tableWrapper.tableCreator = (slot, folderContent, isLoading, isError)=>{
       const table = new Table(slot, folderContent, isLoading, isError);
       table.onNavigateToFolder((folderId)=>{
@@ -79,22 +77,22 @@ export class TablePage extends Component {
           }}));
       });
       table.onDeleteItem((item)=> {
-        this.#applicationContext.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
+        this.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
       });
       return table;
     };
     const modalWindowSlot = this.getSlot('modal-window');
-    const deleteModalWindowWrapper = new DeleteModalWindowWrapper(modalWindowSlot, this.#applicationContext);
+    const deleteModalWindowWrapper = new DeleteModalWindowWrapper(modalWindowSlot);
     deleteModalWindowWrapper.deleteModalWindowCreator =
         (slot, item, itemBeingDeleted, removingError) => {
           const deleteModalWindow = new DeleteModalWindow(slot, item, itemBeingDeleted, removingError);
           deleteModalWindow.listenerOnDelete = ()=>{
-            this.#applicationContext.stateManagementService.dispatch(
-                new DeleteItemAction(this.#applicationContext, item));
+            this.stateManagementService.dispatch(
+              new DeleteItemAction(item));
           };
           deleteModalWindow.listenerOnCancel = ()=>{
-            this.#applicationContext.stateManagementService.dispatch(
-                new SetItemInRemovingStateAction( null));
+            this.stateManagementService.dispatch(
+              new SetItemInRemovingStateAction( null));
           };
         };
   }

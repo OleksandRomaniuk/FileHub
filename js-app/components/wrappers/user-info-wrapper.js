@@ -1,6 +1,5 @@
 import {LoadUserAction} from '../../actions/load-user-action';
 import {UserInfo} from '../user-info';
-import {ApplicationContext} from '../../application/application-context';
 import {StateAwareComponent} from '../state-aware-component';
 
 /**
@@ -13,10 +12,9 @@ export class UserInfoWrapper extends StateAwareComponent {
   #isUserProfileError;
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, applicationContext) {
-    super(parent, applicationContext.stateManagementService);
+  constructor(parent) {
+    super(parent);
     this.isUserProfileLoading = this.stateManagementService.state.isUserProfileLoading;
     this.init();
     this.addStateListener('userProfile', (state) => {
@@ -28,7 +26,7 @@ export class UserInfoWrapper extends StateAwareComponent {
     this.addStateListener('isUserProfileError', (state) => {
       this.isUserProfileError = state.isUserProfileError;
     });
-    this.stateManagementService.dispatch(new LoadUserAction(applicationContext));
+    this.stateManagementService.dispatch(new LoadUserAction());
   }
   /**
    * @inheritDoc
@@ -37,10 +35,10 @@ export class UserInfoWrapper extends StateAwareComponent {
     const slot = this.getSlot('user-info');
     if (this.#userInfoCreator) {
       return this.#userInfoCreator(
-          slot,
-          this.#userProfile,
-          this.#isUserProfileLoading,
-          this.#isUserProfileError,
+        slot,
+        this.#userProfile,
+        this.#isUserProfileLoading,
+        this.#isUserProfileError,
       );
     }
   }

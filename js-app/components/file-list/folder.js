@@ -1,6 +1,6 @@
-import {FileTypeIconFactory} from './file-type-icon-factory';
 import {Link} from '../link';
 import {Component} from '../component';
+import {inject} from '../../application/registry';
 
 const DELETE_FOLDER_EVENT = 'delete_folder_event';
 const NAVIGATE_FOLDER_EVENT = 'navigate_folder_event';
@@ -9,8 +9,8 @@ const NAVIGATE_FOLDER_EVENT = 'navigate_folder_event';
  */
 export class Folder extends Component {
   #folder;
-  #fileTypeIcon;
   #submitTarget = new EventTarget();
+  @inject fileTypeIconFactory;
   /**
    * @param {HTMLElement} parent
    * @param {object} folder
@@ -18,7 +18,7 @@ export class Folder extends Component {
   constructor(parent, folder) {
     super(parent);
     this.#folder = folder;
-    this.#fileTypeIcon = new FileTypeIconFactory().getIcon(this.#folder.type);
+
     this.init();
   }
   /**
@@ -68,7 +68,8 @@ export class Folder extends Component {
                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                     </td>
                     <td class="cell-icon">
-                       <span class="glyphicon ${this.#fileTypeIcon}" aria-hidden="true">
+                       <span class="glyphicon ${this.fileTypeIconFactory
+        .getIcon(this.#folder.type)}" aria-hidden="true">
                        </span>
                     </td>
                     <td class="cell-name folder">
