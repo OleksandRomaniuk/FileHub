@@ -1,7 +1,5 @@
-import {ApplicationContext} from '../../application/application-context';
 import {DeleteModalWindow} from '../delete-modal-window';
 import {StateAwareComponent} from '../state-aware-component';
-
 /**
  * The component for changing state in a {@link DeleteModalWindow}.
  */
@@ -14,16 +12,19 @@ export class DeleteModalWindowWrapper extends StateAwareComponent {
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, applicationContext) {
-    super(parent, applicationContext.stateManagementService);
+  constructor(parent) {
+    super(parent);
     this.isFolderInfoLoading = this.stateManagementService.state.isFolderInfoLoading;
     this.addStateListener('itemInRemovingState', (state) => {
-      this.itemInRemovingState = state.itemInRemovingState;
+      if (state.itemInRemovingState) {
+        this.itemInRemovingState = state.itemInRemovingState;
+      }
     });
     this.addStateListener('itemBeingDeleted', (state) => {
-      this.itemBeingDeleted = state.itemBeingDeleted;
+      if (state.itemInRemovingState) {
+        this.itemBeingDeleted = state.itemBeingDeleted;
+      }
     });
     this.addStateListener('removingError', (state) => {
       this.removingError = state.removingError;
@@ -38,10 +39,10 @@ export class DeleteModalWindowWrapper extends StateAwareComponent {
     const slot = this.getSlot('delete-modal-window');
     if (this.#deleteModalWindowCreator) {
       return this.#deleteModalWindowCreator(
-          slot,
-          this.#itemInRemovingState,
-          this.#itemBeingDeleted,
-          this.#removingError,
+        slot,
+        this.#itemInRemovingState,
+        this.#itemBeingDeleted,
+        this.#removingError,
       );
     }
   }

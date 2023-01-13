@@ -42,14 +42,14 @@ export class DeleteModalWindow extends Component {
       let buttonDelete;
       if (this.#itemBeingDeleted) {
         buttonDelete = new Button(
-            deleteButtonSlot,
-            'Delete',
+          deleteButtonSlot,
+          'Delete',
             `<span class="glyphicon glyphicon-repeat loading" aria-hidden="true"></span> Delete`,
             'delete', this.#itemBeingDeleted );
       } else {
         buttonDelete = new Button(
-            deleteButtonSlot,
-            'Delete',
+          deleteButtonSlot,
+          'Delete',
             `Delete`,
             'delete');
       }
