@@ -18,6 +18,7 @@ import {SetNewFolderAction} from '../actions/set-new-folder-action';
 import {CreateFolderModalWindowWrapper} from '../components/wrappers/create-folder-modal-window-wrapper';
 import {CreateFolderModalWindow} from '../components/create-folder-modal-window';
 import {CreateFolderAction} from '../actions/create-folder-action';
+import {LogoutAction} from '../actions/logout-action';
 
 const NAVIGATE_TO_FOLDER = 'navigateToFolder';
 /**
@@ -55,6 +56,9 @@ export class TablePage extends Component {
       return new UserInfo(slot, userProfile, isLoading, isError);
     };
     const linkLogOut = new Link(this.getSlot('link-log-out'), 'Log Out');
+    linkLogOut.onClick(()=>{
+      this.stateManagementService.dispatch(new LogoutAction());
+    });
     linkLogOut.addInnerHTML('  <span class="glyphicon glyphicon-log-out log-out" aria-hidden="true"></span>');
     const breadcrumbWrapper = new BreadcrumbWrapper(this.getSlot('breadcrumb'));
     breadcrumbWrapper.onNavigateToFolder((folderId)=>{

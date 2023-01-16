@@ -162,19 +162,10 @@ describe('TableWrapper', () => {
     const table = {
       setContentCreators: ()=>{},
     };
-    const stateManagementService = registry.getInstance('stateManagementService');
-    jest
-      .spyOn(stateManagementService, 'state', 'get')
-      .mockImplementation(()=>{
-        return new State({
-          isFolderContentLoading: true,
-          isFolderContentError: false,
-        });
-      });
     const tableWrapper = new TableWrapper(fixture);
     tableWrapper.tableCreator = (slot, isFolderContentLoading, isFolderContentError) =>{
       expect(isFolderContentLoading).toBe(true);
-      expect(isFolderContentError).toBe(false);
+      expect(isFolderContentError).toBe(undefined);
       return table;
     };
   });
@@ -216,8 +207,6 @@ describe('TableWrapper', () => {
                     },
                   ],
                 },
-          isFolderContentLoading: false,
-          isFolderContentError: false,
         });
       });
     const tableWrapper = new TableWrapper(fixture);
@@ -229,7 +218,7 @@ describe('TableWrapper', () => {
       return table;
     };
     expect(testIsFolderContentLoading).toBe(true);
-    expect(testIsFolderContentError).toBe(false);
+    expect(testIsFolderContentError).toBe(undefined);
     stateManagementService.dispatch(new TestSetFolderContentAction({
       items: [
         {

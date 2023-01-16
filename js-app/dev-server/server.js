@@ -1,23 +1,34 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import formidable from 'formidable';
+
 const port = 3001;
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const rand = function() {
+  return Math.random().toString(36).substr(2); // remove `0.`
+};
+
+let token = rand() + rand();
 
 app.post('/login', (req, res) => {
-  res.send({token: 'From_dev_server'});
+  res.send({token: token});
 });
-app.get('/user', (req, res)=>{
-  res.status(200);
+app.get('/user', (req, res)=> {
   setTimeout(()=>{
-    res.send({
-      userProfile: {
-        username: 'Cherhynska',
-        rootFolderId: 'folder1',
-      }});
+    if (req.headers.authorization.split(' ')[1] === token) {
+      res.status(200);
+      res.send({
+        userProfile: {
+          username: 'Cherhynska',
+          rootFolderId: 'folder1',
+        }});
+    } else {
+      res.status(401);
+      res.send({});
+    }
   }, 1000);
 });
 const foldersInfo = {
@@ -314,6 +325,11 @@ app.get('/files/:id', (req, res)=>{
     res.download('./dev-server/files/test.txt');
     res.status(200);
   }, 500);
+});
+app.post('/logout', (req, res) => {
+  token = rand() + rand();
+  res.status(200);
+  res.send({});
 });
 app.listen(port, () => {
   // eslint-disable-next-line no-console
