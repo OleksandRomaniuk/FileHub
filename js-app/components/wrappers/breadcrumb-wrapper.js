@@ -36,8 +36,10 @@ export class BreadcrumbWrapper extends StateAwareComponent {
       }
     });
     this.addStateListener('folderInfo', (state) => {
-      this.#path = this.#generatePath(state);
-      this.render();
+      if (state.userProfile) {
+        this.#path = this.#generatePath(state);
+        this.render();
+      }
     });
     this.addStateListener('isFolderInfoLoading', (state) => {
       this.#isFolderInfoLoading = state.isFolderInfoLoading;

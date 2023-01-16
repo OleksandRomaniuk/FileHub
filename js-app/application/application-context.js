@@ -7,6 +7,7 @@ import {mutators} from '../service/state-management/constatns/mutators';
 import {clearRegistry, registry} from './registry';
 import {FileTypeIconFactory} from '../components/file-list/file-type-icon-factory';
 import {DownloadService} from '../service/download-service';
+import {Storage} from '../service/storage';
 
 /**
  * Application context to create and provide dependencies.
@@ -29,24 +30,13 @@ export class ApplicationContext {
     });
 
     registry.register('stateManagementService', ()=>{
-      return new StateManagementService(mutators, new State({
-        isUserProfileLoading: true,
-        isUserProfileError: false,
-        userProfile: null,
-        isFolderInfoLoading: true,
-        isFolderInfoError: false,
-        folderInfo: null,
-        folderContent: null,
-        isFolderContentLoading: true,
-        isFolderContentError: false,
-        locationMetaData: null,
-        itemInRemovingState: null,
-        itemBeingDeleted: false,
-        removingError: null,
-      }));
+      return new StateManagementService(mutators, new State());
     });
     registry.register('downloadService', ()=>{
       return new DownloadService();
+    });
+    registry.register('storage', ()=>{
+      return new Storage();
     });
   }
 }

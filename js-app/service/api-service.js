@@ -1,17 +1,19 @@
 import {RequestService} from './request-service';
-import {RegisterError} from './errors/register-error.js';
-import {UserData} from '../application/user-data.js';
-import {LoginFailedError} from './errors/login-failed-error.js';
-import {GeneralServerError} from './errors/general-server-error.js';
-import {RenameItemValidationError} from './errors/rename-item-validation-error.js';
-import {CreatingFolderError} from './errors/creating-folder-error.js';
+import {RegisterError} from './errors/register-error';
+import {UserData} from '../application/user-data';
+import {LoginFailedError} from './errors/login-failed-error';
+import {GeneralServerError} from './errors/general-server-error';
+import {RenameItemValidationError} from './errors/rename-item-validation-error';
+import {CreatingFolderError} from './errors/creating-folder-error';
+import {inject} from '../application/registry';
 
 /**
  * Service provides methods for working with user data.
  */
 export class ApiService {
   #requestService;
-  #userToken;
+  @inject storage
+  #logoutListener;
 
   /**
    * @param {RequestService}requestService
@@ -28,14 +30,13 @@ export class ApiService {
    */
   logIn(userData) {
     return this.#requestService.post('api/login',
-      JSON.stringify({username: userData.email, password: userData.password}),
-      this.#userToken)
+      JSON.stringify({username: userData.email, password: userData.password}))
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response)=>{
         if (response.status === 200) {
-          this.#userToken = response.body.token;
+          this.storage.saveToken(response.body.token);
         }
         if (response.status === 401) {
           throw new LoginFailedError();
@@ -52,8 +53,7 @@ export class ApiService {
    */
   register(userData) {
     return this.#requestService.post('api/register',
-      JSON.stringify({username: userData.email, password: userData.password}),
-      this.#userToken)
+      JSON.stringify({username: userData.email, password: userData.password}))
       .catch(()=>{
         throw new GeneralServerError();
       })
@@ -71,9 +71,12 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getUser() {
-    return this.#requestService.getJson('api/user', this.#userToken)
+    return this.#requestService.getJson('api/user', this.storage.getToken())
       .then((response) => {
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
         return response.body;
@@ -85,9 +88,12 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getFolder(id) {
-    return this.#requestService.getJson('api/folders/'+id, this.#userToken)
+    return this.#requestService.getJson('api/folders/'+id, this.storage.getToken())
       .then((response) => {
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
         return response.body;
@@ -99,9 +105,12 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getFolderContent(id) {
-    return this.#requestService.getJson('api/folders/'+id+'/content', this.#userToken)
+    return this.#requestService.getJson('api/folders/'+id+'/content', this.storage.getToken())
       .then((response) => {
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
         return response.body;
@@ -114,12 +123,15 @@ export class ApiService {
    * @returns {*}
    */
   deleteItem(item) {
-    return this.#requestService.delete(`api/${item.type}/`+ item.id, this.#userToken)
+    return this.#requestService.delete(`api/${item.type}/`+ item.id, this.storage.getToken())
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response)=>{
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
       });
@@ -134,12 +146,15 @@ export class ApiService {
     return this.#requestService.postFormData(
       'api/folder/'+ folderId+'/content',
       this.#createFormData(files),
-      this.#userToken)
+      this.storage.getToken())
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response)=>{
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
       });
@@ -151,11 +166,17 @@ export class ApiService {
    * @returns {Promise}
    */
   rename(item) {
-    return this.#requestService.put(`api/${item.type}/` + item.id, JSON.stringify(item), this.#userToken)
+    return this.#requestService.put(`api/${item.type}/` + item.id, JSON.stringify(item),
+      this.storage.getToken())
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response)=>{
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+          return;
+        }
         if (response.status === 422) {
           throw new RenameItemValidationError(response.body.errors);
         }
@@ -177,12 +198,15 @@ export class ApiService {
         type: 'folder',
         parentId: folder.parentId,
       }),
-      this.#userToken)
+      this.storage.getToken())
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response)=>{
-        if (response.status === 500) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status === 500) {
           throw new CreatingFolderError(response.body.error);
         } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
@@ -196,16 +220,41 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   download(file) {
-    return this.#requestService.getBlob('api/files/'+file.id, this.#userToken)
+    return this.#requestService.getBlob('api/files/'+file.id, this.storage.getToken())
       .catch(()=>{
         throw new GeneralServerError();
       })
       .then((response) => {
-        if (response.status !== 200) {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+          return;
+        } else if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
         }
         return response.body;
       });
+  }
+
+  /**
+   * Logout user and delete the token.
+   * @returns {Promise}
+   */
+  logout() {
+    return this.#requestService.post('api/logout', null, this.storage.getToken())
+      .catch(()=>{})
+      .then(()=>{
+        this.storage.deleteToken();
+        this.#logoutListener();
+      });
+  }
+
+  /**
+   * Set listener to redirect on log in page.
+   * @param {function(): void} listener
+   */
+  onLogOut(listener) {
+    this.#logoutListener = listener;
   }
 
 

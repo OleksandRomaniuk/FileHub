@@ -7,6 +7,7 @@ import {TablePage} from '../main-table/table-page';
 import {ApplicationContext} from './application-context';
 import {SetMetadataAction} from '../actions/set-metadata-action';
 import {registry} from './registry';
+import {ResetStateAction} from '../actions/reset-state-action';
 
 /**
  * Creates router for moving on right components.
@@ -27,6 +28,9 @@ export class Application extends Component {
         page.onNavigateToRegistration(() => {
           router.redirect('registration');
         });
+        if (registry.getInstance('storage').getToken()) {
+          router.redirect('file-list/');
+        }
         page.onSubmit(()=>{
           router.redirect('file-list/');
         });
@@ -55,11 +59,18 @@ export class Application extends Component {
           }));
         }
       })
-      .setDefaultPage('login')
+      .setDefaultPage('file-list/')
       .setErrorPageCreator(() => {
         this.rootElement.innerHTML = '';
         new ErrorComponent(this.rootElement);
       }).build();
+    router.run();
+
+    const apiService = registry.getInstance('apiService');
+    apiService.onLogOut(()=>{
+      registry.getInstance('stateManagementService').dispatch(new ResetStateAction());
+      router.redirect('login');
+    });
   }
 
   /**

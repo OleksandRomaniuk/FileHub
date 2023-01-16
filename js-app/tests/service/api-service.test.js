@@ -6,11 +6,16 @@ import {jest} from '@jest/globals';
 import {LoginFailedError} from '../../service/errors/login-failed-error';
 import {GeneralServerError} from '../../service/errors/general-server-error';
 import {RegisterError} from '../../service/errors/register-error';
-import {RenameItemValidationError} from '../../service/errors/rename-item-validation-error.js';
-import {CreatingFolderError} from '../../service/errors/creating-folder-error.js';
-
+import {RenameItemValidationError} from '../../service/errors/rename-item-validation-error';
+import {CreatingFolderError} from '../../service/errors/creating-folder-error';
+import {ApplicationContext} from '../../application/application-context';
+import {registry} from '../../application/registry';
 
 describe('ApiService', () => {
+  beforeEach(() => {
+    new ApplicationContext();
+    registry.getInstance('storage').saveToken('testToken');
+  });
   test('Should call method post during logIn and catch error because of status 401.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
@@ -176,6 +181,28 @@ describe('ApiService', () => {
       .rejects
       .toThrow(new Error('Error occurred. Please try again.'));
   });
+
+  test('Should call method getFolder and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'getJson')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForGetFolder');
+    expect(storage.getToken()).toBe('testTokenForGetFolder');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.getFolder('testId'))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method getUser and get status 200.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
@@ -190,6 +217,7 @@ describe('ApiService', () => {
       .resolves.toBeUndefined();
     expect(requestServiceMock).toHaveBeenCalled();
   });
+
   test('Should call method getFolderContent wit status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -240,6 +268,27 @@ describe('ApiService', () => {
     expect(requestServiceMock).toHaveBeenCalled();
   });
 
+  test('Should call method getUser and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'getJson')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForGetUser');
+    expect(storage.getToken()).toBe('testTokenForGetUser');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.getUser())
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method getFolderContent wit status 404.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -253,6 +302,7 @@ describe('ApiService', () => {
       .rejects
       .toThrow(new Error('Error occurred. Please try again.'));
   });
+
   test('Should call method getFolderContent and get status 200.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
@@ -266,6 +316,28 @@ describe('ApiService', () => {
     await expect(apiService.getFolderContent('testId')).resolves.toBeUndefined();
     expect(requestServiceMock).toHaveBeenCalled();
   });
+
+  test('Should call method getFolderContent and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'getJson')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForGetFolderContent');
+    expect(storage.getToken()).toBe('testTokenForGetFolderContent');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.getFolderContent('testId'))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method getFolderContent and get status 400.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
@@ -279,7 +351,6 @@ describe('ApiService', () => {
     await expect(apiService.getFolderContent('testId')).rejects.toThrow(new Error('Error occurred. Please try again.'));
     expect(requestServiceMock).toHaveBeenCalled();
   });
-
 
   test('Should call method deleteItem with status 200.', () => {
     expect.assertions(1);
@@ -300,6 +371,7 @@ describe('ApiService', () => {
       .resolves
       .toBeUndefined();
   });
+
   test('Should call method deleteItem for deleting the file with status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -318,6 +390,30 @@ describe('ApiService', () => {
     }))
       .resolves
       .toBeUndefined();
+  });
+
+  test('Should call method deleteItem and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForDeleteItem');
+    expect(storage.getToken()).toBe('testTokenForDeleteItem');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.deleteItem({
+      id: 'testId',
+      type: 'folder',
+    }))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
   });
 
   test('Should call method deleteItem for deleting the folder with status 404.', () => {
@@ -405,6 +501,7 @@ describe('ApiService', () => {
       },
     )).rejects.toThrow(GeneralServerError);
   });
+
   test('Should call method uploadFiles with status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -420,6 +517,29 @@ describe('ApiService', () => {
       .resolves
       .toBeUndefined();
   });
+
+  test('Should call method uploadFiles and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'postFormData')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForUploadFiles');
+    expect(storage.getToken()).toBe('testTokenForUploadFiles');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    const arr = [];
+    await expect(apiService.uploadFiles( 'testFolderId', arr))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method uploadFiles with status 400.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -450,6 +570,7 @@ describe('ApiService', () => {
       .rejects
       .toThrow(GeneralServerError);
   });
+
   test('Should call method rename for renaming folder with status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -467,6 +588,7 @@ describe('ApiService', () => {
       .resolves
       .toBeUndefined();
   });
+
   test('Should call method rename for renaming file with status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -484,6 +606,53 @@ describe('ApiService', () => {
       .resolves
       .toBeUndefined();
   });
+
+  test('Should call method rename for renaming file and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForDeleteItem');
+    expect(storage.getToken()).toBe('testTokenForDeleteItem');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.rename({
+      type: 'file',
+      name: 'testId',
+    })).resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
+  test('Should call method с for renaming folder and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForRenameItem');
+    expect(storage.getToken()).toBe('testTokenForRenameItem');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.rename({
+      type: 'folder',
+      name: 'testId',
+    })).resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method rename for renaming folder with status 400.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -590,6 +759,30 @@ describe('ApiService', () => {
       .toBeUndefined();
   });
 
+  test('Should call method createFolder and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForCreateFolder');
+    expect(storage.getToken()).toBe('testTokenForCreateFolder');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.createFolder({
+      name: 'testName',
+      parentId: 'testParentId',
+    }))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method createFolder and catch error.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -661,6 +854,29 @@ describe('ApiService', () => {
       .toStrictEqual({});
   });
 
+  test('Should call method download and get status 401.', async () => {
+    expect.assertions(5);
+    const requestService = new RequestService();
+    const storage = registry.getInstance('storage');
+    const requestServiceMock = jest
+      .spyOn(requestService, 'getBlob')
+      .mockImplementation(async () =>
+        new Response(401),
+      );
+    storage.saveToken('testTokenForDownload');
+    expect(storage.getToken()).toBe('testTokenForDownload');
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.download({
+      id: 'testId',
+    }))
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
+    expect(requestServiceMock).toHaveBeenCalled();
+    expect(storage.getToken()).toBeNull();
+  });
+
   test('Should call method download with status 400.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
@@ -694,5 +910,22 @@ describe('ApiService', () => {
     }))
       .rejects
       .toThrow(GeneralServerError);
+  });
+
+  test('Should call method logout.', async () => {
+    expect.assertions(2);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(200, {}),
+      );
+
+    const apiService = new ApiService(requestService);
+    const logoutListener = jest.fn();
+    apiService.onLogOut(logoutListener);
+    await expect(apiService.logout())
+      .resolves.toBeUndefined();
+    expect(logoutListener).toHaveBeenCalled();
   });
 });
