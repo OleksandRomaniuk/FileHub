@@ -20,6 +20,9 @@ export const MUTATOR_NAME = {
   SET_NEW_FOLDER: 'set-new-folder',
   SET_FOLDER_IS_BEING_CREATED: 'set-folder-is-being-created',
   SET_CREATING_FOLDER_ERROR: 'set-creating_folder_error',
+  SET_ITEM_IN_DOWNLOAD_STATE: 'set-item-in-download-state',
+  SET_IS_DOWNLOAD_IN_PROGRESS: 'set-is-download-in-progress',
+  SET_DOWNLOAD_ERROR: 'set-download-error',
 };
 export const mutators = {
   [MUTATOR_NAME.SET_USER_PROFILE]: (state, userProfile) => {
@@ -107,5 +110,14 @@ export const mutators = {
   },
   [MUTATOR_NAME.SET_CREATING_FOLDER_ERROR]: (state, creatingFolderError) => {
     return {...state, creatingFolderError: creatingFolderError};
+  },
+  [MUTATOR_NAME.SET_ITEM_IN_DOWNLOAD_STATE]: (state, itemInDownloadState) => {
+    if (itemInDownloadState) {
+      return {...state, itemInDownloadState: itemInDownloadState, downloadError: null};
+    }
+    return {...state, itemInDownloadState: itemInDownloadState};
+  },
+  [MUTATOR_NAME.SET_DOWNLOAD_ERROR]: (state, downloadError) => {
+    return {...state, downloadError: downloadError};
   },
 };

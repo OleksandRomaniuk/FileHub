@@ -87,6 +87,14 @@ export class State {
    */
   creatingFolderError
   /**
+   * @type {object}
+   */
+  itemInDownloadState
+  /**
+   * @type {object}
+   */
+  downloadError
+  /**
    * @param {object} state
    */
   constructor(state = {}) {

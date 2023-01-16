@@ -6,6 +6,7 @@ import {SetItemInRenamingStateAction} from '../../actions/set-item-in-renaming-s
 import {EditItemAction} from '../../actions/edit-item-action';
 import {Folder} from '../file-list/folder';
 import {File} from '../file-list/file';
+import {DownloadAction} from '../../actions/download-action';
 
 const NAVIGATE_EVENT = 'navigate-event';
 
@@ -132,6 +133,9 @@ export class TableWrapper extends StateAwareComponent {
             fileComponent.onDelete((item)=> {
               this.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
             });
+            fileComponent.onDownload(()=>{
+              this.stateManagementService.dispatch(new DownloadAction(file));
+            });
             fileComponent.onEditing((item)=>{
               this.stateManagementService.dispatch(new SetItemInRenamingStateAction(item));
             });
@@ -142,12 +146,13 @@ export class TableWrapper extends StateAwareComponent {
               fileComponent.itemInRenamingState = state.itemInRenamingState ?
                 (state.itemInRenamingState.item.id === file.id ? state.itemInRenamingState : null) : null;
             });
-            this.addStateListener('isRenamingInProgress', (state)=>{
-              fileComponent.isRenamingInProgress = state.isRenamingInProgress ?
-                state.itemInRenamingState.item.id === file.id : false;
+            this.addStateListener('itemInDownloadState', (state)=>{
+              fileComponent.isDownloadInProgress = state.itemInDownloadState ?
+                state.itemInDownloadState.item.id === file.id : false;
             });
-            this.addStateListener('renamingError', (state)=>{
-              fileComponent.renamingError = state.renamingError;
+            this.addStateListener('downloadError', (state)=>{
+              fileComponent.downloadError = state.downloadError?.itemId === file.id ?
+                state.downloadError : null;
             });
           };
           filesCreators.push(fileCreator);

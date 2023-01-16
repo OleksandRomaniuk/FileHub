@@ -1,10 +1,10 @@
 import {RequestService} from './request-service';
-import {RegisterError} from './errors/register-error';
-import {UserData} from '../application/user-data';
-import {LoginFailedError} from './errors/login-failed-error';
-import {GeneralServerError} from './errors/general-server-error';
-import {RenameItemValidationError} from './errors/rename-item-validation-error';
-import {CreatingFolderError} from './errors/creating-folder-error';
+import {RegisterError} from './errors/register-error.js';
+import {UserData} from '../application/user-data.js';
+import {LoginFailedError} from './errors/login-failed-error.js';
+import {GeneralServerError} from './errors/general-server-error.js';
+import {RenameItemValidationError} from './errors/rename-item-validation-error.js';
+import {CreatingFolderError} from './errors/creating-folder-error.js';
 
 /**
  * Service provides methods for working with user data.
@@ -71,7 +71,7 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getUser() {
-    return this.#requestService.get('api/user', this.#userToken)
+    return this.#requestService.getJson('api/user', this.#userToken)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
@@ -85,7 +85,7 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getFolder(id) {
-    return this.#requestService.get('api/folders/'+id, this.#userToken)
+    return this.#requestService.getJson('api/folders/'+id, this.#userToken)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
@@ -99,7 +99,7 @@ export class ApiService {
    * @returns {Promise | Error}
    */
   getFolderContent(id) {
-    return this.#requestService.get('api/folders/'+id+'/content', this.#userToken)
+    return this.#requestService.getJson('api/folders/'+id+'/content', this.#userToken)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('Error occurred. Please try again.');
@@ -114,8 +114,7 @@ export class ApiService {
    * @returns {*}
    */
   deleteItem(item) {
-    const type = item.type === 'folder' ? 'folder' : 'file';
-    return this.#requestService.delete(`api/${type}/`+ item.id, this.#userToken)
+    return this.#requestService.delete(`api/${item.type}/`+ item.id, this.#userToken)
       .catch(()=>{
         throw new GeneralServerError();
       })
@@ -152,8 +151,7 @@ export class ApiService {
    * @returns {Promise}
    */
   rename(item) {
-    const type = item.type === 'folder' ? 'folder' : 'file';
-    return this.#requestService.put(`api/${type}/` + item.id, JSON.stringify(item), this.#userToken)
+    return this.#requestService.put(`api/${item.type}/` + item.id, JSON.stringify(item), this.#userToken)
       .catch(()=>{
         throw new GeneralServerError();
       })
@@ -166,7 +164,6 @@ export class ApiService {
         }
       });
   }
-
   /**
    * Create the  new folder.
    * @param {object} folder
@@ -192,6 +189,25 @@ export class ApiService {
         }
       });
   }
+
+  /**
+   * Download the file.
+   * @param {object} file
+   * @returns {Promise | Error}
+   */
+  download(file) {
+    return this.#requestService.getBlob('api/files/'+file.id, this.#userToken)
+      .catch(()=>{
+        throw new GeneralServerError();
+      })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+        return response.body;
+      });
+  }
+
 
   /**
    * @param {File[]} files
