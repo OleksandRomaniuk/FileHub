@@ -13,11 +13,11 @@ export class State {
   /**
    * @type {boolean}
    */
-  isUserProfileLoading;
+  isUserProfileLoading = true;
   /**
    * @type {boolean}
    */
-  isFolderInfoLoading;
+  isFolderInfoLoading = true;
   /**
    * @type {boolean}
    */
@@ -29,7 +29,7 @@ export class State {
   /**
    * @type {boolean}
    */
-  isFolderContentLoading;
+  isFolderContentLoading = true;
   /**
    * @type {boolean}
    */
@@ -90,6 +90,7 @@ export class State {
    * @type {object}
    */
   itemInDownloadState
+
   /**
    * @type {object}
    */
