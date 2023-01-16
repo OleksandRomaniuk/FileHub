@@ -188,4 +188,25 @@ describe('Mutators', () => {
     const newState = mutators[MUTATOR_NAME.SET_CREATING_FOLDER_ERROR](state, creatingFolderError);
     expect(newState.creatingFolderError).toStrictEqual(creatingFolderError);
   });
+  test('Should return new state of field itemInDownloadState is defined', () => {
+    expect.assertions(1);
+    const itemInDownloadState = 'testItemInDownloadStater';
+    const newState = mutators[MUTATOR_NAME.SET_ITEM_IN_DOWNLOAD_STATE](state, itemInDownloadState);
+    expect(newState.itemInDownloadState).toStrictEqual(itemInDownloadState);
+  });
+  test('Should return new state of field itemInDownloadState', () => {
+    expect.assertions(1);
+    state = new State({
+      itemInDownloadState: 'item',
+    });
+    const itemInDownloadState = null;
+    const newState = mutators[MUTATOR_NAME.SET_ITEM_IN_DOWNLOAD_STATE](state, itemInDownloadState);
+    expect(newState.itemInDownloadState).toStrictEqual(itemInDownloadState);
+  });
+  test('Should return new state of field downloadError is defined', () => {
+    expect.assertions(1);
+    const downloadError = 'testDownloadError';
+    const newState = mutators[MUTATOR_NAME.SET_DOWNLOAD_ERROR](state, downloadError);
+    expect(newState.downloadError).toStrictEqual(downloadError);
+  });
 });
