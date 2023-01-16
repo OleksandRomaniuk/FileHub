@@ -12,6 +12,14 @@ export const MUTATOR_NAME = {
   SET_ITEM_IN_REMOVING_STATE: 'set-item-in-removing-state',
   SET_ITEM_BEING_DELETE: 'set-item-being-delete',
   SET_REMOVING_ERROR: 'set-item-removing-error',
+  SET_UPLOADING_FILES: 'set-uploading-files',
+  SET_UPLOADING_FILES_ERROR: 'set-uploading_files_error',
+  SET_ITEM_IN_RENAMING_STATE: 'set-item-in-renaming-state',
+  SET_ITEM_IS_RENAMING_IN_PROGRESS: 'set-item-is-renaming-in-progress',
+  SET_ITEM_RENAMING_ERROR_STATE: 'set-item-renaming-error-state',
+  SET_NEW_FOLDER: 'set-new-folder',
+  SET_FOLDER_IS_BEING_CREATED: 'set-folder-is-being-created',
+  SET_CREATING_FOLDER_ERROR: 'set-creating_folder_error',
 };
 export const mutators = {
   [MUTATOR_NAME.SET_USER_PROFILE]: (state, userProfile) => {
@@ -75,5 +83,29 @@ export const mutators = {
   },
   [MUTATOR_NAME.SET_REMOVING_ERROR]: (state, removingError) => {
     return {...state, removingError: removingError};
+  },
+  [MUTATOR_NAME.SET_UPLOADING_FILES]: (state, uploadingFiles) => {
+    return {...state, uploadingFiles: uploadingFiles};
+  },
+  [MUTATOR_NAME.SET_UPLOADING_FILES_ERROR]: (state, fileUploadError) => {
+    return {...state, fileUploadError: fileUploadError};
+  },
+  [MUTATOR_NAME.SET_ITEM_IN_RENAMING_STATE]: (state, itemInRenamingState) => {
+    return {...state, itemInRenamingState: itemInRenamingState, renamingError: null};
+  },
+  [MUTATOR_NAME.SET_ITEM_IS_RENAMING_IN_PROGRESS]: (state, isRenamingInProgress) => {
+    return {...state, isRenamingInProgress: isRenamingInProgress};
+  },
+  [MUTATOR_NAME.SET_ITEM_RENAMING_ERROR_STATE]: (state, renamingError) => {
+    return {...state, renamingError: renamingError};
+  },
+  [MUTATOR_NAME.SET_NEW_FOLDER]: (state, newFolder) => {
+    return {...state, newFolder: newFolder};
+  },
+  [MUTATOR_NAME.SET_FOLDER_IS_BEING_CREATED]: (state, isCreatingFolderInProgress) => {
+    return {...state, isCreatingFolderInProgress: isCreatingFolderInProgress};
+  },
+  [MUTATOR_NAME.SET_CREATING_FOLDER_ERROR]: (state, creatingFolderError) => {
+    return {...state, creatingFolderError: creatingFolderError};
   },
 };

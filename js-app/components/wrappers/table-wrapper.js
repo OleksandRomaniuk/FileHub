@@ -1,5 +1,13 @@
 import {LoadFolderContentAction} from '../../actions/load-folder-content-action';
 import {StateAwareComponent} from '../state-aware-component';
+import {SetItemInRemovingStateAction} from '../../actions/set-item-in-removing-state-action';
+import {UploadFilesAction} from '../../actions/upload-files-action';
+import {SetItemInRenamingStateAction} from '../../actions/set-item-in-renaming-state-action';
+import {EditItemAction} from '../../actions/edit-item-action';
+import {Folder} from '../file-list/folder';
+import {File} from '../file-list/file';
+
+const NAVIGATE_EVENT = 'navigate-event';
 
 /**
  * The component for changing state in the {@link Table}.
@@ -9,6 +17,7 @@ export class TableWrapper extends StateAwareComponent {
   #folderContent;
   #isFolderContentLoading;
   #isFolderContentError;
+  #submitTarget = new EventTarget();
 
 
   /**
@@ -16,7 +25,6 @@ export class TableWrapper extends StateAwareComponent {
    */
   constructor(parent) {
     super(parent);
-    this.isFolderContentLoading = this.stateManagementService.state.isFolderContentLoading;
     this.addStateListener('folderInfo', (state)=>{
       if (state.folderInfo) {
         this.stateManagementService.dispatch(
@@ -24,14 +32,16 @@ export class TableWrapper extends StateAwareComponent {
       }
     });
     this.addStateListener('folderContent', (state) => {
-      console.log('folderContent = ', state.folderContent);
-      this.folderContent = state.folderContent;
+      this.#folderContent = state.folderContent;
+      this.render();
     });
     this.addStateListener('isFolderContentLoading', (state) => {
-      this.isFolderContentLoading = state.isFolderContentLoading;
+      this.#isFolderContentLoading = state.isFolderContentLoading;
+      this.render();
     });
     this.addStateListener('isFolderContentError', (state) => {
-      this.isFolderContentError = state.isFolderContentError;
+      this.#isFolderContentError = state.isFolderContentError;
+      this.render();
     });
     this.init();
   }
@@ -42,34 +52,108 @@ export class TableWrapper extends StateAwareComponent {
   afterRender() {
     const slot = this.getSlot('table-wrapper');
     if (this.#tableCreator) {
-      return this.#tableCreator(
+      const table = this.#tableCreator(
         slot,
-        this.#folderContent,
         this.#isFolderContentLoading,
         this.#isFolderContentError,
       );
+      const folderCreators = [];
+      const filesCreators = [];
+      this.#folderContent?.items
+        ?.filter((element) => element.type === 'folder')
+        .sort((firstItem, secondItem) => firstItem.name > secondItem.name ? 1 : -1)
+        .forEach((folder) => {
+          const folderCreator = (tableSlot)=>{
+            const folderComponent = new Folder(tableSlot,
+              {
+                folder: folder,
+              });
+
+            folderComponent.onNavigateToFolder((folderId)=>{
+              this.#submitTarget.dispatchEvent(new CustomEvent(NAVIGATE_EVENT, {
+                detail: folderId,
+              }));
+            });
+            folderComponent.onUpload((folderId)=>{
+              if (!this.stateManagementService.state.fileUploading) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.setAttribute('multiple', '');
+                input.click();
+                input.addEventListener('change', ()=>{
+                  this.stateManagementService.dispatch(
+                    new UploadFilesAction(
+                      folderId,
+                      input.files));
+                });
+              }
+            });
+            folderComponent.onDelete((item)=> {
+              this.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
+            });
+            folderComponent.onEditing((item)=>{
+              this.stateManagementService.dispatch(new SetItemInRenamingStateAction(item));
+            });
+            folderComponent.onNameChanged((item)=>{
+              this.stateManagementService.dispatch(new EditItemAction(item));
+            });
+
+            this.addStateListener('uploadingFiles', (state)=>{
+              folderComponent.isUploading = state.uploadingFiles && state.uploadingFiles.folderId === folder.id;
+            });
+            this.addStateListener('fileUploadError', (state)=>{
+              folderComponent.uploadError = state.fileUploadError ?
+                state.fileUploadError.folderId === folder.id ?
+                  state.fileUploadError : false : false;
+            });
+            this.addStateListener('itemInRenamingState', (state)=>{
+              folderComponent.itemInRenamingState = state.itemInRenamingState ?
+                (state.itemInRenamingState.item.id === folder.id ? state.itemInRenamingState : null) : null;
+            });
+            this.addStateListener('isRenamingInProgress', (state)=>{
+              folderComponent.isRenamingInProgress = state.isRenamingInProgress ?
+                state.itemInRenamingState.item.id === folder.id : false;
+            });
+            this.addStateListener('renamingError', (state)=>{
+              folderComponent.renamingError = state.renamingError;
+            });
+          };
+          folderCreators.push(folderCreator);
+        });
+      this.#folderContent?.items
+        ?.filter((element) => element.type !== 'folder')
+        .sort((firstItem, secondItem) => firstItem.name > secondItem.name ? 1 : -1)
+        .forEach((file) => {
+          const fileCreator = (tableSlot)=>{
+            const fileComponent = new File(tableSlot,
+              {
+                file: file,
+              });
+            fileComponent.onDelete((item)=> {
+              this.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
+            });
+            fileComponent.onEditing((item)=>{
+              this.stateManagementService.dispatch(new SetItemInRenamingStateAction(item));
+            });
+            fileComponent.onNameChanged((item)=>{
+              this.stateManagementService.dispatch(new EditItemAction(item));
+            });
+            this.addStateListener('itemInRenamingState', (state)=>{
+              fileComponent.itemInRenamingState = state.itemInRenamingState ?
+                (state.itemInRenamingState.item.id === file.id ? state.itemInRenamingState : null) : null;
+            });
+            this.addStateListener('isRenamingInProgress', (state)=>{
+              fileComponent.isRenamingInProgress = state.isRenamingInProgress ?
+                state.itemInRenamingState.item.id === file.id : false;
+            });
+            this.addStateListener('renamingError', (state)=>{
+              fileComponent.renamingError = state.renamingError;
+            });
+          };
+          filesCreators.push(fileCreator);
+        });
+      table.setContentCreators(folderCreators, filesCreators);
     }
-  }
-  /**
-   * @param {object} folderContent
-   */
-  set folderContent(folderContent) {
-    this.#folderContent = folderContent;
-    this.render();
-  }
-  /**
-   * @param {boolean} isFolderContentLoading
-   */
-  set isFolderContentLoading(isFolderContentLoading) {
-    this.#isFolderContentLoading = isFolderContentLoading;
-    this.render();
-  }
-  /**
-   * @param {boolean} isFolderContentError
-   */
-  set isFolderContentError(isFolderContentError) {
-    this.#isFolderContentError = isFolderContentError;
-    this.render();
   }
   /**
    * @param {Function} tableCreator
@@ -78,6 +162,17 @@ export class TableWrapper extends StateAwareComponent {
     this.#tableCreator = tableCreator;
     this.render();
   }
+
+  /**
+   * Add listener to redirect to the another folder.
+   * @param {function(string) :void} listenerNavigateToFolder
+   */
+  onNavigateToFolder(listenerNavigateToFolder) {
+    this.#submitTarget.addEventListener(NAVIGATE_EVENT, (event) => {
+      listenerNavigateToFolder(event.detail);
+    });
+  }
+
 
   /**
    * @inheritDoc

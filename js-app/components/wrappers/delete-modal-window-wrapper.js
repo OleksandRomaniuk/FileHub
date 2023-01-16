@@ -17,17 +17,16 @@ export class DeleteModalWindowWrapper extends StateAwareComponent {
     super(parent);
     this.isFolderInfoLoading = this.stateManagementService.state.isFolderInfoLoading;
     this.addStateListener('itemInRemovingState', (state) => {
-      if (state.itemInRemovingState) {
-        this.itemInRemovingState = state.itemInRemovingState;
-      }
+      this.#itemInRemovingState = state.itemInRemovingState;
+      this.render();
     });
     this.addStateListener('itemBeingDeleted', (state) => {
-      if (state.itemInRemovingState) {
-        this.itemBeingDeleted = state.itemBeingDeleted;
-      }
+      this.#itemBeingDeleted = state.itemBeingDeleted;
+      this.render();
     });
     this.addStateListener('removingError', (state) => {
-      this.removingError = state.removingError;
+      this.#removingError = state.removingError;
+      this.render();
     });
     this.init();
   }
@@ -45,28 +44,6 @@ export class DeleteModalWindowWrapper extends StateAwareComponent {
         this.#removingError,
       );
     }
-  }
-
-  /**
-   * @param {object} itemInRemovingState
-   */
-  set itemInRemovingState(itemInRemovingState) {
-    this.#itemInRemovingState = itemInRemovingState;
-    this.render();
-  }
-  /**
-   * @param {boolean} itemBeingDeleted
-   */
-  set itemBeingDeleted(itemBeingDeleted) {
-    this.#itemBeingDeleted = itemBeingDeleted;
-    this.render();
-  }
-  /**
-   * @param {string} removingError
-   */
-  set removingError(removingError) {
-    this.#removingError = removingError;
-    this.render();
   }
 
   /**

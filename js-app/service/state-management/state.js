@@ -55,6 +55,38 @@ export class State {
    */
   removingError;
   /**
+   * @type {object}
+   */
+  uploadingFiles;
+  /**
+   * @type {object}
+   */
+  fileUploadError;
+  /**
+   * @type {object}
+   */
+  itemInRenamingState
+  /**
+   * @type {boolean}
+   */
+  isRenamingInProgress
+  /**
+   * @type {object}
+   */
+  renamingError
+  /**
+   * @type {object}
+   */
+  newFolder
+  /**
+   * @type {boolean}
+   */
+  isCreatingFolderInProgress
+  /**
+   * @type {object}
+   */
+  creatingFolderError
+  /**
    * @param {object} state
    */
   constructor(state = {}) {

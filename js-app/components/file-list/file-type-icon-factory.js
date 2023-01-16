@@ -2,22 +2,47 @@
  * Factory for icons by file type.
  */
 export class FileTypeIconFactory {
-  #icons = {
-    'folder': 'glyphicon-folder-close',
-    'PDF Document': 'glyphicon-book',
-    'Excel Workbook': 'glyphicon-list-alt',
-    'JPEG Image': 'glyphicon-picture',
-    'AVI Movie': 'glyphicon-film',
-    'MP3 Audio': 'glyphicon-music',
+  #mimetypes = {
+    'application/pdf': {
+      type: 'PDF Document',
+      icon: 'glyphicon-book',
+    },
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
+      type: 'Excel Workbook',
+      icon: 'glyphicon-list-alt',
+    },
+    'image/jpeg': {
+      type: 'JPEG Image',
+      icon: 'glyphicon-picture',
+    },
+    'video/x-msvideo': {
+      type: 'AVI Movie',
+      icon: 'glyphicon-film',
+    },
+    'image/avif': {
+      type: 'AVI Movie',
+      icon: 'glyphicon-film',
+    },
+    'audio/mpeg': {
+      type: 'MP3 Audio',
+      icon: 'glyphicon-music',
+    },
   };
 
   /**
    * Get icon by type.
-   *
-   * @param {string} type
+   * @param {string} mimeType
    * @returns {string}
    */
-  getIcon(type) {
-    return this.#icons[type] ?? 'glyphicon-file';
+  getIcon(mimeType) {
+    return this.#mimetypes[mimeType].icon;
+  }
+  /**
+   * Get the standard type by MIME type.
+   * @param {string} mimeType
+   * @returns {string}
+   */
+  getType(mimeType) {
+    return this.#mimetypes[mimeType].type;
   }
 }

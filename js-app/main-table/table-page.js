@@ -10,7 +10,14 @@ import {DeleteItemAction} from '../actions/delete-item-action';
 import {DeleteModalWindowWrapper} from '../components/wrappers/delete-modal-window-wrapper';
 import {DeleteModalWindow} from '../components/delete-modal-window';
 import {SetItemInRemovingStateAction} from '../actions/set-item-in-removing-state-action';
-import {inject} from '../application/registry.js';
+import {inject} from '../application/registry';
+import {UploadFilesAction} from '../actions/upload-files-action';
+import {PanelWrapper} from '../components/wrappers/panel-wrapper';
+import {Panel} from '../components/panel';
+import {SetNewFolderAction} from '../actions/set-new-folder-action';
+import {CreateFolderModalWindowWrapper} from '../components/wrappers/create-folder-modal-window-wrapper';
+import {CreateFolderModalWindow} from '../components/create-folder-modal-window';
+import {CreateFolderAction} from '../actions/create-folder-action';
 
 const NAVIGATE_TO_FOLDER = 'navigateToFolder';
 /**
@@ -49,8 +56,7 @@ export class TablePage extends Component {
     };
     const linkLogOut = new Link(this.getSlot('link-log-out'), 'Log Out');
     linkLogOut.addInnerHTML('  <span class="glyphicon glyphicon-log-out log-out" aria-hidden="true"></span>');
-    const breadcrumbWrapper = new BreadcrumbWrapper(
-      this.getSlot('breadcrumb'));
+    const breadcrumbWrapper = new BreadcrumbWrapper(this.getSlot('breadcrumb'));
     breadcrumbWrapper.onNavigateToFolder((folderId)=>{
       this.#eventTarget.dispatchEvent(new CustomEvent(NAVIGATE_TO_FOLDER, {
         detail: {
@@ -68,19 +74,15 @@ export class TablePage extends Component {
       return breadcrumb;
     };
     const tableWrapper = new TableWrapper(this.getSlot('main-table'));
-    tableWrapper.tableCreator = (slot, folderContent, isLoading, isError)=>{
-      const table = new Table(slot, folderContent, isLoading, isError);
-      table.onNavigateToFolder((folderId)=>{
-        this.#eventTarget.dispatchEvent(new CustomEvent(NAVIGATE_TO_FOLDER, {
-          detail: {
-            folderId: folderId,
-          }}));
-      });
-      table.onDeleteItem((item)=> {
-        this.stateManagementService.dispatch(new SetItemInRemovingStateAction(item));
-      });
-      return table;
+    tableWrapper.tableCreator = (slot, isLoading, isError)=>{
+      return new Table(slot, isLoading, isError);
     };
+    tableWrapper.onNavigateToFolder((folderId)=>{
+      this.#eventTarget.dispatchEvent(new CustomEvent(NAVIGATE_TO_FOLDER, {
+        detail: {
+          folderId: folderId,
+        }}));
+    });
     const modalWindowSlot = this.getSlot('modal-window');
     const deleteModalWindowWrapper = new DeleteModalWindowWrapper(modalWindowSlot);
     deleteModalWindowWrapper.deleteModalWindowCreator =
@@ -94,6 +96,61 @@ export class TablePage extends Component {
             this.stateManagementService.dispatch(
               new SetItemInRemovingStateAction( null));
           };
+        };
+
+    const createFolderModalWindowWrapper = new CreateFolderModalWindowWrapper(modalWindowSlot);
+    createFolderModalWindowWrapper.createNewFolderModalWindowCreator =
+        (
+          slot,
+          folder,
+          isCreatingFolderInProgress,
+          creatingFolderError,
+        ) => {
+          const createFolderModalWindow = new CreateFolderModalWindow(
+            slot,
+            folder,
+            isCreatingFolderInProgress,
+            creatingFolderError,
+          );
+          createFolderModalWindow.listenerOnCreate = (newFolder)=>{
+            this.stateManagementService.dispatch(new CreateFolderAction(newFolder));
+          };
+          createFolderModalWindow.listenerOnCancel = ()=>{
+            this.stateManagementService.dispatch(
+              new SetNewFolderAction( null));
+          };
+        };
+    const panelSlot = this.getSlot('panel');
+    const panelWrapper = new PanelWrapper(panelSlot);
+    panelWrapper.panelCreator =
+        (slot,
+          fileUploading,
+          fileUploadError) => {
+          const panel = new Panel(
+            slot,
+            fileUploading,
+            fileUploadError);
+          if (!this.stateManagementService.state.fileUploading) {
+            panel.onUpload(()=>{
+              const input = document.createElement('input');
+              input.type = 'file';
+              input.setAttribute('multiple', '');
+              input.click();
+              input.addEventListener('change', ()=>{
+                this.stateManagementService.dispatch(
+                  new UploadFilesAction(
+                    this.stateManagementService.state.locationMetaData.folderId,
+                    input.files));
+              });
+            });
+            panel.onCreateNewFolder(()=>{
+              this.stateManagementService.dispatch(
+                new SetNewFolderAction({
+                  parentId: this.stateManagementService.state.locationMetaData.folderId,
+                  name: null,
+                }));
+            });
+          }
         };
   }
 
@@ -128,25 +185,7 @@ export class TablePage extends Component {
         </div>
 
         <hr class="hr">
-        <div class="panel">
-            <form >
-                <div class="searching">
-                    <input name=“name” class="input-text search" value="Enter entity name..." >
-                    <button type="submit" class="button primary search" title = "Search">
-                        Search
-                    </button>
-                </div>
-            </form>
-            <div class="buttons">
-                <button class="button primary" title = "upload">
-                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                </button>
-                <button class="button primary" title = "create new folder">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-
+        ${this.addSlot('panel')}
         <div class="table-scroll">
              ${this.addSlot('main-table')}
         </div>

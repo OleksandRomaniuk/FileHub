@@ -1,5 +1,4 @@
 import {LoadUserAction} from '../../actions/load-user-action';
-import {UserInfo} from '../user-info';
 import {StateAwareComponent} from '../state-aware-component';
 
 /**
@@ -15,16 +14,18 @@ export class UserInfoWrapper extends StateAwareComponent {
    */
   constructor(parent) {
     super(parent);
-    this.isUserProfileLoading = this.stateManagementService.state.isUserProfileLoading;
     this.init();
     this.addStateListener('userProfile', (state) => {
-      this.userProfile = state.userProfile;
+      this.#userProfile = state.userProfile;
+      this.render();
     });
     this.addStateListener('isUserProfileLoading', (state) => {
-      this.isUserProfileLoading = state.isUserProfileLoading;
+      this.#isUserProfileLoading = state.isUserProfileLoading;
+      this.render();
     });
     this.addStateListener('isUserProfileError', (state) => {
-      this.isUserProfileError = state.isUserProfileError;
+      this.#isUserProfileError = state.isUserProfileError;
+      this.render();
     });
     this.stateManagementService.dispatch(new LoadUserAction());
   }
@@ -43,31 +44,10 @@ export class UserInfoWrapper extends StateAwareComponent {
     }
   }
   /**
-   * @param {function(HTMLElement, object, boolean, boolean) :UserInfo} userInfoCreator
+   * @param {function(HTMLElement, object, boolean, boolean): UserInfoWrapper} userInfoCreator
    */
   set userInfoCreator(userInfoCreator) {
     this.#userInfoCreator = userInfoCreator;
-    this.render();
-  }
-  /**
-   * @param {object} userProfile
-   */
-  set userProfile(userProfile) {
-    this.#userProfile = userProfile;
-    this.render();
-  }
-  /**
-   * @param {boolean} isUserProfileLoading
-   */
-  set isUserProfileLoading(isUserProfileLoading) {
-    this.#isUserProfileLoading = isUserProfileLoading;
-    this.render();
-  }
-  /**
-   * @param {boolean} isUserProfileError
-   */
-  set isUserProfileError(isUserProfileError) {
-    this.#isUserProfileError = isUserProfileError;
     this.render();
   }
   /**
