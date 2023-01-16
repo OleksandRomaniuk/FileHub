@@ -1,3 +1,5 @@
+import {State} from '../state';
+
 export const MUTATOR_NAME = {
   SET_USER_PROFILE: 'userProfile',
   SET_FOLDER_INFO: 'folderInfo',
@@ -23,6 +25,7 @@ export const MUTATOR_NAME = {
   SET_ITEM_IN_DOWNLOAD_STATE: 'set-item-in-download-state',
   SET_IS_DOWNLOAD_IN_PROGRESS: 'set-is-download-in-progress',
   SET_DOWNLOAD_ERROR: 'set-download-error',
+  RESET_STATE: 'reset-state',
 };
 export const mutators = {
   [MUTATOR_NAME.SET_USER_PROFILE]: (state, userProfile) => {
@@ -119,5 +122,8 @@ export const mutators = {
   },
   [MUTATOR_NAME.SET_DOWNLOAD_ERROR]: (state, downloadError) => {
     return {...state, downloadError: downloadError};
+  },
+  [MUTATOR_NAME.RESET_STATE]: () => {
+    return new State();
   },
 };

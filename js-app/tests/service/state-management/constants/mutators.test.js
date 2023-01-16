@@ -209,4 +209,9 @@ describe('Mutators', () => {
     const newState = mutators[MUTATOR_NAME.SET_DOWNLOAD_ERROR](state, downloadError);
     expect(newState.downloadError).toStrictEqual(downloadError);
   });
+  test('Should return new State.', () => {
+    expect.assertions(1);
+    const newState = mutators[MUTATOR_NAME.RESET_STATE](state);
+    expect(newState).toStrictEqual(new State());
+  });
 });
