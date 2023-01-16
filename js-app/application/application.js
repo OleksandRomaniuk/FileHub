@@ -55,7 +55,7 @@ export class Application extends Component {
           }));
         }
       })
-      .setDefaultPage('registration')
+      .setDefaultPage('login')
       .setErrorPageCreator(() => {
         this.rootElement.innerHTML = '';
         new ErrorComponent(this.rootElement);

@@ -36,18 +36,20 @@ export class BreadcrumbWrapper extends StateAwareComponent {
       }
     });
     this.addStateListener('folderInfo', (state) => {
-      this.path = state;
+      this.#path = this.#generatePath(state);
+      this.render();
     });
     this.addStateListener('isFolderInfoLoading', (state) => {
-      this.isFolderInfoLoading = state.isFolderInfoLoading;
+      this.#isFolderInfoLoading = state.isFolderInfoLoading;
+      this.render();
     });
     this.addStateListener('isUserProfileLoading', (state) => {
-      if (state.isUserProfileLoading) {
-        this.isFolderInfoLoading = state.isFolderInfoLoading;
-      }
+      this.#isFolderInfoLoading = state.isFolderInfoLoading;
+      this.render();
     });
     this.addStateListener('isFolderInfoError', (state) => {
-      this.isFolderInfoError = state.isFolderInfoError;
+      this.#isFolderInfoError = state.isFolderInfoError;
+      this.render();
     });
     this.init();
   }
@@ -86,29 +88,6 @@ export class BreadcrumbWrapper extends StateAwareComponent {
     }
     return null;
   }
-
-  /**
-   * @param {State} state
-   */
-  set path(state) {
-    this.#path = this.#generatePath(state);
-    this.render();
-  }
-  /**
-   * @param {boolean} isFolderInfoLoading
-   */
-  set isFolderInfoLoading(isFolderInfoLoading) {
-    this.#isFolderInfoLoading = isFolderInfoLoading;
-    this.render();
-  }
-  /**
-   * @param {boolean} isFolderInfoError
-   */
-  set isFolderInfoError(isFolderInfoError) {
-    this.#isFolderInfoError = isFolderInfoError;
-    this.render();
-  }
-
   /**
    * @param {function(HTMLElement, object[], boolean, boolean) :Breadcrumb} breadcrumbCreator
    */
