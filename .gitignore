@@ -1,11 +1,66 @@
+# Ignore Gradle project-specific cache directory
 .gradle
+gradle
+# Ignore Gradle build output directory
 build
-persistent/src/main/resources/usersfiles
-persistent/src/main/resources/Testfile.txt
-js-app/node_modules
-.idea/CodeStyles/codeStyleConfig.xml
-.idea/CodeStyles/Project.xml
-.idea/jsLinters/eslint.xml
-.idea/inspectionProfiles/Project_Default.xml
-/js-app/coverage/
-/js-app/dist/
+
+*.class
+
+# generated files
+bin/**
+gen/**
+# project based files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+#
+!.idea/inspectionProfiles/
+!.idea/codeStyles/
+!.idea/dictionaries/
+!.idea/codeStyleSettings.xml
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+.gradle/
+build/
+bin/
+
+/build/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+node_modules
+*/coverage
+
+/web/src/main/resources/js-app/dist/
+/gradle/wrapper/gradle-wrapper.jar
