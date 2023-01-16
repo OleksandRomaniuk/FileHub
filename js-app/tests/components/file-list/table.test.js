@@ -10,91 +10,40 @@ describe('Table', () => {
     fixture = document.body;
     fixture.innerHTML = '';
   });
+
   test('Should change innerText where folderContent id defined.', ()=> {
     expect.assertions(1);
-    const folderContent =
-        {
-          items: [
-            {
-              type: 'folder',
-              name: 'Montenegro',
-              size: null,
-              id: '36',
-            },
-            {
-              type: 'folder',
-              name: 'My Trip',
-              size: null,
-              id: '37',
-            },
-            {
-              type: 'PDF Document',
-              name: 'HTML_guidelines.pdf',
-              size: '100 KB',
-              id: '38',
-            },
-          ],
-        };
-    const table = new Table(fixture, folderContent, false, false);
+    const table = new Table(fixture);
     expect(table.markup()).toBe(
-        `<slot><table class="all-elements"><tbody data-td="table"></tbody></table></slot>`);
+        `<slot> <div class="center-text grey-text">
+                There are no files/directories created yet.
+            </div></slot>`);
   });
-  test('Should call delete listener and navigate.', ()=> {
-    return new Promise((done) => {
-      expect.assertions(2);
-      const folderContent =
-        {
-          items: [
-            {
-              type: 'folder',
-              name: 'Montenegro',
-              size: null,
-              id: '36',
-            },
-            {
-              type: 'folder',
-              name: 'My Trip',
-              size: null,
-              id: '37',
-            },
-            {
-              type: 'PDF Document',
-              name: 'HTML_guidelines.pdf',
-              size: '100 KB',
-              id: '38',
-            },
-          ],
-        };
-      const table = new Table(fixture, folderContent, false, false);
-      const mockNavigateListener = jest.fn();
-      const mockDeleteListener = jest.fn();
 
-      table.onNavigateToFolder(mockNavigateListener);
-      table.onDeleteItem(mockDeleteListener);
-      let link = fixture.querySelector('[data-td="link-slot-folder"] a');
-      link.click();
-      link = fixture.querySelector('a[data-td="link-delete"]');
-      link.click();
-      setTimeout(()=>{
-        expect(mockNavigateListener).toHaveBeenCalled();
-        expect(mockDeleteListener).toHaveBeenCalled();
-        done();
-      });
-    });
-  });
   test('Should change innerText when state of the table is loading.', ()=> {
     expect.assertions(1);
-    const table = new Table(fixture, null, true, false);
+    const table = new Table(fixture, true, false);
     expect(table.markup()).toBe(`<slot><div class="center-text loading-table">
                 <span class="glyphicon glyphicon-repeat loading" aria-hidden="true"></span>
             </div></slot>`);
   });
+
   test('Should change innerText when state of the table is error.', ()=> {
     expect.assertions(1);
-    const table = new Table(fixture, null, false, true);
+    const table = new Table(fixture, false, true);
     expect(table.markup()).toBe(`<slot> <div class="center-text error-text">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 Can't load directory data
             </div></slot>`);
+  });
+
+  test('Should set content creators.', ()=> {
+    expect.assertions(2);
+    const table = new Table(fixture, false, false);
+    const mockFileCreator = jest.fn();
+    const mockFolderCreator = jest.fn();
+    table.setContentCreators([mockFileCreator], [mockFolderCreator]);
+    expect(mockFileCreator).toHaveBeenCalled();
+    expect(mockFolderCreator).toHaveBeenCalled();
   });
 });

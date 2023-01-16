@@ -6,6 +6,8 @@ import {jest} from '@jest/globals';
 import {LoginFailedError} from '../../service/errors/login-failed-error';
 import {GeneralServerError} from '../../service/errors/general-server-error';
 import {RegisterError} from '../../service/errors/register-error';
+import {RenameItemValidationError} from '../../service/errors/rename-item-validation-error.js';
+import {CreatingFolderError} from '../../service/errors/creating-folder-error.js';
 
 
 describe('ApiService', () => {
@@ -128,9 +130,9 @@ describe('ApiService', () => {
       .spyOn(requestService, 'post')
       .mockImplementation(async () =>
         new Response(422, {errors:
-                    {
-                      email: 'Such user already exist.',
-                    },
+                  {
+                    email: 'Such user already exist.',
+                  },
         }),
       );
 
@@ -402,5 +404,243 @@ describe('ApiService', () => {
         id: 'folder2',
       },
     )).rejects.toThrow(GeneralServerError);
+  });
+  test('Should call method uploadFiles with status 200.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'postFormData')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.uploadFiles('testId',
+      ['file1', 'file2']))
+      .resolves
+      .toBeUndefined();
+  });
+  test('Should call method uploadFiles with status 400.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'postFormData')
+      .mockImplementation(async () =>
+        new Response(400),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.uploadFiles('testId',
+      ['file1', 'file2']))
+      .rejects
+      .toThrow(Error);
+  });
+  test('Should call method uploadFiles and catch error.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'postFormData')
+      .mockImplementation(async () =>{
+        throw new Error();
+      });
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.uploadFiles('testId',
+      ['file1', 'file2']))
+      .rejects
+      .toThrow(GeneralServerError);
+  });
+  test('Should call method rename for renaming folder with status 200.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .resolves
+      .toBeUndefined();
+  });
+  test('Should call method rename for renaming file with status 200.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'file',
+      name: 'testId',
+    }))
+      .resolves
+      .toBeUndefined();
+  });
+  test('Should call method rename for renaming folder with status 400.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(400),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(Error);
+  });
+  test('Should call method rename for renaming file with status 400.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(400),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'file',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(Error);
+  });
+  test('Should call method rename for renaming folder with status 422.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(422, {errors: 'error'}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(RenameItemValidationError);
+  });
+
+  test('Should call method rename for renaming file with status 422.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>
+        new Response(422, {errors: 'error'}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'file',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(RenameItemValidationError);
+  });
+
+  test('Should call method rename for renaming folder and catch error.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'put')
+      .mockImplementation(async () =>{
+        throw new Error();
+      });
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.rename({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(GeneralServerError);
+  });
+
+  test('Should call method createFolder with status 200.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.createFolder({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .resolves
+      .toBeUndefined();
+  });
+
+  test('Should call method createFolder and catch error.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>{
+        throw new Error();
+      });
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.createFolder({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(GeneralServerError);
+  });
+
+  test('Should call method createFolder with status 500.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(500, {errors: 'error'}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.createFolder({
+      type: 'file',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(CreatingFolderError);
+  });
+
+  test('Should call method createFolder with status 400.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(400, {errors: 'error'}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.createFolder({
+      type: 'file',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
   });
 });

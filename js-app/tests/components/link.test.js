@@ -24,4 +24,14 @@ describe('Link', () => {
     expect(tmpLink.innerHTML).toMatch('Already have an account?');
     expect(mockFn).toHaveBeenCalled();
   });
+  test('Should add innerHtml', ()=> {
+    expect.assertions(1);
+
+    const link = new Link(fixture, 'Already have an account?');
+    link.addInnerHTML(' <span class="glyphicon glyphicon-log-out log-out" aria-hidden="true"></span>');
+    expect(fixture.innerHTML)
+      .toBe('<a href="#" data-td="link" title="Already have an account?">' +
+            'Already have an account? ' +
+            '<span class="glyphicon glyphicon-log-out log-out" aria-hidden="true"></span></a>');
+  });
 });

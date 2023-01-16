@@ -2,7 +2,7 @@ import {mutators} from '../../service/state-management/constatns/mutators';
 import {ApplicationContext} from '../../application/application-context';
 import {LoadFolderContentAction} from '../../actions/load-folder-content-action';
 import {jest} from '@jest/globals';
-import {registry} from "../../application/registry.js";
+import {registry} from '../../application/registry.js';
 
 describe('LoadFolderContentAction', () => {
   test('Should change values in the state.', ()=> {

@@ -76,6 +76,7 @@ describe('BreadcrumbWrapper', () => {
       done();
     });
   });
+
   test('Should method destroy delete listeners on states.', ()=>{
     expect.assertions(2);
     const stateManagementService = registry.getInstance('stateManagementService');
@@ -137,7 +138,7 @@ describe('BreadcrumbWrapper', () => {
           },
           locationMetaData: {
             folderId:
-                      'firstId',
+                  'firstId',
           },
         });
       });
@@ -162,7 +163,7 @@ describe('BreadcrumbWrapper', () => {
           },
           locationMetaData: {
             folderId:
-                      'firstId',
+                  'firstId',
           },
         }),
       }));
@@ -187,7 +188,7 @@ describe('BreadcrumbWrapper', () => {
           },
           locationMetaData: {
             folderId:
-                            'firstId',
+                  'firstId',
           },
         });
       });
@@ -217,7 +218,7 @@ describe('BreadcrumbWrapper', () => {
           },
           locationMetaData: {
             folderId:
-                            'firstId',
+                  'firstId',
           },
         }),
       }));
@@ -226,7 +227,7 @@ describe('BreadcrumbWrapper', () => {
       {'id': 'parent', 'name': '...'},
       {'id': 'testId', 'name': 'testName'}]);
   });
-  test('Should', ()=> {
+  test('Should call navigate listener after changing userProfile state.', ()=> {
     expect.assertions(1);
     const stateManagementService = registry.getInstance('stateManagementService');
     jest
@@ -247,6 +248,112 @@ describe('BreadcrumbWrapper', () => {
         }),
       }));
     expect(mockNavigate).toHaveBeenCalled();
+  });
+  test('Should change state locationMetaData and dispatch LoadFolderInfoAction.', ()=> {
+    expect.assertions(1);
+    const stateManagementService = registry.getInstance('stateManagementService');
+    jest
+      .spyOn(stateManagementService, 'addStateListener')
+      .mockImplementation((fieldName, listener)=> {
+        eventTarget.addEventListener(`stateChanged.${fieldName}`,
+          (event) => listener(event.detail));
+      });
+    const mockDispatch = jest
+      .spyOn(stateManagementService, 'dispatch')
+      .mockImplementation(()=>{});
+    new BreadcrumbWrapper(fixture);
+    eventTarget.dispatchEvent(new CustomEvent('stateChanged.locationMetaData',
+      {
+        detail: new State({
+          locationMetaData: {
+            folderId: 'testId',
+          },
+          userProfile: {
+            name: 'testName',
+          },
+        }),
+      }));
+    expect(mockDispatch).toHaveBeenCalledWith( new LoadFolderInfoAction('testId'));
+  });
+  test('Should change state isUserProfileLoading and call listener with render.', ()=> {
+    expect.assertions(1);
+    const stateManagementService = registry.getInstance('stateManagementService');
+    jest
+      .spyOn(stateManagementService, 'addStateListener')
+      .mockImplementation((fieldName, listener)=> {
+        eventTarget.addEventListener(`stateChanged.${fieldName}`,
+          (event) => listener(event.detail));
+      });
+    const breadcrumbWrapper = new BreadcrumbWrapper(fixture);
+    const mockRender = jest
+      .spyOn(breadcrumbWrapper, 'render')
+      .mockImplementation(()=>{});
+    eventTarget.dispatchEvent(new CustomEvent('stateChanged.isUserProfileLoading',
+      {
+        detail: new State({
+          isUserProfileLoading: true,
+        }),
+      }));
+    expect(mockRender).toHaveBeenCalled();
+  });
+  test('Should change state userProfile and do not call dispatch action .', ()=> {
+    expect.assertions(1);
+    const stateManagementService = registry.getInstance('stateManagementService');
+    jest
+      .spyOn(stateManagementService, 'addStateListener')
+      .mockImplementation((fieldName, listener)=> {
+        eventTarget.addEventListener(`stateChanged.${fieldName}`,
+          (event) => listener(event.detail));
+      });
+    new BreadcrumbWrapper(fixture);
+    const mockDispatch = jest
+      .spyOn(stateManagementService, 'dispatch')
+      .mockImplementation(()=>{});
+    eventTarget.dispatchEvent(new CustomEvent('stateChanged.userProfile',
+      {
+        detail: new State({
+          userProfile: null,
+        }),
+      }));
+    expect(mockDispatch).toHaveBeenCalledTimes(0);
+  });
+
+  test('Should change markup when get data about userProfile and nested on second level.', ()=> {
+    expect.assertions(1);
+    const stateManagementService = registry.getInstance('stateManagementService');
+    jest
+      .spyOn(stateManagementService, 'addStateListener')
+      .mockImplementation((fieldName, listener)=> {
+        eventTarget.addEventListener(`stateChanged.${fieldName}`,
+          (event) => listener(event.detail));
+      });
+    const breadcrumbWrapper = new BreadcrumbWrapper(fixture);
+    eventTarget.dispatchEvent(
+      new CustomEvent('stateChanged.folderInfo',
+        {detail: new State({
+          userProfile: {
+            username: 'Cherhynska',
+            rootFolderId: '25',
+          },
+          folderInfo: {
+            name: 'trip',
+            id: '30',
+            parentId: '25',
+            itemsAmount: '5',
+          }})},
+      ));
+    breadcrumbWrapper.breadcrumbCreator = (slot, path)=>{
+      expect(path).toStrictEqual([
+        {
+          'id': '25',
+          'name': 'Home',
+        },
+        {
+          'id': '30',
+          'name': 'trip',
+        },
+      ]);
+    };
   });
 });
 

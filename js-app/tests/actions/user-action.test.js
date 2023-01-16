@@ -2,7 +2,7 @@ import {ApplicationContext} from '../../application/application-context';
 import {LoadUserAction} from '../../actions/load-user-action.js';
 import {jest} from '@jest/globals';
 import {MUTATOR_NAME} from '../../service/state-management/constatns/mutators';
-import {registry} from "../../application/registry.js";
+import {registry} from '../../application/registry.js';
 
 describe('UserAction', () => {
   new ApplicationContext();

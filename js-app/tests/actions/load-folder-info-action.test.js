@@ -2,7 +2,7 @@ import {mutators} from '../../service/state-management/constatns/mutators';
 import {ApplicationContext} from '../../application/application-context';
 import {LoadFolderInfoAction} from '../../actions/load-folder-info-action';
 import {jest} from '@jest/globals';
-import {registry} from "../../application/registry.js";
+import {registry} from '../../application/registry.js';
 
 describe('LoadFolderInfoAction', () => {
   new ApplicationContext();

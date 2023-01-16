@@ -4,7 +4,7 @@ import {State} from '../../../service/state-management/state';
 import {BaseAction} from '../../../actions/base-action';
 import {MUTATOR_NAME} from '../../../service/state-management/constatns/mutators';
 import {DeleteModalWindowWrapper} from '../../../components/wrappers/delete-modal-window-wrapper';
-import {registry} from "../../../application/registry.js";
+import {registry} from '../../../application/registry.js';
 
 describe('DeleteModalWindowWrapper', () => {
   let fixture;
@@ -19,7 +19,7 @@ describe('DeleteModalWindowWrapper', () => {
 
   test('Should change markup and call render when dispatching events.', ()=> {
     expect.assertions(1);
-      const stateManagementService = registry.getInstance('stateManagementService');
+    const stateManagementService = registry.getInstance('stateManagementService');
     jest
       .spyOn(stateManagementService, 'addStateListener')
       .mockImplementation((fieldName, listener)=> {
@@ -83,7 +83,7 @@ describe('DeleteModalWindowWrapper', () => {
   });
   test('Should method destroy delete listeners on states.', ()=>{
     expect.assertions(2);
-      const stateManagementService = registry.getInstance('stateManagementService');
+    const stateManagementService = registry.getInstance('stateManagementService');
     const deleteModalWindowWrapper = new DeleteModalWindowWrapper(fixture);
     const mockRender = jest
       .spyOn(deleteModalWindowWrapper, 'render')

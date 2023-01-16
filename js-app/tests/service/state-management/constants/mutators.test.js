@@ -140,4 +140,52 @@ describe('Mutators', () => {
     const newState = mutators[MUTATOR_NAME.SET_REMOVING_ERROR](state, removingError);
     expect(newState.removingError).toStrictEqual(removingError);
   });
+  test('Should return new state of field fileUploading', () => {
+    expect.assertions(1);
+    const uploadingFiles = 'testFile';
+    const newState = mutators[MUTATOR_NAME.SET_UPLOADING_FILES](state, uploadingFiles);
+    expect(newState.uploadingFiles).toStrictEqual(uploadingFiles);
+  });
+  test('Should return new state of field fileUploadError', () => {
+    expect.assertions(1);
+    const fileUploadError = 'test';
+    const newState = mutators[MUTATOR_NAME.SET_UPLOADING_FILES_ERROR](state, fileUploadError);
+    expect(newState.fileUploadError).toStrictEqual(fileUploadError);
+  });
+  test('Should return new state of field itemInRenamingState', () => {
+    expect.assertions(1);
+    const itemInRenamingState = 'testItemInRenamingState';
+    const newState = mutators[MUTATOR_NAME.SET_ITEM_IN_RENAMING_STATE](state, itemInRenamingState);
+    expect(newState.itemInRenamingState).toStrictEqual(itemInRenamingState);
+  });
+  test('Should return new state of field isRenamingInProgress', () => {
+    expect.assertions(1);
+    const isRenamingInProgress = 'testIsRenamingInProgress';
+    const newState = mutators[MUTATOR_NAME.SET_ITEM_IS_RENAMING_IN_PROGRESS](state, isRenamingInProgress);
+    expect(newState.isRenamingInProgress).toStrictEqual(isRenamingInProgress);
+  });
+  test('Should return new state of field renamingError', () => {
+    expect.assertions(1);
+    const renamingError = 'testRenamingErrors';
+    const newState = mutators[MUTATOR_NAME.SET_ITEM_RENAMING_ERROR_STATE](state, renamingError);
+    expect(newState.renamingError).toStrictEqual(renamingError);
+  });
+  test('Should return new state of field newFolder', () => {
+    expect.assertions(1);
+    const newFolder = 'testNewFolder';
+    const newState = mutators[MUTATOR_NAME.SET_NEW_FOLDER](state, newFolder);
+    expect(newState.newFolder).toStrictEqual(newFolder);
+  });
+  test('Should return new state of field isCreatingFolderInProgress', () => {
+    expect.assertions(1);
+    const isCreatingFolderInProgress = true;
+    const newState = mutators[MUTATOR_NAME.SET_FOLDER_IS_BEING_CREATED](state, isCreatingFolderInProgress);
+    expect(newState.isCreatingFolderInProgress).toStrictEqual(isCreatingFolderInProgress);
+  });
+  test('Should return new state of field creatingFolderError', () => {
+    expect.assertions(1);
+    const creatingFolderError = 'testError';
+    const newState = mutators[MUTATOR_NAME.SET_CREATING_FOLDER_ERROR](state, creatingFolderError);
+    expect(newState.creatingFolderError).toStrictEqual(creatingFolderError);
+  });
 });

@@ -66,13 +66,16 @@ describe('Request service', () => {
       }));
     const requestService = new RequestService();
     const url = 'url';
+    const token = 'token';
     const data = JSON.stringify({username: 'email@gfb', password: 'pas6tyhgdfxvd'});
-    const response = requestService.post(url, data);
+    const response = requestService.post(url, data, token);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(url, {
       method: 'POST',
       body: data,
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json;charset=utf-8'},
     });
     return response.then((response)=> {
       expect(response.status).toBe(401);
@@ -89,13 +92,15 @@ describe('Request service', () => {
         }}));
     const requestService = new RequestService();
     const url = 'url';
-
-    const response = requestService.post(url, data);
+    const token = 'token';
+    const response = requestService.post(url, data, token);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(url, {
       method: 'POST',
       body: data,
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json;charset=utf-8'},
     });
     return response.then((response)=> {
       expect(response.status).toBe(200);
@@ -148,6 +153,59 @@ describe('Request service', () => {
     return responsePromise.then((respone)=>{
       expect(respone.status).toBe(200);
       expect(respone.body).toStrictEqual(undefined);
+    });
+  });
+  test('Should call method postFormData and return response.', ()=>{
+    global.fetch = jest.fn(async () =>{
+      return {
+        status: 200,
+      };
+    });
+    const url = 'url';
+    const data = 'data';
+    const token = 'token';
+    const requestService = new RequestService();
+    const responsePromise = requestService.postFormData(url, data, token);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(url, {
+      method: 'POST',
+      body: data,
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    });
+    return responsePromise.then((respone)=>{
+      expect(respone.status).toBe(200);
+      expect(respone.body).toStrictEqual(undefined);
+    });
+  });
+  test('Should call method put and return response.', ()=>{
+    const body = 'testBody';
+    global.fetch = jest.fn(async () =>{
+      return {
+        status: 200,
+        json: async ()=>{
+          return body;
+        },
+      };
+    });
+    const url = 'url';
+    const data = 'data';
+    const token = 'token';
+    const requestService = new RequestService();
+    const responsePromise = requestService.put(url, data, token);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(url, {
+      method: 'PUT',
+      body: data,
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return responsePromise.then((respone)=>{
+      expect(respone.status).toBe(200);
+      expect(respone.body).toStrictEqual(body);
     });
   });
 });
