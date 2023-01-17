@@ -11,19 +11,23 @@ export class Table extends Component {
     #fileTypeIconFactory;
     #folderCreators;
     #fileCreators;
+    #isSearch;
 
     /**
      * @param {HTMLElement} parent
      * @param {boolean} isLoading
      * @param {boolean} isError
+     * @param {boolean} isSearch
      */
     constructor(parent,
       isLoading,
       isError,
+      isSearch,
     ) {
       super(parent);
       this.#isLoading = isLoading;
       this.#isError = isError;
+      this.#isSearch = isSearch;
       this.#fileTypeIconFactory = new FileTypeIconFactory();
       this.init();
     }
@@ -69,6 +73,10 @@ export class Table extends Component {
             </div>`;
       } else if (this.#folderCreators?.length > 0 || this.#fileCreators?.length > 0) {
         innerText = `<table class="all-elements"><tbody data-td="table"></tbody></table>`;
+      } else if (this.#isSearch) {
+        innerText = ` <div class="center-text grey-text">
+                No items fount in this directory.
+            </div>`;
       } else {
         innerText = ` <div class="center-text grey-text">
                 There are no files/directories created yet.

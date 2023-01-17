@@ -5,20 +5,20 @@ import {BaseAction} from './base-action';
  * Action to set load metadata in the state.
  */
 export class SetMetadataAction extends BaseAction {
-  #folderId;
+  #routerMetaData;
 
   /**
-   * @param {object} folderId
+   * @param {object} routerMetaData
    */
-  constructor(folderId) {
+  constructor(routerMetaData) {
     super();
-    this.#folderId = folderId;
+    this.#routerMetaData = routerMetaData;
   }
   /**
    * @inheritDoc
    * @param {Function} mutationExecutor
    */
   execute(mutationExecutor) {
-    mutationExecutor(MUTATOR_NAME.SET_LOCATION_METADATA, this.#folderId);
+    mutationExecutor(MUTATOR_NAME.SET_LOCATION_METADATA, this.#routerMetaData);
   }
 }

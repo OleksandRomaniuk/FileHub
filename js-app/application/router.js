@@ -28,6 +28,11 @@ export class Router {
     window.addEventListener('hashchange', ()=>{
       this.#handleRoute( window.location.hash.replace('#', ''));
     });
+  }
+  /**
+   * Start handling page.
+   */
+  run() {
     this.#handleRoute( window.location.hash.replace('#', ''));
   }
 
@@ -64,13 +69,20 @@ export class Router {
   #parseRouteWithParams(path) {
     const routeArray = path.split('/');
     const dynamicParams = {};
+    let dynamicParam;
+    let queryParameters;
     let resultedPathToPageCreatorMap;
     Object.keys(this.#pathToPageCreatorMap).forEach((pathToPageCreatorMap) => {
       resultedPathToPageCreatorMap = pathToPageCreatorMap;
       const arrayPath = pathToPageCreatorMap.split('/');
       arrayPath.every((parsedPath, index) => {
         if (parsedPath.startsWith(':')) {
-          dynamicParams[parsedPath.substring(1)] = routeArray[index] || null;
+          if (routeArray[index]) {
+            const tmpDynamicParams = routeArray[index].split('?');
+            dynamicParam = tmpDynamicParams[0];
+            queryParameters = this.#parseQueryParameters(tmpDynamicParams[1]);
+          }
+          dynamicParams[parsedPath.substring(1)] = dynamicParam || null;
         } else if (parsedPath !== routeArray[index]) {
           resultedPathToPageCreatorMap = null;
           return false;
@@ -80,8 +92,29 @@ export class Router {
     });
     return {
       routePath: resultedPathToPageCreatorMap,
-      params: dynamicParams,
+      params: {
+        dynamicParams: dynamicParams,
+        queryParams: queryParameters,
+      },
     };
+  }
+
+  /**
+   * @param {string} parameters
+   * @returns {object}
+   * @private
+   */
+  #parseQueryParameters(parameters) {
+    let result;
+    if (parameters) {
+      result = {};
+      const arrParameters = parameters.split('&');
+      arrParameters.forEach((param)=>{
+        const parameter = param.split('=');
+        result[parameter[0]] = parameter[1];
+      });
+    }
+    return result;
   }
 
   /**
@@ -89,7 +122,7 @@ export class Router {
    * @param {string} path
    */
   redirect(path) {
-    window.location.hash = '#' + path;
+    window.location.hash = path;
   }
 
   /**
