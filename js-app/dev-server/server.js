@@ -7,18 +7,23 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.post('/login', (req, res) => {
-  res.send({token: 'From_dev_server'});
-});
-app.get('/user', (req, res)=>{
-  res.status(200);
+app.get('/user', (req, res)=> {
   setTimeout(()=>{
-    res.send({
-      userProfile: {
-        username: 'alex',
-        rootFolderId: 'folder1',
-      }});
+    if (req.headers.authorization.split(' ')[1] === token) {
+      res.status(200);
+      res.send({
+        userProfile: {
+          username: 'alex',
+          rootFolderId: 'folder1',
+        }});
+    } else {
+      res.status(401);
+      res.send({});
+    }
   }, 1000);
+});
+app.post('/login', (req, res) => {
+  res.send({token: token});
 });
 const foldersInfo = {
   'folder1': {
