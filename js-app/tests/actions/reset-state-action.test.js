@@ -15,7 +15,7 @@ describe('ResetStateAction', () => {
       isUserProfileLoading: true,
       isUserProfileError: false,
       userProfile: {
-        username: 'Cherhynska',
+        username: 'alex',
         rootFolderId: 25,
       },
       isFolderInfoLoading: true,
