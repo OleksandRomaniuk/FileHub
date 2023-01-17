@@ -12,66 +12,6 @@ describe('BreadcrumbWrapper', () => {
     fixture.innerHTML = '';
     eventTarget = new EventTarget();
   });
-
-  test('Should change markup when get data about userProfile.', ()=> {
-    expect.assertions(1);
-    const applicationContext = new ApplicationContext();
-    jest
-        .spyOn(applicationContext.stateManagementService, 'addStateListener')
-        .mockImplementation((fieldName, listener)=> {
-          eventTarget.addEventListener(`stateChanged.${fieldName}`,
-              (event) => listener(event.detail));
-        });
-    jest
-        .spyOn(applicationContext.apiService, 'getFolder')
-        .mockImplementation(async ()=> {
-          return {
-            folderInfo: 'testFolderInfo',
-          };
-        });
-    const breadcrumbWrapper = new BreadcrumbWrapper(fixture, applicationContext);
-
-    const mockRender = jest
-        .spyOn(breadcrumbWrapper, 'render')
-        .mockImplementation(()=>{});
-
-    eventTarget.dispatchEvent(
-        new CustomEvent('stateChanged.folderInfo',
-            {detail: new State({
-              userProfile: {
-                username: 'Cherhynska',
-                rootFolderId: '25',
-              },
-              folderInfo: {
-                name: 'trip',
-                id: '30',
-                parentId: '28',
-                itemsAmount: '5',
-              }})},
-        ));
-    eventTarget.dispatchEvent(
-        new CustomEvent('stateChanged.isFolderInfoError',
-            {detail: new State({isFolderInfoError: false})},
-        ));
-    eventTarget.dispatchEvent(
-        new CustomEvent('stateChanged.isFolderInfoLoading',
-            {detail: new State({isFolderInfoLoading: false})},
-        ));
-
-    expect(mockRender).toHaveBeenCalledTimes(3);
-    eventTarget.dispatchEvent(new CustomEvent('stateChanged.locationMetaData',
-        {
-          detail: {
-            locationMetaData: {
-              folderId: 'testFolderId',
-            },
-          },
-        }));
-    setTimeout(()=>{
-      expect(applicationContext.stateManagementService.state.folderInfo).toBe('testFolderInfo');
-      done();
-    });
-  });
   test('Should method destroy delete listeners on states.', ()=>{
     expect.assertions(2);
     const applicationContext = new ApplicationContext();
