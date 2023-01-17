@@ -1,10 +1,12 @@
 import {Folder} from '../../../components/file-list/folder';
 import {jest} from '@jest/globals';
+import {ApplicationContext} from '../../../application/application-context';
 
 describe('Folder', () => {
   let fixture;
 
   beforeEach(() => {
+    new ApplicationContext();
     fixture = document.body;
     fixture.innerHTML = '';
   });
@@ -26,9 +28,7 @@ describe('Folder', () => {
                        </span>
                     </td>
                     <td class="cell-name folder">
-                    <slot data-td="link-slot-folder"><a href="#" data-td="link" title="Montenegro">
-                   Montenegro
-                </a></slot>
+                    <slot data-td="link-slot-folder"><a href="#" data-td="link" title="Montenegro">Montenegro</a></slot>
                     </td>
                     <td class="cell-type">
                         Folder

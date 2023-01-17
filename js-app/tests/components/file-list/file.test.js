@@ -1,9 +1,11 @@
 import {File} from '../../../components/file-list/file';
 import {jest} from '@jest/globals';
+import {ApplicationContext} from '../../../application/application-context';
 describe('File', () => {
   let fixture;
 
   beforeEach(() => {
+    new ApplicationContext();
     fixture = document.body;
     fixture.innerHTML = '';
   });

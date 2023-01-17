@@ -6,7 +6,7 @@ import {Component} from './component';
  * The component to form row with label and input.
  */
 export class FormControl extends Component {
-  #errorMessages = [];
+  #errorMessages;
   #labelText;
   #type = 'text';
   #name;
@@ -33,7 +33,7 @@ export class FormControl extends Component {
     type = 'text',
     name,
     placeholder = '',
-    errorMessages = [],
+    errorMessages,
     value = '',
   }) {
     super(parent);

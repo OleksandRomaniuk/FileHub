@@ -78,7 +78,7 @@ export class StateManagementService {
     listener(this.#state);
     const listenerForField = (event) => listener(event.detail);
     this.#eventTarget.addEventListener(`stateChanged.${fieldName}`,
-        listenerForField);
+      listenerForField);
     return listenerForField;
   }
 

@@ -1,22 +1,20 @@
 import {Component} from './component';
-import {StateManagementService} from '../service/state-management/state-management-service';
 import {State} from '../service/state-management/state';
 import {Observer} from '../service/state-management/removal-observer';
+import {inject} from '../application/registry';
 
 /**
  * The component that works with {@link StateManagementService}.
  */
 export class StateAwareComponent extends Component {
-  stateManagementService;
+  @inject stateManagementService;
   #stateListeners = [];
 
   /**
    * @param {HTMLElement} parent
-   * @param {StateManagementService} stateManagementService
    */
-  constructor(parent, stateManagementService) {
+  constructor(parent) {
     super(parent);
-    this.stateManagementService = stateManagementService;
     Observer.observe(this.parentElement, ()=>{
       this.onDestroy();
     });

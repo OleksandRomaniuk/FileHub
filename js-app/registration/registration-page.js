@@ -1,8 +1,7 @@
 import {Component} from '../components/component';
 import {RegistrationForm} from './registration-form';
-import {GeneralServerError} from '../service/errors/general-server-error.js';
-import {ApiService} from '../service/api-service.js';
-import {TitleService} from '../service/title-service.js';
+import {GeneralServerError} from '../service/errors/general-server-error';
+import {inject} from '../application/registry';
 
 const SUBMIT_EVENT = 'submitted';
 
@@ -12,20 +11,18 @@ const SUBMIT_EVENT = 'submitted';
 export class RegistrationPage extends Component {
   #navigateListener;
   #successRegistration;
-  #apiService;
+  @inject apiService;
+  @inject titleService;
   #serverError;
   #submitTarget = new EventTarget();
 
   /**
    * @param {HTMLElement} parent
-   * @param {TitleService} titleService
-   * @param {ApiService} apiService
    */
-  constructor(parent, titleService, apiService ) {
+  constructor(parent ) {
     super(parent);
     this.init();
-    titleService.setTitle(['Sign in']);
-    this.#apiService = apiService;
+    this.titleService.setTitle(['Sign in']);
   }
 
   /**
@@ -38,17 +35,17 @@ export class RegistrationPage extends Component {
     });
     form.onSubmitted((userData)=>{
       this.#serverError = null;
-      this.#apiService.register(userData)
-          .then(()=>{
-            this?.#successRegistration();
-          })
-          .catch((error)=>{
-            if ( error instanceof GeneralServerError) {
-              this.serverError = error.error;
-            } else {
-              form.inputErrors = error.error;
-            }
-          });
+      this.apiService.register(userData)
+        .then(()=>{
+          this?.#successRegistration();
+        })
+        .catch((error)=>{
+          if ( error instanceof GeneralServerError) {
+            this.serverError = error.error;
+          } else {
+            form.inputErrors = error.error;
+          }
+        });
     });
   }
 

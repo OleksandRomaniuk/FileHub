@@ -1,5 +1,4 @@
 import {LoadFolderContentAction} from '../../actions/load-folder-content-action';
-import {ApplicationContext} from '../../application/application-context';
 import {StateAwareComponent} from '../state-aware-component';
 
 /**
@@ -14,18 +13,18 @@ export class TableWrapper extends StateAwareComponent {
 
   /**
    * @param {HTMLElement} parent
-   * @param {ApplicationContext} applicationContext
    */
-  constructor(parent, applicationContext) {
-    super(parent, applicationContext.stateManagementService);
+  constructor(parent) {
+    super(parent);
     this.isFolderContentLoading = this.stateManagementService.state.isFolderContentLoading;
-    this.stateManagementService.addStateListener('folderInfo', (state)=>{
+    this.addStateListener('folderInfo', (state)=>{
       if (state.folderInfo) {
         this.stateManagementService.dispatch(
-            new LoadFolderContentAction(applicationContext, state.folderInfo.id));
+          new LoadFolderContentAction(state.folderInfo.id));
       }
     });
     this.addStateListener('folderContent', (state) => {
+      console.log('folderContent = ', state.folderContent);
       this.folderContent = state.folderContent;
     });
     this.addStateListener('isFolderContentLoading', (state) => {
@@ -44,10 +43,10 @@ export class TableWrapper extends StateAwareComponent {
     const slot = this.getSlot('table-wrapper');
     if (this.#tableCreator) {
       return this.#tableCreator(
-          slot,
-          this.#folderContent,
-          this.#isFolderContentLoading,
-          this.#isFolderContentError,
+        slot,
+        this.#folderContent,
+        this.#isFolderContentLoading,
+        this.#isFolderContentError,
       );
     }
   }

@@ -14,12 +14,12 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     const requestServiceMock = jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => new Response(401, {token: 'HelloToken'}));
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => new Response(401, {token: 'HelloToken'}));
 
     const apiService = new ApiService(requestService);
     await expect(apiService.logIn(new UserData('email', 'password')))
-        .rejects.toThrow(LoginFailedError);
+      .rejects.toThrow(LoginFailedError);
     expect(requestServiceMock).toHaveBeenCalled();
   });
   test('Should call method post during logIn and catch error because of bad internet.', async () => {
@@ -27,14 +27,14 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     const requestServiceMock = jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => {
-          throw new Error();
-        });
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => {
+        throw new Error();
+      });
 
     const apiService = new ApiService(requestService);
     await expect(apiService.logIn(new UserData('email', 'password')))
-        .rejects.toThrow(GeneralServerError);
+      .rejects.toThrow(GeneralServerError);
     expect(requestServiceMock).toHaveBeenCalled();
   });
 
@@ -43,12 +43,12 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => new Response(520, {}));
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => new Response(520, {}));
 
     const apiService = new ApiService(requestService);
     return expect(apiService.logIn(new UserData('email', 'password')))
-        .rejects.toThrow(GeneralServerError);
+      .rejects.toThrow(GeneralServerError);
   });
 
   test('Should call method post during logIn and catch error because of bad internet connection.', async () => {
@@ -56,14 +56,14 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => {
-          throw new Error();
-        });
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => {
+        throw new Error();
+      });
 
     const apiService = new ApiService(requestService);
     return expect(apiService.logIn(new UserData('email', 'password')))
-        .rejects.toThrow(GeneralServerError);
+      .rejects.toThrow(GeneralServerError);
   });
 
   test('Should call method post during and logIn user.', async () => {
@@ -71,8 +71,8 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => new Response(200, {token: 'HelloToken'}));
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => new Response(200, {token: 'HelloToken'}));
 
     const apiService = new ApiService(requestService);
     await expect(apiService.logIn(new UserData('email', 'password'))).resolves.toBeUndefined();
@@ -83,10 +83,10 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => {
-          return new Response(200, {});
-        });
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => {
+        return new Response(200, {});
+      });
 
     const apiService = new ApiService(requestService);
     await expect(apiService.register(new UserData('email', 'password'))).resolves.toBeUndefined();
@@ -96,12 +96,12 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => new Response(505, {errors: ''}));
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => new Response(505, {errors: ''}));
 
     const apiService = new ApiService(requestService);
     await expect(apiService.register(new UserData('email', 'password')))
-        .rejects.toThrow(GeneralServerError);
+      .rejects.toThrow(GeneralServerError);
     expect(requestServiceMock).toHaveBeenCalled();
   });
 
@@ -110,14 +110,14 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () => {
-          throw new Error();
-        });
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () => {
+        throw new Error();
+      });
 
     const apiService = new ApiService(requestService);
     return expect(apiService.register(new UserData('email', 'password')))
-        .rejects.toThrow(GeneralServerError);
+      .rejects.toThrow(GeneralServerError);
   });
 
   test('Should call method post and during register' +
@@ -125,67 +125,67 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'post')
-        .mockImplementation(async () =>
-          new Response(422, {errors:
+      .spyOn(requestService, 'post')
+      .mockImplementation(async () =>
+        new Response(422, {errors:
                     {
                       email: 'Such user already exist.',
                     },
-          }),
-        );
+        }),
+      );
 
     const apiService = new ApiService(requestService);
     await expect(apiService.register(new UserData('email', 'password')))
-        .rejects.toThrow(RegisterError);
+      .rejects.toThrow(RegisterError);
   });
 
   test('Should call method getFolder wit status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(200, {folderInfo: {
-            name: 'trip',
-            id: 30,
-            parentId: 28,
-            itemsAmount: 5,
-          },
-          }),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(200, {folderInfo: {
+          name: 'trip',
+          id: 30,
+          parentId: 28,
+          itemsAmount: 5,
+        },
+        }),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.getFolder('25'))
-        .resolves
-        .toStrictEqual({'folderInfo': {'id': 30, 'itemsAmount': 5, 'name': 'trip', 'parentId': 28}});
+      .resolves
+      .toStrictEqual({'folderInfo': {'id': 30, 'itemsAmount': 5, 'name': 'trip', 'parentId': 28}});
   });
 
   test('Should call method getFolder wit status 400.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(400, {}),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(400, {}),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.getFolder('25'))
-        .rejects
-        .toThrow(new Error('Error occurred. Please try again.'));
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
   });
   test('Should call method getUser and get status 200.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(200),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
 
     const apiService = new ApiService(requestService);
     await expect(apiService.getUser(new UserData('email', 'password')))
-        .resolves.toBeUndefined();
+      .resolves.toBeUndefined();
     expect(requestServiceMock).toHaveBeenCalled();
   });
   test('Should call method getFolderContent wit status 200.', () => {
@@ -214,27 +214,27 @@ describe('ApiService', () => {
       ],
     };
     jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(200, {folderContent: folderContent}),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(200, {folderContent: folderContent}),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.getFolderContent('25'))
-        .resolves
-        .toStrictEqual({'folderContent': folderContent});
+      .resolves
+      .toStrictEqual({'folderContent': folderContent});
   });
   test('Should call method getUser and get status 400.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(400),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(400),
+      );
     const apiService = new ApiService(requestService);
     await expect(apiService.getUser(new UserData('email', 'password')))
-        .rejects.toThrow(new Error('Error occurred. Please try again.'));
+      .rejects.toThrow(new Error('Error occurred. Please try again.'));
     expect(requestServiceMock).toHaveBeenCalled();
   });
 
@@ -242,23 +242,23 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(404, {}),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(404, {}),
+      );
     const apiService = new ApiService(requestService);
     return expect(apiService.getFolderContent('25'))
-        .rejects
-        .toThrow(new Error('Error occurred. Please try again.'));
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
   });
   test('Should call method getFolderContent and get status 200.', async () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(200),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
 
     const apiService = new ApiService(requestService);
     await expect(apiService.getFolderContent('testId')).resolves.toBeUndefined();
@@ -268,10 +268,10 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-        .spyOn(requestService, 'get')
-        .mockImplementation(async () =>
-          new Response(400),
-        );
+      .spyOn(requestService, 'get')
+      .mockImplementation(async () =>
+        new Response(400),
+      );
 
     const apiService = new ApiService(requestService);
     await expect(apiService.getFolderContent('testId')).rejects.toThrow(new Error('Error occurred. Please try again.'));
@@ -283,10 +283,10 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () =>
-          new Response(200),
-        );
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.deleteItem({
@@ -295,17 +295,17 @@ describe('ApiService', () => {
       size: null,
       id: 'folder2',
     }))
-        .resolves
-        .toBeUndefined();
+      .resolves
+      .toBeUndefined();
   });
   test('Should call method deleteItem for deleting the file with status 200.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () =>
-          new Response(200),
-        );
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () =>
+        new Response(200),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.deleteItem({
@@ -314,18 +314,18 @@ describe('ApiService', () => {
       size: '5 kb',
       id: 'folder2',
     }))
-        .resolves
-        .toBeUndefined();
+      .resolves
+      .toBeUndefined();
   });
 
   test('Should call method deleteItem for deleting the folder with status 404.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () =>
-          new Response(404),
-        );
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () =>
+        new Response(404),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.deleteItem({
@@ -334,18 +334,18 @@ describe('ApiService', () => {
       size: null,
       id: 'folder2',
     }))
-        .rejects
-        .toThrow(new Error('Error occurred. Please try again.'));
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
   });
 
   test('Should call method deleteItem for deleting the file with status 404.', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () =>
-          new Response(404),
-        );
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () =>
+        new Response(404),
+      );
 
     const apiService = new ApiService(requestService);
     return expect(apiService.deleteItem({
@@ -354,8 +354,8 @@ describe('ApiService', () => {
       size: '10 k',
       id: 'folder2',
     }))
-        .rejects
-        .toThrow(new Error('Error occurred. Please try again.'));
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
   });
 
   test('Should call method deleteItem for deleting the folder' +
@@ -364,20 +364,20 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () => {
-          throw new Error();
-        });
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () => {
+        throw new Error();
+      });
 
     const apiService = new ApiService(requestService);
 
     return expect(apiService.deleteItem(
-        {
-          type: 'folder',
-          name: 'Montenegro',
-          size: null,
-          id: 'folder2',
-        },
+      {
+        type: 'folder',
+        name: 'Montenegro',
+        size: null,
+        id: 'folder2',
+      },
     )).rejects.toThrow(GeneralServerError);
   });
 
@@ -387,20 +387,20 @@ describe('ApiService', () => {
     const requestService = new RequestService();
 
     jest
-        .spyOn(requestService, 'delete')
-        .mockImplementation(async () => {
-          throw new Error();
-        });
+      .spyOn(requestService, 'delete')
+      .mockImplementation(async () => {
+        throw new Error();
+      });
 
     const apiService = new ApiService(requestService);
 
     return expect(apiService.deleteItem(
-        {
-          type: 'file',
-          name: 'Montenegro',
-          size: '15 kb',
-          id: 'folder2',
-        },
+      {
+        type: 'file',
+        name: 'Montenegro',
+        size: '15 kb',
+        id: 'folder2',
+      },
     )).rejects.toThrow(GeneralServerError);
   });
 });

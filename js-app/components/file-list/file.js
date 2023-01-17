@@ -1,5 +1,5 @@
-import {FileTypeIconFactory} from './file-type-icon-factory';
 import {Component} from '../component';
+import {inject} from '../../application/registry';
 
 const DELETE_FILE_EVENT = 'delete_file_event';
 /**
@@ -7,8 +7,8 @@ const DELETE_FILE_EVENT = 'delete_file_event';
  */
 export class File extends Component {
   #file;
-  #fileTypeIcon;
   #submitTarget = new EventTarget();
+  @inject fileTypeIconFactory;
   /**
    * @param {HTMLElement} parent
    * @param {object} file
@@ -16,7 +16,6 @@ export class File extends Component {
   constructor(parent, file) {
     super(parent);
     this.#file = file;
-    this.#fileTypeIcon = new FileTypeIconFactory().getIcon(this.#file.type);
     this.init();
   }
   /**
@@ -49,7 +48,7 @@ export class File extends Component {
 
                     </td>
                     <td class="cell-icon">
-                        <span class="glyphicon ${this.#fileTypeIcon}" aria-hidden="true">
+                        <span class="glyphicon ${this.fileTypeIconFactory.getIcon(this.#file.type)}" aria-hidden="true">
                         </span>
                     </td>
                     <td class="cell-name">

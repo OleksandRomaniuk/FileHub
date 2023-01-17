@@ -8,8 +8,9 @@ module.exports = {
     'plugin:jest/recommended',
   ],
   'overrides': [],
+  'parser': 'babel-eslint',
   'parserOptions': {
-    'ecmaVersion': 'latest',
+    'ecmaVersion': '13',
     'sourceType': 'module',
   },
   'plugins': [
@@ -23,10 +24,13 @@ module.exports = {
       requireReturn: false,
       prefer: {return: 'returns'},
     }],
+    "template-curly-spacing" : "off",
+    "indent": ["error", 2, {
+      "ignoredNodes": ["TemplateLiteral"]
+    }],
     'max-len': ['error', {code: 120}],
     'no-console': 'error',
     'no-debugger': 'error',
-
     'jsdoc/check-access': 'error',
     'jsdoc/check-alignment': 'error',
     'jsdoc/check-param-names': 'error',

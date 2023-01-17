@@ -12,14 +12,14 @@ describe('DeleteModalWindow', () => {
   test('Should change innerText when item is defined.', ()=> {
     expect.assertions(1);
     new DeleteModalWindow(fixture,
-        {
-          type: 'folder',
-          name: 'Montenegro',
-          size: null,
-          id: 'folder2',
-        },
-        false,
-        null);
+      {
+        type: 'folder',
+        name: 'Montenegro',
+        size: null,
+        id: 'folder2',
+      },
+      false,
+      null);
     expect(fixture.innerHTML).toBe('<div class="modal delete">\n' +
         '    <div class="box">\n' +
         '        <div class="header">\n' +
@@ -43,14 +43,14 @@ describe('DeleteModalWindow', () => {
   test('Should change innerText when state is itemBeingDeleted.', ()=> {
     expect.assertions(1);
     new DeleteModalWindow(fixture,
-        {
-          type: 'folder',
-          name: 'Montenegro',
-          size: null,
-          id: 'folder2',
-        },
-        true,
-        null);
+      {
+        type: 'folder',
+        name: 'Montenegro',
+        size: null,
+        id: 'folder2',
+      },
+      true,
+      null);
     // language=HTML
     expect(fixture.innerHTML).toBe('<div class="modal delete">\n' +
         '    <div class="box">\n' +
@@ -77,16 +77,16 @@ describe('DeleteModalWindow', () => {
   test('Should change innerText when state has defined removingError.', ()=> {
     expect.assertions(1);
     new DeleteModalWindow(fixture,
-        {
-          type: 'folder',
-          name: 'Montenegro',
-          size: null,
-          id: 'folder2',
-        },
-        true,
-        'Server Error');
+      {
+        type: 'folder',
+        name: 'Montenegro',
+        size: null,
+        id: 'folder2',
+      },
+      true,
+      'Server Error');
     expect(fixture.innerHTML)
-        .toBe('<div class="modal delete">\n' +
+      .toBe('<div class="modal delete">\n' +
             '    <div class="box">\n' +
             '        <div class="header">\n' +
             '            <h1>Delete File</h1>\n' +
@@ -111,14 +111,14 @@ describe('DeleteModalWindow', () => {
   test('Should click on cancel.', ()=>{
     return new Promise((done) => {
       const deleteModalWindow = new DeleteModalWindow(fixture,
-          {
-            type: 'folder',
-            name: 'Montenegro',
-            size: null,
-            id: 'folder2',
-          },
-          false,
-          null);
+        {
+          type: 'folder',
+          name: 'Montenegro',
+          size: null,
+          id: 'folder2',
+        },
+        false,
+        null);
 
       const mockCancel = jest.fn();
       deleteModalWindow.listenerOnCancel = mockCancel;
@@ -133,14 +133,14 @@ describe('DeleteModalWindow', () => {
   test('Should click on delete button.', ()=>{
     return new Promise((done) => {
       const deleteModalWindow = new DeleteModalWindow(fixture,
-          {
-            type: 'folder',
-            name: 'Montenegro',
-            size: null,
-            id: 'folder2',
-          },
-          false,
-          null);
+        {
+          type: 'folder',
+          name: 'Montenegro',
+          size: null,
+          id: 'folder2',
+        },
+        false,
+        null);
 
       const mockCancel = jest.fn();
       deleteModalWindow.listenerOnDelete = mockCancel;

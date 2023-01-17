@@ -2,6 +2,7 @@ import {mutators} from '../../service/state-management/constatns/mutators';
 import {ApplicationContext} from '../../application/application-context';
 import {LoadFolderContentAction} from '../../actions/load-folder-content-action';
 import {jest} from '@jest/globals';
+import {registry} from "../../application/registry.js";
 
 describe('LoadFolderContentAction', () => {
   test('Should change values in the state.', ()=> {
@@ -13,28 +14,29 @@ describe('LoadFolderContentAction', () => {
         isFolderContentLoading: true,
         isFolderContentError: false,
       };
-      const applicationContext = new ApplicationContext();
+      new ApplicationContext();
+      const apiService = registry.getInstance('apiService');
       jest
-          .spyOn(applicationContext.apiService, 'getFolderContent')
-          .mockImplementation(async ()=>{
-            return {
-              folderContent: {
-                items: [
-                  {
-                    type: 'folder',
-                    name: 'Montenegro',
-                    size: null,
-                    id: '36',
-                  },
-                ],
-              },
-            };
-          });
+        .spyOn(apiService, 'getFolderContent')
+        .mockImplementation(async ()=>{
+          return {
+            folderContent: {
+              items: [
+                {
+                  type: 'folder',
+                  name: 'Montenegro',
+                  size: null,
+                  id: '36',
+                },
+              ],
+            },
+          };
+        });
       let newState;
       const mutationExecutor = (mutatorKey, payload)=>{
         newState = mutators[mutatorKey](initialState, payload);
       };
-      const loadFolderContentAction = new LoadFolderContentAction(applicationContext, '25');
+      const loadFolderContentAction = new LoadFolderContentAction('25');
       setTimeout(async ()=>{
         await loadFolderContentAction.execute(mutationExecutor);
         expect(newState.folderContent.items[0].type).toBe('folder');

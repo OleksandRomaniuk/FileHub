@@ -39,9 +39,9 @@ export class RequestService {
     });
     let responseBody;
     await fetchResponse.json()
-        .then((json) => {
-          responseBody = json;
-        });
+      .then((json) => {
+        responseBody = json;
+      });
     return new Response(fetchResponse.status, responseBody);
   }
   /**

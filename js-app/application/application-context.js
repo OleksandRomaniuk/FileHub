@@ -4,57 +4,45 @@ import {RequestService} from '../service/request-service';
 import {StateManagementService} from '../service/state-management/state-management-service';
 import {State} from '../service/state-management/state';
 import {mutators} from '../service/state-management/constatns/mutators';
+import {clearRegistry, registry} from './registry';
+import {FileTypeIconFactory} from '../components/file-list/file-type-icon-factory';
 
 /**
  * Application context to create and provide dependencies.
  */
 export class ApplicationContext {
-  #titleService;
-  #apiService;
-  #stateManagementService;
-
   /**
    * Initialize fields.
    */
   constructor() {
-    this.#titleService = new TitleService('FileHub', ' - ');
-    this.#apiService = new ApiService(new RequestService());
-
-    const initialState = new State({
-      isUserProfileLoading: true,
-      isUserProfileError: false,
-      userProfile: null,
-      isFolderInfoLoading: true,
-      isFolderInfoError: false,
-      folderInfo: null,
-      folderContent: null,
-      isFolderContentLoading: true,
-      isFolderContentError: false,
-      locationMetaData: null,
-      itemInRemovingState: null,
-      itemBeingDeleted: false,
-      removingError: null,
+    clearRegistry();
+    registry.register('titleService', ()=>{
+      return new TitleService('FileHub', ' - ');
     });
-    this.#stateManagementService = new StateManagementService(mutators, initialState);
-  }
 
-  /**
-   * @returns {TitleService}
-   */
-  get titleService() {
-    return this.#titleService;
-  }
-  /**
-   * @returns {StateManagementService}
-   */
-  get stateManagementService() {
-    return this.#stateManagementService;
-  }
+    registry.register('apiService', ()=>{
+      return new ApiService(new RequestService());
+    });
+    registry.register('fileTypeIconFactory', ()=>{
+      return new FileTypeIconFactory();
+    });
 
-  /**
-   * @returns {ApiService}
-   */
-  get apiService() {
-    return this.#apiService;
+    registry.register('stateManagementService', ()=>{
+      return new StateManagementService(mutators, new State({
+        isUserProfileLoading: true,
+        isUserProfileError: false,
+        userProfile: null,
+        isFolderInfoLoading: true,
+        isFolderInfoError: false,
+        folderInfo: null,
+        folderContent: null,
+        isFolderContentLoading: true,
+        isFolderContentError: false,
+        locationMetaData: null,
+        itemInRemovingState: null,
+        itemBeingDeleted: false,
+        removingError: null,
+      }));
+    });
   }
 }

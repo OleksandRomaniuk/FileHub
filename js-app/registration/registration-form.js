@@ -42,53 +42,53 @@ export class RegistrationForm extends Component {
    */
   afterRender() {
     const form = new Form(this.rootElement, 'Sign up',
-        (slot)=>{
-          const link = new Link(slot, 'Already have an account?');
-          link.onClick(()=>{
-            this.#submitTarget.dispatchEvent(new Event(NAVIGATE));
-          });
+      (slot)=>{
+        const link = new Link(slot, 'Already have an account?');
+        link.onClick(()=>{
+          this.#submitTarget.dispatchEvent(new Event(NAVIGATE));
         });
+      });
     form.addInput((slot) => {
       this.#inputs.email = new FormControl(slot,
-          {
-            labelText: 'Email',
-            placeholder: 'Email',
-            name: 'email',
-            value: this.#email,
-            errorMessages: this.#inputErrors[EMAIL],
-          });
+        {
+          labelText: 'Email',
+          placeholder: 'Email',
+          name: 'email',
+          value: this.#email,
+          errorMessages: this.#inputErrors[EMAIL],
+        });
     });
     form.addInput((slot) => {
       this.#inputs.password = new FormControl(slot,
-          {
-            labelText: 'Password',
-            placeholder: 'Password',
-            name: 'password',
-            value: this.#password,
-            type: 'password',
-            errorMessages: this.#inputErrors[PASSWORD],
-          });
+        {
+          labelText: 'Password',
+          placeholder: 'Password',
+          name: 'password',
+          value: this.#password,
+          type: 'password',
+          errorMessages: this.#inputErrors[PASSWORD],
+        });
     });
     form.addInput((slot) => {
       this.#inputs['confirm-password'] = new FormControl(slot,
-          {
-            labelText: 'Confirm password',
-            placeholder: 'Confirm-password',
-            name: 'confirm-password',
-            value: this.#confirm_password,
-            type: 'password',
-            errorMessages: this.#inputErrors[CONFIRM_PASSWORD],
-          });
+        {
+          labelText: 'Confirm password',
+          placeholder: 'Confirm-password',
+          name: 'confirm-password',
+          value: this.#confirm_password,
+          type: 'password',
+          errorMessages: this.#inputErrors[CONFIRM_PASSWORD],
+        });
     });
     form.onSubmit((formData) => {
       this.#email = formData.get('email');
       this.#password = formData.get('password');
       this.#confirm_password = formData.get('confirm-password');
       this.validateForm(formData)
-          .then( () => {
-            const event = new CustomEvent(FORM_EVENT, {detail: new UserData(this.#email, this.#password)});
-            this.#submitTarget.dispatchEvent(event);
-          }).catch(()=>{});
+        .then( () => {
+          const event = new CustomEvent(FORM_EVENT, {detail: new UserData(this.#email, this.#password)});
+          this.#submitTarget.dispatchEvent(event);
+        }).catch(()=>{});
     });
   }
 
@@ -123,22 +123,22 @@ export class RegistrationForm extends Component {
     };
     const config =
         FormValidationConfig
-            .getBuilder()
-            .addField(EMAIL, [validateEmail, validateSize(5)])
-            .addField(PASSWORD, [validateSize(6)])
-            .addField(CONFIRM_PASSWORD, [validatePasswordEquality(formData.get(PASSWORD))])
-            .build();
+          .getBuilder()
+          .addField(EMAIL, [validateEmail, validateSize(5)])
+          .addField(PASSWORD, [validateSize(6)])
+          .addField(CONFIRM_PASSWORD, [validatePasswordEquality(formData.get(PASSWORD))])
+          .build();
     return new ValidatorService()
-        .validate(config, formData)
-        .catch((result) => {
-          const validationErrorsByField = result.errors.reduce((hash, error)=>{
-            const key = error.name;
-            const prevErrors = hash[key] || [];
-            hash[key] = [...prevErrors, error.message];
-            return hash;
-          }, {});
-          this.inputErrors = validationErrorsByField;
-        });
+      .validate(config, formData)
+      .catch((result) => {
+        const validationErrorsByField = result.errors.reduce((hash, error)=>{
+          const key = error.name;
+          const prevErrors = hash[key] || [];
+          hash[key] = [...prevErrors, error.message];
+          return hash;
+        }, {});
+        this.inputErrors = validationErrorsByField;
+      });
   }
   /**
    * Add event listener when values in form are valid.

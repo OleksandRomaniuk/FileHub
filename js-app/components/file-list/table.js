@@ -36,22 +36,18 @@ export class Table extends Component {
     const tableSlot = this.getSlot('table');
     if (tableSlot) {
       this.#items
-          ?.filter((element) => element.type === 'folder')
-          .forEach((folder)=>{
-            const folderComponent = new Folder(tableSlot, folder);
-            folderComponent.onNavigateToFolder(this.#listenerNavigateToFolder);
-            if (this.#deleteListener) {
-              folderComponent.onDelete(this.#deleteListener);
-            }
-          });
+        ?.filter((element) => element.type === 'folder')
+        .forEach((folder)=>{
+          const folderComponent = new Folder(tableSlot, folder);
+          folderComponent.onNavigateToFolder(this.#listenerNavigateToFolder);
+          folderComponent.onDelete(this.#deleteListener);
+        });
       this.#items
-          ?.filter((element) => element.type !== 'folder')
-          .forEach((file)=>{
-            const fileComponent = new File(tableSlot, file);
-            if (this.#deleteListener) {
-              fileComponent.onDelete(this.#deleteListener);
-            }
-          });
+        ?.filter((element) => element.type !== 'folder')
+        .forEach((file)=>{
+          const fileComponent = new File(tableSlot, file);
+          fileComponent.onDelete(this.#deleteListener);
+        });
     }
   }
 

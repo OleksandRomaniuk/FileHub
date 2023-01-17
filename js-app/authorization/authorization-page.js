@@ -1,7 +1,6 @@
 import {Component} from '../components/component';
 import {AuthorizationForm} from './authorization-form';
-import {TitleService} from '../service/title-service.js';
-import {ApiService} from '../service/api-service.js';
+import {inject} from '../application/registry';
 
 const SUBMIT_EVENT = 'submitted';
 
@@ -11,21 +10,19 @@ const SUBMIT_EVENT = 'submitted';
 export class AuthorizationPage extends Component {
   #navigateListener;
   #successAuthorization;
-  #apiService;
   #serverError;
   #submitTarget = new EventTarget();
+  @inject titleService;
+  @inject apiService;
 
 
   /**
    * @param {HTMLElement} parent
-   * @param {TitleService} titleService
-   * @param {ApiService} apiService
    */
-  constructor(parent, titleService, apiService ) {
+  constructor(parent ) {
     super(parent);
     this.init();
-    titleService.setTitle(['Sign in']);
-    this.#apiService = apiService;
+    this.titleService.setTitle(['Sign in']);
   }
 
   /**
@@ -38,13 +35,13 @@ export class AuthorizationPage extends Component {
     });
     form.onSubmitted((userData)=>{
       this.#serverError = null;
-      this.#apiService.logIn(userData)
-          .then(()=>{
-            this?.#successAuthorization();
-          })
-          .catch((error)=>{
-            this.serverError = error.error;
-          });
+      this.apiService.logIn(userData)
+        .then(()=>{
+          this?.#successAuthorization();
+        })
+        .catch((error)=>{
+          this.serverError = error.error;
+        });
     });
   }
 
