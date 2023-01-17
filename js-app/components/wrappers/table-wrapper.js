@@ -7,6 +7,7 @@ import {EditItemAction} from '../../actions/edit-item-action';
 import {Folder} from '../file-list/folder';
 import {File} from '../file-list/file';
 import {DownloadAction} from '../../actions/download-action';
+import {SearchAction} from '../../actions/search-action';
 
 const NAVIGATE_EVENT = 'navigate-event';
 
@@ -18,6 +19,7 @@ export class TableWrapper extends StateAwareComponent {
   #folderContent;
   #isFolderContentLoading;
   #isFolderContentError;
+  #isSearch;
   #submitTarget = new EventTarget();
 
 
@@ -28,8 +30,25 @@ export class TableWrapper extends StateAwareComponent {
     super(parent);
     this.addStateListener('folderInfo', (state)=>{
       if (state.folderInfo) {
+        if (state.locationMetaData.queryParams?.search) {
+          this.#isSearch = true;
+          this.stateManagementService.dispatch(
+            new SearchAction(
+              state.locationMetaData.dynamicParams.folderId,
+              state.locationMetaData.queryParams.search));
+        } else {
+          this.stateManagementService.dispatch(
+            new LoadFolderContentAction(state.folderInfo.id));
+        }
+      }
+    });
+    this.addStateListener('locationMetaData', (state)=>{
+      if (state.userProfile && state.locationMetaData.queryParams?.search) {
+        this.#isSearch = true;
         this.stateManagementService.dispatch(
-          new LoadFolderContentAction(state.folderInfo.id));
+          new SearchAction(
+            state.locationMetaData.dynamicParams.folderId,
+            state.locationMetaData.queryParams.search));
       }
     });
     this.addStateListener('folderContent', (state) => {
@@ -57,6 +76,7 @@ export class TableWrapper extends StateAwareComponent {
         slot,
         this.#isFolderContentLoading,
         this.#isFolderContentError,
+        this.#isSearch,
       );
       const folderCreators = [];
       const filesCreators = [];
@@ -75,7 +95,7 @@ export class TableWrapper extends StateAwareComponent {
                 detail: folderId,
               }));
             });
-            folderComponent.onUpload((folderId)=>{
+            folderComponent.onUpload(()=>{
               if (!this.stateManagementService.state.fileUploading) {
                 const input = document.createElement('input');
                 input.type = 'file';
@@ -84,7 +104,7 @@ export class TableWrapper extends StateAwareComponent {
                 input.addEventListener('change', ()=>{
                   this.stateManagementService.dispatch(
                     new UploadFilesAction(
-                      folderId,
+                      folder.id,
                       input.files));
                 });
               }

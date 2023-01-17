@@ -27,7 +27,7 @@ export class EditItemAction extends BaseAction {
       return this.apiService.rename(this.#itemModel)
         .then(() => {
           mutationExecutor(MUTATOR_NAME.SET_ITEM_IN_RENAMING_STATE, null);
-          if (this.#itemModel.parentId === this.stateManagementService.state.locationMetaData.folderId) {
+          if (this.#itemModel.parentId === this.stateManagementService.state.locationMetaData.dynamicParams.folderId) {
             this.stateManagementService.dispatch(
               new LoadFolderContentAction(
                 this.#itemModel.parentId));

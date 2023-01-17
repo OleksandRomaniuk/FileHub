@@ -1,7 +1,7 @@
 import {BaseAction} from './base-action';
 import {MUTATOR_NAME} from '../service/state-management/constatns/mutators';
 import {inject} from '../application/registry';
-import {LoadFolderContentAction} from './load-folder-content-action.js';
+import {LoadFolderContentAction} from './load-folder-content-action';
 /**
  * Action to execute upload files in the folder.
  */
@@ -30,7 +30,7 @@ export class UploadFilesAction extends BaseAction {
       });
       return this.apiService.uploadFiles(this.#folderId, this.#files)
         .then(() => {
-          if (this.#folderId === this.stateManagementService.state.locationMetaData.folderId) {
+          if (this.#folderId === this.stateManagementService.state.locationMetaData.dynamicParams.folderId) {
             this.stateManagementService.dispatch(
               new LoadFolderContentAction(
                 this.#folderId));

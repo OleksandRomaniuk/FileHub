@@ -12,6 +12,7 @@ export class BreadcrumbWrapper extends StateAwareComponent {
   #isFolderInfoError;
   #breadcrumbCreator;
   #listenerNavigateToFolder;
+  #currentFolderId;
 
   /**
    * @param {HTMLElement} parent
@@ -19,19 +20,22 @@ export class BreadcrumbWrapper extends StateAwareComponent {
   constructor(parent) {
     super(parent);
     this.addStateListener('locationMetaData', (state)=>{
-      if (state.locationMetaData && state.userProfile) {
+      if (state.locationMetaData && state.userProfile &&
+          this.#currentFolderId !== state.locationMetaData.dynamicParams.folderId) {
+        const folderId = state.locationMetaData.dynamicParams.folderId;
+        this.#currentFolderId = folderId;
         this.stateManagementService.dispatch(
-          new LoadFolderInfoAction(state.locationMetaData.folderId));
+          new LoadFolderInfoAction(folderId));
       }
     });
 
     this.addStateListener('userProfile', (state)=>{
       if (state.userProfile) {
-        if (!state.locationMetaData || !state.locationMetaData.folderId) {
+        if (!state.locationMetaData || !state.locationMetaData.dynamicParams.folderId) {
           this.#listenerNavigateToFolder(state.userProfile.rootFolderId);
         } else {
           this.stateManagementService.dispatch(
-            new LoadFolderInfoAction(state.locationMetaData.folderId));
+            new LoadFolderInfoAction(state.locationMetaData.dynamicParams.folderId));
         }
       }
     });

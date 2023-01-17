@@ -24,7 +24,7 @@ export class LoadFolderContentAction extends BaseAction {
   execute(mutationExecutor) {
     mutationExecutor(MUTATOR_NAME.SET_LOADING_FOLDER_CONTENT, true);
 
-    this.apiService.getFolderContent(this.#folderId)
+    return this.apiService.getFolderContent(this.#folderId)
       .then((body)=>{
         mutationExecutor(MUTATOR_NAME.SET_FOLDER_CONTENT, body.folderContent);
       })
