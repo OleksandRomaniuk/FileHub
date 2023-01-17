@@ -21,6 +21,7 @@ import {CreateFolderAction} from '../actions/create-folder-action';
 import {LogoutAction} from '../actions/logout-action';
 
 const NAVIGATE_TO_FOLDER = 'navigateToFolder';
+const SEARCH_EVENT= 'search-event';
 /**
  * The component for generate table page.
  */
@@ -45,6 +46,15 @@ export class TablePage extends Component {
   onNavigateToFolder(listenerNavigateToFolder) {
     this.#eventTarget.addEventListener(NAVIGATE_TO_FOLDER, (event)=>{
       listenerNavigateToFolder(event.detail.folderId);
+    });
+  }
+  /**
+   * Add listener to search item by name.
+   * @param {function(string) : void} listener
+   */
+  onSearch(listener) {
+    this.#eventTarget.addEventListener(SEARCH_EVENT, (event)=>{
+      listener(event.detail.name);
     });
   }
   /**
@@ -78,8 +88,8 @@ export class TablePage extends Component {
       return breadcrumb;
     };
     const tableWrapper = new TableWrapper(this.getSlot('main-table'));
-    tableWrapper.tableCreator = (slot, isLoading, isError)=>{
-      return new Table(slot, isLoading, isError);
+    tableWrapper.tableCreator = (slot, isLoading, isError, isSearch)=>{
+      return new Table(slot, isLoading, isError, isSearch);
     };
     tableWrapper.onNavigateToFolder((folderId)=>{
       this.#eventTarget.dispatchEvent(new CustomEvent(NAVIGATE_TO_FOLDER, {
@@ -143,16 +153,22 @@ export class TablePage extends Component {
               input.addEventListener('change', ()=>{
                 this.stateManagementService.dispatch(
                   new UploadFilesAction(
-                    this.stateManagementService.state.locationMetaData.folderId,
+                    this.stateManagementService.state.locationMetaData.dynamicParams.folderId,
                     input.files));
               });
             });
             panel.onCreateNewFolder(()=>{
               this.stateManagementService.dispatch(
                 new SetNewFolderAction({
-                  parentId: this.stateManagementService.state.locationMetaData.folderId,
+                  parentId: this.stateManagementService.state.locationMetaData.dynamicParams.folderId,
                   name: null,
                 }));
+            });
+            panel.onSearch((name)=>{
+              this.#eventTarget.dispatchEvent(new CustomEvent(SEARCH_EVENT, {
+                detail: {
+                  name: name,
+                }}));
             });
           }
         };
