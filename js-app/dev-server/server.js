@@ -22,7 +22,7 @@ app.get('/user', (req, res)=> {
       res.status(200);
       res.send({
         userProfile: {
-          username: 'Cherhynska',
+          username: 'alex',
           rootFolderId: 'folder1',
         }});
     } else {
