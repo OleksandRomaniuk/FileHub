@@ -4,10 +4,11 @@ import {TableWrapper} from '../../../components/wrappers/table-wrapper';
 import {State} from '../../../service/state-management/state';
 import {BaseAction} from '../../../actions/base-action';
 import {MUTATOR_NAME} from '../../../service/state-management/constatns/mutators';
-import {registry} from '../../../application/registry.js';
-import {UploadFilesAction} from '../../../actions/upload-files-action.js';
-import {SetItemInRemovingStateAction} from '../../../actions/set-item-in-removing-state-action.js';
+import {registry} from '../../../application/registry';
+import {UploadFilesAction} from '../../../actions/upload-files-action';
+import {SetItemInRemovingStateAction} from '../../../actions/set-item-in-removing-state-action';
 import {EditItemAction} from '../../../actions/edit-item-action';
+import {DownloadAction} from '../../../actions/download-action';
 
 
 describe('TableWrapper', () => {
@@ -161,6 +162,15 @@ describe('TableWrapper', () => {
     const table = {
       setContentCreators: ()=>{},
     };
+    const stateManagementService = registry.getInstance('stateManagementService');
+    jest
+      .spyOn(stateManagementService, 'state', 'get')
+      .mockImplementation(()=>{
+        return new State({
+          isFolderContentLoading: true,
+          isFolderContentError: false,
+        });
+      });
     const tableWrapper = new TableWrapper(fixture);
     tableWrapper.tableCreator = (slot, isFolderContentLoading, isFolderContentError) =>{
       expect(isFolderContentLoading).toBe(true);
@@ -206,6 +216,8 @@ describe('TableWrapper', () => {
                     },
                   ],
                 },
+          isFolderContentLoading: false,
+          isFolderContentError: false,
         });
       });
     const tableWrapper = new TableWrapper(fixture);
@@ -696,6 +708,68 @@ describe('TableWrapper', () => {
 
     input.dispatchEvent(changeEvent);
     expect(mockDispatch).toHaveBeenCalledWith(new EditItemAction());
+  });
+
+  test('Should trigger download event.', ()=> {
+    expect.assertions(2);
+    let testFolderCreators;
+    let testFileCreators;
+    const table = {
+      setContentCreators: (folderCreators, fileCreators)=> {
+        testFolderCreators = folderCreators;
+        testFileCreators = fileCreators;
+      },
+    };
+    const stateManagementService = registry.getInstance('stateManagementService');
+
+    const tableWrapper = new TableWrapper(fixture);
+    tableWrapper.tableCreator = () =>{
+      return table;
+    };
+    stateManagementService.dispatch(new TestSetFolderContentAction({
+      items: [
+        {
+          type: 'folder',
+          name: 'Montenegro',
+          size: null,
+          id: '36',
+        },
+        {
+          type: 'folder',
+          name: 'My Trip',
+          size: null,
+          id: '37',
+        },
+        {
+          type: 'file',
+          mimetype: 'application/pdf',
+          name: 'HTML_guidelines.pdf',
+          size: '100 KB',
+          id: '38',
+        },
+      ],
+    }));
+    testFolderCreators.forEach((creator)=>{
+      creator(fixture);
+    });
+    testFileCreators.forEach((creator)=>{
+      creator(fixture);
+    });
+
+    const mockDispatch = jest
+      .spyOn(stateManagementService, 'dispatch')
+      .mockImplementation(()=>{});
+
+    const link = fixture.querySelector('[data-td="link-download"]');
+    link.click();
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
+    expect(mockDispatch).toHaveBeenCalledWith(new DownloadAction({
+      type: 'file',
+      mimetype: 'application/pdf',
+      name: 'HTML_guidelines.pdf',
+      size: '100 KB',
+      id: '38',
+    }));
   });
 });
 /**

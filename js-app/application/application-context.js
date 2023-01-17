@@ -6,6 +6,7 @@ import {State} from '../service/state-management/state';
 import {mutators} from '../service/state-management/constatns/mutators';
 import {clearRegistry, registry} from './registry';
 import {FileTypeIconFactory} from '../components/file-list/file-type-icon-factory';
+import {DownloadService} from '../service/download-service';
 
 /**
  * Application context to create and provide dependencies.
@@ -43,6 +44,9 @@ export class ApplicationContext {
         itemBeingDeleted: false,
         removingError: null,
       }));
+    });
+    registry.register('downloadService', ()=>{
+      return new DownloadService();
     });
   }
 }

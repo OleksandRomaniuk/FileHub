@@ -53,7 +53,7 @@ export class RequestService {
    * @param {string} token
    * @returns {Promise<Response>}
    */
-  async get(url, token) {
+  async getJson(url, token) {
     const fetchResponse = await fetch(url, {
       method: 'GET',
       headers: {
@@ -65,6 +65,26 @@ export class RequestService {
     await fetchResponse.json()
       .then((json) => {
         responseBody = json;
+      });
+    return new Response(fetchResponse.status, responseBody);
+  }
+  /**
+   * Method get data from the server.
+   * @param {string} url
+   * @param {string} token
+   * @returns {Promise<Response>}
+   */
+  async getBlob(url, token) {
+    const fetchResponse = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    });
+    let responseBody;
+    await fetchResponse.blob()
+      .then((data) => {
+        responseBody = data;
       });
     return new Response(fetchResponse.status, responseBody);
   }

@@ -309,6 +309,12 @@ app.post('/folders', (req, res) => {
     res.send(newFolder);
   }, 5000);
 });
+app.get('/files/:id', (req, res)=>{
+  setTimeout(()=>{
+    res.download('./dev-server/files/test.txt');
+    res.status(200);
+  }, 500);
+});
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log('server is up.');

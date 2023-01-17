@@ -24,6 +24,7 @@ describe('File', () => {
     expect(fixture.innerHTML).toBe(
         `<tr>
                     <td class="cell-arrow">
+
                     </td>
                     <td class="cell-icon">
                         <span class="glyphicon glyphicon-book" aria-hidden="true">
@@ -40,7 +41,7 @@ describe('File', () => {
                     </td>
                     <td class="cell-buttons">
                         <div class="button-hidden">
-                            <a href="#" class="blue-button">
+                            <a href="#" class="blue-button" data-td="link-download">
                                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             </a>
                             <a href="#" class="red-button" data-td="link-delete">
@@ -246,6 +247,7 @@ describe('File', () => {
     });
     expect(fixture.innerHTML).toBe('<tr>\n' +
         '                    <td class="cell-arrow">\n' +
+        '\n' +
         '                    </td>\n' +
         '                    <td class="cell-icon">\n' +
         '                        <span class="glyphicon glyphicon-book" aria-hidden="true">\n' +
@@ -262,7 +264,8 @@ describe('File', () => {
         '                    </td>\n' +
         '                    <td class="cell-buttons">\n' +
         '                        <div class="button-hidden">\n' +
-        '                            <a href="#" class="blue-button">\n' +
+        '                            <a href="#" class="blue-button" ' +
+        'data-td="link-download">\n' +
         '                                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>\n' +
         '                            </a>\n' +
         '                            <a href="#" class="red-button" data-td="link-delete">\n' +
@@ -305,5 +308,79 @@ describe('File', () => {
     file.renamingError = 'testError';
     const renamingError = fixture.querySelector('div.error-text');
     expect(renamingError.innerHTML).toMatch('testError');
+  });
+
+  test('Should calls listener on download.', ()=> {
+    expect.assertions(1);
+    const file = new File(fixture, {
+      file: {
+        mimetype: 'application/pdf',
+        type: 'file',
+        name: 'Montenegro',
+        size: '5000',
+        id: '36',
+      },
+    });
+    const listener = jest.fn();
+    file.onDownload(listener);
+    const link = fixture.querySelector('[data-td="link-download"]');
+    link.click();
+    expect(listener).toHaveBeenCalled();
+  });
+  test('Should change link for download when isDownloadInProgress.', ()=> {
+    expect.assertions(1);
+    new File(fixture, {
+      file: {
+        mimetype: 'application/pdf',
+        type: 'file',
+        name: 'Montenegro',
+        size: '5000',
+        id: '36',
+      },
+      isDownloadInProgress: true,
+    });
+    const link = fixture.querySelector('[data-td="link-download"]');
+    expect(link.innerHTML).toMatch(
+      '<span class="glyphicon glyphicon-repeat loading" aria-hidden="true"></span>');
+  });
+
+  test('Should change link for download when downloadError is defined.', ()=> {
+    expect.assertions(2);
+    new File(fixture, {
+      file: {
+        mimetype: 'application/pdf',
+        type: 'file',
+        name: 'Montenegro',
+        size: '5000',
+        id: '36',
+      },
+      downloadError: {
+        error: 'testError',
+      },
+    });
+    const link = fixture.querySelector('[data-td="link-download"]');
+    expect(link.innerHTML).toMatch(
+      '<span class="glyphicon glyphicon-exclamation-sign error" aria-hidden="true"></span>');
+    expect(link.title).toBe('testError');
+  });
+
+  test('Should create file without.', ()=> {
+    expect.assertions(2);
+    new File(fixture, {
+      file: {
+        mimetype: 'application/pdf',
+        type: 'file',
+        name: 'Montenegro',
+        size: '5000',
+        id: '36',
+      },
+      downloadError: {
+        error: 'testError',
+      },
+    });
+    const link = fixture.querySelector('[data-td="link-download"]');
+    expect(link.innerHTML).toMatch(
+      '<span class="glyphicon glyphicon-exclamation-sign error" aria-hidden="true"></span>');
+    expect(link.title).toBe('testError');
   });
 });

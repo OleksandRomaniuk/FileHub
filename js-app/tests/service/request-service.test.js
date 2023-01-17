@@ -15,7 +15,7 @@ describe('Request service', () => {
     const requestService = new RequestService();
     const url = 'url';
     const token = 'token';
-    const response = requestService.get(url, token);
+    const response = requestService.getJson(url, token);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(url, {
       method: 'GET',
@@ -43,7 +43,7 @@ describe('Request service', () => {
     const requestService = new RequestService();
     const url = 'url';
     const token = 'token';
-    const response = requestService.get(url, token);
+    const response = requestService.getJson(url, token);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(url, {
       method: 'GET',
@@ -201,6 +201,33 @@ describe('Request service', () => {
       headers: {
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json',
+      },
+    });
+    return responsePromise.then((respone)=>{
+      expect(respone.status).toBe(200);
+      expect(respone.body).toStrictEqual(body);
+    });
+  });
+
+  test('Should call method getBlob and return response.', ()=>{
+    const body = 'testBody';
+    global.fetch = jest.fn(async () =>{
+      return {
+        status: 200,
+        blob: async ()=>{
+          return body;
+        },
+      };
+    });
+    const url = 'url';
+    const token = 'token';
+    const requestService = new RequestService();
+    const responsePromise = requestService.getBlob(url, token);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
       },
     });
     return responsePromise.then((respone)=>{

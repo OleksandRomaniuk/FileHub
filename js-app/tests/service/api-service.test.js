@@ -145,7 +145,7 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(200, {folderInfo: {
           name: 'trip',
@@ -166,7 +166,7 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(400, {}),
       );
@@ -180,7 +180,7 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(200),
       );
@@ -216,7 +216,7 @@ describe('ApiService', () => {
       ],
     };
     jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(200, {folderContent: folderContent}),
       );
@@ -230,7 +230,7 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(400),
       );
@@ -244,7 +244,7 @@ describe('ApiService', () => {
     expect.assertions(1);
     const requestService = new RequestService();
     jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(404, {}),
       );
@@ -257,7 +257,7 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(200),
       );
@@ -270,7 +270,7 @@ describe('ApiService', () => {
     expect.assertions(2);
     const requestService = new RequestService();
     const requestServiceMock = jest
-      .spyOn(requestService, 'get')
+      .spyOn(requestService, 'getJson')
       .mockImplementation(async () =>
         new Response(400),
       );
@@ -642,5 +642,57 @@ describe('ApiService', () => {
     }))
       .rejects
       .toThrow(new Error('Error occurred. Please try again.'));
+  });
+
+  test('Should call method download with status 200.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'getBlob')
+      .mockImplementation(async () =>
+        new Response(200, {}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.download({
+      id: 'testId',
+    }))
+      .resolves
+      .toStrictEqual({});
+  });
+
+  test('Should call method download with status 400.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'getBlob')
+      .mockImplementation(async () =>
+        new Response(400, {errors: 'error'}),
+      );
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.download({
+      id: 'testId',
+    }))
+      .rejects
+      .toThrow(new Error('Error occurred. Please try again.'));
+  });
+
+  test('Should call method download and catch error.', () => {
+    expect.assertions(1);
+    const requestService = new RequestService();
+    jest
+      .spyOn(requestService, 'getBlob')
+      .mockImplementation(async () =>{
+        throw new Error();
+      });
+
+    const apiService = new ApiService(requestService);
+    return expect(apiService.download({
+      type: 'folder',
+      name: 'testId',
+    }))
+      .rejects
+      .toThrow(GeneralServerError);
   });
 });
