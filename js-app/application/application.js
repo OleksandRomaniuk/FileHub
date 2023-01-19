@@ -51,12 +51,14 @@ export class Application extends Component {
         tablePage.onNavigateToFolder((id)=>{
           router.redirect(`file-list/` + id);
         });
+        tablePage.onSearch((name)=>{
+          router.redirect(`file-list/${registry.getInstance('stateManagementService')
+            .state.locationMetaData.dynamicParams.folderId}?search=${name}`);
+        });
       })
       .addRouteChangeListener((routerMetaData) => {
-        if (routerMetaData.folderId) {
-          registry.getInstance('stateManagementService').dispatch(new SetMetadataAction({
-            folderId: routerMetaData.folderId,
-          }));
+        if (routerMetaData) {
+          registry.getInstance('stateManagementService').dispatch(new SetMetadataAction(routerMetaData));
         }
       })
       .setDefaultPage('file-list/')

@@ -187,7 +187,20 @@ app.get('/folders/:folderId/content', (req, res) => {
     }
   }, 500);
 });
-
+app.get('/folders/:folderId/content/:name', (req, res) => {
+  setTimeout(() => {
+    const name = req.params.name.toLowerCase();
+    if (foldersContent[req.params['folderId']]) {
+      const result = foldersContent[req.params['folderId']].items
+        .filter((item )=> item.name.toLowerCase().includes(name));
+      res.status(200);
+      res.send({folderContent: {items: result}});
+    } else {
+      res.status(404);
+      res.send({});
+    }
+  }, 500);
+});
 app.post('/register', (req, res) => {
   res.status(200);
 });

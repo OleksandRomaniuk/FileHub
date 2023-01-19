@@ -116,6 +116,24 @@ export class ApiService {
         return response.body;
       });
   }
+  /**
+   * Get data about items in current folder with similar name.
+   * @param {string} id
+   * @param {string} name
+   * @returns {Promise | Error}
+   */
+  getFolderContentByName(id, name) {
+    return this.#requestService.getJson(`api/folders/${id}/content/${name}`, this.storage.getToken())
+      .then((response) => {
+        if (response.status === 401) {
+          this.storage.deleteToken();
+          this.#logoutListener();
+        } else if (response.status !== 200) {
+          throw new Error('Error occurred. Please try again.');
+        }
+        return response.body;
+      });
+  }
 
   /**
    * Delete the folder or file.

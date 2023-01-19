@@ -8,6 +8,7 @@ export class PanelWrapper extends StateAwareComponent {
     #panelCreator;
     #fileUploadError;
     #fileUploading;
+    #currentId;
     /**
      * @param {HTMLElement} parent
      */
@@ -15,22 +16,25 @@ export class PanelWrapper extends StateAwareComponent {
       super(parent);
       this.addStateListener('uploadingFiles', (state)=>{
         this.#fileUploading = state.uploadingFiles &&
-                state.locationMetaData.folderId === state.uploadingFiles.folderId;
+                state.locationMetaData.dynamicParams.folderId === state.uploadingFiles.folderId;
         this.render();
       });
       this.addStateListener('fileUploadError', (state)=>{
         this.#fileUploadError =
                 state.fileUploadError &&
-                state.locationMetaData.folderId === state.fileUploadError.folderId;
+                state.locationMetaData.dynamicParams.folderId === state.fileUploadError.folderId;
         this.render();
       });
       this.addStateListener('locationMetaData', (state)=>{
-        this.#fileUploading = state.uploadingFiles &&
-                state.locationMetaData.folderId === state.uploadingFiles.folderId;
-        this.#fileUploadError =
-                state.fileUploadError &&
-                state.locationMetaData.folderId === state.fileUploadError.folderId;
-        this.render();
+        if (this.#currentId !== state.locationMetaData?.dynamicParams.folderId) {
+          this.#fileUploading = state.uploadingFiles &&
+                  state.locationMetaData.dynamicParams.folderId === state.uploadingFiles.folderId;
+          this.#fileUploadError =
+                  state.fileUploadError &&
+                  state.locationMetaData.dynamicParams.folderId === state.fileUploadError.folderId;
+          this.#currentId = state.locationMetaData.dynamicParams.folderId;
+          this.render();
+        }
       });
       this.init();
     }

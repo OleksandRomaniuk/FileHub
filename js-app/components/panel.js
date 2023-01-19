@@ -1,7 +1,10 @@
 import {Component} from './component';
 import {ButtonPanel} from './button-panel';
+import {Button} from './button';
+
 const UPLOAD_EVENT = 'upload_event';
 const CREATE_FOLDER_EVENT = 'create-folder-event';
+const SEARCH_EVENT = 'search-event';
 /**
  * The component to generate panel.
  */
@@ -29,6 +32,20 @@ export class Panel extends Component {
      * @inheritDoc
      */
     afterRender() {
+      const searchButton = new Button(
+        this.getSlot('button-search'),
+        'Search',
+        'Search',
+      );
+      searchButton.onClick(()=>{
+        const input = this.rootElement.querySelector('input.input-text.search');
+        const value = input.value.trim();
+        if (value.length > 3 ) {
+          this.#submitTarget.dispatchEvent(new CustomEvent(SEARCH_EVENT, {
+            detail: value,
+          }));
+        }
+      });
       const buttonPanel = new ButtonPanel(
         this.getSlot('button-panel'),
         this.#isLoadingUpload,
@@ -59,20 +76,26 @@ export class Panel extends Component {
         listener();
       });
     }
+    /**
+     * Adds listener for search item by name.
+     * @param {function(string) :void} listener
+     */
+    onSearch(listener) {
+      this.#submitTarget.addEventListener(SEARCH_EVENT, (e) => {
+        listener(e.detail);
+      });
+    }
 
 
     /**
      * @inheritDoc
      */
     markup() {
-      return `<div class="panel"><form >
+      return `<div class="panel">
                 <div class="searching">
-                    <input name=“name” class="input-text search" value="Enter entity name..." >
-                    <button type="submit" class="button primary search" title = "Search">
-                        Search
-                    </button>
+                    <input class="input-text search" placeholder="Enter entity name..." >
+                    ${this.addSlot('button-search')}
                 </div>
-            </form>
              ${this.addSlot('button-panel')
         }</div>`;
     }

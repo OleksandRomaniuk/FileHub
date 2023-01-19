@@ -1,6 +1,6 @@
 import {BaseAction} from './base-action';
-import {MUTATOR_NAME} from '../service/state-management/constatns/mutators';
 import {inject} from '../application/registry';
+import {MUTATOR_NAME} from '../service/state-management/constatns/mutators';
 
 /**
  * Action to execute loading information about folder and path.
@@ -22,7 +22,7 @@ export class LoadFolderInfoAction extends BaseAction {
    */
   execute(mutationExecutor) {
     mutationExecutor(MUTATOR_NAME.SET_LOADING_FOLDER_INFO, true);
-    this.apiService.getFolder(this.#folderId)
+    return this.apiService.getFolder(this.#folderId)
       .then((body)=>{
         mutationExecutor(MUTATOR_NAME.SET_FOLDER_INFO, body.folderInfo);
       })

@@ -28,10 +28,10 @@ export class CreateFolderAction extends BaseAction {
       return this.apiService.createFolder(this.#folder)
         .then(()=>{
           mutationExecutor(MUTATOR_NAME.SET_NEW_FOLDER, null);
-          if (this.#folder.parentId === this.stateManagementService.state.locationMetaData.folderId) {
+          if (this.#folder.parentId === this.stateManagementService.state.locationMetaData.dynamicParams.folderId) {
             this.stateManagementService.dispatch(
               new LoadFolderContentAction(
-                this.stateManagementService.state.locationMetaData.folderId));
+                this.stateManagementService.state.locationMetaData.dynamicParams.folderId));
           }
         })
         .catch((error)=>{
