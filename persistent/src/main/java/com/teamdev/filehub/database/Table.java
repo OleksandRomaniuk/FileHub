@@ -47,16 +47,10 @@ public abstract class Table<S extends Record> {
 
         Preconditions.checkNotNull(entity);
 
-        //synchronized (lock) {
-
-           // if (listOfObjects != null && containsId(entity.getId())) {
-            //    throw new DataBaseException("The user with such id already exist.");
-           // }
         synchronized (lock) {
 
             listOfObjects.add(entity);
         }
-       // }
 
         writeJson(FILE_NAME, listOfObjects);
 
@@ -65,8 +59,6 @@ public abstract class Table<S extends Record> {
 
     /**
      * Update old record with the new data.
-     *
-     * @param entity - object with updated data
      */
     @ParametersAreNonnullByDefault
     public void update(S entity) {

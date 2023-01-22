@@ -93,10 +93,7 @@ public class ApplicationContextInMemory implements ApplicationContext {
     }
 
 
-    @Override
-    public GetUserDataView getUserView() {
-        return gettingUserView;
-    }
+
 
 
 }

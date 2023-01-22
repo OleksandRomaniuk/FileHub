@@ -44,8 +44,6 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
             throw new RuntimeException(e.getMessage());
         }
 
-        logger.atInfo().log("We read list of user tokens: %s", tokensRecords);
-
         return tokensRecords;
     }
 
@@ -68,7 +66,6 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
                 }
             }
         } catch (SQLException e) {
-            logger.atInfo().log("RuntimeException: %s", e.getMessage());
 
             throw new RuntimeException(e.getMessage());
 
@@ -91,7 +88,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
             int k = 0;
 
-            logger.atInfo().log("create getValidity: %s", entity.getValidity());
+            logger.atInfo().log("Create getValidity: ", entity.getValidity());
 
             stmt.setString(++k, entity.getId().getId());
             stmt.setString(++k, entity.getToken());
