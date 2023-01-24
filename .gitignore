@@ -64,3 +64,4 @@ node_modules
 
 /web/src/main/resources/js-app/dist/
 /gradle/wrapper/gradle-wrapper.jar
+/web/out/
