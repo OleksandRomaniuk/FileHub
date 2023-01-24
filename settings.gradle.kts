@@ -1,3 +1,5 @@
 rootProject.name = "FileHub"
-include("services")
-include("persistent")
+include("Persistent")
+include("Services")
+include("Rest")
+include("web")

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+//   "declaration": true,
+//    "lib": ["es6", "dom", "dom.iterable"],
+//    "module": "es6",
+//    "moduleResolution": "node",
+//    "removeComments": true,
+//    "sourceMap": true,
+//    "strict": true,
+    "target": "es6",
+//    "outDir": "./dist",
+//    "allowJs": true,
+//    "experimentalDecorators": true,
+//    "emitDeclarationOnly": true,
+//    // Ensure that Babel can safely transpile files in the TypeScript project
+//    "isolatedModules": true
+  },
+//  "include": [
+//    "./**/*"
+//  ],
+//  "exclude": [
+//    "dist",
+//    "node_modules"
+//  ],
+//  "typeRoots": [
+//    "./typings",
+//    "./node_modules/@types/"
+//  ],
+
+}
