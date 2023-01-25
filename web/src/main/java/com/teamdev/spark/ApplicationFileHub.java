@@ -22,7 +22,9 @@ public class ApplicationFileHub {
         post("/api/login", new AuthorizationRoute(context.getUserAuthenticationProcess()));
         post("/api/register", new RegistrationRoute(context.getUserRegistrationProcess()));
 
-
+        post("/api/folders", new CreateNewFolderRoute(
+                context.getAuthenticatedView(),
+                context.getCreateFolderProcess()));
 
     }
 
