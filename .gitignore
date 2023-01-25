@@ -67,3 +67,4 @@ node_modules
 /web/out/
 /services/out/
 /persistent/out/
+/.idea/
