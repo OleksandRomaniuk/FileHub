@@ -1,10 +1,14 @@
 package com.teamdev.filehub.repository.sql;
 
 import com.google.common.flogger.FluentLogger;
+
+import com.teamdev.filehub.record.FileRecord;
 import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FolderDao;
+import com.teamdev.filehub.repository.dbconstants.FileDaoConstants;
 import com.teamdev.filehub.repository.dbconstants.FolderDaoConstants;
+import org.checkerframework.checker.units.qual.A;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,7 +53,7 @@ public class FolderDaoInDB implements FolderDao {
     }
 
     @Override
-    public void create(FolderRecord entity) {
+    public void create(FolderRecord entity)  {
         Connection con = null;
 
         PreparedStatement stmt = null;
@@ -105,7 +109,7 @@ public class FolderDaoInDB implements FolderDao {
 
         } catch (SQLException e) {
 
-            logger.atInfo().log("SQLException: %s", e.getMessage());
+            logger.atInfo().log("SQLException: %s",  e.getMessage());
 
             throw new RuntimeException(e.getMessage());
         } finally {
@@ -117,8 +121,9 @@ public class FolderDaoInDB implements FolderDao {
     }
 
 
+
     @Override
-    public void delete(RecordId id) {
+    public void delete(RecordId id)  {
 
         Connection con = null;
 
@@ -131,17 +136,17 @@ public class FolderDaoInDB implements FolderDao {
             stmt = con.prepareStatement(FolderDaoConstants.DELETE_FOLDER_BY_ID);
 
             stmt.setString(1, id.getId());
-
             stmt.executeUpdate();
         } catch (SQLException e) {
 
-            logger.atInfo().log("SQLException: %s", e.getMessage());
+            logger.atInfo().log("SQLException: %s",  e.getMessage());
 
             throw new RuntimeException(e.getMessage());
         } finally {
             close(con);
             close(stmt);
         }
+
     }
 
     @Override
@@ -214,7 +219,7 @@ public class FolderDaoInDB implements FolderDao {
 
                 if (rs.next()) {
 
-                    return true;
+                   return true;
                 }
             } catch (SQLException e) {
 
@@ -233,7 +238,7 @@ public class FolderDaoInDB implements FolderDao {
     @Override
     public List<FolderRecord> findFoldersByParent(String parentId) {
 
-        List<FolderRecord> folders = new ArrayList<>();
+        List<FolderRecord> folders= new ArrayList<>();
 
         try (Connection con = getConnection();
 
@@ -245,7 +250,7 @@ public class FolderDaoInDB implements FolderDao {
 
                 while (rs.next()) {
 
-                    folders.add(mapFolder(rs));
+                    folders.add(mapFolder(rs)) ;
                 }
             } catch (SQLException e) {
 
@@ -305,7 +310,7 @@ public class FolderDaoInDB implements FolderDao {
 
                 while (rs.next()) {
 
-                    folders.add(mapFolder(rs));
+                    folders.add(mapFolder(rs)) ;
                 }
             } catch (SQLException e) {
 

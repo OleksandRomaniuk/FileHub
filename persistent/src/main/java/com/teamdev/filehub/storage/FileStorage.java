@@ -48,27 +48,33 @@ public class FileStorage {
 
     }
 
-    private static void copyInputStreamToFile(InputStream inputStream, File file)
-            throws IOException {
-
-        try (FileOutputStream outputStream = new FileOutputStream(file)) {
-
-            inputStream.transferTo(outputStream);
-
-        }
-    }
-
     @ParametersAreNonnullByDefault
     public void upload(InputStream content, String idFile) {
 
         Preconditions.checkNotNull(content);
 
-        if (root != null) {
+        if(root != null){
 
-            String rootPackage = root + "\\" + idFile;
+            String rootPackage = root + "\\" +idFile ;
 
-            file = new File(rootPackage);
+             file = new File(rootPackage);
         }
+
+        /*if (!file.exists()) {
+
+            file.mkdirs();
+
+            file = new File(rootPackage + idFile);
+
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            file = new File(rootPackage + idFile);
+
+        }*/
 
         try (OutputStream outputStream = new FileOutputStream(file)) {
 
@@ -85,7 +91,7 @@ public class FileStorage {
         Preconditions.checkNotNull(fileId);
 
 
-        String rootPackage = root + "\\" + fileId;
+        String rootPackage =  root + "\\" + fileId;
 
         try {
 
@@ -99,17 +105,14 @@ public class FileStorage {
         }
     }
 
-    @ParametersAreNonnullByDefault
-    public void delete(String name) {
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
 
-        String pathToFile = root + "\\" + name;
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
 
-        file = new File(pathToFile);
+            inputStream.transferTo(outputStream);
 
-        if (file.delete()) {
-            System.out.println("file.txt файл був видалений");
-        } else System.out.println("Файл file.txt не знайдений");
-
+        }
     }
 
     public String getRoot() {
