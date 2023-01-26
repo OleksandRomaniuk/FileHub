@@ -30,6 +30,9 @@ public class ApplicationFileHub {
                 context.getAuthenticatedView(),
                 context.getDownloadView()));
 
+        post("/api/folder/:folderId/content", new UploadFilesRoute(
+                context.getAuthenticatedView(),
+                context.getSaveFileProcess()));
 
     }
 
