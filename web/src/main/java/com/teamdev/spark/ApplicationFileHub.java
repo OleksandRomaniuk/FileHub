@@ -26,6 +26,11 @@ public class ApplicationFileHub {
                 context.getAuthenticatedView(),
                 context.getCreateFolderProcess()));
 
+        get("api/files/:id", new DownloadFileRoute(
+                context.getAuthenticatedView(),
+                context.getDownloadView()));
+
+
     }
 
     private static String render(Map<String, Object> model, String templatePath) {
