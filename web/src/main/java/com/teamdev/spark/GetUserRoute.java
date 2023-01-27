@@ -1,5 +1,6 @@
 package com.teamdev.spark;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.dto.UserInfo;
@@ -9,6 +10,7 @@ import com.teamdev.filehub.record.RecordId;
 import spark.Request;
 import spark.Response;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -24,9 +26,10 @@ public class GetUserRoute extends AuthorizedUserRoute {
 
     private final GetUserDataView getUserView;
 
+    @ParametersAreNonnullByDefault
     public GetUserRoute(AuthenticatedView authenticatedView, GetUserDataView getUserView) {
         super(authenticatedView);
-        this.getUserView = getUserView;
+        this.getUserView = Preconditions.checkNotNull(getUserView);
     }
 
     @Override

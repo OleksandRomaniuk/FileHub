@@ -1,10 +1,10 @@
 package com.teamdev.filehub.getdata.user;
 
 import com.teamdev.filehub.View;
+import com.teamdev.filehub.authenticateduser.UnauthorizedException;
 import com.teamdev.filehub.authentication.AuthenticationException;
 import com.teamdev.filehub.dto.UserInfo;
 import com.teamdev.filehub.util.DownloadException;
-import com.teamdev.filehub.authenticateduser.UnauthorizedException;
 
 import java.util.Optional;
 
