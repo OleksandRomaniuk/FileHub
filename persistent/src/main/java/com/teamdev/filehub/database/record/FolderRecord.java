@@ -5,7 +5,7 @@ import com.teamdev.filehub.record.Record;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * An implementation of {@link com.teamdev.filehub.record.Record} for holding metadata about folder.
+ * An implementation of {@link Record} for holding metadata about folder.
  */
 public class FolderRecord extends Record {
 
@@ -16,7 +16,7 @@ public class FolderRecord extends Record {
     private  String ownerId;
 
 
-    public FolderRecord(com.teamdev.filehub.record.RecordId id, String name, String parentId, String ownerId) {
+    public FolderRecord(RecordId id, String name, String parentId, String ownerId) {
         super(id);
         this.name = name;
         Preconditions.checkNotNull(ownerId);

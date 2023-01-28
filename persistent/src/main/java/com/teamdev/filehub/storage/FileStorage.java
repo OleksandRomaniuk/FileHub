@@ -48,16 +48,26 @@ public class FileStorage {
 
     }
 
+    private static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
+
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+
+            inputStream.transferTo(outputStream);
+
+        }
+    }
+
     @ParametersAreNonnullByDefault
     public void upload(InputStream content, String idFile) {
 
         Preconditions.checkNotNull(content);
 
-        if(root != null){
+        if (root != null) {
 
-            String rootPackage = root + "\\" +idFile ;
+            String rootPackage = root + "\\" + idFile;
 
-             file = new File(rootPackage);
+            file = new File(rootPackage);
         }
 
         /*if (!file.exists()) {
@@ -91,7 +101,7 @@ public class FileStorage {
         Preconditions.checkNotNull(fileId);
 
 
-        String rootPackage =  root + "\\" + fileId;
+        String rootPackage = root + "\\" + fileId;
 
         try {
 
@@ -105,14 +115,17 @@ public class FileStorage {
         }
     }
 
-    private static void copyInputStreamToFile(InputStream inputStream, File file)
-            throws IOException {
+    @ParametersAreNonnullByDefault
+    public void delete(String name) {
 
-        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+        String pathToFile = root + "\\" + name;
 
-            inputStream.transferTo(outputStream);
+        file = new File(pathToFile);
 
-        }
+        if (file.delete()) {
+            System.out.println("file.txt файл был удален с корневой папки проекта");
+        } else System.out.println("Файл file.txt не был найден в корневой папке проекта");
+
     }
 
     public String getRoot() {

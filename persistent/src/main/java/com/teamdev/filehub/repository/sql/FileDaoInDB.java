@@ -2,18 +2,14 @@ package com.teamdev.filehub.repository.sql;
 
 import com.google.common.flogger.FluentLogger;
 import com.teamdev.filehub.record.FileRecord;
-import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FileDao;
-
 import com.teamdev.filehub.repository.dbconstants.FileDaoConstants;
-
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
 import static com.teamdev.filehub.repository.sql.EscapeForLike.escapeForLike;
@@ -114,7 +110,7 @@ public class FileDaoInDB implements FileDao {
     }
 
     @Override
-    public FileRecord update(FileRecord entity)  {
+    public FileRecord update(FileRecord entity) {
         Connection con = null;
 
         PreparedStatement stmt = null;

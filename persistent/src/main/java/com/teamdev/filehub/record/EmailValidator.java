@@ -17,6 +17,11 @@ public class EmailValidator {
 
     private static Matcher matcher;
 
+    /**
+     * Checks if the entered email is correctю
+     * @param hex - email
+     * @return mail correctness
+     */
     @ParametersAreNonnullByDefault
     public static boolean validate(final String hex) {
         matcher = pattern.matcher(hex);

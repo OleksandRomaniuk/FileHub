@@ -46,9 +46,33 @@ public class ApplicationContextInMemory implements ApplicationContext {
 
     private final FolderDao folderDao;
 
+    private final CreateFolderProcess createFolderProcess;
+
     private final UserAuthenticationProcess userAuthenticationProcess;
 
     private final UserRegistrationProcess userRegistrationProcess;
+
+    private final RenamingFileProcess renamingFileProcess;
+
+    private final RenamingFolderProcess renamingFolderProcess;
+
+    private final DeleteFileProcess deleteFileProcess;
+
+    private final DeleteFolderProcess deleteFolderProcess;
+
+    private final DownloadView downloadView;
+
+    private final GetUserDataView gettingUserView;
+
+    private final GetFolderView getFolderView;
+
+    private final GetFolderContentView getFolderContentView;
+
+    private final GetFolderContentByNameView getFolderContentByNameView;
+
+    private final AuthenticatedView authenticatedView;
+
+    private final LogOutProcess logOutProcess;
 
     public ApplicationContextInMemory() {
 
@@ -70,6 +94,29 @@ public class ApplicationContextInMemory implements ApplicationContext {
 
         userRegistrationProcess = new UserRegistrationProcess(userDao, folderDao);
 
+        downloadView = new DownloadFileView(fileDao, fileStorage);
+
+        gettingUserView = new GetUserDataView(userDao, folderDao);
+
+        getFolderView = new GetFolderDataView(folderDao);
+
+        getFolderContentView = new GetFolderContentDataView(folderDao, fileDao);
+
+        getFolderContentByNameView = new GetFolderContentDataByNameView(folderDao, fileDao);
+
+        createFolderProcess = new CreateFolderInMemoryProcess(folderDao);
+
+        renamingFileProcess = new RenamingFileProcess(fileDao);
+
+        renamingFolderProcess = new RenamingFolderProcess(folderDao);
+
+        logOutProcess = new LogOutUserProcess(authenticationDao);
+
+        authenticatedView = new AuthenticatedUserView(authenticationDao);
+
+        deleteFileProcess = new DeleteFileProcess(fileStorage, fileDao);
+
+        deleteFolderProcess = new DeleteFolderProcess(fileStorage, fileDao, folderDao);
     }
 
     @Override
@@ -78,8 +125,18 @@ public class ApplicationContextInMemory implements ApplicationContext {
     }
 
     @Override
+    public FileDao getFileDao() {
+        return fileDao;
+    }
+
+    @Override
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    @Override
+    public SaveFileProcess getSaveProcess() {
+        return saveFileProcess;
     }
 
     @Override
@@ -92,8 +149,73 @@ public class ApplicationContextInMemory implements ApplicationContext {
         return userRegistrationProcess;
     }
 
+    @Override
+    public SaveFileProcess getSaveFileProcess() {
+        return saveFileProcess;
+    }
 
+    @Override
+    public RenamingFileProcess getRenamingFileProcess() {
+        return renamingFileProcess;
+    }
 
+    @Override
+    public RenamingFolderProcess getRenamingFolderProcess() {
+        return renamingFolderProcess;
+    }
 
+    @Override
+    public DeleteFileProcess getDeleteFileProcess() {
+        return deleteFileProcess;
+    }
 
+    @Override
+    public DeleteFolderProcess getDeleteFolderProcess() {
+        return deleteFolderProcess;
+    }
+
+    @Override
+    public LogOutProcess getLogOutProcess() {
+        return logOutProcess;
+    }
+
+    @Override
+    public DownloadView getDownloadView() {
+        return downloadView;
+    }
+
+    @Override
+    public GetUserDataView getUserView() {
+        return gettingUserView;
+    }
+
+    @Override
+    public GetFolderView getFolderView() {
+        return getFolderView;
+    }
+
+    @Override
+    public GetFolderContentView getFolderContentView() {
+        return getFolderContentView;
+    }
+
+    @Override
+    public GetFolderContentByNameView getFolderContentByNameView() {
+        return getFolderContentByNameView;
+    }
+
+    @Override
+    public AuthenticatedView getAuthenticatedView() {
+        return authenticatedView;
+    }
+
+    @Override
+    public CreateFolderProcess getCreateFolderProcess() {
+        return createFolderProcess;
+    }
+
+    @Override
+    public FolderDao getFolderDao() {
+        return folderDao;
+    }
 }

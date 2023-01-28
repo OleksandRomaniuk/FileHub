@@ -1,20 +1,21 @@
 package com.teamdev.spark;
 
+import com.google.common.base.Preconditions;
 import com.google.common.flogger.FluentLogger;
 import com.google.gson.Gson;
 import com.teamdev.filehub.authentication.AuthenticateUserCommand;
-import com.teamdev.filehub.authentication.UserAuthenticationProcess;
 import com.teamdev.filehub.authentication.AuthenticationException;
+import com.teamdev.filehub.authentication.UserAuthenticationProcess;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Route for user authorization : checks user login and password
- * Return token
+ * Route for user authorization, checks user login and password and returns token.
  */
 public class AuthorizationRoute implements Route {
 
@@ -22,12 +23,20 @@ public class AuthorizationRoute implements Route {
 
     private final UserAuthenticationProcess process;
 
+    @ParametersAreNonnullByDefault
     public AuthorizationRoute(UserAuthenticationProcess userAuthenticationProcess) {
-        this.process = userAuthenticationProcess;
+        this.process = Preconditions.checkNotNull(userAuthenticationProcess);
     }
 
+    /**
+     * Gives the user permission to access a specific resource with token.
+     *
+     * @param request The request object providing information about the HTTP request
+     * @param response The response object providing functionality for modifying the response
+     * @return The token of the user that log in the system or error message which is set in response
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
 
         Gson gson = new Gson();
 
@@ -45,7 +54,7 @@ public class AuthorizationRoute implements Route {
 
             map.put("token", token);
 
-            logger.atInfo().log("token: %s",  token);
+            logger.atInfo().log("token: %s", token);
 
             return gson.toJson(map);
 

@@ -1,5 +1,6 @@
 package com.teamdev.spark;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.downaldfile.DownloadQuery;
@@ -9,6 +10,7 @@ import com.teamdev.filehub.util.DownloadException;
 import spark.Request;
 import spark.Response;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,12 +26,21 @@ public class DownloadFileRoute extends AuthorizedUserRoute {
 
     private final DownloadView downloadView;
 
+    @ParametersAreNonnullByDefault
     public DownloadFileRoute(AuthenticatedView authenticatedView,
                              DownloadView downloadView) {
         super(authenticatedView);
-        this.downloadView = downloadView;
+        this.downloadView = Preconditions.checkNotNull(downloadView);
     }
 
+    /**
+     * Opens the {@link OutputStream} of the response to write file content.
+     *
+     * @param request  The request object providing information about the HTTP request
+     * @param response The response object providing functionality for modifying the response
+     * @param id       The user identification
+     * @return The empty body or message with an error which is set in response
+     */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {
         String fileId = request.params("id");
@@ -50,8 +61,7 @@ public class DownloadFileRoute extends AuthorizedUserRoute {
         try {
             OutputStream outputStream = response.raw().getOutputStream();
 
-            while (inputStream.available() > 0)
-            {
+            while (inputStream.available() > 0) {
                 int count = inputStream.read(buffer);
                 outputStream.write(buffer, 0, count);
             }

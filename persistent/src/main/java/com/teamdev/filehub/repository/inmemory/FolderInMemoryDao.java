@@ -2,7 +2,6 @@ package com.teamdev.filehub.repository.inmemory;
 
 import com.teamdev.filehub.database.DataBase;
 import com.teamdev.filehub.database.folder.FolderTable;
-import com.teamdev.filehub.record.FileRecord;
 import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FolderDao;

@@ -1,7 +1,6 @@
 package com.teamdev.filehub.authentication;
 
 import com.teamdev.filehub.Process;
-import com.teamdev.filehub.ProcessException;
 
 /**
  * The process for authentication users in FileHub application.
@@ -10,5 +9,5 @@ import com.teamdev.filehub.ProcessException;
 @FunctionalInterface
 public interface AuthenticationProcess extends Process<AuthenticateUserCommand, String> {
     @Override
-    String handle(AuthenticateUserCommand command) throws ProcessException;
+    String handle(AuthenticateUserCommand command) throws AuthenticationException;
 }

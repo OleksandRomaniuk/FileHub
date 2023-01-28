@@ -2,7 +2,6 @@ package com.teamdev.filehub.registration;
 
 import com.teamdev.filehub.Process;
 import com.teamdev.filehub.record.RecordId;
-import com.teamdev.filehub.ProcessException;
 
 
 /**
@@ -11,5 +10,5 @@ import com.teamdev.filehub.ProcessException;
 @FunctionalInterface
 public interface RegistrationProcess extends Process<RegisterUserCommand, RecordId> {
     @Override
-    RecordId handle(RegisterUserCommand command) throws ProcessException;
+    RecordId handle(RegisterUserCommand command) throws UserAlreadyRegisteredException;
 }

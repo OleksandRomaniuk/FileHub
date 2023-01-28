@@ -10,16 +10,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 
 /**
- * An implementation of {@link com.teamdev.filehub.record.Record} for holding metadata about user with encrypted password.
+ * An implementation of {@link Record} for holding metadata about user with encrypted password.
  */
 public class UserRecord extends Record {
 
-    private com.teamdev.filehub.record.Email email;
+    private Email email;
 
     private String password;
 
     @ParametersAreNonnullByDefault
-    public UserRecord(com.teamdev.filehub.record.RecordId id, String email, String password) {
+    public UserRecord(RecordId id, String email, String password) {
 
         super(id);
 
@@ -27,7 +27,7 @@ public class UserRecord extends Record {
 
         Preconditions.checkNotNull(password);
 
-        this.email = new com.teamdev.filehub.record.Email(email);
+        this.email = new Email(email);
 
         this.password = password;
     }

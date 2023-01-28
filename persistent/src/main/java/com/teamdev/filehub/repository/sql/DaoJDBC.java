@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
 import static com.teamdev.filehub.repository.sql.EscapeForLike.escapeForLike;

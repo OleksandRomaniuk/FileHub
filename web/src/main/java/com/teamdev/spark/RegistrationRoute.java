@@ -1,5 +1,6 @@
 package com.teamdev.spark;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.teamdev.filehub.record.RecordId;
@@ -11,8 +12,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.List;
-import java.util.Map;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Route for registration, add new user in database.
@@ -21,12 +21,20 @@ public class RegistrationRoute implements Route {
 
     private final RegistrationProcess registrationProcess;
 
+    @ParametersAreNonnullByDefault
     public RegistrationRoute(RegistrationProcess registrationProcess) {
-        this.registrationProcess = registrationProcess;
+        this.registrationProcess = Preconditions.checkNotNull(registrationProcess);
     }
 
+    /**
+     * Registers a user in the system, entering his personal data into the database.
+     *
+     * @param request  The request object providing information about the HTTP request
+     * @param response The response object providing functionality for modifying the response
+     * @return The id of the user that registered in the system or error message which is set in response
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
 
         Gson gson = new Gson();
 

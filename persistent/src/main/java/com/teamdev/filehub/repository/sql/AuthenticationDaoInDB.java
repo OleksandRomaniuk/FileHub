@@ -66,6 +66,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
                 }
             }
         } catch (SQLException e) {
+            logger.atInfo().log("RuntimeException: %s", e.getMessage());
 
             throw new RuntimeException(e.getMessage());
 
