@@ -9,7 +9,6 @@ import com.teamdev.filehub.repository.AuthenticationDao;
 import com.teamdev.filehub.repository.UserDao;
 import com.teamdev.filehub.util.ConstTimeZone;
 import com.teamdev.filehub.util.Hash;
-import com.teamdev.filehub.ProcessException;
 import io.jsonwebtoken.Jwts;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -53,7 +52,7 @@ public class UserAuthenticationProcess implements AuthenticationProcess {
 
     @ParametersAreNonnullByDefault
     @Override
-    public String handle(AuthenticateUserCommand command) throws ProcessException {
+    public String handle(AuthenticateUserCommand command) throws AuthenticationException {
 
         Optional<UserRecord> userRecord;
 
