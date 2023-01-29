@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for handling requests to upload one or multiple files.
+ * This example demonstrate the route for uploading files.
  */
 public class UploadFilesRoute extends AuthorizedUserRoute {
 
@@ -36,11 +36,6 @@ public class UploadFilesRoute extends AuthorizedUserRoute {
 
     /**
      * Upload files in the system.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return  The empty body or message with an error which is set in response
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {

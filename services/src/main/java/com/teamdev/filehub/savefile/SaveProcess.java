@@ -3,7 +3,7 @@ package com.teamdev.filehub.savefile;
 import com.teamdev.filehub.Process;
 
 /**
- * The interface represents operation of upload file using {@link SaveFileCommand}.
+ * Represents operation for upload file
  */
 @FunctionalInterface
 public interface SaveProcess extends Process<SaveFileCommand, String> {

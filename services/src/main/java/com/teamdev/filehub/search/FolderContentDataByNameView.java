@@ -1,4 +1,4 @@
-package com.teamdev.filehub.getdata.folder.content;
+package com.teamdev.filehub.search;
 
 import com.teamdev.filehub.dto.ItemInfo;
 import com.teamdev.filehub.record.FileRecord;
@@ -11,24 +11,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The implementation of {@link GetFolderContentView} for get information about items in the folder.
+ * Retrieves the content of a specific folder by name.
  */
-public class GetFolderContentDataView implements GetFolderContentView {
+public class FolderContentDataByNameView implements FolderContentByNameView {
 
     private final FolderDao folderDao;
     private final FileDao fileDao;
 
-    public GetFolderContentDataView(FolderDao folderDao, FileDao fileDao) {
+    public FolderContentDataByNameView(FolderDao folderDao, FileDao fileDao) {
         this.folderDao = folderDao;
         this.fileDao = fileDao;
     }
 
-
     @Override
-    public List<ItemInfo> run(GetFolderContentQuery query) {
+    public List<ItemInfo> run(FolderContentByNameQuery query) {
 
-        List<FolderRecord> foldersByParent = folderDao.findFoldersByParent(query.getFolderId());
-        List<FileRecord> filesByParent = fileDao.findFilesByParent(query.getFolderId());
+        List<FolderRecord> foldersByParent = folderDao.findFilesByParentAndName(query.getFolderId(), query.getItemName());
+        List<FileRecord> filesByParent = fileDao.findFilesByParentAndName(query.getFolderId(), query.getItemName());
 
         List<ItemInfo> itemsInfo = new LinkedList<>();
 
@@ -40,4 +39,6 @@ public class GetFolderContentDataView implements GetFolderContentView {
 
         return itemsInfo;
     }
+
+
 }

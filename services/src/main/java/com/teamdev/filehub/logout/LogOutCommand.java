@@ -6,7 +6,7 @@ import com.teamdev.filehub.record.RecordId;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This is the user's intention to log out in the FileHub application.
+ * Data for log outing in application.
  */
 public class LogOutCommand extends AuthenticatedUserCommand {
 

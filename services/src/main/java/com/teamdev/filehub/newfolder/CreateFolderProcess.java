@@ -3,7 +3,7 @@ package com.teamdev.filehub.newfolder;
 import com.teamdev.filehub.Process;
 
 /**
- * The interface represents operation of creating new folder using {@link CreateFolderCommand}.
+ * Represents operation for creating new folder
  */
 @FunctionalInterface
 public interface CreateFolderProcess extends Process<CreateFolderCommand, String> {

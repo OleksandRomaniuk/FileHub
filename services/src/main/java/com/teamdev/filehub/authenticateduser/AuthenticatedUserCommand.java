@@ -5,7 +5,7 @@ import com.teamdev.filehub.Command;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * The {@link Command} extension with data about authenticated user.
+ * Data about authenticated user
  */
 public abstract class AuthenticatedUserCommand implements Command {
 

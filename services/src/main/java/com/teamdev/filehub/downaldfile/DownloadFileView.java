@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 /**
- * The implementation of {@link DownloadView} for downloading file from the drive.
+ * Represent an operation for downloading file from the drive.
  */
 public class DownloadFileView implements DownloadView {
 

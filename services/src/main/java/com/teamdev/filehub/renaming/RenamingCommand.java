@@ -2,12 +2,12 @@ package com.teamdev.filehub.renaming;
 
 import com.google.common.base.Preconditions;
 import com.teamdev.filehub.Command;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.ValidationException;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This is the user's intention to rename file or folder in the FileHub application.
+ * Data for new name of file or folder
  */
 public class RenamingCommand implements Command {
 

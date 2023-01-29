@@ -8,7 +8,7 @@ import com.teamdev.filehub.newfolder.CreateFolderCommand;
 import com.teamdev.filehub.newfolder.CreateFolderProcess;
 import com.teamdev.filehub.newfolder.FolderAlreadyExistException;
 import com.teamdev.filehub.record.RecordId;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.ValidationException;
 import spark.Request;
 import spark.Response;
 
@@ -16,8 +16,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for creating a new folder in the system.
- * Catch an exception if the folder name is incorrect.
+ * This example demonstrate the route for creating a new folder in the system.
  */
 public class CreateNewFolderRoute extends AuthorizedUserRoute {
 
@@ -28,18 +27,14 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
     @ParametersAreNonnullByDefault
     public CreateNewFolderRoute(AuthenticatedView authenticatedView,
                                 CreateFolderProcess createFolderProcess) {
+
         super(authenticatedView);
         this.createFolderProcess = Preconditions.checkNotNull(createFolderProcess);
+
     }
 
     /**
-     * Creates the  {@link CreateFolderCommand} that validates name of a new name and using {@link CreateFolderProcess} handles
-     * {@link CreateFolderCommand} to create the new folder in the system.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return response with status of successful process or not. In unsuccessful case body contains error.
+     * Creates the  {@link CreateFolderCommand} for validating name of a new name and create new folder in the system.
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {
@@ -49,18 +44,12 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
         CreateFolderCommand createFolderCommand;
 
         try {
-
-            createFolderCommand = new CreateFolderCommand(
-                    folderCredentials.get("name").getAsString(),
-                    folderCredentials.get("parentId").getAsString(),
-                    id.getId());
+            createFolderCommand = new CreateFolderCommand(folderCredentials.get("name").getAsString(), folderCredentials.get("parentId").getAsString(), id.getId());
 
         } catch (ValidationException e) {
-
             response.status(422);
-            return gson.toJson(Map.of("error", e.getMessage()));
+            return gson.toJson(Map.of("Error", e.getMessage()));
         }
-
         try {
 
             createFolderProcess.handle(createFolderCommand);
@@ -73,7 +62,7 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
 
             response.status(422);
 
-            return gson.toJson(Map.of("error", e.getMessage()));
+            return gson.toJson(Map.of("Error", e.getMessage()));
         }
     }
 }

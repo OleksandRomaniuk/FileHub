@@ -4,7 +4,7 @@ import com.teamdev.filehub.Process;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * The process for log out user in FileHub application.
+ * The process for log out user in application.
  */
 @FunctionalInterface
 public interface LogOutProcess extends Process<LogOutCommand, RecordId> {

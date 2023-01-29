@@ -6,16 +6,16 @@ import com.teamdev.filehub.Command;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This is the user's intention to authenticate in the FileHub application
+ * User's data for authentication
  */
-public class AuthenticateUserCommand implements Command {
+public class AuthenticationCommand implements Command {
 
     private final String email;
 
     private final String password;
 
     @ParametersAreNonnullByDefault
-    public AuthenticateUserCommand(String email, String password) {
+    public AuthenticationCommand(String email, String password) {
 
         this.email = Preconditions.checkNotNull(email);
         this.password = Preconditions.checkNotNull(password);

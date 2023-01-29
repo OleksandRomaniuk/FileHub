@@ -10,19 +10,19 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 /**
- * The implementation of {@link GetFolderView} for get information about folder for generate path.
+ * The implementation of {@link FolderView} for get information about folder for generate path.
  */
-public class GetFolderDataView implements GetFolderView {
+public class FolderDataView implements FolderView {
 
     private final FolderDao folderDao;
 
     @ParametersAreNonnullByDefault
-    public GetFolderDataView(FolderDao folderDao) {
+    public FolderDataView(FolderDao folderDao) {
         this.folderDao = Preconditions.checkNotNull(folderDao);
     }
 
     @Override
-    public Optional<ItemInfo> run(GetFolderDataQuery query) {
+    public Optional<ItemInfo> run(FolderDataQuery query) {
 
         RecordId folderId = new RecordId(query.getFolderId());
 

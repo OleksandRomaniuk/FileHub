@@ -8,7 +8,7 @@ import com.teamdev.filehub.record.RecordId;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The query from FileHub application user for download file.
+ * The query from application for downloading file.
  */
 public class DownloadQuery extends AuthenticatedUserQuery {
 

@@ -6,7 +6,7 @@ import com.teamdev.filehub.util.DownloadException;
 import java.io.InputStream;
 
 /**
- * Represents an operation download file by file id from {@link DownloadQuery} and returns {@link InputStream}.
+ * Represents an operation download file by file id
  */
 @FunctionalInterface
 public interface DownloadView extends View<DownloadQuery, InputStream> {

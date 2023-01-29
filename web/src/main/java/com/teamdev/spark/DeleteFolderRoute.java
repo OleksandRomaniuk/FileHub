@@ -11,7 +11,7 @@ import spark.Response;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible deleting a folder and items in this folderfrom the server.
+ * This example demonstrate the route for deleting a folder and items
  */
 public class DeleteFolderRoute extends AuthorizedUserRoute {
 
@@ -25,12 +25,7 @@ public class DeleteFolderRoute extends AuthorizedUserRoute {
     }
 
     /**
-     * Deletes the certain folder and inner content using folderId from a {@link Request}.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The empty body with successful status
+     * Deletes the certain folder and inner content using folderId
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {

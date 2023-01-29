@@ -1,12 +1,9 @@
-package com.teamdev.spark;
+package com.teamdev.spark.error;
 
 import com.google.common.base.Preconditions;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-/**
- * The class that contains validation error with data about field, and it's error.
- */
 public class ValidationError {
     private final String name;
     private final String message;

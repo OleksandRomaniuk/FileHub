@@ -4,7 +4,7 @@ import com.teamdev.filehub.Process;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * The interface represents operation of renaming item using {@link RenamingCommand}.
+ * Represents operation for renaming item
  */
 @FunctionalInterface
 public interface RenamingProcess extends Process<RenamingCommand, RecordId> {

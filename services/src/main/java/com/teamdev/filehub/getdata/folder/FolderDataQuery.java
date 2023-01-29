@@ -9,11 +9,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 /**
  * The query from FileHub application for get data about folder by id.
  */
-public class GetFolderDataQuery extends AuthenticatedUserQuery {
+public class FolderDataQuery extends AuthenticatedUserQuery {
     private final String folderId;
 
     @ParametersAreNonnullByDefault
-    public GetFolderDataQuery(RecordId ownerId, String folderId) {
+    public FolderDataQuery(RecordId ownerId, String folderId) {
         super(ownerId);
         this.folderId = Preconditions.checkNotNull(folderId);
     }

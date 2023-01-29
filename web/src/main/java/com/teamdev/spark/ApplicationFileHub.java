@@ -23,13 +23,13 @@ public class ApplicationFileHub {
         post("/api/login", new AuthorizationRoute(context.getUserAuthenticationProcess()));
         post("/api/register", new RegistrationRoute(context.getUserRegistrationProcess()));
 
-        get("/api/user", new GetUserRoute(context.getAuthenticatedView(), context.getUserView()));
+        get("/api/user", new UserRoute(context.getAuthenticatedView(), context.getUserView()));
 
-        get("/api/folders/:folderId", new GetFolderRoute(
+        get("/api/folders/:folderId", new FolderRoute(
                 context.getAuthenticatedView(),
                 context.getFolderView()));
 
-        get("/api/folders/:folderId/content", new GetFolderContentRoute(
+        get("/api/folders/:folderId/content", new FolderContentRoute(
                 context.getAuthenticatedView(),
                 context.getFolderContentView()));
 
@@ -44,14 +44,6 @@ public class ApplicationFileHub {
         post("/api/folder/:folderId/content", new UploadFilesRoute(
                 context.getAuthenticatedView(),
                 context.getSaveFileProcess()));
-
-        get("api/files/:id", new DownloadFileRoute(
-                context.getAuthenticatedView(),
-                context.getDownloadView()));
-
-        put("api/file/:fileId", new RenameFileRoute(
-                context.getAuthenticatedView(),
-                context.getRenamingFileProcess()));
 
         put("api/folder/:folderId", new RenameFolderRoute(
                 context.getAuthenticatedView(),
@@ -68,6 +60,14 @@ public class ApplicationFileHub {
         post("api/logout", new LogoutRoute(
                 context.getAuthenticatedView(),
                 context.getLogOutProcess()));
+
+        get("api/files/:id", new DownloadFileRoute(
+                context.getAuthenticatedView(),
+                context.getDownloadView()));
+
+        put("api/file/:fileId", new RenameFileRoute(
+                context.getAuthenticatedView(),
+                context.getRenamingFileProcess()));
 
     }
 

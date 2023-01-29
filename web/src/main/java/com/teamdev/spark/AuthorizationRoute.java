@@ -3,7 +3,7 @@ package com.teamdev.spark;
 import com.google.common.base.Preconditions;
 import com.google.common.flogger.FluentLogger;
 import com.google.gson.Gson;
-import com.teamdev.filehub.authentication.AuthenticateUserCommand;
+import com.teamdev.filehub.authentication.AuthenticationCommand;
 import com.teamdev.filehub.authentication.AuthenticationException;
 import com.teamdev.filehub.authentication.UserAuthenticationProcess;
 import spark.Request;
@@ -15,7 +15,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Route for user authorization, checks user login and password and returns token.
+ * Route for user authorization, checks user login and password
+ * Return token
  */
 public class AuthorizationRoute implements Route {
 
@@ -29,11 +30,7 @@ public class AuthorizationRoute implements Route {
     }
 
     /**
-     * Gives the user permission to access a specific resource with token.
-     *
-     * @param request The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @return The token of the user that log in the system or error message which is set in response
+     * Gives permission to access by giving the token.
      */
     @Override
     public Object handle(Request request, Response response) {
@@ -42,11 +39,9 @@ public class AuthorizationRoute implements Route {
 
         try {
 
-            AuthenticateUserCommand authenticateUserCommand = gson.fromJson(
-                    request.body(),
-                    AuthenticateUserCommand.class);
+            AuthenticationCommand authenticationCommand = gson.fromJson(request.body(), AuthenticationCommand.class);
 
-            String token = process.handle(authenticateUserCommand);
+            String token = process.handle(authenticationCommand);
 
             response.status(200);
 
@@ -61,6 +56,7 @@ public class AuthorizationRoute implements Route {
         } catch (AuthenticationException e) {
 
             response.status(401);
+
             return "";
         }
     }

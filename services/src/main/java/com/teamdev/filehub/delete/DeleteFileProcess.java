@@ -8,7 +8,7 @@ import com.teamdev.filehub.storage.FileStorage;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The implementation of {@link DeleteItemProcess} that responsible for deleting a specific file from the file system.
+ * The implementation of deleting a file from the file system.
  */
 public class DeleteFileProcess implements DeleteItemProcess {
 

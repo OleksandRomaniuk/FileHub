@@ -4,11 +4,11 @@ import com.teamdev.filehub.authenticateduser.AuthenticatedUserQuery;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * The query from FileHub application for get data about user by id.
+ * The query for getting data about user by id.
  */
-public class GetUserDataQuery extends AuthenticatedUserQuery {
+public class UserDataQuery extends AuthenticatedUserQuery {
 
-    public GetUserDataQuery(RecordId userId) {
+    public UserDataQuery(RecordId userId) {
         super(userId);
     }
 }

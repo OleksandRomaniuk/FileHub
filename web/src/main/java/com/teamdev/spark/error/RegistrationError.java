@@ -1,4 +1,4 @@
-package com.teamdev.spark;
+package com.teamdev.spark.error;
 
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class to respond to when registration fails in {@link RegistrationRoute}.
+ * This example demonstrate the error in case registration fails
  */
 public class RegistrationError {
     private final List<ValidationError> errors = new ArrayList<>();

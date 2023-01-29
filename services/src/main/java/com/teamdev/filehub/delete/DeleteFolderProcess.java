@@ -13,8 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 /**
- * The implementation of {@link DeleteItemProcess} that responsible for deleting a specific folder and inner items
- * from the file system.
+ * Responsible for deleting a specific folder and items from file system
  */
 public class DeleteFolderProcess implements DeleteItemProcess {
 

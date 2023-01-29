@@ -4,8 +4,8 @@ import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.dto.UserInfo;
-import com.teamdev.filehub.getdata.user.GetUserDataQuery;
-import com.teamdev.filehub.getdata.user.GetUserDataView;
+import com.teamdev.filehub.getdata.user.UserDataQuery;
+import com.teamdev.filehub.getdata.user.UserDataView;
 import com.teamdev.filehub.record.RecordId;
 import spark.Request;
 import spark.Response;
@@ -17,17 +17,13 @@ import java.util.Optional;
 
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for handling requests
- * to retrieve the user info.
+ * This example demonstrate the route for retrieve the user info.
  */
-public class GetUserRoute extends AuthorizedUserRoute {
-
+public class UserRoute extends AuthorizedUserRoute {
+    private final UserDataView getUserView;
     private final Gson gson = new Gson();
-
-    private final GetUserDataView getUserView;
-
     @ParametersAreNonnullByDefault
-    public GetUserRoute(AuthenticatedView authenticatedView, GetUserDataView getUserView) {
+    public UserRoute(AuthenticatedView authenticatedView, UserDataView getUserView) {
         super(authenticatedView);
         this.getUserView = Preconditions.checkNotNull(getUserView);
     }
@@ -35,7 +31,7 @@ public class GetUserRoute extends AuthorizedUserRoute {
     @Override
     public Object authorizedHandle(Request request, Response response, RecordId id) {
 
-        Optional<UserInfo> user = getUserView.run(new GetUserDataQuery(id));
+        Optional<UserInfo> user = getUserView.run(new UserDataQuery(id));
 
         if (user.isPresent()) {
 

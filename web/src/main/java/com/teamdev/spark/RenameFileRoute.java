@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.renaming.RenamingCommand;
-import com.teamdev.filehub.renaming.file.RenamingFileProcess;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.renaming.RenamingFileProcess;
+import com.teamdev.filehub.ValidationException;
 import spark.Request;
 import spark.Response;
 
@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for handling requests to rename a file.
+ * This example demonstrate the route for renaming a file.
  */
 public class RenameFileRoute extends AuthorizedUserRoute {
 
@@ -31,12 +31,7 @@ public class RenameFileRoute extends AuthorizedUserRoute {
     }
 
     /**
-     * Renames the certain file using fileId from a {@link Request} and validates new name by {@link RenamingCommand}.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The empty message in the successful case or an error message if ValidationException was thrown.
+     * Renames the certain file using fileId
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {
@@ -45,13 +40,13 @@ public class RenameFileRoute extends AuthorizedUserRoute {
 
         try {
 
-            renamingProcess.handle(
-                    new RenamingCommand(request.params("fileId"), userCredentials.get("name").getAsString()));
+            renamingProcess.handle(new RenamingCommand(request.params("fileId"), userCredentials.get("name").getAsString()));
 
         } catch (ValidationException e) {
 
             response.status(422);
             return gson.toJson(Map.of("errors", e.getMessage()));
+
         }
 
         response.status(200);

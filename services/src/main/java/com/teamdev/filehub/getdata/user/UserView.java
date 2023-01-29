@@ -9,11 +9,10 @@ import com.teamdev.filehub.util.DownloadException;
 import java.util.Optional;
 
 /**
- * Represents an operation getting data about user from {@link GetUserDataQuery}
- * and returns {@link UserInfo}.
+ * Represents an operation getting data about user
  */
 @FunctionalInterface
-public interface GetUserView extends View<GetUserDataQuery, Optional<UserInfo>> {
+public interface UserView extends View<UserDataQuery, Optional<UserInfo>> {
     @Override
-    Optional<UserInfo> run(GetUserDataQuery query) throws DownloadException, AuthenticationException, UnauthorizedException;
+    Optional<UserInfo> run(UserDataQuery query) throws DownloadException, AuthenticationException, UnauthorizedException;
 }

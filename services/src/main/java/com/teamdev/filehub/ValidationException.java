@@ -1,10 +1,8 @@
-package com.teamdev.filehub.util;
+package com.teamdev.filehub;
 
 import com.teamdev.filehub.ProcessException;
 
-/**
- * The Exception for problems with validation for certain fields.
- */
+
 public class ValidationException extends ProcessException {
 
     private final String field;

@@ -1,4 +1,4 @@
-package com.teamdev.filehub.renaming.file;
+package com.teamdev.filehub.renaming;
 
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.renaming.RenamingCommand;
@@ -6,7 +6,7 @@ import com.teamdev.filehub.renaming.RenamingProcess;
 import com.teamdev.filehub.repository.FileDao;
 
 /**
- * Class represents a process renaming file in the system.
+ * The process for renaming file in the system.
  */
 public class RenamingFileProcess implements RenamingProcess {
 

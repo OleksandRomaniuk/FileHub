@@ -7,8 +7,7 @@ import com.teamdev.filehub.repository.AuthenticationDao;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The implementation of {@link LogOutProcess} for log out user in FileHub application.
- * Class represents process of deleting token.
+ * Represents operation for deleting token.
  */
 public class LogOutUserProcess implements LogOutProcess {
 

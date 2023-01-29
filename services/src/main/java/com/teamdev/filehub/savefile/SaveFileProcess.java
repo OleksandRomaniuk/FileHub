@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * The process for uploading file in FileHub application by registered user.
+ * The process for uploading file in  application
  */
 public class SaveFileProcess implements SaveProcess {
 

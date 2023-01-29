@@ -7,7 +7,7 @@ import com.teamdev.filehub.record.RecordId;
 import java.io.InputStream;
 
 /**
- * This is the user's intention to save file from the FileHub application.
+ * Saving file data
  */
 public class SaveFileCommand extends AuthenticatedUserCommand {
 

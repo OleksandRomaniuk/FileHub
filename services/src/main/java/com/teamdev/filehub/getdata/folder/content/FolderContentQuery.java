@@ -7,13 +7,13 @@ import com.teamdev.filehub.record.RecordId;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The query from FileHub application for get files and folder in the current folder.
+ * The query from application for getting files and folder in the current folder.
  */
-public class GetFolderContentQuery extends AuthenticatedUserQuery {
+public class FolderContentQuery extends AuthenticatedUserQuery {
     private final String folderId;
 
     @ParametersAreNonnullByDefault
-    public GetFolderContentQuery(RecordId ownerId, String folderId) {
+    public FolderContentQuery(RecordId ownerId, String folderId) {
         super(ownerId);
         this.folderId = Preconditions.checkNotNull(folderId);
     }

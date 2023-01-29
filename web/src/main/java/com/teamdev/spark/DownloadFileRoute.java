@@ -17,8 +17,7 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for downloading the file from the server.
- * Catch an exception if during download view was problems.
+ * This example demonstrate the route for downloading the file from the server.
  */
 public class DownloadFileRoute extends AuthorizedUserRoute {
 
@@ -34,12 +33,7 @@ public class DownloadFileRoute extends AuthorizedUserRoute {
     }
 
     /**
-     * Opens the {@link OutputStream} of the response to write file content.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The empty body or message with an error which is set in response
+     * Opens the OutputStream to write file content.
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {

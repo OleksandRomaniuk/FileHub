@@ -7,20 +7,20 @@ import com.teamdev.filehub.delete.DeleteFileProcess;
 import com.teamdev.filehub.delete.DeleteFolderProcess;
 import com.teamdev.filehub.downaldfile.DownloadFileView;
 import com.teamdev.filehub.downaldfile.DownloadView;
-import com.teamdev.filehub.getdata.folder.GetFolderDataView;
-import com.teamdev.filehub.getdata.folder.GetFolderView;
-import com.teamdev.filehub.getdata.folder.content.GetFolderContentDataView;
-import com.teamdev.filehub.getdata.folder.content.GetFolderContentView;
-import com.teamdev.filehub.getdata.folder.content.search.GetFolderContentByNameView;
-import com.teamdev.filehub.getdata.folder.content.search.GetFolderContentDataByNameView;
-import com.teamdev.filehub.getdata.user.GetUserDataView;
+import com.teamdev.filehub.getdata.folder.FolderDataView;
+import com.teamdev.filehub.getdata.folder.FolderView;
+import com.teamdev.filehub.getdata.folder.content.FolderContentDataView;
+import com.teamdev.filehub.getdata.folder.content.FolderContentView;
+import com.teamdev.filehub.search.FolderContentByNameView;
+import com.teamdev.filehub.search.FolderContentDataByNameView;
+import com.teamdev.filehub.getdata.user.UserDataView;
 import com.teamdev.filehub.logout.LogOutProcess;
 import com.teamdev.filehub.logout.LogOutUserProcess;
 import com.teamdev.filehub.newfolder.CreateFolderInMemoryProcess;
 import com.teamdev.filehub.newfolder.CreateFolderProcess;
 import com.teamdev.filehub.registration.UserRegistrationProcess;
-import com.teamdev.filehub.renaming.file.RenamingFileProcess;
-import com.teamdev.filehub.renaming.folder.RenamingFolderProcess;
+import com.teamdev.filehub.renaming.RenamingFileProcess;
+import com.teamdev.filehub.renaming.RenamingFolderProcess;
 import com.teamdev.filehub.repository.AuthenticationDao;
 import com.teamdev.filehub.repository.FileDao;
 import com.teamdev.filehub.repository.FolderDao;
@@ -62,13 +62,13 @@ public class ApplicationContextJDBC implements ApplicationContext {
 
     private final DownloadView downloadView;
 
-    private final GetUserDataView gettingUserView;
+    private final UserDataView gettingUserView;
 
-    private final GetFolderView getFolderView;
+    private final FolderView folderView;
 
-    private final GetFolderContentView getFolderContentView;
+    private final FolderContentView folderContentView;
 
-    private final GetFolderContentByNameView getFolderContentByNameView;
+    private final FolderContentByNameView folderContentByNameView;
 
     private final AuthenticatedView authenticatedUserView;
 
@@ -94,13 +94,13 @@ public class ApplicationContextJDBC implements ApplicationContext {
 
         createFolderProcess = new CreateFolderInMemoryProcess(folderDao);
 
-        gettingUserView = new GetUserDataView(userDao, folderDao);
+        gettingUserView = new UserDataView(userDao, folderDao);
 
-        getFolderView = new GetFolderDataView(folderDao);
+        folderView = new FolderDataView(folderDao);
 
-        getFolderContentView = new GetFolderContentDataView(folderDao, fileDao);
+        folderContentView = new FolderContentDataView(folderDao, fileDao);
 
-        getFolderContentByNameView = new GetFolderContentDataByNameView(folderDao, fileDao);
+        folderContentByNameView = new FolderContentDataByNameView(folderDao, fileDao);
 
         renamingFileProcess = new RenamingFileProcess(fileDao);
 
@@ -181,23 +181,23 @@ public class ApplicationContextJDBC implements ApplicationContext {
     }
 
     @Override
-    public GetUserDataView getUserView() {
+    public UserDataView getUserView() {
         return gettingUserView;
     }
 
     @Override
-    public GetFolderView getFolderView() {
-        return getFolderView;
+    public FolderView getFolderView() {
+        return folderView;
     }
 
     @Override
-    public GetFolderContentView getFolderContentView() {
-        return getFolderContentView;
+    public FolderContentView getFolderContentView() {
+        return folderContentView;
     }
 
     @Override
-    public GetFolderContentByNameView getFolderContentByNameView() {
-        return getFolderContentByNameView;
+    public FolderContentByNameView getFolderContentByNameView() {
+        return folderContentByNameView;
     }
 
     @Override

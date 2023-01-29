@@ -9,22 +9,19 @@ import com.teamdev.filehub.repository.UserDao;
 
 import java.util.Optional;
 
-/**
- * The implementation of {@link GetUserView} for get information about user email.
- */
-public class GetUserDataView implements GetUserView {
+public class UserDataView implements UserView {
 
     private final UserDao userDao;
 
     private final FolderDao folderDao;
 
-    public GetUserDataView(UserDao userDao, FolderDao folderDao) {
+    public UserDataView(UserDao userDao, FolderDao folderDao) {
         this.userDao = Preconditions.checkNotNull(userDao);
         this.folderDao = folderDao;
     }
 
     @Override
-    public Optional<UserInfo> run(GetUserDataQuery query) {
+    public Optional<UserInfo> run(UserDataQuery query) {
 
         Optional<UserRecord> userRecord = userDao.read(query.userId());
 

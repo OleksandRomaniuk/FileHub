@@ -11,7 +11,7 @@ import spark.Response;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible deleting a file from the server.
+ * This example demonstrate the route for deleting a file from the server.
  */
 public class DeleteFileRoute extends AuthorizedUserRoute {
 
@@ -25,12 +25,7 @@ public class DeleteFileRoute extends AuthorizedUserRoute {
     }
 
     /**
-     * Deletes the certain file using fileId from a {@link Request}.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The content to be set in the response
+     * Deletes the certain file using fileId
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {

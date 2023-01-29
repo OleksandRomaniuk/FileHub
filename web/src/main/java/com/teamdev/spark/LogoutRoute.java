@@ -12,14 +12,11 @@ import spark.Response;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * The {@link AuthorizedUserRoute} which handles user logout. Process deletes user token.
+ * This example demonstrate the route for deleting user's token.
  */
 public class LogoutRoute extends AuthorizedUserRoute {
-
-    private final Gson gson = new Gson();
-
     private final LogOutProcess logOutProcess;
-
+    private final Gson gson = new Gson();
     @ParametersAreNonnullByDefault
     public LogoutRoute(AuthenticatedView authenticatedView,
                        LogOutProcess logOutProcess) {
@@ -29,11 +26,6 @@ public class LogoutRoute extends AuthorizedUserRoute {
 
     /**
      * Logs out the user from the system deleting the token.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The id of the user that logged out of the system which is set in response
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {

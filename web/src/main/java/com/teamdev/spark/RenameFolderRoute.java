@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.renaming.RenamingCommand;
-import com.teamdev.filehub.renaming.folder.RenamingFolderProcess;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.renaming.RenamingFolderProcess;
+import com.teamdev.filehub.ValidationException;
 import spark.Request;
 import spark.Response;
 
@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for handling requests to rename a folder.
+ *  * This example demonstrate the route for renaming a folder.
  */
 public class RenameFolderRoute extends AuthorizedUserRoute {
 
@@ -32,11 +32,6 @@ public class RenameFolderRoute extends AuthorizedUserRoute {
 
     /**
      * Renames the certain folder using fileId from a {@link Request} and validates new name by {@link RenamingCommand}.
-     *
-     * @param request  The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     * @param id       The user identification
-     * @return The empty message in the successful case or an error message if ValidationException was thrown.
      */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {
