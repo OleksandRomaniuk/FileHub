@@ -1,14 +1,13 @@
-package com.teamdev.filehub.database.userTokens;
+package com.teamdev.filehub.database.data;
 
 import com.google.common.base.Preconditions;
-import com.teamdev.filehub.database.Data;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.LocalDateTime;
 
 
 /**
- * Hold  id of user and his token.
+ * Holds all id of user and his token.
  */
 public class UserTokensData extends Data {
 

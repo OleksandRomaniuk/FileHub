@@ -1,4 +1,4 @@
-package com.teamdev.filehub.database;
+package com.teamdev.filehub.database.data;
 
 import com.google.common.base.Preconditions;
 

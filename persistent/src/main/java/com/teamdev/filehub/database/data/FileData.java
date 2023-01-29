@@ -1,15 +1,15 @@
-package com.teamdev.filehub.database.file;
+package com.teamdev.filehub.database.data;
 
 import com.google.common.base.Preconditions;
-import com.teamdev.filehub.database.Data;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * Hold all information about file for database.
+ * Holds all information about file for database
  */
 public class FileData extends Data {
 
+    //private String id;
     private final String name;
 
     private final Double size;

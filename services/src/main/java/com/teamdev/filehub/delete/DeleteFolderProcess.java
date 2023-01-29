@@ -7,7 +7,7 @@ import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FileDao;
 import com.teamdev.filehub.repository.FolderDao;
-import com.teamdev.filehub.storage.FileStorage;
+import com.teamdev.filehub.database.util.FileStorage;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;

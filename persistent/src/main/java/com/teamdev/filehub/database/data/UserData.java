@@ -1,13 +1,12 @@
-package com.teamdev.filehub.database.user;
+package com.teamdev.filehub.database.data;
 
 import com.google.common.base.Preconditions;
-import com.teamdev.filehub.database.Data;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 
 /**
- * Hold all  important information about user
+ * Storing  information about user
  */
 public class UserData extends Data {
 

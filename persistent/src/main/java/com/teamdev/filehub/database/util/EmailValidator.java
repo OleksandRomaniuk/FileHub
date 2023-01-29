@@ -1,11 +1,11 @@
-package com.teamdev.filehub.record;
+package com.teamdev.filehub.database.util;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * {@code EmailValidator} is needed for validation email.
+ * This example demonstrate ho to validate email.
  */
 public class EmailValidator {
 
@@ -19,8 +19,6 @@ public class EmailValidator {
 
     /**
      * Checks if the entered email is correctю
-     * @param hex - email
-     * @return mail correctness
      */
     @ParametersAreNonnullByDefault
     public static boolean validate(final String hex) {

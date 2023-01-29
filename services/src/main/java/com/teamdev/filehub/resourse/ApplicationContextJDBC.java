@@ -30,7 +30,7 @@ import com.teamdev.filehub.repository.sql.FileDaoInDB;
 import com.teamdev.filehub.repository.sql.FolderDaoInDB;
 import com.teamdev.filehub.repository.sql.UserDaoInDB;
 import com.teamdev.filehub.savefile.SaveFileProcess;
-import com.teamdev.filehub.storage.FileStorage;
+import com.teamdev.filehub.database.util.FileStorage;
 
 public class ApplicationContextJDBC implements ApplicationContext {
 

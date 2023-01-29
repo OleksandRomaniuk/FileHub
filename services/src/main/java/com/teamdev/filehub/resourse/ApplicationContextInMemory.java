@@ -31,7 +31,7 @@ import com.teamdev.filehub.repository.inmemory.FileDaoInMemory;
 import com.teamdev.filehub.repository.inmemory.FolderInMemoryDao;
 import com.teamdev.filehub.repository.inmemory.UserDaoInMemory;
 import com.teamdev.filehub.savefile.SaveFileProcess;
-import com.teamdev.filehub.storage.FileStorage;
+import com.teamdev.filehub.database.util.FileStorage;
 
 
 public class ApplicationContextInMemory implements ApplicationContext {

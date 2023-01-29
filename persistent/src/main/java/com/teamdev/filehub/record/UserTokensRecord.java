@@ -6,7 +6,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.LocalDateTime;
 
 /**
- * An implementation of {@link Record} for holding metadata about user and his token.
+ * Holding metadata about user and his token.
  */
 
 public class UserTokensRecord extends Record {

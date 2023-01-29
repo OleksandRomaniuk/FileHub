@@ -7,7 +7,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 
 /**
- * An implementation of {@link Record} for holding metadata about user with encrypted password.
+ * Holding metadata about user with encrypted password.
  */
 public class UserRecord extends Record {
 

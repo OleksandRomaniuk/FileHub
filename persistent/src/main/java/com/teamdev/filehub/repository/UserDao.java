@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface for user data access objects that work with a {@link UserRecord}
+ * User data access objects
  */
 public interface UserDao extends EntityDao<UserRecord, RecordId> {
 

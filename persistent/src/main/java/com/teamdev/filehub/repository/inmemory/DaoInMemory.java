@@ -22,8 +22,6 @@ public abstract class DaoInMemory<E extends Record, T extends Table<E>> implemen
     @Override
     public List<E> findAll() {
 
-        logger.atInfo().log("Read list of object: %s", table.getListOfObjects());
-
         return table.getListOfObjects();
     }
 
@@ -38,7 +36,6 @@ public abstract class DaoInMemory<E extends Record, T extends Table<E>> implemen
 
         table.add(entity);
 
-        logger.atInfo().log("Add : %s", entity);
     }
 
     @Override
@@ -46,15 +43,11 @@ public abstract class DaoInMemory<E extends Record, T extends Table<E>> implemen
 
         table.update(entity);
 
-        logger.atInfo().log("Update : %s", entity);
-
         return entity;
     }
 
     @Override
     public void delete(RecordId id) {
-
-        logger.atInfo().log("Delete entity with id: %s", id);
 
         table.delete(id.getId());
     }

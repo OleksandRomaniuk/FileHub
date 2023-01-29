@@ -5,14 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * ConnectionJDBC is a class that provides JDBC connection to a relational database.
- * This class is responsible for handling the connection details and providing a connection to the database.
+ * Provides JDBC connection to a relational database.
  */
 public class ConnectionJDBC {
 
     private static final String URL = "jdbc:mysql://localhost:3306/FileHub";
     private static final String USER = "root";
-    private static final String PASSWORD = "11017811";
+    private static final String PASSWORD = "root";
 
 
     public static Connection getConnection(boolean autocommit) throws SQLException {

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.sql.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
 
 public class FileDaoInDB implements FileDao {
 

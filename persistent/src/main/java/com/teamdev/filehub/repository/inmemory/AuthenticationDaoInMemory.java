@@ -1,7 +1,7 @@
 package com.teamdev.filehub.repository.inmemory;
 
 import com.teamdev.filehub.database.DataBase;
-import com.teamdev.filehub.database.userTokens.UserTokensTable;
+import com.teamdev.filehub.database.table.UserTokensTable;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.record.UserTokensRecord;
 import com.teamdev.filehub.repository.AuthenticationDao;

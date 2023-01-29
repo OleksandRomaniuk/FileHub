@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface for folder data access objects that work with a {@link FileRecord}.
+ * Folder data access objects
  */
 public interface FolderDao extends EntityDao<FolderRecord, RecordId> {
 

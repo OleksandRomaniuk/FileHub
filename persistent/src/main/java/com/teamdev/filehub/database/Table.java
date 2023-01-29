@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.flogger.FluentLogger;
 import com.google.gson.Gson;
 import com.teamdev.filehub.record.Record;
-import com.teamdev.filehub.util.DataBaseException;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
@@ -38,9 +37,6 @@ public abstract class Table<S extends Record> {
 
     /**
      * Add object {@link S} into list and file.
-     *
-     * @param entity - the record of new object
-     * @return added instance of {@link S}
      */
     @ParametersAreNonnullByDefault
     public S add(S entity) {
@@ -85,9 +81,6 @@ public abstract class Table<S extends Record> {
 
     /**
      * Find and check if  such record exist in table.
-     *
-     * @param id - id of searching entity
-     * @return boolean value if such record exist in table
      */
     @ParametersAreNonnullByDefault
     public boolean containsId(String id) {
@@ -101,8 +94,6 @@ public abstract class Table<S extends Record> {
 
     /**
      * Delete entity by id.
-     *
-     * @param id - id of deleting entity
      */
     @ParametersAreNonnullByDefault
     public void delete(String id) {
@@ -129,9 +120,6 @@ public abstract class Table<S extends Record> {
 
     /**
      * Find user with such email.
-     *
-     * @param id - id of searching entity
-     * @return optional value of {@link S}
      */
     @ParametersAreNonnullByDefault
     public Optional<S> readById(String id) {

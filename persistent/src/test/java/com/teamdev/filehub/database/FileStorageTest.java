@@ -1,6 +1,7 @@
-package com.teamdev.filehub.storage;
+package com.teamdev.filehub.database;
 
 import com.google.common.truth.Truth;
+import com.teamdev.filehub.database.util.FileStorage;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

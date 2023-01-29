@@ -2,7 +2,7 @@ package com.teamdev.filehub.database;
 
 import com.google.common.testing.NullPointerTester;
 import com.google.common.truth.Truth;
-import com.teamdev.filehub.database.user.UserData;
+import com.teamdev.filehub.database.data.UserData;
 import org.junit.jupiter.api.Test;
 
 class UserDataTest {

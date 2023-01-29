@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import com.teamdev.filehub.record.FileRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FileDao;
-import com.teamdev.filehub.storage.FileStorage;
+import com.teamdev.filehub.database.util.FileStorage;
 import com.teamdev.filehub.util.ConstTimeZone;
 
 import javax.annotation.ParametersAreNonnullByDefault;

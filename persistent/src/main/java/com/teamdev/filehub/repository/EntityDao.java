@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A generic interface for data access objects that work with a single entity class.
- *
+ * Data access objects that work with a single entity class.
  * @param <T> The entity class.
  * @param <K> The identifier for searching.
  */

@@ -2,13 +2,13 @@ package com.teamdev.filehub.record;
 
 import com.google.common.base.Preconditions;
 /**
- * An implementation of {@link Record} for holding metadata about folder.
+ * Holding metadata about folder.
  */
 public class FolderRecord extends Record {
 
     private  String name;
 
-    private String parentId; //id of parent folder
+    private String parentId;
 
     private  String ownerId;
 

@@ -1,4 +1,4 @@
-package com.teamdev.filehub.database.userTokens;
+package com.teamdev.filehub.database.table;
 
 import com.teamdev.filehub.database.Table;
 import com.teamdev.filehub.record.UserTokensRecord;
@@ -7,7 +7,7 @@ import com.teamdev.filehub.util.ConstTimeZone;
 import java.time.LocalDateTime;
 
 /**
- * {@code Table} for storing information about user tokens.
+ * Storing information about user tokens.
  */
 public class UserTokensTable extends Table<UserTokensRecord> {
 

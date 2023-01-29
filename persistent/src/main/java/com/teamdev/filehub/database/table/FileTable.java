@@ -1,10 +1,10 @@
-package com.teamdev.filehub.database.file;
+package com.teamdev.filehub.database.table;
 
 import com.teamdev.filehub.database.Table;
 import com.teamdev.filehub.record.FileRecord;
 
 /**
- * The implementation of {@link Table} for  information about file.
+ * Storing information about file.
  */
 public class FileTable extends Table<FileRecord> {
 

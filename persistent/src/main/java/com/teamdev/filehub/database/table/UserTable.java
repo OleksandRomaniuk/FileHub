@@ -1,4 +1,4 @@
-package com.teamdev.filehub.database.user;
+package com.teamdev.filehub.database.table;
 
 import com.teamdev.filehub.database.Table;
 import com.teamdev.filehub.record.UserRecord;
@@ -6,7 +6,7 @@ import com.teamdev.filehub.record.UserRecord;
 import java.util.Optional;
 
 /**
- * The implementation of {@link Table} for storing information about users.
+ * Storing information about users.
  */
 public class UserTable extends Table<UserRecord> {
 

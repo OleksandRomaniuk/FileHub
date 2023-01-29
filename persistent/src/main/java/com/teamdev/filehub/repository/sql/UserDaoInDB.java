@@ -4,7 +4,6 @@ package com.teamdev.filehub.repository.sql;
 import com.google.common.flogger.FluentLogger;
 
 import com.teamdev.filehub.record.Email;
-import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.record.UserRecord;
 import com.teamdev.filehub.repository.UserDao;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.sql.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
 
 /**
  * The implementation of {@link UserDao} for data access objects
@@ -33,22 +32,20 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection connection = getConnection();
 
-             Statement stmt = con.createStatement();
+             Statement stmt = connection.createStatement();
 
-             ResultSet rs = stmt.executeQuery(UserDaoConstants.FROM_USERS)) {
+             ResultSet resultSet = stmt.executeQuery(UserDaoConstants.FROM_USERS)) {
 
-            while (rs.next()) {
+            while (resultSet.next()) {
 
-                users.add(mapUser(rs));
+                users.add(mapUser(resultSet));
             }
         } catch (SQLException e) {
 
             throw new RuntimeException(e.getMessage());
         }
-
-        logger.atInfo().log("We read list of users: %s", users);
 
         return users;
     }
@@ -58,13 +55,13 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection connection = getConnection();
 
-             PreparedStatement stmt = con.prepareStatement(UserDaoConstants.FROM_USERS_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(UserDaoConstants.FROM_USERS_BY_ID)) {
 
-            stmt.setString(1, "%" + escapeForLike(identifier.getId()) + "%");
+            statement.setString(1, "%" + escapeForLike(identifier.getId()) + "%");
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = statement.executeQuery()) {
 
                 while (rs.next()) {
 
@@ -88,17 +85,17 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection connection = getConnection();
 
-             PreparedStatement stmt = con.prepareStatement(UserDaoConstants.FROM_USERS_BY_EMAIL)) {
+             PreparedStatement stmt = connection.prepareStatement(UserDaoConstants.FROM_USERS_BY_EMAIL)) {
 
             stmt.setString(1, email.getEmail());
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet resultSet = stmt.executeQuery()) {
 
-                while (rs.next()) {
+                while (resultSet.next()) {
 
-                    users.add(mapUser(rs));
+                    users.add(mapUser(resultSet));
                 }
             } catch (SQLException e) {
 
@@ -120,23 +117,23 @@ public class UserDaoInDB  implements UserDao {
     @Override
     public void create(UserRecord entity) {
 
-        Connection con = null;
+        Connection connection = null;
 
-        PreparedStatement stmt = null;
+        PreparedStatement statement = null;
 
         try {
 
-            con = getConnection();
+            connection = getConnection();
 
-            stmt = con.prepareStatement(UserDaoConstants.INSERT_INTO_USERS);
+            statement = connection.prepareStatement(UserDaoConstants.INSERT_INTO_USERS);
 
             int k = 0;
 
-            stmt.setString(++k, entity.getId().getId());
-            stmt.setString(++k, entity.getEmail());
-            stmt.setString(++k, entity.getPassword());
+            statement.setString(++k, entity.getId().getId());
+            statement.setString(++k, entity.getEmail());
+            statement.setString(++k, entity.getPassword());
 
-            int count = stmt.executeUpdate();
+            int count = statement.executeUpdate();
 
         } catch (SQLException e) {
 
@@ -145,31 +142,31 @@ public class UserDaoInDB  implements UserDao {
             throw new RuntimeException(e.getMessage());
         } finally {
 
-            close(con);
-            close(stmt);
+            close(connection);
+            close(statement);
         }
     }
 
     @Override
     public UserRecord update(UserRecord entity) {
 
-        Connection con = null;
+        Connection connection = null;
 
-        PreparedStatement stmt = null;
+        PreparedStatement statement = null;
 
         try {
 
-            con = getConnection();
+            connection = getConnection();
 
-            stmt = con.prepareStatement(UserDaoConstants.UPDATE_USERS);
+            statement = connection.prepareStatement(UserDaoConstants.UPDATE_USERS);
 
             int k = 0;
 
-            stmt.setString(++k, entity.getEmail());
-            stmt.setString(++k, entity.getPassword());
-            stmt.setString(++k, entity.getId().getId());
+            statement.setString(++k, entity.getEmail());
+            statement.setString(++k, entity.getPassword());
+            statement.setString(++k, entity.getId().getId());
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
 
         } catch (SQLException e) {
 
@@ -178,8 +175,8 @@ public class UserDaoInDB  implements UserDao {
             throw new RuntimeException(e.getMessage());
         } finally {
 
-            close(con);
-            close(stmt);
+            close(connection);
+            close(statement);
         }
         return entity;
     }
@@ -187,25 +184,25 @@ public class UserDaoInDB  implements UserDao {
     @Override
     public void delete(RecordId entity) {
 
-        Connection con = null;
+        Connection connection = null;
 
-        PreparedStatement stmt = null;
+        PreparedStatement statement = null;
 
         try {
 
-            con = getConnection();
+            connection = getConnection();
 
-            stmt = con.prepareStatement(UserDaoConstants.DELETE_PERSON_BY_ID);
+            statement = connection.prepareStatement(UserDaoConstants.DELETE_PERSON_BY_ID);
 
-            stmt.setString(1, entity.getId());
-            //int count = stmt.executeUpdate();
+            statement.setString(1, entity.getId());
+
         } catch (SQLException e) {
             //log
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         } finally {
-            close(con);
-            close(stmt);
+            close(connection);
+            close(statement);
         }
 
     }
@@ -222,10 +219,10 @@ public class UserDaoInDB  implements UserDao {
     }
 
 
-    private void close(AutoCloseable con) {
-        if (con != null) {
+    private void close(AutoCloseable connection) {
+        if (connection != null) {
             try {
-                con.close();
+                connection.close();
             } catch (Exception e) {
                 logger.atInfo().log("During close connection catch Exception, %s", e.getMessage());
             }

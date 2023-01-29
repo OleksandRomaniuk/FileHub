@@ -1,4 +1,4 @@
-package com.teamdev.filehub.storage;
+package com.teamdev.filehub.database.util;
 
 import com.google.common.base.Preconditions;
 
@@ -7,7 +7,8 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * Class that provides functionality for storing, and managing files.
+ * This example demonstrate  storing and managing files. Also, it
+ * responsible for handling file operations such as uploading and downloading.
  */
 public class FileStorage {
 
@@ -26,6 +27,7 @@ public class FileStorage {
                     getClass()
                             .getClassLoader()
                             .getResourceAsStream("application.properties");
+
 
             File file = new File("./src/main/resources/text.txt");
 
@@ -70,22 +72,6 @@ public class FileStorage {
             file = new File(rootPackage);
         }
 
-        /*if (!file.exists()) {
-
-            file.mkdirs();
-
-            file = new File(rootPackage + idFile);
-
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            file = new File(rootPackage + idFile);
-
-        }*/
-
         try (OutputStream outputStream = new FileOutputStream(file)) {
 
             content.transferTo(outputStream);
@@ -121,10 +107,6 @@ public class FileStorage {
         String pathToFile = root + "\\" + name;
 
         file = new File(pathToFile);
-
-        if (file.delete()) {
-            System.out.println("file.txt файл был удален с корневой папки проекта");
-        } else System.out.println("Файл file.txt не был найден в корневой папке проекта");
 
     }
 

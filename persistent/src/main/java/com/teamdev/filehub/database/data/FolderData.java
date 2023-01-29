@@ -1,10 +1,7 @@
-package com.teamdev.filehub.database.folder;
-
-import com.google.common.base.Preconditions;
-import com.teamdev.filehub.database.Data;
+package com.teamdev.filehub.database.data;
 
 /**
- * {@code FolderData} holds all information about folder for database.
+ * Holds all information about folder for database.
  */
 public class FolderData extends Data {
 

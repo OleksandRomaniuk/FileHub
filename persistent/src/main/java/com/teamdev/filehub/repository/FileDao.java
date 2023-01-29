@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface for files data access objects that work with a {@link FileRecord}.
+ * Files data access objects
  */
 public interface FileDao extends EntityDao<FileRecord, RecordId> {
     @Override

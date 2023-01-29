@@ -17,8 +17,7 @@ import java.util.Optional;
 import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
 
 /**
- * The implementation of {@link AuthenticationDao} for data access objects
- * that work with {@link UserTokensRecord} and written to the database.
+ * Data access objects for writing to the database.
  */
 public class AuthenticationDaoInDB implements AuthenticationDao {
 
