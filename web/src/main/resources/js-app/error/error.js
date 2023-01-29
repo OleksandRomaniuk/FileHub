@@ -29,11 +29,6 @@ export class ErrorComponent extends Component {
         <h1>oops!</h1>
         <h2>Error 404 : Page Not Found</h2>
         <a href="#">go back</a>
-        <div class="notfound-social">
-            <a href="https://www.facebook.com/TeamDev"><i class="fa fa-facebook"></i></a>
-            <a href="https://www.linkedin.com/company/teamdev-ltd-/"><i class="fa fa-linkedin-square"></i></a>
-            <a href="https://www.instagram.com/teamdev_ltd/"><i class="fa fa-instagram"></i></a>
-        </div>
     </div>
 </div>
 
