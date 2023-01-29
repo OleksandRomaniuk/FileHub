@@ -1,4 +1,4 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

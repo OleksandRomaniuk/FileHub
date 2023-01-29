@@ -1,8 +1,16 @@
-package com.teamdev.filehub.repository.dbconstants;
+package com.teamdev.filehub.dbconstants;
 /**
  * The queries for work with folder table in database.
  */
 public class FolderDaoConstants {
+
+       public static final String INSERT_INTO_FOLDER
+            = "insert into folder (id, name, parentId, ownerId) values ( ?, ?, ?, ?);";
+
+    public static final String UPDATE_FOLDER = """
+            UPDATE folder
+            SET name = ?, parentId = ?, ownerId = ?
+            WHERE id = ?;""";
 
     public static String FROM_FOLDER = "select * from folder;";
 
@@ -11,14 +19,6 @@ public class FolderDaoConstants {
     public static String FROM_FOLDER_BY_PARENT_ID = "select *from folder where parentId = ?;";
 
     public static String FROM_FOLDER_BY_PARENT_ID_AND_NAME = "select *from folder where parentId = ? and name like ?;";
-
-    public static final String INSERT_INTO_FOLDER
-            = "insert into folder (id, name, parentId, ownerId) values ( ?, ?, ?, ?);";
-
-    public static final String UPDATE_FOLDER = """
-            UPDATE folder
-            SET name = ?, parentId = ?, ownerId = ?
-            WHERE id = ?;""";
 
     public static final String UPDATE_NAME = "UPDATE folder SET name = ? WHERE id = ?;";
 

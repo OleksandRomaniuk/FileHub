@@ -1,10 +1,10 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 import com.google.common.flogger.FluentLogger;
+import com.teamdev.filehub.dbconstants.AuthenticationDaoConstants;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.record.UserTokensRecord;
 import com.teamdev.filehub.repository.AuthenticationDao;
-import com.teamdev.filehub.repository.dbconstants.AuthenticationDaoConstants;
 import com.teamdev.filehub.util.ConstTimeZone;
 
 import java.sql.*;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
+import static com.teamdev.filehub.sql.ConnectionJDBC.getConnection;
 
 /**
  * Data access objects for writing to the database.
@@ -28,7 +28,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         List<UserTokensRecord> tokensRecords = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionJDBC.getConnection();
 
              Statement stmt = con.createStatement();
 
@@ -51,7 +51,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         UserTokensRecord user = null;
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionJDBC.getConnection();
 
              PreparedStatement stmt = con.prepareStatement(AuthenticationDaoConstants.FROM_USER_TOKEN_BY_ID)) {
 
@@ -82,7 +82,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         try {
 
-            con = getConnection();
+            con = ConnectionJDBC.getConnection();
 
             stmt = con.prepareStatement(AuthenticationDaoConstants.INSERT_INTO_USER_TOKEN);
 
@@ -116,7 +116,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         try {
 
-            con = getConnection();
+            con = ConnectionJDBC.getConnection();
 
             stmt = con.prepareStatement(AuthenticationDaoConstants.UPDATE_USER_TOKEN);
 
@@ -150,7 +150,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         try {
 
-            con = getConnection();
+            con = ConnectionJDBC.getConnection();
 
             stmt = con.prepareStatement(AuthenticationDaoConstants.DELETE_USER_TOKEN_BY_ID);
 
@@ -187,7 +187,7 @@ public class AuthenticationDaoInDB implements AuthenticationDao {
 
         UserTokensRecord user = null;
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionJDBC.getConnection();
 
              PreparedStatement stmt = con.prepareStatement(AuthenticationDaoConstants.FROM_USER_TOKEN_BY_TOKEN)) {
 

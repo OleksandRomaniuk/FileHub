@@ -1,18 +1,18 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 import com.google.common.flogger.FluentLogger;
+import com.teamdev.filehub.dbconstants.EscapeForLike;
+import com.teamdev.filehub.dbconstants.FileDaoConstants;
 import com.teamdev.filehub.record.FileRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FileDao;
-import com.teamdev.filehub.repository.dbconstants.FileDaoConstants;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.sql.ConnectionJDBC.getConnection;
 
 public class FileDaoInDB implements FileDao {
 
@@ -52,7 +52,7 @@ public class FileDaoInDB implements FileDao {
 
              PreparedStatement stmt = con.prepareStatement(FileDaoConstants.FROM_FILES_BY_ID)) {
 
-            stmt.setString(1, "%" + escapeForLike(identifier.getId()) + "%");
+            stmt.setString(1, "%" + EscapeForLike.escapeForLike(identifier.getId()) + "%");
 
             try (ResultSet rs = stmt.executeQuery()) {
 
@@ -269,7 +269,7 @@ public class FileDaoInDB implements FileDao {
              PreparedStatement stmt = con.prepareStatement(FileDaoConstants.FROM_FILES_BY_PARENT_ID_AND_NAME)) {
 
             stmt.setString(1, parentId);
-            stmt.setString(2, "%" + escapeForLike(name) + "%");
+            stmt.setString(2, "%" + EscapeForLike.escapeForLike(name) + "%");
 
             try (ResultSet rs = stmt.executeQuery()) {
 

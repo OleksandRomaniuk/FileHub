@@ -1,13 +1,14 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 
 import com.google.common.flogger.FluentLogger;
 
+import com.teamdev.filehub.dbconstants.EscapeForLike;
+import com.teamdev.filehub.dbconstants.UserDaoConstants;
 import com.teamdev.filehub.record.Email;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.record.UserRecord;
 import com.teamdev.filehub.repository.UserDao;
-import com.teamdev.filehub.repository.dbconstants.UserDaoConstants;
 
 
 import java.sql.*;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.sql.ConnectionJDBC.getConnection;
 
 /**
  * The implementation of {@link UserDao} for data access objects
@@ -32,7 +32,7 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionJDBC.getConnection();
 
              Statement stmt = connection.createStatement();
 
@@ -55,11 +55,11 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionJDBC.getConnection();
 
-             PreparedStatement statement = connection.prepareStatement(UserDaoConstants.FROM_USERS_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(UserDaoConstants.USERS_BY_ID)) {
 
-            statement.setString(1, "%" + escapeForLike(identifier.getId()) + "%");
+            statement.setString(1, "%" + EscapeForLike.escapeForLike(identifier.getId()) + "%");
 
             try (ResultSet rs = statement.executeQuery()) {
 
@@ -85,9 +85,9 @@ public class UserDaoInDB  implements UserDao {
 
         List<UserRecord> users = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = ConnectionJDBC.getConnection();
 
-             PreparedStatement stmt = connection.prepareStatement(UserDaoConstants.FROM_USERS_BY_EMAIL)) {
+             PreparedStatement stmt = connection.prepareStatement(UserDaoConstants.USERS_BY_EMAIL)) {
 
             stmt.setString(1, email.getEmail());
 
@@ -123,7 +123,7 @@ public class UserDaoInDB  implements UserDao {
 
         try {
 
-            connection = getConnection();
+            connection = ConnectionJDBC.getConnection();
 
             statement = connection.prepareStatement(UserDaoConstants.INSERT_INTO_USERS);
 
@@ -156,7 +156,7 @@ public class UserDaoInDB  implements UserDao {
 
         try {
 
-            connection = getConnection();
+            connection = ConnectionJDBC.getConnection();
 
             statement = connection.prepareStatement(UserDaoConstants.UPDATE_USERS);
 
@@ -190,9 +190,9 @@ public class UserDaoInDB  implements UserDao {
 
         try {
 
-            connection = getConnection();
+            connection = ConnectionJDBC.getConnection();
 
-            statement = connection.prepareStatement(UserDaoConstants.DELETE_PERSON_BY_ID);
+            statement = connection.prepareStatement(UserDaoConstants.DELETE_USER_BY_ID);
 
             statement.setString(1, entity.getId());
 

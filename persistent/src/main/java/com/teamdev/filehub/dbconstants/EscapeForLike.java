@@ -1,4 +1,4 @@
-package com.teamdev.filehub.repository.dbconstants;
+package com.teamdev.filehub.dbconstants;
 
 public class EscapeForLike {
 

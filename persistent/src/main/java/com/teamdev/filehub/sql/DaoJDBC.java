@@ -1,18 +1,18 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 import com.google.common.flogger.FluentLogger;
+import com.teamdev.filehub.dbconstants.EscapeForLike;
+import com.teamdev.filehub.dbconstants.UserDaoConstants;
 import com.teamdev.filehub.record.Record;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.EntityDao;
-import com.teamdev.filehub.repository.dbconstants.UserDaoConstants;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.sql.ConnectionJDBC.getConnection;
 
 public abstract class DaoJDBC<E extends Record> implements EntityDao<E, RecordId> {
 
@@ -23,7 +23,7 @@ public abstract class DaoJDBC<E extends Record> implements EntityDao<E, RecordId
 
         List<E> users = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionJDBC.getConnection();
 
              Statement statement = con.createStatement();
 
@@ -46,13 +46,13 @@ public abstract class DaoJDBC<E extends Record> implements EntityDao<E, RecordId
 
         List<E> users = new ArrayList<>();
 
-        try (Connection con = getConnection();
+        try (Connection con = ConnectionJDBC.getConnection();
 
-             PreparedStatement stmt = con.prepareStatement(UserDaoConstants.FROM_USERS_BY_ID);) {
+             PreparedStatement stmt = con.prepareStatement(UserDaoConstants.USERS_BY_ID);) {
 
             int k = 1;
 
-            stmt.setString(k++, "%" + escapeForLike(id.getId()) + "%");
+            stmt.setString(k++, "%" + EscapeForLike.escapeForLike(id.getId()) + "%");
 
             try (ResultSet rs = stmt.executeQuery();) {
 
@@ -80,7 +80,7 @@ public abstract class DaoJDBC<E extends Record> implements EntityDao<E, RecordId
 
         try {
 
-            connection = getConnection();
+            connection = ConnectionJDBC.getConnection();
 
             stmt = connection.prepareStatement(UserDaoConstants.INSERT_INTO_USERS);
 
@@ -115,9 +115,9 @@ public abstract class DaoJDBC<E extends Record> implements EntityDao<E, RecordId
 
         try {
 
-            con = getConnection();
+            con = ConnectionJDBC.getConnection();
 
-            stmt = con.prepareStatement(UserDaoConstants.DELETE_PERSON_BY_ID);
+            stmt = con.prepareStatement(UserDaoConstants.DELETE_USER_BY_ID);
 
             stmt.setString(1, id.getId());
 

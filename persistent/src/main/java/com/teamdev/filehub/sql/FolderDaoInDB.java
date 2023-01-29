@@ -1,18 +1,18 @@
-package com.teamdev.filehub.repository.sql;
+package com.teamdev.filehub.sql;
 
 import com.google.common.flogger.FluentLogger;
+import com.teamdev.filehub.dbconstants.EscapeForLike;
+import com.teamdev.filehub.dbconstants.FolderDaoConstants;
 import com.teamdev.filehub.record.FolderRecord;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.repository.FolderDao;
-import com.teamdev.filehub.repository.dbconstants.FolderDaoConstants;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.teamdev.filehub.repository.sql.ConnectionJDBC.getConnection;
-import static com.teamdev.filehub.repository.dbconstants.EscapeForLike.escapeForLike;
+import static com.teamdev.filehub.sql.ConnectionJDBC.getConnection;
 
 public class FolderDaoInDB implements FolderDao {
 
@@ -299,7 +299,7 @@ public class FolderDaoInDB implements FolderDao {
              PreparedStatement stmt = con.prepareStatement(FolderDaoConstants.FROM_FOLDER_BY_PARENT_ID_AND_NAME)) {
 
             stmt.setString(1, parentId);
-            stmt.setString(2, "%" + escapeForLike(name) + "%");
+            stmt.setString(2, "%" + EscapeForLike.escapeForLike(name) + "%");
 
             try (ResultSet rs = stmt.executeQuery()) {
 

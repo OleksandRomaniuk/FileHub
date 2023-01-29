@@ -1,9 +1,9 @@
 package com.teamdev.filehub.database;
 
-import com.teamdev.filehub.database.file.FileTable;
-import com.teamdev.filehub.database.folder.FolderTable;
-import com.teamdev.filehub.database.user.UserTable;
-import com.teamdev.filehub.database.userTokens.UserTokensTable;
+import com.teamdev.filehub.database.table.FileTable;
+import com.teamdev.filehub.database.table.FolderTable;
+import com.teamdev.filehub.database.table.UserTable;
+import com.teamdev.filehub.database.table.UserTokensTable;
 
 /**
  * DataBase for storing tables.

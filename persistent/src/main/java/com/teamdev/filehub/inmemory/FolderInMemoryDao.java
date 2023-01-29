@@ -1,4 +1,4 @@
-package com.teamdev.filehub.repository.inmemory;
+package com.teamdev.filehub.inmemory;
 
 import com.teamdev.filehub.database.DataBase;
 import com.teamdev.filehub.database.table.FolderTable;

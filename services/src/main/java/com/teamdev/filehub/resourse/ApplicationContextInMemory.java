@@ -26,10 +26,10 @@ import com.teamdev.filehub.repository.AuthenticationDao;
 import com.teamdev.filehub.repository.FileDao;
 import com.teamdev.filehub.repository.FolderDao;
 import com.teamdev.filehub.repository.UserDao;
-import com.teamdev.filehub.repository.inmemory.AuthenticationDaoInMemory;
-import com.teamdev.filehub.repository.inmemory.FileDaoInMemory;
-import com.teamdev.filehub.repository.inmemory.FolderInMemoryDao;
-import com.teamdev.filehub.repository.inmemory.UserDaoInMemory;
+import com.teamdev.filehub.inmemory.AuthenticationDaoInMemory;
+import com.teamdev.filehub.inmemory.FileDaoInMemory;
+import com.teamdev.filehub.inmemory.FolderInMemoryDao;
+import com.teamdev.filehub.inmemory.UserDaoInMemory;
 import com.teamdev.filehub.savefile.SaveFileProcess;
 import com.teamdev.filehub.database.util.FileStorage;
 
