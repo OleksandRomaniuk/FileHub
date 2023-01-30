@@ -3,7 +3,7 @@ package com.teamdev.spark;
 import com.google.common.testing.NullPointerTester;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.authenticateduser.UnauthorizedException;
-import com.teamdev.filehub.delete.DeleteFileProcess;
+import com.teamdev.filehub.logout.LogOutProcess;
 import com.teamdev.filehub.record.RecordId;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,47 +12,34 @@ import spark.Response;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 
-class DeleteFileRouteTest {
+class LogoutRouteTest {
 
     @Test
-    void shouldSuccessfulDeleteFile() throws UnauthorizedException {
+    void shouldSuccessfulLogout() throws UnauthorizedException {
 
         final RecordId testRecordId = new RecordId("testId");
 
-        DeleteFileProcess process = Mockito.mock(DeleteFileProcess.class);
+        LogOutProcess process = Mockito.mock(LogOutProcess.class);
+        Mockito.when(process.handle(Mockito.any())).thenReturn(testRecordId);
 
         AuthenticatedView authenticatedView = Mockito.mock(AuthenticatedView.class);
         Mockito.when(authenticatedView.run(Mockito.any())).thenReturn(testRecordId);
 
-        DeleteFileRoute route = new DeleteFileRoute(authenticatedView, process);
-
-        final String fileId = "testFileId";
+        LogoutRoute route = new LogoutRoute(authenticatedView, process);
 
         Request request = Mockito.mock(Request.class);
-        Mockito.when(request.params("fileId")).thenReturn(fileId);
         Response response = Mockito.mock(Response.class);
 
-        assertWithMessage("Failed to delete the file")
+        assertWithMessage("Failed to logout")
                 .that(route.authorizedHandle(request, response, new RecordId("testOwnerId")))
-                .isEqualTo("");
-
+                .isEqualTo(
+                        "{\"id\":\"testId\"}");
         Mockito.verify(response).status(200);
-        Mockito.verify(request).params("fileId");
         Mockito.verify(process).handle(Mockito.any());
     }
 
     @Test
     void evaluationForNull() {
-
-        NullPointerTester nullPointerTester = new NullPointerTester();
-
-        AuthenticatedView authenticatedView = Mockito.mock(AuthenticatedView.class);
-        DeleteFileProcess deleteFileProcess = Mockito.mock(DeleteFileProcess.class);
-
-        nullPointerTester.setDefault(AuthenticatedView.class, authenticatedView);
-        nullPointerTester.setDefault(DeleteFileProcess.class, deleteFileProcess);
-
-        nullPointerTester.testAllPublicConstructors(DeleteFileRoute.class);
+        new NullPointerTester().testAllPublicConstructors(LogoutRoute.class);
     }
-
 }
