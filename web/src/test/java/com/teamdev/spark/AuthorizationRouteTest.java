@@ -32,7 +32,7 @@ public class AuthorizationRouteTest {
     }
 
     @Test
-    void shouldFailRegistrationAlreadyRegisteredUser() throws Exception {
+    void registrationAlreadyRegisteredUser() throws Exception {
 
         UserAuthenticationProcess process = Mockito.mock(UserAuthenticationProcess.class);
 

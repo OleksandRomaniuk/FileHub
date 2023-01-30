@@ -11,11 +11,14 @@ import java.util.Map;
 
 import static spark.Spark.*;
 
-public class ApplicationFileHub {
+/**
+ * Entry point to FileHub application
+ */
+public class Application {
 
     public static void main(String[] args) {
         final ApplicationContext context = new ApplicationContextJDBC();
-        port(4000);
+        port(3456);
         staticFiles.location("/js-app/dist");
 
         get("/", (req, res) -> render(new HashMap<>(), "index.html"));
