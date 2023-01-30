@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.LocalDateTime;
 
 /**
- * The process for create new folder in application.
+ * The process for creating new folder in application.
  */
 public class CreateFolderInMemoryProcess implements CreateFolderProcess {
 

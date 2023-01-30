@@ -13,11 +13,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
-import static com.teamdev.filehub.util.Hash.hashPassword;
+import static com.teamdev.filehub.Hash.hashPassword;
 
 /**
- * The implementation of {@link RegistrationProcess} for handling {@link RegisterUserCommand}.
- * Represents an operation creating new user in the system.
+ * Represents an operation for creating new user in the system.
  */
 public class UserRegistrationProcess implements RegistrationProcess {
 

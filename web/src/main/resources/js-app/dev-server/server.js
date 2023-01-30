@@ -44,18 +44,6 @@ const foldersInfo = {
     parentId: 'folder1',
     itemsAmount: 3,
   },
-  'folder3': {
-    name: 'My Trip',
-    id: 'folder3',
-    parentId: 'folder1',
-    itemsAmount: 3,
-  },
-  'folder5': {
-    name: 'Bali',
-    id: 'folder5',
-    parentId: 'folder3',
-    itemsAmount: 3,
-  },
 };
 const foldersContent = {
   'folder1': {
@@ -72,14 +60,6 @@ const foldersContent = {
         name: 'My Trip',
         size: null,
         id: 'folder3',
-        parentId: 'folder1',
-      },
-      {
-        type: 'file',
-        mimetype: 'application/pdf',
-        name: 'HTML_guidelines.pdf',
-        size: '100000',
-        id: 'file4',
         parentId: 'folder1',
       },
     ],
@@ -278,11 +258,6 @@ app.put('/folder/:folderId', (req, res) => {
       res.status(404);
       res.send({error: `file doesn't exist`});
     }
-    // res.status(450);
-    // res.send([{
-    //   field:'input',
-    //   message: 'file doesn\'t exist'
-    // }]);
   }, 1000);
 });
 app.put('/file/:fileId', (req, res) => {
@@ -345,6 +320,5 @@ app.post('/logout', (req, res) => {
   res.send({});
 });
 app.listen(port, () => {
-  // eslint-disable-next-line no-console
   console.log('server is up.');
 });

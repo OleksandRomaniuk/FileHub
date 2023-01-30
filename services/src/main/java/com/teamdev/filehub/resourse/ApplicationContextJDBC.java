@@ -1,24 +1,36 @@
 package com.teamdev.filehub.resourse;
 
+import com.teamdev.filehub.authenticateduser.AuthenticatedUserView;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.authentication.UserAuthenticationProcess;
-import com.teamdev.filehub.getdata.folder.GetFolderDataView;
-import com.teamdev.filehub.getdata.folder.GetFolderView;
-import com.teamdev.filehub.getdata.folder.content.GetFolderContentDataView;
-import com.teamdev.filehub.getdata.folder.content.GetFolderContentView;
-import com.teamdev.filehub.getdata.folder.content.search.GetFolderContentByNameView;
-import com.teamdev.filehub.getdata.folder.content.search.GetFolderContentDataByNameView;
-import com.teamdev.filehub.getdata.user.GetUserDataView;
+import com.teamdev.filehub.delete.DeleteFileProcess;
+import com.teamdev.filehub.delete.DeleteFolderProcess;
+import com.teamdev.filehub.downaldfile.DownloadFileView;
+import com.teamdev.filehub.downaldfile.DownloadView;
+import com.teamdev.filehub.getdata.folder.FolderDataView;
+import com.teamdev.filehub.getdata.folder.FolderView;
+import com.teamdev.filehub.getdata.folder.content.FolderContentDataView;
+import com.teamdev.filehub.getdata.folder.content.FolderContentView;
+import com.teamdev.filehub.search.FolderContentByNameView;
+import com.teamdev.filehub.search.FolderContentDataByNameView;
+import com.teamdev.filehub.getdata.user.UserDataView;
+import com.teamdev.filehub.logout.LogOutProcess;
+import com.teamdev.filehub.logout.LogOutUserProcess;
+import com.teamdev.filehub.newfolder.CreateFolderInMemoryProcess;
+import com.teamdev.filehub.newfolder.CreateFolderProcess;
 import com.teamdev.filehub.registration.UserRegistrationProcess;
+import com.teamdev.filehub.renaming.RenamingFileProcess;
+import com.teamdev.filehub.renaming.RenamingFolderProcess;
 import com.teamdev.filehub.repository.AuthenticationDao;
 import com.teamdev.filehub.repository.FileDao;
 import com.teamdev.filehub.repository.FolderDao;
 import com.teamdev.filehub.repository.UserDao;
-import com.teamdev.filehub.repository.sql.AuthenticationDaoInDB;
-import com.teamdev.filehub.repository.sql.FileDaoInDB;
-import com.teamdev.filehub.repository.sql.FolderDaoInDB;
-import com.teamdev.filehub.repository.sql.UserDaoInDB;
-import com.teamdev.filehub.storage.FileStorage;
+import com.teamdev.filehub.sql.AuthenticationDaoInDB;
+import com.teamdev.filehub.sql.FileDaoInDB;
+import com.teamdev.filehub.sql.FolderDaoInDB;
+import com.teamdev.filehub.sql.UserDaoInDB;
+import com.teamdev.filehub.savefile.SaveFileProcess;
+import com.teamdev.filehub.database.util.FileStorage;
 
 public class ApplicationContextJDBC implements ApplicationContext {
 
@@ -28,6 +40,8 @@ public class ApplicationContextJDBC implements ApplicationContext {
 
     private final UserDao userDao;
 
+    private final SaveFileProcess saveFileProcess;
+
     private final FolderDao folderDao;
 
     private final CreateFolderProcess createFolderProcess;
@@ -36,13 +50,25 @@ public class ApplicationContextJDBC implements ApplicationContext {
 
     private final UserRegistrationProcess userRegistrationProcess;
 
-    private final GetUserDataView gettingUserView;
+    private final RenamingFileProcess renamingFileProcess;
 
-    private final GetFolderView getFolderView;
+    private final RenamingFolderProcess renamingFolderProcess;
 
-    private final GetFolderContentView getFolderContentView;
+    private final DeleteFileProcess deleteFileProcess;
 
-    private final GetFolderContentByNameView getFolderContentByNameView;
+    private final DeleteFolderProcess deleteFolderProcess;
+
+    private final LogOutProcess logOutProcess;
+
+    private final DownloadView downloadView;
+
+    private final UserDataView gettingUserView;
+
+    private final FolderView folderView;
+
+    private final FolderContentView folderContentView;
+
+    private final FolderContentByNameView folderContentByNameView;
 
     private final AuthenticatedView authenticatedUserView;
 
@@ -58,21 +84,36 @@ public class ApplicationContextJDBC implements ApplicationContext {
 
         FileStorage fileStorage = new FileStorage();
 
+        saveFileProcess = new SaveFileProcess(fileDao, fileStorage);
+
         userAuthenticationProcess = new UserAuthenticationProcess(userDao, authenticationDao);
 
         userRegistrationProcess = new UserRegistrationProcess(userDao, folderDao);
 
+        downloadView = new DownloadFileView(fileDao, fileStorage);
+
         createFolderProcess = new CreateFolderInMemoryProcess(folderDao);
 
-        gettingUserView = new GetUserDataView(userDao, folderDao);
+        gettingUserView = new UserDataView(userDao, folderDao);
 
-        getFolderView = new GetFolderDataView(folderDao);
+        folderView = new FolderDataView(folderDao);
 
-        getFolderContentView = new GetFolderContentDataView(folderDao, fileDao);
+        folderContentView = new FolderContentDataView(folderDao, fileDao);
 
-        getFolderContentByNameView = new GetFolderContentDataByNameView(folderDao, fileDao);
+        folderContentByNameView = new FolderContentDataByNameView(folderDao, fileDao);
 
-          }
+        renamingFileProcess = new RenamingFileProcess(fileDao);
+
+        renamingFolderProcess = new RenamingFolderProcess(folderDao);
+
+        logOutProcess = new LogOutUserProcess(authenticationDao);
+
+        authenticatedUserView = new AuthenticatedUserView(authenticationDao);
+
+        deleteFileProcess = new DeleteFileProcess(fileStorage, fileDao);
+
+        deleteFolderProcess = new DeleteFolderProcess(fileStorage, fileDao, folderDao);
+    }
 
     @Override
     public AuthenticationDao getAuthenticationDao() {
@@ -90,6 +131,11 @@ public class ApplicationContextJDBC implements ApplicationContext {
     }
 
     @Override
+    public SaveFileProcess getSaveProcess() {
+        return saveFileProcess;
+    }
+
+    @Override
     public UserAuthenticationProcess getUserAuthenticationProcess() {
         return userAuthenticationProcess;
     }
@@ -98,24 +144,60 @@ public class ApplicationContextJDBC implements ApplicationContext {
     public UserRegistrationProcess getUserRegistrationProcess() {
         return userRegistrationProcess;
     }
+
     @Override
-    public GetUserDataView getUserView() {
+    public SaveFileProcess getSaveFileProcess() {
+        return saveFileProcess;
+    }
+
+    @Override
+    public RenamingFileProcess getRenamingFileProcess() {
+        return renamingFileProcess;
+    }
+
+    @Override
+    public RenamingFolderProcess getRenamingFolderProcess() {
+        return renamingFolderProcess;
+    }
+
+    @Override
+    public DeleteFileProcess getDeleteFileProcess() {
+        return deleteFileProcess;
+    }
+
+    @Override
+    public DeleteFolderProcess getDeleteFolderProcess() {
+        return deleteFolderProcess;
+    }
+
+    @Override
+    public LogOutProcess getLogOutProcess() {
+        return logOutProcess;
+    }
+
+    @Override
+    public DownloadView getDownloadView() {
+        return downloadView;
+    }
+
+    @Override
+    public UserDataView getUserView() {
         return gettingUserView;
     }
 
     @Override
-    public GetFolderView getFolderView() {
-        return getFolderView;
+    public FolderView getFolderView() {
+        return folderView;
     }
 
     @Override
-    public GetFolderContentView getFolderContentView() {
-        return getFolderContentView;
+    public FolderContentView getFolderContentView() {
+        return folderContentView;
     }
 
     @Override
-    public GetFolderContentByNameView getFolderContentByNameView() {
-        return getFolderContentByNameView;
+    public FolderContentByNameView getFolderContentByNameView() {
+        return folderContentByNameView;
     }
 
     @Override

@@ -1,9 +1,9 @@
 import com.github.gradle.node.npm.task.NpmTask
 
-        plugins {
-            java
-            id("com.github.node-gradle.node") version "3.5.1"
-        }
+plugins {
+    java
+    id("com.github.node-gradle.node") version "3.5.1"
+}
 
 java {
     toolchain {
@@ -61,6 +61,9 @@ dependencies {
     // Logging libs
     implementation("com.google.flogger:flogger:0.7.4")
     implementation("com.google.flogger:flogger-system-backend:0.7.4")
+
+    implementation("com.google.guava:guava:30.1.1-jre")
+    testImplementation("com.google.guava:guava-testlib:31.1-jre")
 }
 
 tasks.getByName<Test>("test") {

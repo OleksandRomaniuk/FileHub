@@ -1,8 +1,8 @@
 package com.teamdev.filehub;
 
+import com.teamdev.filehub.authenticateduser.UnauthorizedException;
 import com.teamdev.filehub.authentication.AuthenticationException;
 import com.teamdev.filehub.util.DownloadException;
-import com.teamdev.filehub.authenticateduser.UnauthorizedException;
 
 /**
  * Represents an operation that accepts Query and returns K.

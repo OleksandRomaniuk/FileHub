@@ -5,7 +5,7 @@ import com.teamdev.filehub.newfolder.CreateFolderCommand;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * The interface represents the operation of deleting a file or folder using {@link CreateFolderCommand}.
+ * Represents the operation of deleting a file or folder
  */
 @FunctionalInterface
 public interface DeleteItemProcess extends Process<DeleteItemCommand, RecordId> {

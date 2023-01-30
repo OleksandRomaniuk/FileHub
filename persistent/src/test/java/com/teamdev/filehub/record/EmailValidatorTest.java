@@ -1,5 +1,6 @@
 package com.teamdev.filehub.record;
 
+import com.teamdev.filehub.database.util.EmailValidator;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 

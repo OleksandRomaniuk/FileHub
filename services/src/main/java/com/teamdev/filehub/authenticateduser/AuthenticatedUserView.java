@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
- * The implementation of {@link AuthenticatedView} for check validity of token.
+ * This example demonstrate how to check validity of token.
  */
 public class AuthenticatedUserView implements AuthenticatedView {
 

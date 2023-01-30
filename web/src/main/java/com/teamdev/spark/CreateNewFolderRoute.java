@@ -1,20 +1,22 @@
 package com.teamdev.spark;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.teamdev.filehub.authenticateduser.AuthenticatedView;
 import com.teamdev.filehub.newfolder.CreateFolderCommand;
 import com.teamdev.filehub.newfolder.CreateFolderProcess;
-import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.newfolder.FolderAlreadyExistException;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.record.RecordId;
+import com.teamdev.filehub.ValidationException;
 import spark.Request;
 import spark.Response;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 
 /**
- * The {@link AuthorizedUserRoute} which is responsible for creating a new folder in the system.
+ * This example demonstrate the route for creating a new folder in the system.
  */
 public class CreateNewFolderRoute extends AuthorizedUserRoute {
 
@@ -22,12 +24,18 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
 
     private final CreateFolderProcess createFolderProcess;
 
+    @ParametersAreNonnullByDefault
     public CreateNewFolderRoute(AuthenticatedView authenticatedView,
                                 CreateFolderProcess createFolderProcess) {
+
         super(authenticatedView);
-        this.createFolderProcess = createFolderProcess;
+        this.createFolderProcess = Preconditions.checkNotNull(createFolderProcess);
+
     }
 
+    /**
+     * Creates the  {@link CreateFolderCommand} for validating name of a new name and create new folder in the system.
+     */
     @Override
     Object authorizedHandle(Request request, Response response, RecordId id) {
 
@@ -36,17 +44,12 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
         CreateFolderCommand createFolderCommand;
 
         try {
-
-            createFolderCommand = new CreateFolderCommand(
-                    folderCredentials.get("name").getAsString(),
-                    folderCredentials.get("parentId").getAsString(),
-                    id.getId());
+            createFolderCommand = new CreateFolderCommand(folderCredentials.get("name").getAsString(), folderCredentials.get("parentId").getAsString(), id.getId());
 
         } catch (ValidationException e) {
             response.status(422);
-            return gson.toJson(Map.of("error", e.getMessage()));
+            return gson.toJson(Map.of("Error", e.getMessage()));
         }
-
         try {
 
             createFolderProcess.handle(createFolderCommand);
@@ -59,7 +62,7 @@ public class CreateNewFolderRoute extends AuthorizedUserRoute {
 
             response.status(422);
 
-            return gson.toJson(Map.of("error", e.getMessage()));
+            return gson.toJson(Map.of("Error", e.getMessage()));
         }
     }
 }

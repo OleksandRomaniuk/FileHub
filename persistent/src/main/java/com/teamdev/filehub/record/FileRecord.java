@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * An implementation of {@link Record} for holding metadata about file.
+ * Holding metadata about file.
  */
 public class FileRecord extends Record {
 

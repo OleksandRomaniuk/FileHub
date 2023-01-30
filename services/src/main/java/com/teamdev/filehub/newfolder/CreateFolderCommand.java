@@ -2,12 +2,12 @@ package com.teamdev.filehub.newfolder;
 
 import com.google.common.base.Preconditions;
 import com.teamdev.filehub.Command;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.ValidationException;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This example demonstrates how to create new folder in the application.
+ * Data for creating new folder in the application.
  */
 public class CreateFolderCommand implements Command {
 

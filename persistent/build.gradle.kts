@@ -50,8 +50,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
 
 
-    implementation("com.google.guava:guava:30.1.1-jre")
-    testImplementation("com.google.guava:guava-testlib:31.1-jre")
+    implementation("com.google.guava:guava:25.0-jre")
+    testImplementation("com.google.guava:guava-testlib:25.0-jre")
 
     compileOnly("com.google.errorprone:error_prone_core:2.15.0")
 

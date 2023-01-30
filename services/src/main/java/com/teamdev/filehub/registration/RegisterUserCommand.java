@@ -2,13 +2,13 @@ package com.teamdev.filehub.registration;
 
 import com.google.common.base.Preconditions;
 import com.teamdev.filehub.Command;
-import com.teamdev.filehub.record.EmailValidator;
-import com.teamdev.filehub.util.ValidationException;
+import com.teamdev.filehub.database.util.EmailValidator;
+import com.teamdev.filehub.ValidationException;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This is the user's intention to register in the FileHub application.
+ * This is the user's intention to register in application.
  */
 public class RegisterUserCommand implements Command {
 

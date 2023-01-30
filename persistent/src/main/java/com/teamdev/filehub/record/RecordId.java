@@ -7,7 +7,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
 /**
- * The tiny type for user id.
+ * The tiny type for user id
  */
 public class RecordId {
 
@@ -22,6 +22,19 @@ public class RecordId {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecordId recordId = (RecordId) o;
+        return Objects.equals(id, recordId.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.google.common.truth.Truth;
 import com.teamdev.filehub.database.DataBase;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.record.UserTokensRecord;
-import com.teamdev.filehub.repository.inmemory.AuthenticationDaoInMemory;
+import com.teamdev.filehub.inmemory.AuthenticationDaoInMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

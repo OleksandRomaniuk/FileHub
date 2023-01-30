@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.teamdev.filehub.record.RecordId;
 import com.teamdev.filehub.registration.RegistrationProcess;
 import com.teamdev.filehub.registration.UserAlreadyRegisteredException;
+import com.teamdev.spark.error.RegistrationError;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import spark.Request;

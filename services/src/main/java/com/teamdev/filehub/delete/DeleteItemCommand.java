@@ -7,7 +7,7 @@ import com.teamdev.filehub.record.RecordId;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * This is the user's intention to delete a file or folder in the FileHub application.
+ * Deleting data
  */
 public class DeleteItemCommand extends AuthenticatedUserCommand {
 

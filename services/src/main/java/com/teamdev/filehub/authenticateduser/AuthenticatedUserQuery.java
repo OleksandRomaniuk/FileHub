@@ -5,7 +5,7 @@ import com.teamdev.filehub.Query;
 import com.teamdev.filehub.record.RecordId;
 
 /**
- * Holds data about authenticated user.
+ * Extension with data about authenticated user.
  */
 public abstract class AuthenticatedUserQuery implements Query {
 

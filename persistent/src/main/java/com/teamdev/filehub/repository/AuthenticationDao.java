@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface for data access objects that work with a {@link UserTokensRecord}
+ * Data access objects that work with token
  */
 public interface AuthenticationDao extends EntityDao<UserTokensRecord, RecordId> {
     @Override
