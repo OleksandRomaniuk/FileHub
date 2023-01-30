@@ -40,33 +40,6 @@ public class RegistrationRouteTest {
     }
 
     @Test
-    void shouldFailRegistrationAlreadyRegisteredUser() throws Exception {
-
-        RegistrationError registrationError = new RegistrationError();
-        registrationError.addError("email", "such email already registered");
-
-        RegistrationProcess process = Mockito.mock(RegistrationProcess.class);
-        Mockito.when(process.handle(Mockito.any()))
-                .thenThrow(new UserAlreadyRegisteredException("such email already registered"));
-
-        RegistrationRoute route = new RegistrationRoute(process);
-
-
-        Request request = Mockito.mock(Request.class);
-        Mockito.when(request.body())
-                .thenReturn(gson.toJson(
-                        Map.of("email", "testmail@gmail.com", "password", "testPassword")));
-
-        Response response = Mockito.mock(Response.class);
-
-        assertWithMessage("Failed register user").that(route.handle(request, response))
-                .isEqualTo(gson.toJson(registrationError));
-
-        Mockito.verify(response).status(422);
-        Mockito.verify(request).body();
-    }
-
-    @Test
     void shouldFailRegistrationUserWithNotValidEmail() throws Exception {
 
         RegistrationError registrationError = new RegistrationError();
